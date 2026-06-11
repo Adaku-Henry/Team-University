@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student Profile | Team LMS</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<div class="student-layout">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <h2>TEAM LMS</h2>
+
+        <a href="dashboard.html">
+            <i class="fa fa-home"></i>
+            Dashboard
+        </a>
+
+        <a href="profile.html" class="active">
+            <i class="fa fa-user"></i>
+            Profile
+        </a>
+
+        <a href="courses.html">
+            <i class="fa fa-book"></i>
+            Courses
+        </a>
+
+        <a href="registration.html">
+            <i class="fa fa-edit"></i>
+            Registration
+        </a>
+
+        <a href="results.html">
+            <i class="fa fa-graduation-cap"></i>
+            Results
+        </a>
+
+        <a href="fees.html">
+            <i class="fa fa-credit-card"></i>
+            Finance
+        </a>
+
+        <a href="../index.html">
+            <i class="fa fa-sign-out-alt"></i>
+            Logout
+        </a>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main">
+
+        <!-- PROFILE HEADER -->
+
+        <section class="profile-header">
+
+            <div class="profile-image">
+
+                <img id="studentPhoto"
+                src="../images/student.jpg"
+                alt="Student Photo">
+
+                <input
+                type="file"
+                id="photoUpload"
+                accept="image/*">
+
+                <button onclick="uploadPhoto()">
+                    Upload Photo
+                </button>
+
+            </div>
+
+            <div class="profile-details">
+
+                <h1 id="studentName">
+                    Adaku Henry
+                </h1>
+
+                <p>
+                    Registration No:
+                    <span id="regNo">
+                        TU/2026/001
+                    </span>
+                </p>
+
+                <p>
+                    Programme:
+                    <span id="programme">
+                        Bachelor of Information Technology
+                    </span>
+                </p>
+
+                <p>
+                    Faculty:
+                    <span id="faculty">
+                        Faculty of Technoscience
+                    </span>
+                </p>
+
+                <span class="status active">
+                    Active Student
+                </span>
+
+            </div>
+
+        </section>
+
+        <!-- PERSONAL INFORMATION -->
+
+        <section class="card">
+
+            <h2>
+                Personal Information
+            </h2>
+
+            <div class="form-grid">
+
+                <div>
+                    <label>First Name</label>
+                    <input id="firstName"
+                    value="Adaku">
+                </div>
+
+                <div>
+                    <label>Last Name</label>
+                    <input id="lastName"
+                    value="Henry">
+                </div>
+
+                <div>
+                    <label>Gender</label>
+                    <select id="gender">
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Date of Birth</label>
+                    <input
+                    type="date"
+                    id="dob">
+                </div>
+
+                <div>
+                    <label>Nationality</label>
+                    <input
+                    id="nationality"
+                    value="Ugandan">
+                </div>
+
+                <div>
+                    <label>NIN / Passport</label>
+                    <input id="nin">
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- CONTACT INFORMATION -->
+
+        <section class="card">
+
+            <h2>Contact Information</h2>
+
+            <div class="form-grid">
+
+                <div>
+                    <label>Phone Number</label>
+                    <input id="phone">
+                </div>
+
+                <div>
+                    <label>Alternate Number</label>
+                    <input id="altPhone">
+                </div>
+
+                <div>
+                    <label>Email</label>
+                    <input id="email">
+                </div>
+
+                <div>
+                    <label>Physical Address</label>
+                    <input id="address">
+                </div>
+
+                <div>
+                    <label>District</label>
+                    <input id="district">
+                </div>
+
+                <div>
+                    <label>Country</label>
+                    <input id="country"
+                    value="Uganda">
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ACADEMIC INFORMATION -->
+
+        <section class="card">
+
+            <h2>Academic Information</h2>
+
+            <div class="form-grid">
+
+                <div>
+                    <label>Faculty</label>
+                    <input value="Technoscience">
+                </div>
+
+                <div>
+                    <label>Department</label>
+                    <input value="Computer Science">
+                </div>
+
+                <div>
+                    <label>Programme</label>
+                    <input value="BIT">
+                </div>
+
+                <div>
+                    <label>Year Of Study</label>
+                    <input value="3">
+                </div>
+
+                <div>
+                    <label>Semester</label>
+                    <input value="2">
+                </div>
+
+                <div>
+                    <label>Admission Year</label>
+                    <input value="2023">
+                </div>
+
+                <div>
+                    <label>Expected Graduation</label>
+                    <input value="2027">
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- GUARDIAN -->
+
+        <section class="card">
+
+            <h2>Parent / Guardian</h2>
+
+            <div class="form-grid">
+
+                <div>
+                    <label>Name</label>
+                    <input id="guardianName">
+                </div>
+
+                <div>
+                    <label>Relationship</label>
+                    <input id="guardianRelationship">
+                </div>
+
+                <div>
+                    <label>Contact</label>
+                    <input id="guardianPhone">
+                </div>
+
+                <div>
+                    <label>Occupation</label>
+                    <input id="guardianOccupation">
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- EMERGENCY -->
+
+        <section class="card">
+
+            <h2>Emergency Contact</h2>
+
+            <div class="form-grid">
+
+                <div>
+                    <label>Name</label>
+                    <input id="emergencyName">
+                </div>
+
+                <div>
+                    <label>Relationship</label>
+                    <input id="emergencyRelationship">
+                </div>
+
+                <div>
+                    <label>Phone</label>
+                    <input id="emergencyPhone">
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- DOCUMENTS -->
+
+        <section class="card">
+
+            <h2>Student Documents</h2>
+
+            <div class="documents-grid">
+
+                <button>
+                    Download Admission Letter
+                </button>
+
+                <button>
+                    Student ID
+                </button>
+
+                <button>
+                    Registration Slip
+                </button>
+
+                <button>
+                    Academic Transcript
+                </button>
+
+            </div>
+
+        </section>
+
+        <!-- SECURITY -->
+
+        <section class="card">
+
+            <h2>Security Settings</h2>
+
+            <div class="security-grid">
+
+                <button>
+                    Change Password
+                </button>
+
+                <button>
+                    Enable 2FA
+                </button>
+
+                <button>
+                    View Login Activity
+                </button>
+
+            </div>
+
+        </section>
+
+        <!-- ACADEMIC STATS -->
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+                <h3>Current GPA</h3>
+                <span>4.20</span>
+            </div>
+
+            <div class="stat-card">
+                <h3>CGPA</h3>
+                <span>3.85</span>
+            </div>
+
+            <div class="stat-card">
+                <h3>Credits Earned</h3>
+                <span>98</span>
+            </div>
+
+            <div class="stat-card">
+                <h3>Credits Remaining</h3>
+                <span>22</span>
+            </div>
+
+        </section>
+
+        <!-- PROGRESS -->
+
+        <section class="card">
+
+            <h2>Academic Progress</h2>
+
+            <div class="progress-container">
+
+                <div class="progress-bar"
+                id="progressBar">
+                </div>
+
+            </div>
+
+            <p>82% Completed</p>
+
+        </section>
+
+        <!-- QR -->
+
+        <section class="card">
+
+            <h2>
+                Student QR Verification
+            </h2>
+
+            <div class="qr-box">
+
+                <img src="../images/qr.png"
+                alt="QR Code">
+
+            </div>
+
+        </section>
+
+        <!-- ACTIVITY LOG -->
+
+        <section class="card">
+
+            <h2>
+                Activity Timeline
+            </h2>
+
+            <ul id="activityLog">
+
+                <li>
+                    Updated Profile Information
+                </li>
+
+                <li>
+                    Downloaded Registration Slip
+                </li>
+
+                <li>
+                    Logged Into Portal
+                </li>
+
+            </ul>
+
+        </section>
+
+        <button class="save-btn"
+        onclick="saveProfile()">
+            Save Changes
+        </button>
+
+    </main>
+
+</div>
+
+<div class="completion-bar">
+    <div id="completionFill" class="completion-fill"></div>
+</div>
+
+<h4 id="completionPercent">
+    0% Complete
+</h4>
+<button onclick="changePassword()">Change Password</button>
+
+<button onclick="enable2FA()">Enable 2FA</button>
+
+<button onclick="viewLoginHistory()">Login Activity</button>
+
+<script src="script.js"></script>
+
+</body>
+</html>

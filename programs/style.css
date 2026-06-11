@@ -1,0 +1,117 @@
+/* =========================
+PROGRAMS POSTER DESIGN
+========================= */
+
+.program-header {
+    text-align: center;
+    padding: 40px;
+    background: linear-gradient(135deg, #002147, #003a75);
+    color: white;
+}
+
+.program-wrapper {
+    max-width: 1200px;
+    margin: auto;
+    padding: 30px;
+}
+
+/* TOOLBAR */
+.program-toolbar {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.program-toolbar input,
+.program-toolbar select {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+/* GRID */
+.program-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+}
+
+/* POSTER CARD */
+.program-card {
+    background: white;
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    position: relative;
+    transition: 0.3s;
+    overflow: hidden;
+}
+
+.program-card:hover {
+    transform: translateY(-8px);
+}
+
+/* TITLE */
+.program-card h2 {
+    color: #002147;
+    margin-bottom: 10px;
+}
+
+/* DESCRIPTION */
+.desc {
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+/* INFO BLOCKS */
+.info-block {
+    background: #f8f9fb;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+/* SCHOLARSHIP HIGHLIGHT */
+.scholarship {
+    border-left: 5px solid #28a745;
+}
+
+/* BUTTON */
+.program-card button {
+    width: 100%;
+    padding: 12px;
+    background: #002147;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.program-card button:hover {
+    background: #003a75;
+}
+
+/* BADGES */
+.badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 20px;
+    color: white;
+}
+
+.badge.popular {
+    background: #ffb400;
+}
+
+.badge.new {
+    background: #007bff;
+}
+
+.badge.scholarship {
+    background: #28a745;
+}

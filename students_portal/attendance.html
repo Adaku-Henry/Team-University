@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ERP Attendance System</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>CollegeAttendance System</h1>
+
+  <!-- ================= DASHBOARD ================= -->
+  <div class="dashboard">
+
+    <div class="card">Total Sessions <h2 id="totalSessions">0</h2></div>
+    <div class="card">Present % <h2 id="presentRate">0%</h2></div>
+    <div class="card">Absent % <h2 id="absentRate">0%</h2></div>
+    <div class="card">At Risk Students <h2 id="riskCount">0</h2></div>
+
+  </div>
+
+  <!-- ================= FILTERS ================= -->
+  <div class="filters">
+
+    <select id="courseFilter" onchange="renderSessions()"></select>
+    <input type="date" id="dateFilter" onchange="renderSessions()">
+
+    <button onclick="generateSessionsFromTimetable()">Sync Timetable</button>
+    <button onclick="markAllPresent()">Mark All Present</button>
+
+  </div>
+
+  <!-- ================= SESSION LIST ================= -->
+  <div id="sessionList"></div>
+
+  <!-- ================= STUDENT PANEL ================= -->
+  <div class="student-view">
+
+    <h2>Student Attendance View</h2>
+
+    <select id="myCourse" onchange="renderMyAttendance()"></select>
+
+    <div id="myAttendance"></div>
+
+    <h3 id="myPercent"></h3>
+
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

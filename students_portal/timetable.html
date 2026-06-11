@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Timetable System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>University Timetable System</h1>
+
+  <!-- ================= ADMIN PANEL ================= -->
+  <div class="admin-panel">
+
+    <h2>Admin - Add Class Schedule</h2>
+
+    <input id="courseCode" placeholder="Course Code">
+    <input id="courseName" placeholder="Course Name">
+    <input id="lecturer" placeholder="Lecturer">
+
+    <select id="day">
+      <option>Monday</option>
+      <option>Tuesday</option>
+      <option>Wednesday</option>
+      <option>Thursday</option>
+      <option>Friday</option>
+    </select>
+
+    <input id="start" type="time">
+    <input id="end" type="time">
+
+    <input id="venue" placeholder="Venue (LT1, Lab 2...)">
+    <input id="link" placeholder="Zoom/Meet Link">
+
+    <button onclick="addSchedule()">Add Schedule</button>
+  </div>
+
+  <!-- ================= FILTER ================= -->
+  <div class="filter">
+    <select id="dayFilter" onchange="renderTimetable()">
+      <option value="All">All Days</option>
+      <option>Monday</option>
+      <option>Tuesday</option>
+      <option>Wednesday</option>
+      <option>Thursday</option>
+      <option>Friday</option>
+    </select>
+  </div>
+
+  <!-- ================= TIMETABLE ================= -->
+  <div id="timetable"></div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

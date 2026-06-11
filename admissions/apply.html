@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>University Admissions Portal</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo-section">
+    <img src="images/logo.png" alt="University Logo">
+</div>
+
+<h1>Online Admissions Portal</h1>
+
+<p>
+Apply for Undergraduate, Diploma,
+Masters and PhD Programmes
+</p>
+
+</header>
+
+
+<div class="application-container">
+
+<div class="progress-container">
+
+<div class="progress-bar" id="progressBar">
+
+</div>
+
+</div>
+
+<div class="step-indicator">
+    
+
+Step <span id="currentStep">1</span> of 14
+
+</div>
+
+<hr style="margin:30px 0;">
+
+<form id="applicationForm">
+
+<!-- STEP 1 -->
+
+<section class="form-step active" id="step1">
+
+<h2>Applicant Category</h2>
+
+<div class="form-group">
+
+<label>Application Type *</label>
+
+<select id="applicationType" required>
+
+<option value="">
+Select Application Type
+</option>
+
+<option>
+Undergraduate Direct Entry
+</option>
+
+<option>
+Diploma Entry
+</option>
+
+<option>
+Mature Age Entry
+</option>
+
+<option>
+International Student
+</option>
+
+<option>
+Masters Programme
+</option>
+
+<option>
+PhD Programme
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Intake *</label>
+
+<select id="intake">
+
+<option value="">
+Select Intake
+</option>
+
+<option>January Intake</option>
+<option>May Intake</option>
+<option>August Intake</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Study Mode *</label>
+
+<select id="studyMode">
+
+<option value="">
+Select Study Mode
+</option>
+
+<option>Day</option>
+<option>Evening</option>
+<option>Weekend</option>
+<option>Distance</option>
+
+</select>
+
+</div>
+
+
+<div class="navigation">
+
+<button
+type="button"
+class="next-btn"
+onclick="nextStep()">
+
+Continue
+
+</button>
+
+</div>
+
+</section>
+
+
+</div>
+
+
+
+<div class="section-block">
+
+<h3>O-Level Subjects</h3>
+
+<div class="form-grid">
+   <!-- fields here -->
+</div>
+
+</div>
+<!-- STEP 2 -->
+
+<section class="form-step" id="step2">
+
+<h2>Personal Information</h2>
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>Surname *</label>
+<input type="text" id="surname">
+<small class="error" id="surnameError"></small>
+</div>
+
+<div class="form-group">
+<label>First Name *</label>
+<input type="text" id="firstname">
+<small class="error" id="firstnameError"></small>
+</div>
+
+<div class="form-group">
+<label>Other Names</label>
+<input type="text" id="othernames">
+</div>
+
+<div class="form-group">
+<label>Gender *</label>
+
+<select id="gender">
+
+<option value="">Select Gender</option>
+
+<option>Male</option>
+<option>Female</option>
+
+</select>
+
+<small class="error" id="genderError"></small>
+
+</div>
+
+<div class="form-group">
+<label>Date of Birth *</label>
+<input type="date" id="dob">
+<small class="error" id="dobError"></small>
+</div>
+
+<div class="form-group">
+<label>Nationality *</label>
+
+<select id="nationality">
+
+<option value="">Select Nationality</option>
+
+<option>Ugandan</option>
+<option>Kenyan</option>
+<option>Tanzanian</option>
+<option>South Sudanese</option>
+<option>Rwandan</option>
+<option>Congolese</option>
+<option>Other</option>
+
+</select>
+
+<small class="error" id="nationalityError"></small>
+
+</div>
+
+<div class="form-group">
+<label>National ID / Passport Number *</label>
+<input type="text" id="nin">
+<small class="error" id="ninError"></small>
+</div>
+
+<div class="form-group">
+<label>Marital Status *</label>
+
+<select id="maritalStatus">
+
+<option value="">Select Status</option>
+
+<option>Single</option>
+<option>Married</option>
+<option>Divorced</option>
+<option>Widowed</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+<label>Disability Status *</label>
+
+<select id="disability">
+
+<option value="">Select Option</option>
+
+<option>No Disability</option>
+<option>Physical Disability</option>
+<option>Visual Impairment</option>
+<option>Hearing Impairment</option>
+<option>Other</option>
+
+</select>
+
+</div>
+
+<div class="form-group full-width">
+
+<label>Passport Photo *</label>
+
+<input
+type="file"
+id="passportPhoto"
+accept=".jpg,.jpeg,.png">
+
+<small>
+Upload JPG or PNG (Maximum 2MB)
+</small>
+
+<small class="error" id="photoError"></small>
+
+</div>
+
+</div>
+
+<div class="navigation">
+
+<button
+type="button"
+class="prev-btn"
+onclick="previousStep()">
+
+Previous
+
+</button>
+
+<button
+type="button"
+class="next-btn"
+onclick="validateStep2()">
+
+Continue
+
+</button>
+
+</div>
+
+</section>
+
+<hr style="margin:30px 0;">
+
+<!-- STEP 3 -->
+
+<section class="form-step" id="step3">
+
+<h2>Contact Information</h2>
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>Email Address *</label>
+<input type="email" id="email">
+<small class="error" id="emailError"></small>
+</div>
+
+<div class="form-group">
+<label>Phone Number *</label>
+<input type="tel" id="phone">
+<small class="error" id="phoneError"></small>
+</div>
+
+<div class="form-group">
+<label>Alternative Phone Number</label>
+<input type="tel" id="altPhone">
+</div>
+
+<div class="form-group">
+<label>Country *</label>
+
+<select id="country">
+
+<option value="">
+Select Country
+</option>
+
+<option>Uganda</option>
+<option>Kenya</option>
+<option>Tanzania</option>
+<option>Rwanda</option>
+<option>South Sudan</option>
+<option>DR Congo</option>
+
+</select>
+
+<small class="error" id="countryError"></small>
+
+</div>
+
+<div class="form-group full-width">
+
+<label>Physical Address *</label>
+
+<textarea
+id="address"
+rows="4"></textarea>
+
+<small class="error" id="addressError"></small>
+
+</div>
+
+<div class="form-group">
+
+<label>District *</label>
+
+<input type="text" id="district">
+
+<small class="error" id="districtError"></small>
+
+</div>
+
+</div>
+
+<hr style="margin:30px 0;">
+
+<h3>Next of Kin Information</h3>
+
+<div class="form-grid">
+
+<div class="form-group">
+
+<label>Full Name *</label>
+
+<input type="text" id="kinName">
+
+<small class="error" id="kinNameError"></small>
+
+</div>
+
+<div class="form-group">
+
+<label>Relationship *</label>
+
+<select id="relationship">
+
+<option value="">
+Select Relationship
+</option>
+
+<option>Father</option>
+<option>Mother</option>
+<option>Brother</option>
+<option>Sister</option>
+<option>Guardian</option>
+<option>Spouse</option>
+<option>Other</option>
+
+</select>
+
+<small class="error" id="relationshipError"></small>
+
+</div>
+
+<div class="form-group">
+
+<label>Phone Number *</label>
+
+<input type="tel" id="kinPhone">
+
+<small class="error" id="kinPhoneError"></small>
+
+</div>
+
+<div class="form-group">
+
+<label>Email Address</label>
+
+<input type="email" id="kinEmail">
+
+</div>
+
+</div>
+
+<div class="navigation">
+
+<button
+type="button"
+class="prev-btn"
+onclick="previousStep()">
+
+Previous
+
+</button>
+
+<button
+type="button"
+class="next-btn"
+onclick="validateStep3()">
+
+Continue
+
+</button>
+
+</div>
+
+</section>
+
+<section class="form-step" id="step4">
+
+<h2>Programme Selection</h2>
+
+<div class="form-group">
+
+<label>Search Programme</label>
+
+<input
+type="text"
+id="programmeSearch"
+placeholder="Search programme...">
+
+</div>
+
+<div class="form-group">
+
+<label>Filter by School</label>
+
+<select id="facultyFilter">
+
+<option value="all">
+All Schools
+</option>
+
+<option value="computing">
+School of Computing
+</option>
+
+<option value="business">
+School of Business
+</option>
+
+<option value="education">
+School of Education
+</option>
+
+<option value="health">
+School of Health Sciences
+</option>
+
+<option value="social">
+School of Social Sciences
+</option>
+
+<option value="graduate">
+Graduate Studies
+</option>
+
+</select>
+
+</div>
+
+<div
+class="programme-container"
+id="programmeContainer">
+
+</div>
+
+<hr>
+
+<div class="form-group">
+
+<label>First Choice Programme *</label>
+
+<select id="firstChoice">
+
+<option value="">
+Select Programme
+</option>
+
+</select>
+
+<small
+class="error"
+id="firstChoiceError">
+</small>
+
+</div>
+
+<div class="form-group">
+
+<label>Second Choice Programme *</label>
+
+<select id="secondChoice">
+
+<option value="">
+Select Programme
+</option>
+
+</select>
+
+<small
+class="error"
+id="secondChoiceError">
+</small>
+
+</div>
+
+<div class="navigation">
+
+<button
+type="button"
+class="prev-btn"
+onclick="previousStep()">
+
+Previous
+
+</button>
+
+<button
+type="button"
+class="next-btn"
+onclick="validateStep4()">
+
+Continue
+
+</button>
+
+</div>
+
+</section>
+
+<section class="form-step" id="step5">
+
+<h2>Academic Qualifications</h2>
+
+<h3>O-Level / UCE Information</h3>
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>School Name *</label>
+<input type="text" id="uceSchool">
+<small class="error" id="uceSchoolError"></small>
+</div>
+
+<div class="form-group">
+<label>Examination Number *</label>
+<input type="text" id="uceIndex">
+<small class="error" id="uceIndexError"></small>
+</div>
+
+<div class="form-group">
+<label>Year of Completion *</label>
+<input type="number" id="uceYear">
+<small class="error" id="uceYearError"></small>
+</div>
+
+<div class="form-group">
+<label>Examination Body *</label>
+
+<select id="uceBody">
+<option value="">Select Body</option>
+<option>UNEB</option>
+<option>NECTA</option>
+<option>KNEC</option>
+<option>WAEC</option>
+<option>Other</option>
+</select>
+
+<small class="error" id="uceBodyError"></small>
+
+</div>
+
+</div>
+<h3>O-Level Subjects</h3>
+
+<table class="results-table">
+
+<tr>
+<th>Subject</th>
+<th>Grade</th>
+</tr>
+
+<tr>
+<td>English Language</td>
+<td>
+<select id="englishGrade">
+<option value="">Select</option>
+<option>D1</option>
+<option>D2</option>
+<option>C3</option>
+<option>C4</option>
+<option>C5</option>
+<option>C6</option>
+<option>P7</option>
+<option>P8</option>
+<option>F9</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Mathematics</td>
+<td>
+<select id="mathGrade">
+<option value="">Select</option>
+<option>D1</option>
+<option>D2</option>
+<option>C3</option>
+<option>C4</option>
+<option>C5</option>
+<option>C6</option>
+<option>P7</option>
+<option>P8</option>
+<option>F9</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Biology</td>
+<td>
+<select id="biologyGrade">
+<option value="">Select</option>
+<option>D1</option>
+<option>D2</option>
+<option>C3</option>
+<option>C4</option>
+<option>C5</option>
+<option>C6</option>
+<option>P7</option>
+<option>P8</option>
+<option>F9</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>History</td>
+<td>
+<select id="historyGrade">
+<option value="">Select</option>
+<option>D1</option>
+<option>D2</option>
+<option>C3</option>
+<option>C4</option>
+<option>C5</option>
+<option>C6</option>
+<option>P7</option>
+<option>P8</option>
+<option>F9</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Chemistry</td>
+<td>
+<select id="chemistryGrade">
+<option value="">Select</option>
+<option>D1</option>
+<option>D2</option>
+<option>C3</option>
+<option>C4</option>
+<option>C5</option>
+<option>C6</option>
+<option>P7</option>
+<option>P8</option>
+<option>F9</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Physics</td>
+<td>
+<select id="physicsGrade">
+<option value="">Select</option>
+<option>D1</option>
+<option>D2</option>
+<option>C3</option>
+<option>C4</option>
+<option>C5</option>
+<option>C6</option>
+<option>P7</option>
+<option>P8</option>
+<option>F9</option>
+</select>
+</td>
+</tr>
+<tr>
+<td>Enterpreneurship</td>
+<td>
+<select id="entrepreneurshipGrade">
+<option value="">Select</option>
+<option>D1</option>
+<option>D2</option>
+<option>C3</option>
+<option>C4</option>
+<option>C5</option>
+<option>C6</option>
+<option>P7</option>
+<option>P8</option>
+<option>F9</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>CRE</td>
+<td>
+<select id="creGrade">
+<option value="">Select</option>
+<option>D1</option>
+<option>D2</option>
+<option>C3</option>
+<option>C4</option>
+<option>C5</option>
+<option>C6</option>
+<option>P7</option>
+<option>P8</option>
+<option>F9</option>
+</select>
+</td>
+</tr>
+<tr>
+<td>Fine Art</td>
+<td>
+<select id="fineArtGrade">
+<option value="">Select</option>
+<option>D1</option>
+<option>D2</option>
+<option>C3</option>
+<option>C4</option>
+<option>C5</option>
+<option>C6</option>
+<option>P7</option>
+<option>P8</option>
+<option>F9</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Geography</td>
+<td>
+<select id="geographyGrade">
+<option value="">Select</option>
+<option>D1</option>
+<option>D2</option>
+<option>C3</option>
+<option>C4</option>
+<option>C5</option>
+<option>C6</option>
+<option>P7</option>
+<option>P8</option>
+<option>F9</option>
+</select>
+</td>
+</tr>
+</table>
+<div id="subjectContainer"></div>
+
+<button
+type="button"
+onclick="addSubject()">
+
++ Add Subject
+
+</button>
+<h3>O-Level Documents</h3>
+
+<div class="form-group">
+
+<label>
+UCE Certificate / Result Slip *
+</label>
+
+<input
+type="file"
+id="uceCertificate"
+accept=".pdf,.jpg,.jpeg,.png">
+
+<small class="error"
+id="uceCertificateError">
+</small>
+
+</div>
+
+<h3>A-Level / UACE Information</h3>
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>School Name *</label>
+<input type="text" id="uaceSchool">
+</div>
+
+<div class="form-group">
+<label>Index Number *</label>
+<input type="text" id="uaceIndex">
+</div>
+
+<div class="form-group">
+<label>Year Completed *</label>
+<input type="number" id="uaceYear">
+</div>
+
+<div class="form-group">
+<label>Combination *</label>
+<input type="text"
+placeholder="PCM, HEG, PEM">
+</div>
+
+</div>
+
+<table class="results-table">
+
+<tr>
+<th>Subject</th>
+<th>Grade</th>
+</tr>
+
+<tr>
+<td>Principal Subject 1</td>
+
+<td>
+
+<select>
+
+<option>A</option>
+<option>B</option>
+<option>C</option>
+<option>D</option>
+<option>E</option>
+<option>O</option>
+<option>F</option>
+
+</select>
+
+</td>
+
+</tr>
+
+</table>
+
+<div class="form-group">
+
+<label>
+UACE Certificate / Result Slip *
+</label>
+
+<input
+type="file"
+id="uaceCertificate"
+accept=".pdf,.jpg,.png">
+
+</div>
+<h3>Certificate Qualification</h3>
+
+<div class="form-grid">
+
+<input
+type="text"
+id="certificateInstitution"
+placeholder="Institution">
+
+<input
+type="text"
+id="certificateProgramme"
+placeholder="Programme">
+
+<input
+type="number"
+id="certificateYear"
+placeholder="Year Completed">
+
+</div>
+
+<input
+type="file"
+id="certificateUpload"
+accept=".pdf,.jpg,.png">
+
+
+<h3>Diploma Qualification</h3>
+
+<div class="form-grid">
+
+<input
+type="text"
+id="diplomaInstitution"
+placeholder="Institution">
+
+<input
+type="text"
+id="diplomaProgramme"
+placeholder="Programme">
+
+<input
+type="text"
+id="diplomaClassification"
+placeholder="Classification">
+
+<input
+type="number"
+id="diplomaYear">
+
+</div>
+
+<label>Diploma Certificate</label>
+<input type="file" id="diplomaCertificate">
+
+<label>Diploma Transcript</label>
+<input type="file" id="diplomaTranscript">
+
+<h3>Degree Qualification</h3>
+
+<div class="form-grid">
+
+<input
+type="text"
+id="degreeUniversity"
+placeholder="University">
+
+<input
+type="text"
+id="degreeProgramme"
+placeholder="Degree Programme">
+
+<input
+type="text"
+id="degreeClass">
+
+<input
+type="number"
+id="graduationYear">
+
+</div>
+
+<label>Degree Certificate</label>
+<input type="file" id="degreeCertificate">
+
+<label>Academic Transcript</label>
+<input type="file" id="degreeTranscript">
+
+<div class="navigation">
+
+<button
+type="button"
+class="prev-btn"
+onclick="previousStep()">
+
+Previous
+
+</button>
+
+<button
+type="button"
+class="next-btn"
+onclick="validateStep5()">
+
+Continue
+
+</button>
+
+</div>
+
+</section>
+
+<section class="form-step" id="step6">
+
+<h2>Supporting Documents Upload Center</h2>
+
+<p>Please upload clear, readable documents. Only PDF, JPG, PNG allowed (Max 5MB each).</p>
+
+<!-- CORE DOCUMENTS -->
+
+<h3>Core Documents</h3>
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>Passport Photo *</label>
+<input type="file" id="docPassport" accept=".jpg,.jpeg,.png">
+<small class="error" id="docPassportError"></small>
+</div>
+
+<div class="form-group">
+<label>National ID / Passport *</label>
+<input type="file" id="docNIN" accept=".pdf,.jpg,.png">
+<small class="error" id="docNINError"></small>
+</div>
+
+<div class="form-group">
+<label>Birth Certificate *</label>
+<input type="file" id="docBirth" accept=".pdf,.jpg,.png">
+<small class="error" id="docBirthError"></small>
+</div>
+
+</div>
+
+<hr>
+
+<!-- ACADEMIC DOCUMENTS -->
+
+<h3>Academic Documents</h3>
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>O-Level Certificate *</label>
+<input type="file" id="docOlevel" accept=".pdf,.jpg,.png">
+<small class="error" id="docOlevelError"></small>
+</div>
+
+<div class="form-group">
+<label>A-Level Certificate</label>
+<input type="file" id="docAlevel" accept=".pdf,.jpg,.png">
+</div>
+
+<div class="form-group">
+<label>Diploma Transcript</label>
+<input type="file" id="docDiploma" accept=".pdf,.jpg,.png">
+</div>
+
+<div class="form-group">
+<label>Degree Transcript</label>
+<input type="file" id="docDegree" accept=".pdf,.jpg,.png">
+</div>
+
+</div>
+
+<hr>
+
+<!-- OPTIONAL DOCUMENTS -->
+
+<h3>Optional Documents</h3>
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>Curriculum Vitae (CV)</label>
+<input type="file" id="docCV" accept=".pdf,.doc,.docx">
+</div>
+
+<div class="form-group">
+<label>Recommendation Letter</label>
+<input type="file" id="docRecom" accept=".pdf,.jpg,.png">
+</div>
+
+<div class="form-group">
+<label>Employment Letter</label>
+<input type="file" id="docEmployment" accept=".pdf,.jpg,.png">
+</div>
+
+<div class="form-group">
+<label>Research Proposal</label>
+<input type="file" id="docResearch" accept=".pdf,.doc,.docx">
+</div>
+
+</div>
+
+<!-- NAVIGATION -->
+
+<div class="navigation">
+
+<button type="button" class="prev-btn" onclick="previousStep()">
+Previous
+</button>
+
+<button type="button" class="next-btn" onclick="validateStep6()">
+Continue
+</button>
+
+</div>
+
+</section>
+
+<section class="form-step" id="step7">
+
+<h2>Referees & Statement of Purpose</h2>
+
+<hr>
+
+<!-- REFEREES SECTION -->
+
+<h3>Referees (2 Required)</h3>
+
+<div class="form-grid">
+
+<!-- REFEREE 1 -->
+
+<div class="form-group">
+<label>Referee 1 Full Name *</label>
+<input type="text" id="ref1Name">
+<small class="error" id="ref1NameError"></small>
+</div>
+
+<div class="form-group">
+<label>Referee 1 Email *</label>
+<input type="email" id="ref1Email">
+<small class="error" id="ref1EmailError"></small>
+</div>
+
+<div class="form-group">
+<label>Referee 1 Phone *</label>
+<input type="tel" id="ref1Phone">
+<small class="error" id="ref1PhoneError"></small>
+</div>
+
+<div class="form-group">
+<label>Institution / Organization *</label>
+<input type="text" id="ref1Org">
+</div>
+
+</div>
+
+<hr>
+
+<!-- REFEREE 2 -->
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>Referee 2 Full Name *</label>
+<input type="text" id="ref2Name">
+<small class="error" id="ref2NameError"></small>
+</div>
+
+<div class="form-group">
+<label>Referee 2 Email *</label>
+<input type="email" id="ref2Email">
+<small class="error" id="ref2EmailError"></small>
+</div>
+
+<div class="form-group">
+<label>Referee 2 Phone *</label>
+<input type="tel" id="ref2Phone">
+<small class="error" id="ref2PhoneError"></small>
+</div>
+
+<div class="form-group">
+<label>Institution / Organization *</label>
+<input type="text" id="ref2Org">
+</div>
+
+</div>
+
+<hr>
+
+<!-- STATEMENT OF PURPOSE -->
+
+<h3>Statement of Purpose</h3>
+
+<p>
+Write a clear statement explaining why you want to join this programme.
+</p>
+
+<div class="form-group full-width">
+
+<textarea
+id="sop"
+rows="10"
+placeholder="Write your statement here... (200–1000 words)"
+oninput="countWords()"></textarea>
+
+<small id="wordCounter">0 words</small>
+
+<small class="error" id="sopError"></small>
+
+</div>
+
+<!-- NAVIGATION -->
+
+<div class="navigation">
+
+<button type="button" class="prev-btn" onclick="previousStep()">
+Previous
+</button>
+
+<button type="button" class="next-btn" onclick="validateStep7()">
+Continue
+</button>
+
+</div>
+
+</section>
+
+<section class="form-step" id="step8">
+
+<h2>Review Application</h2>
+
+<p>Carefully review all your details before submitting.</p>
+
+---
+
+<!-- SUMMARY SECTION -->
+
+<div id="reviewSection">
+
+<h3>Personal Information</h3>
+<div id="reviewPersonal"></div>
+
+<h3>Contact Information</h3>
+<div id="reviewContact"></div>
+
+<h3>Programme Selection</h3>
+<div id="reviewProgramme"></div>
+
+<h3>Academic Qualifications</h3>
+<div id="reviewAcademic"></div>
+
+<h3>Supporting Documents</h3>
+<div id="reviewDocuments"></div>
+
+<h3>Referees & Statement</h3>
+<div id="reviewReferees"></div>
+
+</div>
+
+<hr>
+
+<!-- DECLARATION -->
+
+<h3>Declaration</h3>
+
+<div class="form-group">
+
+<label>
+<input type="checkbox" id="declaration">
+I confirm that all information provided is true and accurate.
+</label>
+
+<small class="error" id="declarationError"></small>
+
+</div>
+
+<hr>
+
+<!-- PAYMENT SECTION -->
+
+<h3>Application Fee Payment</h3>
+
+<p>
+Application Fee: UGX 50,000
+</p>
+
+<div class="form-group">
+
+<label>Select Payment Method *</label>
+
+<select id="paymentMethod">
+
+<option value="">Select Method</option>
+
+<option>MTN Mobile Money</option>
+<option>Airtel Money</option>
+<option>Bank Transfer</option>
+<option>Visa / MasterCard</option>
+
+</select>
+
+<small class="error" id="paymentError"></small>
+
+</div>
+
+<div class="form-group">
+
+<label>Phone Number for Payment *</label>
+
+<input type="tel" id="paymentPhone">
+
+</div>
+
+<hr>
+
+<!-- FINAL BUTTON -->
+
+<div class="navigation">
+
+<button type="button" class="prev-btn" onclick="previousStep()">
+Back
+</button>
+
+<button type="button" class="next-btn" onclick="submitApplication()">
+Submit Application
+</button>
+
+</div>
+
+</section>
+<section class="form-step" id="step9">
+
+<h2>🎉 Application Submitted Successfully</h2>
+
+<p>
+Your application has been received. You can now download or print your application slip.
+</p>
+
+<div class="section-block">
+
+<h3>Application Summary</h3>
+
+<div id="finalSummary"></div>
+
+</div>
+
+<div class="section-block">
+
+<h3>Your Application ID</h3>
+
+<h2 id="applicationID" style="color:#002147;"></h2>
+
+</div>
+
+<div class="navigation">
+
+<button type="button" class="prev-btn" onclick="previousStep()">
+Back
+</button>
+
+<button type="button" class="next-btn" onclick="printApplication()">
+🖨 Print Application
+</button>
+
+<button type="button" class="next-btn" onclick="downloadPDF()">
+⬇ Download PDF
+</button>
+
+</div>
+
+</section>
+
+<script src="script.js">
+</script>
+
+</body>
+</html> 

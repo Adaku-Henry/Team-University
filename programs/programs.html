@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Programmes Catalogue</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="program-header">
+<h1>🎓 University Programmes Catalogue</h1>
+<p>Explore available academic programmes, requirements, fees, and scholarships</p>
+</header>
+
+<div class="program-wrapper">
+
+<section class="programs-hero">
+
+<div class="hero-overlay">
+
+<h1>Academic Programmes</h1>
+
+<p>
+Explore Undergraduate, Diploma, Masters and PhD Programmes.
+Build your future through quality education, innovation,
+research and professional excellence.
+</p>
+
+
+</div>
+
+</section>
+
+<!-- SEARCH + FILTER -->
+<div class="program-toolbar">
+
+<input type="text" id="searchProgram" placeholder="Search programme...">
+
+<select id="filterSchool">
+<option value="all">All Schools</option>
+<option value="computing">Computing</option>
+<option value="business">Business</option>
+<option value="education">Education</option>
+<option value="health">Health Sciences</option>
+</select>
+
+</div>
+
+<!-- GRID -->
+<div class="program-grid">
+
+<!-- ================= COMPUTER SCIENCE ================= -->
+<div class="program-card" data-school="computing">
+
+<div class="badge popular">Popular</div>
+
+<h2>Computer Science</h2>
+
+<p class="desc">
+Study programming, AI, systems design, and modern computing technologies.
+</p>
+
+<div class="info-block">
+<p><b>Duration:</b> 3 Years</p>
+<p><b>Level:</b> Undergraduate</p>
+</div>
+
+<div class="info-block">
+<h4>📌 Entry Requirements</h4>
+<ul>
+<li>UCE with at least 5 passes</li>
+<li>Math C4 or better</li>
+<li>English required</li>
+</ul>
+</div>
+
+<div class="info-block">
+<h4>💰 Fees Structure</h4>
+<ul>
+<li>Tuition: UGX 1,200,000 / semester</li>
+<li>Development: UGX 300,000</li>
+<li>Exams: UGX 150,000</li>
+</ul>
+</div>
+
+<div class="info-block scholarship">
+<h4>🎓 Scholarships</h4>
+<ul>
+<li>Merit-based scholarship (50%)</li>
+<li>Sports scholarship available</li>
+</ul>
+</div>
+
+<button onclick="applyProgram('Computer Science')">
+Apply Now
+</button>
+
+</div>
+
+<!-- ================= SOFTWARE ENGINEERING ================= -->
+<div class="program-card" data-school="computing">
+
+<div class="badge new">New</div>
+
+<h2>Software Engineering</h2>
+
+<p class="desc">
+Focus on web development, mobile apps, systems architecture, and DevOps.
+</p>
+
+<div class="info-block">
+<p><b>Duration:</b> 3 Years</p>
+<p><b>Level:</b> Undergraduate</p>
+</div>
+
+<div class="info-block">
+<h4>📌 Entry Requirements</h4>
+<ul>
+<li>UCE certificate</li>
+<li>Math and Physics required</li>
+<li>Interest in programming</li>
+</ul>
+</div>
+
+<div class="info-block">
+<h4>💰 Fees Structure</h4>
+<ul>
+<li>Tuition: UGX 1,300,000 / semester</li>
+<li>Lab Fees: UGX 200,000</li>
+</ul>
+</div>
+
+<div class="info-block scholarship">
+<h4>🎓 Scholarships</h4>
+<ul>
+<li>Tech innovation scholarship</li>
+</ul>
+</div>
+
+<button onclick="applyProgram('Software Engineering')">
+Apply Now
+</button>
+
+</div>
+
+<!-- ================= BUSINESS ADMIN ================= -->
+<div class="program-card" data-school="business">
+
+<div class="badge scholarship">Scholarship Available</div>
+
+<h2>Business Administration</h2>
+
+<p class="desc">
+Learn management, finance, entrepreneurship, and leadership skills.
+</p>
+
+<div class="info-block">
+<p><b>Duration:</b> 3 Years</p>
+<p><b>Level:</b> Undergraduate</p>
+</div>
+
+<div class="info-block">
+<h4>📌 Entry Requirements</h4>
+<ul>
+<li>UCE certificate</li>
+<li>Pass in Mathematics</li>
+<li>Communication skills</li>
+</ul>
+</div>
+
+<div class="info-block">
+<h4>💰 Fees Structure</h4>
+<ul>
+<li>Tuition: UGX 1,000,000 / semester</li>
+<li>Admin Fee: UGX 200,000</li>
+</ul>
+</div>
+
+<div class="info-block scholarship">
+<h4>🎓 Scholarships</h4>
+<ul>
+<li>Women empowerment scholarship</li>
+<li>Need-based support</li>
+</ul>
+</div>
+
+<button onclick="applyProgram('Business Administration')">
+Apply Now
+</button>
+
+</div>
+
+<div class="program-card" data-school="education">
+
+<div class="program-badge">
+Bachelor Degree
+</div>
+
+<h2>Bachelor of Education (Arts)</h2>
+
+<p class="desc">
+Prepare for careers in teaching, curriculum development,
+education leadership, and community learning.
+</p>
+
+<div class="quick-info">
+
+<span>⏳ 3 Years</span>
+<span>🏫 School of Education</span>
+<span>📚 Day / Weekend</span>
+
+</div>
+
+<div class="highlights">
+
+<p><strong>Key Subjects:</strong></p>
+
+<ul>
+<li>History</li>
+<li>Geography</li>
+<li>Literature</li>
+<li>Religious Studies</li>
+</ul>
+
+</div>
+
+<div class="fees-preview">
+<strong>Tuition:</strong> UGX 1,050,000 / Semester
+</div>
+
+<div class="scholarship-preview">
+🎓 Scholarships Available
+</div>
+
+<div class="career-preview">
+
+Teacher • Curriculum Specialist • Education Officer
+
+</div>
+
+<div class="program-actions">
+
+<button class="details-btn">
+View Details
+</button>
+
+<button onclick="applyProgram('Education Arts')">
+Apply Now
+</button>
+
+</div>
+
+</div>
+
+<div class="program-card" data-school="education">
+
+<div class="program-badge">
+Bachelor Degree
+</div>
+
+<h2>Bachelor of Education (Arts)</h2>
+
+<p class="desc">
+Prepare for careers in teaching, curriculum development,
+education leadership, and community learning.
+</p>
+
+<div class="quick-info">
+
+<span>⏳ 3 Years</span>
+<span>🏫 School of Education</span>
+<span>📚 Day / Weekend</span>
+
+</div>
+
+<div class="highlights">
+
+<p><strong>Key Subjects:</strong></p>
+
+<ul>
+<li>History</li>
+<li>Geography</li>
+<li>Literature</li>
+<li>Religious Studies</li>
+</ul>
+
+</div>
+
+<div class="fees-preview">
+<strong>Tuition:</strong> UGX 1,050,000 / Semester
+</div>
+
+<div class="scholarship-preview">
+🎓 Scholarships Available
+</div>
+
+<div class="career-preview">
+
+Teacher • Curriculum Specialist • Education Officer
+
+</div>
+
+<div class="program-actions">
+
+<button class="details-btn">
+View Details
+</button>
+
+<button onclick="applyProgram('Education Arts')">
+Apply Now
+</button>
+
+</div>
+
+</div>
+
+<div class="program-card" data-school="health">
+
+<div class="program-badge demand">
+HIGH DEMAND
+</div>
+
+<h2>Bachelor of Nursing Science</h2>
+
+<p class="desc">
+Develop professional nursing skills for patient care,
+clinical practice, and healthcare leadership.
+</p>
+
+<div class="quick-info">
+<span>⏳ 4 Years</span>
+<span>🏥 Health Sciences</span>
+<span>📚 Day Programme</span>
+</div>
+
+<div class="highlights">
+<p><strong>Core Areas:</strong></p>
+<ul>
+<li>Clinical Nursing</li>
+<li>Community Health</li>
+<li>Midwifery</li>
+<li>Patient Care</li>
+</ul>
+</div>
+
+<div class="fees-preview">
+<strong>Tuition:</strong> UGX 1,800,000 / Semester
+</div>
+
+<div class="scholarship-preview">
+🎓 Health Sciences Scholarships Available
+</div>
+
+<div class="career-preview">
+Registered Nurse • Clinical Officer • Health Educator
+</div>
+
+<div class="program-actions">
+<button class="details-btn">View Details</button>
+<button onclick="applyProgram('Nursing')">Apply Now</button>
+</div>
+
+</div>
+
+<div class="program-card" data-school="social">
+
+<div class="program-badge">
+MEDIA
+</div>
+
+<h2>Bachelor of Journalism & Mass Communication</h2>
+
+<p class="desc">
+Build professional skills in reporting,
+broadcasting, digital media and communication.
+</p>
+
+<div class="quick-info">
+<span>⏳ 3 Years</span>
+<span>🎙 Social Sciences</span>
+<span>📚 Day / Weekend</span>
+</div>
+
+<div class="highlights">
+
+<ul>
+<li>News Reporting</li>
+<li>Radio & Television Production</li>
+<li>Digital Media</li>
+<li>Photography</li>
+<li>Public Relations</li>
+</ul>
+
+</div>
+
+<div class="fees-preview">
+<strong>Tuition:</strong> UGX 1,200,000 / Semester
+</div>
+
+<div class="scholarship-preview">
+🎓 Media Excellence Scholarships
+</div>
+
+<div class="career-preview">
+Journalist • News Anchor • PR Officer • Content Creator
+</div>
+
+<div class="program-actions">
+<button class="details-btn">View Details</button>
+<button onclick="applyProgram('Journalism')">Apply Now</button>
+</div>
+
+</div>
+
+<div class="program-card" data-school="social">
+
+<div class="program-badge">
+SOCIETY
+</div>
+
+<h2>Bachelor of Sociology</h2>
+
+<p class="desc">
+Understand human behaviour, culture,
+social institutions and societal change.
+</p>
+
+<div class="quick-info">
+<span>⏳ 3 Years</span>
+<span>🌍 Social Sciences</span>
+<span>📚 Day / Weekend</span>
+</div>
+
+<div class="highlights">
+
+<ul>
+<li>Social Research</li>
+<li>Community Studies</li>
+<li>Human Behaviour</li>
+<li>Culture & Society</li>
+<li>Social Policy</li>
+</ul>
+
+</div>
+
+<div class="fees-preview">
+<strong>Tuition:</strong> UGX 1,050,000 / Semester
+</div>
+
+<div class="career-preview">
+Research Officer • Sociologist • NGO Specialist • Community Officer
+</div>
+
+<div class="program-actions">
+<button class="details-btn">View Details</button>
+<button onclick="applyProgram('Sociology')">Apply Now</button>
+</div>
+
+</div>
+
+<div class="program-card" data-school="education">
+
+<div class="program-badge">
+TEACHING
+</div>
+
+<h2>Bachelor of Education (Science)</h2>
+
+<p class="desc">
+Train as a professional science educator in
+Physics, Chemistry, Biology and Mathematics.
+</p>
+
+<div class="quick-info">
+<span>⏳ 3 Years</span>
+<span>🏫 Education</span>
+<span>📚 Day Programme</span>
+</div>
+
+<div class="highlights">
+
+<ul>
+<li>Science Teaching Methods</li>
+<li>Educational Psychology</li>
+<li>Physics Education</li>
+<li>Biology Education</li>
+<li>Chemistry Education</li>
+</ul>
+
+</div>
+
+<div class="fees-preview">
+<strong>Tuition:</strong> UGX 1,100,000 / Semester
+</div>
+
+<div class="scholarship-preview">
+🎓 Teacher Development Scholarship
+</div>
+
+<div class="career-preview">
+Science Teacher • School Administrator • Curriculum Developer
+</div>
+
+<div class="program-actions">
+<button class="details-btn">View Details</button>
+<button onclick="applyProgram('Education Science')">Apply Now</button>
+</div>
+
+</div>
+
+<div class="program-card" data-school="health">
+
+<div class="program-badge demand">
+HIGH DEMAND
+</div>
+
+<h2>Bachelor of Pharmacy</h2>
+
+<p class="desc">
+Develop expertise in pharmaceuticals,
+drug formulation and patient medication management.
+</p>
+
+<div class="quick-info">
+<span>⏳ 5 Years</span>
+<span>💊 Health Sciences</span>
+<span>📚 Day Programme</span>
+</div>
+
+<div class="highlights">
+
+<ul>
+<li>Pharmacology</li>
+<li>Clinical Pharmacy</li>
+<li>Medicinal Chemistry</li>
+<li>Drug Manufacturing</li>
+<li>Patient Counselling</li>
+</ul>
+
+</div>
+
+<div class="fees-preview">
+<strong>Tuition:</strong> UGX 2,300,000 / Semester
+</div>
+
+<div class="scholarship-preview">
+🎓 Health Science Scholarships
+</div>
+
+<div class="career-preview">
+Pharmacist • Drug Inspector • Clinical Pharmacist
+</div>
+
+<div class="program-actions">
+<button class="details-btn">View Details</button>
+<button onclick="applyProgram('Pharmacy')">Apply Now</button>
+</div>
+
+</div>
+
+<div class="program-card" data-school="health">
+
+<div class="program-badge">
+DIAGNOSTICS
+</div>
+
+<h2>Bachelor of Medical Imaging</h2>
+
+<p class="desc">
+Specialize in diagnostic imaging technologies
+used in modern healthcare.
+</p>
+
+<div class="quick-info">
+<span>⏳ 4 Years</span>
+<span>🏥 Health Sciences</span>
+<span>📚 Day Programme</span>
+</div>
+
+<div class="highlights">
+
+<ul>
+<li>X-Ray Technology</li>
+<li>Ultrasound</li>
+<li>CT Scanning</li>
+<li>MRI Imaging</li>
+<li>Radiation Safety</li>
+</ul>
+
+</div>
+
+<div class="fees-preview">
+<strong>Tuition:</strong> UGX 2,000,000 / Semester
+</div>
+
+<div class="career-preview">
+Radiographer • Imaging Specialist • Diagnostic Officer
+</div>
+
+<div class="program-actions">
+<button class="details-btn">View Details</button>
+<button onclick="applyProgram('Medical Imaging')">Apply Now</button>
+</div>
+
+</div>
+
+<div class="program-card" data-school="graduate">
+
+<div class="program-badge masters">
+MBA
+</div>
+
+<h2>Master of Business Administration</h2>
+
+<p class="desc">
+Develop advanced leadership,
+strategic management and business decision-making skills.
+</p>
+
+<div class="quick-info">
+<span>⏳ 2 Years</span>
+<span>🎓 Graduate School</span>
+<span>🌙 Evening / Weekend</span>
+</div>
+
+<div class="highlights">
+
+<ul>
+<li>Strategic Management</li>
+<li>Corporate Finance</li>
+<li>Business Analytics</li>
+<li>Leadership</li>
+<li>Entrepreneurship</li>
+</ul>
+
+</div>
+
+<div class="fees-preview">
+<strong>Tuition:</strong> UGX 2,500,000 / Semester
+</div>
+
+<div class="scholarship-preview">
+🎓 Graduate Merit Scholarships
+</div>
+
+<div class="career-preview">
+CEO • Business Consultant • Operations Manager
+</div>
+
+<div class="program-actions">
+<button class="details-btn">View Details</button>
+<button onclick="applyProgram('MBA')">Apply Now</button>
+</div>
+
+</div>
+
+<div class="program-card" data-school="graduate">
+
+<div class="program-badge masters">
+CYBER SECURITY
+</div>
+
+<h2>Master of Cyber Security</h2>
+
+<p class="desc">
+Advanced cybersecurity, digital forensics,
+threat intelligence and ethical hacking.
+</p>
+
+<div class="quick-info">
+<span>⏳ 2 Years</span>
+<span>🎓 Graduate School</span>
+<span>🌙 Evening / Weekend</span>
+</div>
+
+<div class="highlights">
+
+<ul>
+<li>Ethical Hacking</li>
+<li>Digital Forensics</li>
+<li>Cloud Security</li>
+<li>Incident Response</li>
+<li>Cyber Intelligence</li>
+</ul>
+
+</div>
+
+<div class="fees-preview">
+<strong>Tuition:</strong> UGX 2,700,000 / Semester
+</div>
+
+<div class="scholarship-preview">
+🎓 ICT Innovation Scholarship
+</div>
+
+<div class="career-preview">
+Cybersecurity Analyst • SOC Manager • Security Consultant
+</div>
+
+<div class="program-actions">
+<button class="details-btn">View Details</button>
+<button onclick="applyProgram('MSc Cyber Security')">Apply Now</button>
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

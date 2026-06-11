@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LMS Login</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#1e3c72,#2a5298);
+}
+
+.container{
+width:400px;
+background:white;
+padding:35px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+
+.logo{
+text-align:center;
+margin-bottom:20px;
+font-size:30px;
+color:#2563eb;
+}
+
+input,select{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:1px solid #ccc;
+border-radius:8px;
+outline:none;
+}
+
+.password-box{
+position:relative;
+}
+
+.password-box i{
+position:absolute;
+right:15px;
+top:22px;
+cursor:pointer;
+}
+
+button{
+width:100%;
+padding:12px;
+border:none;
+background:#2563eb;
+color:white;
+border-radius:8px;
+cursor:pointer;
+margin-top:10px;
+}
+
+button:hover{
+background:#1d4ed8;
+}
+
+.links{
+display:flex;
+justify-content:space-between;
+margin-top:15px;
+font-size:14px;
+}
+
+.links a{
+text-decoration:none;
+color:#2563eb;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="logo">
+<i class="fa fa-graduation-cap"></i>
+<h2>LMS Login</h2>
+</div>
+
+<form onsubmit="loginUser(event)">
+
+<select>
+<option>Select Role</option>
+<option>Student</option>
+<option>Lecturer</option>
+<option>Admin</option>
+</select>
+
+<input type="text"
+placeholder="Student ID / Username">
+
+<div class="password-box">
+
+<input id="pass"
+type="password"
+placeholder="Password">
+
+<i class="fa fa-eye"
+onclick="togglePass()"></i>
+
+</div>
+
+<button>
+
+Login
+
+</button>
+
+<div class="links">
+
+<a href="forgot-password.html">
+
+Forgot Password?
+
+</a>
+
+<a href="register.html">
+
+Register
+
+</a>
+
+</div>
+
+</form>
+
+</div>
+
+<script>
+
+function loginUser(event){
+
+event.preventDefault();
+
+localStorage.setItem(
+"isLoggedIn",
+"true"
+);
+
+window.location.href=
+"dashboard.html";
+
+}
+
+
+
+</script>
+
+</body>
+</html>

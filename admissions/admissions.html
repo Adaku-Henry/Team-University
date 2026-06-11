@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admissions - Team University</title>
+
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+<!-- TOP NAV SHORTCUT -->
+<div class="top-bar">
+    <div>
+        <i class="fa fa-phone"></i> +256 782 900 765
+        <i class="fa fa-envelope"></i> admissions@teamuniversity.ac.ug
+    </div>
+
+    <!-- ✅ UPDATED NAV LINKS -->
+    <div>
+        <a href="../index.html">Home</a> |
+        <a href="#apply">Apply</a> |
+        <a href="apply.html">Online Apply</a> |
+        <a href="dashboard.html">Dashboard</a> |
+        <a href="admin.html">Admin</a> |
+        <a href="#faq">FAQ</a>
+    </div>
+</div>
+
+<!-- HEADER -->
+<header>
+    <nav class="navbar">
+
+        <div class="Team University/logo">
+            <h2>BENCHMARK BUSINESS COLLEGE</h2>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../about/about.html">About</a></li>
+            <li><a href="../academics/academics.html">Academics</a></li>
+
+            <!-- ✅ ADDED SYSTEM LINKS -->
+            <li><a href="admissions.html">Admissions</a></li>
+            <li><a href="apply.html">Apply</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="admin.html">Admin</a></li>
+
+            <li><a href="../contact/contact.html">Contact</a></li>
+        </ul>
+
+        <div class="menu-btn">
+            <i class="fa fa-bars"></i>
+        </div>
+
+    </nav>
+</header>
+
+<!-- PAGE HEADER -->
+<section class="page-header reveal">
+    <h1>Admissions Portal</h1>
+    <p>Apply, track, and join Team University today</p>
+</section>
+
+<!-- ========================= -->
+<!-- ONLINE APPLICATION HUB -->
+<!-- ========================= -->
+<section id="apply" class="apply-hub reveal">
+
+    <h2>Online Admissions Portal</h2>
+
+    <p>
+        Apply online, download forms, or check your admission status instantly.
+    </p>
+
+    <div class="apply-grid">
+
+        <div class="apply-card">
+            <i class="fa fa-globe"></i>
+            <h3>Online Application</h3>
+            <p>Submit your application through our system.</p>
+
+            <!-- ✅ FIXED LINK -->
+            <a href="apply.html" class="btn-primary">Apply Online</a>
+        </div>
+
+        <div class="apply-card">
+            <i class="fa fa-download"></i>
+            <h3>Download Forms</h3>
+            <p>Get PDF forms for manual application.</p>
+            <a href="../files/admission-form.pdf" download class="btn-secondary">Download PDF</a>
+        </div>
+
+        <div class="apply-card">
+            <i class="fa fa-search"></i>
+            <h3>Check Status</h3>
+
+            <input type="text" id="refNo" placeholder="Enter Reference No">
+
+            <button onclick="checkStatus()" class="btn-primary">Check</button>
+
+            <p id="statusResult"></p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================= -->
+<!-- INTAKES -->
+<!-- ========================= -->
+<section class="intakes reveal">
+
+    <h2>Admission Intakes</h2>
+
+    <div class="intake-grid">
+
+        <div class="intake-card">
+            <h3>January Intake</h3>
+            <p>Deadline: 15 December</p>
+        </div>
+
+        <div class="intake-card">
+            <h3>May Intake</h3>
+            <p>Deadline: 15 April</p>
+        </div>
+
+        <div class="intake-card">
+            <h3>August Intake</h3>
+            <p>Deadline: 15 July</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================= -->
+<!-- ENTRY REQUIREMENTS -->
+<!-- ========================= -->
+<section class="entry-levels reveal">
+
+    <h2>Entry Requirements</h2>
+
+    <div class="entry-grid">
+
+        <div class="entry-card">
+            <h3>Certificate</h3>
+            <p>UCE or equivalent qualification</p>
+        </div>
+
+        <div class="entry-card">
+            <h3>Diploma</h3>
+            <p>UCE + relevant experience</p>
+        </div>
+
+        <div class="entry-card">
+            <h3>Bachelor's Degree</h3>
+            <p>UACE or Diploma</p>
+        </div>
+
+        <div class="entry-card">
+            <h3>Postgraduate</h3>
+            <p>Degree in related field</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================= -->
+<!-- SCHOLARSHIPS -->
+<!-- ========================= -->
+<section class="scholarships reveal">
+
+    <h2>Scholarships & Aid</h2>
+
+    <div class="scholarship-box">
+
+        <p>
+            We support students through financial aid programs.
+        </p>
+
+        <ul>
+            <li>Merit Scholarships</li>
+            <li>Sports Scholarships</li>
+            <li>Need-based Support</li>
+            <li>Special Grants</li>
+        </ul>
+
+        <a href="#" class="btn-primary">Apply for Scholarship</a>
+
+    </div>
+
+</section>
+
+<!-- ========================= -->
+<!-- FAQ SECTION -->
+<!-- ========================= -->
+<section id="faq" class="faq reveal">
+
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+        <h3 onclick="toggleFAQ(this)">Can I apply online?</h3>
+        <p class="faq-answer">Yes, online applications are available 24/7.</p>
+    </div>
+
+    <div class="faq-item">
+        <h3 onclick="toggleFAQ(this)">Do you offer accommodation?</h3>
+        <p class="faq-answer">Yes, limited hostel spaces are available.</p>
+    </div>
+
+    <div class="faq-item">
+        <h3 onclick="toggleFAQ(this)">When do admissions close?</h3>
+        <p class="faq-answer">Each intake has a specific deadline.</p>
+    </div>
+
+</section>
+
+<!-- CTA -->
+<section class="cta reveal">
+
+    <h2>Start Your Journey Today</h2>
+
+    <!-- ✅ FIXED LINK -->
+    <a href="apply.html" class="btn-primary">Apply Now</a>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+    <p>© 2026 Team University Admissions Portal</p>
+</footer>
+
+<script src="../script.js"></script>
+
+<script>
+
+// STATUS CHECK MOCK
+function checkStatus(){
+    const ref = document.getElementById("refNo").value;
+    const result = document.getElementById("statusResult");
+
+    if(ref === ""){
+        result.innerText = "Please enter reference number";
+    } else {
+        result.innerText = "Application " + ref + " is UNDER REVIEW";
+    }
+}
+
+// FAQ TOGGLE
+function toggleFAQ(el){
+    const answer = el.nextElementSibling;
+    answer.style.display =
+        answer.style.display === "block" ? "none" : "block";
+}
+
+</script>
+
+</body>
+</html>

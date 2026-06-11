@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finance Module</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="finance-container">
+
+  <!-- HEADER -->
+  <div class="finance-header">
+    <h1>Student Finance Portal</h1>
+    <p>Real-time fee management, payments & clearance system</p>
+  </div>
+
+  <!-- ALERT SYSTEM -->
+  <div class="alert warning" id="feeAlert">
+    ⚠ You have an outstanding balance. Please clear fees before exam registration deadline.
+  </div>
+
+  <!-- ACADEMIC FILTER -->
+  <div class="filters">
+    <select id="yearSelect">
+      <option>2025/2026</option>
+      <option>2024/2025</option>
+    </select>
+
+    <select id="semesterSelect">
+      <option>Semester 1</option>
+      <option>Semester 2</option>
+    </select>
+
+    <button onclick="loadFinanceData()">Load</button>
+  </div>
+
+  <!-- SUMMARY CARDS -->
+  <div class="cards">
+
+    <div class="card total">
+      <h3>Total Fees</h3>
+      <p id="totalFees">UGX 0</p>
+    </div>
+
+    <div class="card paid">
+      <h3>Total Paid</h3>
+      <p id="totalPaid">UGX 0</p>
+    </div>
+
+    <div class="card balance">
+      <h3>Outstanding Balance</h3>
+      <p id="balance">UGX 0</p>
+    </div>
+
+    <div class="card status">
+      <h3>Clearance Status</h3>
+      <p id="statusBadge">PENDING</p>
+    </div>
+
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-section">
+    <h3>Payment Progress</h3>
+    <div class="progress-bar">
+      <div class="progress" id="progress"></div>
+    </div>
+    <span id="percent">0%</span>
+  </div>
+
+  <!-- PAYMENT ACTIONS -->
+  <div class="payment-box">
+
+    <h2>Make Payment</h2>
+
+    <input type="number" id="payAmount" placeholder="Enter amount (UGX)">
+    
+    <select id="paymentMethod">
+      <option>Mobile Money</option>
+      <option>Bank</option>
+      <option>Visa/Mastercard</option>
+    </select>
+
+    <button onclick="makePayment()">Pay Now</button>
+
+    <p id="refCode"></p>
+  </div>
+
+  <!-- FEE BREAKDOWN -->
+  <div class="fee-table">
+    <h2>Fee Structure</h2>
+
+    <table>
+      <tr>
+        <th>Category</th>
+        <th>Amount (UGX)</th>
+      </tr>
+
+      <tr><td>Tuition Fees</td><td>1500000</td></tr>
+      <tr><td>Functional Fees</td><td>300000</td></tr>
+      <tr><td>Library Fees</td><td>100000</td></tr>
+      <tr><td>Hostel Fees</td><td>400000</td></tr>
+      <tr><td>Other Fees</td><td>200000</td></tr>
+    </table>
+  </div>
+
+  <!-- TRANSACTION SEARCH -->
+  <div class="search-box">
+    <input type="text" id="searchTxn" placeholder="Search transactions...">
+    <button onclick="searchTransactions()">Search</button>
+  </div>
+
+  <!-- TRANSACTIONS -->
+  <div class="transactions" id="transactionList">
+
+    <h2>Payment History</h2>
+
+    <div class="txn" data-type="mobile money">
+      <span>Mobile Money</span>
+      <span>UGX 500,000</span>
+      <span>12/05/2026</span>
+    </div>
+
+    <div class="txn" data-type="bank">
+      <span>Bank Payment</span>
+      <span>UGX 1,000,000</span>
+      <span>20/04/2026</span>
+    </div>
+
+    <div class="txn" data-type="scholarship">
+      <span>Scholarship Credit</span>
+      <span>UGX 500,000</span>
+      <span>01/03/2026</span>
+    </div>
+
+  </div>
+
+  <!-- EXPORT OPTIONS -->
+  <div class="actions">
+    <button onclick="generateInvoice()">Generate Invoice</button>
+    <button onclick="downloadStatement()">Download Statement</button>
+    <button onclick="exportPDF()">Export PDF</button>
+    <button onclick="printReceipt()">Print Receipt</button>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

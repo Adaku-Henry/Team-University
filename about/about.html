@@ -1,0 +1,286 @@
+<!-- =========================
+     ABOUT PAGE - REDESIGNED
+========================= -->
+
+<section class="about-page" id="about">
+
+<link rel="stylesheet" href="../style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<!-- HERO SECTION -->
+<div class="about-hero">
+
+    <div class="hero-overlay">
+
+        <h1>About Team University</h1>
+
+        <p>
+            Empowering future generations through quality education,
+            innovation, leadership, and practical learning.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="admissions/admissions.html" class="btn-primary">
+                Apply Now
+            </a>
+
+            <a href="#history" class="btn-secondary">
+                Explore More
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- =========================
+     INTRO SECTION
+========================= -->
+
+<section class="about-page premium-about">
+
+    <div class="about-image">
+        <img src="../images/news5.jpg">
+
+    </div>
+
+    <div class="about-content">
+
+        <h2>Who We Are</h2>
+
+        <p>
+            Team University is a higher institution committed to providing
+            accessible, practical, and quality education that prepares
+            learners for leadership, employment, innovation, and entrepreneurship.
+        </p>
+
+        <p>
+            The institution focuses on academic excellence, skills development,
+            research, and community engagement to create graduates capable of
+            addressing modern societal challenges.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     QUICK STATS (NEW UI UPGRADE)
+========================= -->
+
+<section class="about-stats">
+
+    <div class="stat-box">
+        <h2>500+</h2>
+        <p>Students</p>
+    </div>
+
+    <div class="stat-box">
+        <h2>20+</h2>
+        <p>Programs</p>
+    </div>
+
+    <div class="stat-box">
+        <h2>50+</h2>
+        <p>Staff Members</p>
+    </div>
+
+    <div class="stat-box">
+        <h2>10+</h2>
+        <p>Departments</p>
+    </div>
+
+</section>
+
+<!-- =========================
+     HISTORY SECTION
+========================= -->
+
+<section class="history-section">
+
+    <h2>Our History</h2>
+
+    <p>
+        Team University was established to bridge gaps in higher education
+        through practical learning approaches, technological advancement,
+        and industry-oriented training.
+    </p>
+
+    <p>
+        Since its establishment, the university has continuously expanded
+        programs, infrastructure, and partnerships to improve educational
+        accessibility and quality.
+    </p>
+
+</section>
+
+<!-- =========================
+     VISION & MISSION
+========================= -->
+
+<section class="vision-mission">
+
+    <div class="vision-box">
+
+        <i class="fa fa-eye"></i>
+
+        <h3>Our Vision</h3>
+
+        <p>
+            To become a center of excellence in higher education,
+            innovation, research, and professional development.
+        </p>
+
+    </div>
+
+    <div class="mission-box">
+
+        <i class="fa fa-bullseye"></i>
+
+        <h3>Our Mission</h3>
+
+        <p>
+            To provide quality education, practical skills training,
+            research opportunities, and community-centered learning.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     CORE VALUES (REDESIGNED GRID)
+========================= -->
+
+<section class="values-section">
+
+    <h2>Core Values</h2>
+
+    <div class="value-grid">
+
+        <div class="value-card">
+            <i class="fa fa-award"></i>
+            <h3>Excellence</h3>
+            <p>Commitment to high standards.</p>
+        </div>
+
+        <div class="value-card">
+            <i class="fa fa-handshake"></i>
+            <h3>Integrity</h3>
+            <p>Honesty and accountability.</p>
+        </div>
+
+        <div class="value-card">
+            <i class="fa fa-lightbulb"></i>
+            <h3>Innovation</h3>
+            <p>Encouraging creativity and ideas.</p>
+        </div>
+
+        <div class="value-card">
+            <i class="fa fa-users"></i>
+            <h3>Inclusiveness</h3>
+            <p>Equal opportunities for learners.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     OBJECTIVES
+========================= -->
+
+<section class="objectives">
+
+    <h2>Institutional Objectives</h2>
+
+    <ul>
+        <li>Provide quality academic programs.</li>
+        <li>Promote research and innovation.</li>
+        <li>Support entrepreneurship development.</li>
+        <li>Enhance practical skills training.</li>
+        <li>Develop ethical and professional graduates.</li>
+        <li>Strengthen community engagement.</li>
+    </ul>
+
+</section>
+
+<!-- =========================
+     STAFF DIRECTORY (UPGRADED)
+========================= -->
+
+<section class="staff-directory">
+
+    <h2>University Staff Directory</h2>
+
+    <!-- SEARCH + FILTER -->
+    <div class="staff-controls">
+
+        <select id="deptFilter" onchange="filterStaff()">
+            <option value="all">All Departments</option>
+            <option value="administration">Administration</option>
+            <option value="finance">Finance</option>
+            <option value="academic">Academic</option>
+            <option value="ict">ICT</option>
+        </select>
+
+    </div>
+
+    <!-- STAFF GRID -->
+    <div class="staff-grid" id="staffGrid">
+
+        <div class="staff-card" data-dept="administration">
+            <img src="images/principal.jpg">
+            <h3>Dr. John Mwanga</h3>
+            <p>Director of Administration</p>
+            <span class="tag admin">Administration</span>
+        </div>
+
+        <div class="staff-card" data-dept="academic">
+            <img src="images/registrar.jpg">
+            <h3>Ms. Grace Auma</h3>
+            <p>Academic Registrar</p>
+            <span class="tag academic">Academic</span>
+        </div>
+
+        <div class="staff-card" data-dept="finance">
+            <img src="images/finance.jpg">
+            <h3>Mr. Peter Okello</h3>
+            <p>Finance Officer</p>
+            <span class="tag finance">Finance</span>
+        </div>
+
+        <div class="staff-card" data-dept="ict">
+            <img src="images/ict.jpg">
+            <h3>Eng. Samuel Kato</h3>
+            <p>ICT Manager</p>
+            <span class="tag ict">ICT</span>
+        </div>
+
+    </div>
+
+</section>
+<!-- =========================
+     CTA SECTION (IMPROVED)
+========================= -->
+
+<section class="about-cta">
+
+    <h2>Become Part of Team University</h2>
+
+    <p>
+        Join a community committed to academic excellence,
+        innovation, and leadership.
+    </p>
+
+    <a href="../admissions/admissions.html" class="btn-primary">
+        Apply Today
+    </a>
+
+</section>
+
+</section>
+

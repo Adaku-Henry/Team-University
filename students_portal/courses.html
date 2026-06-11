@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Management</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="course-container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Course Management System</h1>
+    <p>Manage available and enrolled academic courses</p>
+  </div>
+
+  <!-- STATS DASHBOARD -->
+  <div class="stats">
+
+    <div class="stat-card">
+      <h3>Total Available</h3>
+      <p id="totalAvailable">0</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>Enrolled</h3>
+      <p id="totalEnrolled">0</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>Total Credits</h3>
+      <p id="totalCredits">0</p>
+    </div>
+
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filters">
+
+    <input type="text" id="searchBox" placeholder="Search course..." onkeyup="searchCourses()">
+
+    <select id="deptFilter" onchange="filterCourses()">
+      <option value="all">All Departments</option>
+      <option value="Computer Science">Computer Science</option>
+      <option value="IT">Information Technology</option>
+      <option value="Software Engineering">Software Engineering</option>
+    </select>
+
+    <select id="semesterFilter" onchange="filterCourses()">
+      <option value="all">All Semesters</option>
+      <option value="Semester 1">Semester 1</option>
+      <option value="Semester 2">Semester 2</option>
+    </select>
+
+  </div>
+
+  <!-- MAIN GRID -->
+  <div class="grid">
+
+    <!-- AVAILABLE COURSES -->
+    <div class="section">
+
+      <h2>Available Courses</h2>
+
+      <div id="availableCourses"></div>
+
+    </div>
+
+    <!-- ENROLLED COURSES -->
+    <div class="section">
+
+      <h2>Enrolled Courses</h2>
+
+      <div id="enrolledCourses"></div>
+
+    </div>
+
+  </div>
+
+  <!-- COURSE DETAIL MODAL -->
+  <div id="courseModal" class="modal hidden">
+
+    <div class="modal-content">
+
+      <span onclick="closeModal()" class="close">&times;</span>
+
+      <h2 id="modalTitle"></h2>
+
+      <p id="modalLecturer"></p>
+      <p id="modalDepartment"></p>
+      <p id="modalCredits"></p>
+      <p id="modalSemester"></p>
+
+      <div class="modal-actions">
+        
+        <button onclick="enrollFromModal()">Enroll</button>
+        <button onclick="removeFromModal()">Remove</button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script src="script.js"></script>
+</body>
+</html>

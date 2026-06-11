@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ERP Notification Center</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>🔔 University Notification Control Center</h1>
+
+  <!-- ================= DASHBOARD ================= -->
+  <div class="dashboard">
+
+    <div class="card"><h3>Total Notifications</h3><h2 id="totalNotif">0</h2></div>
+    <div class="card"><h3>Unread</h3><h2 id="unreadNotif">0</h2></div>
+    <div class="card"><h3>Read</h3><h2 id="readNotif">0</h2></div>
+    <div class="card"><h3>High Priority</h3><h2 id="highNotif">0</h2></div>
+    <div class="card"><h3>System Alerts</h3><h2 id="systemNotif">0</h2></div>
+    <div class="card"><h3>Auto Alerts</h3><h2 id="autoNotif">0</h2></div>
+
+  </div>
+
+  <!-- ================= FILTER SYSTEM ================= -->
+  <div class="filters">
+
+    <select id="typeFilter" onchange="renderNotifications()">
+      <option value="ALL">All Types</option>
+      <option value="ATTENDANCE">Attendance</option>
+      <option value="TIMETABLE">Timetable</option>
+      <option value="RESULTS">Results</option>
+      <option value="FINANCE">Finance</option>
+      <option value="ASSIGNMENT">Assignment</option>
+      <option value="SYSTEM">System</option>
+      <option value="EXAM">Exam</option>
+      <option value="LIBRARY">Library</option>
+      <option value="HOSTEL">Hostel</option>
+    </select>
+
+    <select id="priorityFilter" onchange="renderNotifications()">
+      <option value="ALL">All Priority</option>
+      <option value="CRITICAL">Critical</option>
+      <option value="HIGH">High</option>
+      <option value="MEDIUM">Medium</option>
+      <option value="LOW">Low</option>
+    </select>
+
+    <select id="statusFilter" onchange="renderNotifications()">
+      <option value="ALL">All Status</option>
+      <option value="UNREAD">Unread</option>
+      <option value="READ">Read</option>
+      <option value="ARCHIVED">Archived</option>
+    </select>
+
+    <select id="sourceFilter" onchange="renderNotifications()">
+      <option value="ALL">All Sources</option>
+      <option value="SYSTEM">System Generated</option>
+      <option value="LECTURER">Lecturer</option>
+      <option value="ADMIN">Admin</option>
+      <option value="AI">AI Engine</option>
+    </select>
+
+    <input type="text" id="searchBox" placeholder="Search notifications..." onkeyup="renderNotifications()">
+
+  </div>
+
+  <!-- ================= ACTION BAR ================= -->
+  <div class="actions">
+
+    <button onclick="markAllRead()">Mark All Read</button>
+    <button onclick="markAllArchived()">Archive All</button>
+    <button onclick="clearNotifications()">Clear All</button>
+    <button onclick="exportNotifications()">Export PDF</button>
+    <button onclick="exportJSON()">Export JSON</button>
+    <button onclick="simulateAutoAlerts()">Run Auto Alerts</button>
+
+  </div>
+
+  <!-- ================= NOTIFICATION LAYOUT ================= -->
+  <div class="notification-layout">
+
+    <!-- MAIN LIST -->
+    <div class="notification-list" id="notificationList"></div>
+
+    <!-- DETAILS PANEL -->
+    <div class="notification-detail">
+
+      <h2>📌 Notification Details</h2>
+
+      <div id="detailBox">
+        <p>Select a notification to view full details</p>
+      </div>
+
+      <hr>
+
+      <h3>⚙️ Actions</h3>
+
+      <button onclick="markAsRead()">Mark as Read</button>
+      <button onclick="archiveNotification()">Archive</button>
+      <button onclick="deleteNotification()">Delete</button>
+      <button onclick="pinNotification()">Pin</button>
+
+    </div>
+
+  </div>
+
+  <!-- ================= CREATE NOTIFICATION PANEL ================= -->
+  <div class="create-panel">
+
+    <h2>🧑‍🏫 Create Notification (Admin / Lecturer)</h2>
+
+    <select id="nType">
+      <option>ATTENDANCE</option>
+      <option>TIMETABLE</option>
+      <option>RESULTS</option>
+      <option>FINANCE</option>
+      <option>ASSIGNMENT</option>
+      <option>EXAM</option>
+      <option>LIBRARY</option>
+      <option>HOSTEL</option>
+      <option>SYSTEM</option>
+    </select>
+
+    <select id="nPriority">
+      <option>LOW</option>
+      <option>MEDIUM</option>
+      <option>HIGH</option>
+      <option>CRITICAL</option>
+    </select>
+
+    <select id="nSource">
+      <option>SYSTEM</option>
+      <option>LECTURER</option>
+      <option>ADMIN</option>
+    </select>
+
+    <input type="text" id="nTitle" placeholder="Notification Title">
+
+    <textarea id="nMessage" placeholder="Notification Message"></textarea>
+
+    <input type="text" id="nTarget" placeholder="Target (ALL / Student ID / Course / Faculty)">
+
+    <input type="datetime-local" id="nSchedule">
+
+    <label>
+      <input type="checkbox" id="nPush"> Push Popup Alert
+    </label>
+
+    <button onclick="createNotification()">Send Notification</button>
+
+  </div>
+
+  <!-- ================= ERP AUTO RULE PANEL ================= -->
+  <div class="auto-panel">
+
+
+  </div>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>

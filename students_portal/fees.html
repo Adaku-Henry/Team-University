@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student Fees - LMS</title>
+
+<link rel="stylesheet" href="../style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+    <div>
+        <i class="fa fa-credit-card"></i> Student Finance Portal
+    </div>
+
+    <div>
+        <a href="../index.html" class="apply-btn">Logout</a>
+    </div>
+</div>
+
+<!-- WRAPPER -->
+<div class="student-wrapper">
+
+    <!-- SIDEBAR -->
+    <aside class="student-sidebar">
+
+        <h2>Student LMS</h2>
+
+        <ul>
+            <li><a href="dashboard.html"><i class="fa fa-home"></i> Dashboard</a></li>
+            <li><a href="courses.html"><i class="fa fa-book"></i> Courses</a></li>
+            <li><a href="assignments.html"><i class="fa fa-tasks"></i> Assignments</a></li>
+            <li><a href="results.html"><i class="fa fa-chart-line"></i> Results</a></li>
+            <li><a class="active" href="fees.html"><i class="fa fa-credit-card"></i> Fees</a></li>
+        </ul>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="student-main">
+
+        <h1>Fee Management System</h1>
+
+        <p>Track balances, make payments, and download receipts.</p>
+
+        <!-- BALANCE CARDS -->
+        <div class="fee-grid">
+
+            <div class="fee-card total">
+                <h3>Total Fees</h3>
+                <p>UGX 2,500,000</p>
+            </div>
+
+            <div class="fee-card paid">
+                <h3>Paid Amount</h3>
+                <p>UGX 1,800,000</p>
+            </div>
+
+            <div class="fee-card balance">
+                <h3>Balance</h3>
+                <p id="balance">UGX 700,000</p>
+            </div>
+
+        </div>
+
+        <!-- FEE BREAKDOWN -->
+        <section class="fee-breakdown">
+
+            <h2>Fee Breakdown</h2>
+
+            <table>
+
+                <tr>
+                    <th>Item</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                </tr>
+
+                <tr>
+                    <td>Tuition</td>
+                    <td>1,500,000</td>
+                    <td>Paid</td>
+                </tr>
+
+                <tr>
+                    <td>Library</td>
+                    <td>200,000</td>
+                    <td>Paid</td>
+                </tr>
+
+                <tr>
+                    <td>ICT Lab</td>
+                    <td>300,000</td>
+                    <td>Pending</td>
+                </tr>
+
+                <tr>
+                    <td>Examination</td>
+                    <td>500,000</td>
+                    <td>Pending</td>
+                </tr>
+
+            </table>
+
+        </section>
+
+        <!-- PAYMENT SECTION -->
+        <section class="payment-section">
+
+            <h2>Make Payment</h2>
+
+            <div class="payment-grid">
+
+                <div class="payment-box">
+
+                    <label>Enter Amount</label>
+                    <input type="number" id="amount" placeholder="e.g 200000">
+
+                    <label>Payment Method</label>
+                    <select id="method">
+                        <option>MTN Mobile Money</option>
+                        <option>Airtel Money</option>
+                        <option>Bank Transfer</option>
+                        <option>Cash Office</option>
+                    </select>
+
+                    <button class="btn-primary" onclick="generateRef()">
+                        Generate Payment Reference
+                    </button>
+
+                </div>
+
+                <div class="ref-box">
+
+                    <h3>Payment Reference</h3>
+
+                    <p id="refCode">No reference generated</p>
+
+                    <button class="btn-secondary" onclick="makePayment()">
+                        Confirm Payment
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- PAYMENT HISTORY -->
+        <section class="history">
+
+            <h2>Payment History</h2>
+
+            <table>
+
+                <tr>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Method</th>
+                    <th>Status</th>
+                </tr>
+
+                <tr>
+                    <td>2026-01-10</td>
+                    <td>500,000</td>
+                    <td>MTN Money</td>
+                    <td>Success</td>
+                </tr>
+
+                <tr>
+                    <td>2026-02-05</td>
+                    <td>300,000</td>
+                    <td>Bank</td>
+                    <td>Success</td>
+                </tr>
+
+            </table>
+
+        </section>
+
+        <!-- RECEIPT DOWNLOAD -->
+        <section class="receipt">
+
+            <h2>Receipts</h2>
+
+            <button class="btn-primary" onclick="downloadReceipt()">
+                <i class="fa fa-download"></i> Download Latest Receipt
+            </button>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="../script.js"></script>
+
+</body>
+</html>

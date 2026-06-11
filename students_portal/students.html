@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student Portal - Team University</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+<!-- ================= SIDEBAR ================= -->
+<div class="student-layout">
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <h2>TEAM UNIVERSITY</h2>
+            <p>Student Portal</p>
+        </div>
+
+        <ul class="sidebar-menu">
+
+            <li class="active">
+                <a href="#dashboard.html"><i class="fa fa-home"></i> Dashboard</a>
+            </li>
+
+            <li>
+                <a href="#profile"><i class="fa fa-user"></i> My Profile</a>
+            </li>
+
+            <li>
+                <a href="#courses.html"><i class="fa fa-book"></i> Courses</a>
+            </li>
+
+            <li>
+                <a href="#assignments.html"><i class="fa fa-tasks"></i> Assignments</a>
+            </li>
+
+            <li>
+                <a href="#results.html"><i class="fa fa-chart-line"></i> Results</a>
+            </li>
+
+            <li>
+                <a href="#fees.html"><i class="fa fa-money-bill"></i> Fees</a>
+            </li>
+
+
+            <li>
+                <a href="#announcements"><i class="fa fa-bullhorn"></i> Announcements</a>
+            </li>
+
+            <li>
+                <a href="#settings"><i class="fa fa-cog"></i> Settings</a>
+            </li>
+
+            <li class="logout">
+                <a href="Team University/index.html"><i class="fa fa-sign-out"></i> Logout</a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="main-content">
+
+        <!-- TOP BAR -->
+        <div class="topbar">
+            <h3>Welcome, Student</h3>
+            <p>Academic Year 2026</p>
+        </div>
+
+        <!-- ================= DASHBOARD ================= -->
+        <section id="dashboard" class="portal-section active">
+
+            <h2>Dashboard Overview</h2>
+
+            <div class="cards">
+
+                <div class="card">
+                    <h3>Registered Courses</h3>
+                    <p>5 Units</p>
+                </div>
+
+                <div class="card">
+                    <h3>GPA</h3>
+                    <p>4.32</p>
+                </div>
+
+                <div class="card">
+                    <h3>Fees Balance</h3>
+                    <p>UGX 450,000</p>
+                </div>
+
+                <div class="card">
+                    <h3>Attendance</h3>
+                    <p>87%</p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ================= PROFILE ================= -->
+        <section id="profile" class="portal-section">
+
+            <h2>My Profile</h2>
+
+            <div class="profile-box">
+
+                <img src="images/user.jpg" alt="Student">
+
+                <div>
+                    <p><strong>Name:</strong> John Student</p>
+                    <p><strong>Reg No:</strong> TU/2026/001</p>
+                    <p><strong>Program:</strong> Bachelor of IT</p>
+                    <p><strong>Year:</strong> Year 2</p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ================= COURSES ================= -->
+        <section id="courses" class="portal-section">
+
+            <h2>My Courses</h2>
+
+            <ul class="course-list">
+                <li>Web Development</li>
+                <li>Database Systems</li>
+                <li>Networking</li>
+                <li>Software Engineering</li>
+                <li>Cyber Security</li>
+            </ul>
+
+        </section>
+
+        <!-- ================= ASSIGNMENTS ================= -->
+        <section id="assignments" class="portal-section">
+
+            <h2>Assignments</h2>
+
+            <div class="assignment-card">
+                <h3>Web Development Project</h3>
+                <p>Due: 20 July 2026</p>
+                <button class="btn-primary">Upload Work</button>
+            </div>
+
+            <div class="assignment-card">
+                <h3>Database Design</h3>
+                <p>Due: 25 July 2026</p>
+                <button class="btn-primary">Submit</button>
+            </div>
+
+        </section>
+
+        <!-- ================= RESULTS ================= -->
+        <section id="results" class="portal-section">
+
+            <h2>Results</h2>
+
+            <table>
+                <tr>
+                    <th>Course</th>
+                    <th>Score</th>
+                    <th>Grade</th>
+                </tr>
+
+                <tr>
+                    <td>Web Development</td>
+                    <td>82</td>
+                    <td>A</td>
+                </tr>
+
+                <tr>
+                    <td>Database Systems</td>
+                    <td>75</td>
+                    <td>B+</td>
+                </tr>
+            </table>
+
+        </section>
+
+        <!-- ================= FEES ================= -->
+        <section id="fees" class="portal-section">
+
+            <h2>Fees Status</h2>
+
+            <div class="fees-box">
+
+                <p>Total Fees: UGX 1,200,000</p>
+                <p>Paid: UGX 750,000</p>
+                <p>Balance: UGX 450,000</p>
+
+                <button class="btn-primary">Pay Fees</button>
+                <button class="btn-secondary">Generate Invoice</button>
+
+            </div>
+
+        </section>
+
+        <!-- ================= ANNOUNCEMENTS ================= -->
+        <section id="announcements" class="portal-section">
+
+            <h2>Announcements</h2>
+
+            <div class="announcement-card">
+                📢 Exams start on 15th July 2026
+            </div>
+
+            <div class="announcement-card">
+                📢 Library open 24/7 during exams
+            </div>
+
+        </section>
+
+        <!-- ================= SETTINGS ================= -->
+        <section id="settings" class="portal-section">
+
+            <h2>Settings</h2>
+
+            <button class="btn-secondary">Change Password</button>
+            <button class="btn-secondary">Update Profile</button>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

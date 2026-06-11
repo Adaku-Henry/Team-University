@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Results System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>Student Results System</h1>
+
+  <!-- ================= SUMMARY CARDS ================= -->
+  <div class="cards">
+    <div class="card">GPA <h2 id="gpa">0.00</h2></div>
+    <div class="card">CGPA <h2 id="cgpa">0.00</h2></div>
+    <div class="card">Credits <h2 id="credits">0</h2></div>
+    <div class="card">Status <h2 id="status">N/A</h2></div>
+  </div>
+
+  <!-- ================= ADMIN PANEL ================= -->
+  <div class="admin">
+    <h2>Admin - Enter Results</h2>
+
+    <input id="code" placeholder="Course Code">
+    <input id="cat" type="number" placeholder="CAT (30)">
+    <input id="exam" type="number" placeholder="Exam (70)">
+
+    <button onclick="addResult()">Submit Result</button>
+  </div>
+
+  <!-- ================= RESULTS TABLE ================= -->
+  <h2>Semester Results</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Course</th>
+        <th>CAT</th>
+        <th>Exam</th>
+        <th>Total</th>
+        <th>Grade</th>
+        <th>GP</th>
+        <th>Remark</th>
+      </tr>
+    </thead>
+
+    <tbody id="resultsTable"></tbody>
+  </table>
+
+  <!-- ================= TRANSCRIPT ================= -->
+  <div class="transcript">
+    <h2>Transcript</h2>
+    <button onclick="printTranscript()">Print Transcript</button>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
