@@ -3,110 +3,462 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Course Management</title>
-<link rel="stylesheet" href="style.css">
+
+<title>Course Management System</title>
+
+<link rel="stylesheet" href="course.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 </head>
 
 <body>
 
-<div class="course-container">
+<!-- ==========================
+SIDEBAR
+========================== -->
 
-  <!-- HEADER -->
-  <div class="header">
-    <h1>Course Management System</h1>
-    <p>Manage available and enrolled academic courses</p>
-  </div>
+<aside class="sidebar">
 
-  <!-- STATS DASHBOARD -->
-  <div class="stats">
-
-    <div class="stat-card">
-      <h3>Total Available</h3>
-      <p id="totalAvailable">0</p>
+    <div class="logo">
+        <i class="fas fa-graduation-cap"></i>
+        <span>University ERP</span>
     </div>
 
-    <div class="stat-card">
-      <h3>Enrolled</h3>
-      <p id="totalEnrolled">0</p>
+    <nav>
+
+        <a href="dashboard.html">
+            <i class="fas fa-home"></i>
+            Dashboard
+        </a>
+
+        <a href="course.html" class="active">
+            <i class="fas fa-book-open"></i>
+            Courses
+        </a>
+
+        <a href="registration.html">
+            <i class="fas fa-clipboard-list"></i>
+            Registration
+        </a>
+
+        <a href="timetable.html">
+            <i class="fas fa-calendar"></i>
+            Timetable
+        </a>
+
+        <a href="results.html">
+            <i class="fas fa-chart-line"></i>
+            Results
+        </a>
+
+        <a href="finance.html">
+            <i class="fas fa-money-check"></i>
+            Finance
+        </a>
+
+        <a href="attendance.html">
+            <i class="fas fa-user-check"></i>
+            Attendance
+        </a>
+
+        <a href="materials.html">
+            <i class="fas fa-folder-open"></i>
+            Materials
+        </a>
+
+        <a href="profile.html">
+            <i class="fas fa-user"></i>
+            Profile
+        </a>
+
+        <a href="settings.html">
+            <i class="fas fa-cog"></i>
+            Settings
+        </a>
+
+    </nav>
+
+    <div class="student-card">
+
+        <img src="https://via.placeholder.com/70"
+        alt="student">
+
+        <div>
+            <h4 id="studentName">John Doe</h4>
+            <p id="studentRegNo">
+                Reg No: 23/UCS/001
+            </p>
+        </div>
+
     </div>
 
-    <div class="stat-card">
-      <h3>Total Credits</h3>
-      <p id="totalCredits">0</p>
-    </div>
+</aside>
 
-  </div>
+<!-- ==========================
+MAIN CONTENT
+========================== -->
 
-  <!-- FILTER BAR -->
-  <div class="filters">
+<main class="main-content">
 
-    <input type="text" id="searchBox" placeholder="Search course..." onkeyup="searchCourses()">
+    <!-- TOPBAR -->
 
-    <select id="deptFilter" onchange="filterCourses()">
-      <option value="all">All Departments</option>
-      <option value="Computer Science">Computer Science</option>
-      <option value="IT">Information Technology</option>
-      <option value="Software Engineering">Software Engineering</option>
-    </select>
+    <header class="topbar">
 
-    <select id="semesterFilter" onchange="filterCourses()">
-      <option value="all">All Semesters</option>
-      <option value="Semester 1">Semester 1</option>
-      <option value="Semester 2">Semester 2</option>
-    </select>
+        <div class="page-title">
+            <h1>Course Management System</h1>
+            <p>
+                Browse, enroll and manage academic courses
+            </p>
+        </div>
 
-  </div>
+        <div class="top-actions">
 
-  <!-- MAIN GRID -->
-  <div class="grid">
+            <button class="notification-btn">
+                <i class="fas fa-bell"></i>
+                <span class="badge">3</span>
+            </button>
 
-    <!-- AVAILABLE COURSES -->
-    <div class="section">
+            <select id="semesterSelector">
 
-      <h2>Available Courses</h2>
+                <option>
+                    2025/2026 - Semester 1
+                </option>
 
-      <div id="availableCourses"></div>
+                <option>
+                    2025/2026 - Semester 2
+                </option>
 
-    </div>
+            </select>
 
-    <!-- ENROLLED COURSES -->
-    <div class="section">
+        </div>
 
-      <h2>Enrolled Courses</h2>
+    </header>
 
-      <div id="enrolledCourses"></div>
+    <!-- ======================
+    STATS
+    ======================= -->
 
-    </div>
+    <section class="stats-grid">
 
-  </div>
+        <div class="stat-card">
 
-  <!-- COURSE DETAIL MODAL -->
-  <div id="courseModal" class="modal hidden">
+            <div class="icon">
+                <i class="fas fa-book"></i>
+            </div>
+
+            <div>
+                <h4>Total Available</h4>
+                <h2 id="totalAvailable">0</h2>
+                <small>Courses</small>
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="icon">
+                <i class="fas fa-users"></i>
+            </div>
+
+            <div>
+                <h4>Enrolled Courses</h4>
+                <h2 id="totalEnrolled">0</h2>
+                <small>Courses</small>
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="icon">
+                <i class="fas fa-layer-group"></i>
+            </div>
+
+            <div>
+                <h4>Total Credits</h4>
+                <h2 id="totalCredits">0</h2>
+                <small>Credit Units</small>
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+
+            <div>
+                <h4>Completed</h4>
+                <h2 id="completedCourses">0</h2>
+                <small>Courses</small>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ======================
+    FILTERS
+    ======================= -->
+
+    <section class="filter-section">
+
+        <input
+        type="text"
+        id="searchCourse"
+        placeholder="Search by course code or name...">
+
+        <select id="departmentFilter">
+
+            <option value="all">
+                All Departments
+            </option>
+
+        </select>
+
+        <select id="semesterFilter">
+
+            <option value="all">
+                All Semesters
+            </option>
+
+        </select>
+
+        <button id="resetFilters">
+            Reset
+        </button>
+
+    </section>
+
+    <!-- ======================
+    CONTENT GRID
+    ======================= -->
+
+    <section class="content-grid">
+
+        <!-- AVAILABLE -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h2>
+                    Available Courses
+                    <span id="availableCount">0</span>
+                </h2>
+
+            </div>
+
+            <div id="availableCourses">
+
+                <!-- JS RENDERS COURSES -->
+
+            </div>
+
+            <div class="pagination">
+
+                <button>
+                    <i class="fas fa-angle-left"></i>
+                </button>
+
+                <button class="active-page">
+                    1
+                </button>
+
+                <button>2</button>
+
+                <button>
+                    <i class="fas fa-angle-right"></i>
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- ENROLLED -->
+
+        <div>
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h2>
+                        Enrolled Courses
+                        <span id="enrolledCount">0</span>
+                    </h2>
+
+                </div>
+
+                <div id="enrolledCourses">
+
+                    <!-- JS RENDER -->
+
+                </div>
+
+                <div class="credit-summary">
+
+                    Total Enrolled Credits:
+                    <strong id="enrolledCredits">
+                        0 CU
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <!-- STATUS LEGEND -->
+
+            <div class="card legend-card">
+
+                <h3>Course Status Legend</h3>
+
+                <div class="legend-item">
+                    <span class="dot normal"></span>
+                    NORMAL
+                </div>
+
+                <div class="legend-item">
+                    <span class="dot retake"></span>
+                    RETAKE
+                </div>
+
+                <div class="legend-item">
+                    <span class="dot missing"></span>
+                    MISSING PAPER
+                </div>
+
+                <div class="legend-item">
+                    <span class="dot supplementary"></span>
+                    SUPPLEMENTARY
+                </div>
+
+            </div>
+
+            <!-- NOTE -->
+
+            <div class="card note-card">
+
+                <h3>Note</h3>
+
+                <p>
+                    Click View Details to see
+                    full course information including
+                    prerequisites, timetable,
+                    lecturer details, materials,
+                    attendance and assessments.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<!-- ==========================
+COURSE DETAILS MODAL
+========================== -->
+
+<div class="modal hidden" id="courseModal">
 
     <div class="modal-content">
 
-      <span onclick="closeModal()" class="close">&times;</span>
+        <button
+        class="close-btn"
+        id="closeModal">
 
-      <h2 id="modalTitle"></h2>
+            &times;
 
-      <p id="modalLecturer"></p>
-      <p id="modalDepartment"></p>
-      <p id="modalCredits"></p>
-      <p id="modalSemester"></p>
+        </button>
 
-      <div class="modal-actions">
-        
-        <button onclick="enrollFromModal()">Enroll</button>
-        <button onclick="removeFromModal()">Remove</button>
-      </div>
+        <div class="modal-header">
+
+            <div class="course-icon">
+                <i class="fas fa-code"></i>
+            </div>
+
+            <div>
+
+                <h2 id="modalCourseTitle">
+                    Course Name
+                </h2>
+
+                <span
+                id="modalStatus"
+                class="status-badge">
+                    NORMAL
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="course-details">
+
+            <div>
+                <strong>Course Code:</strong>
+                <span id="modalCode"></span>
+            </div>
+
+            <div>
+                <strong>Lecturer:</strong>
+                <span id="modalLecturer"></span>
+            </div>
+
+            <div>
+                <strong>Department:</strong>
+                <span id="modalDepartment"></span>
+            </div>
+
+            <div>
+                <strong>Credits:</strong>
+                <span id="modalCredits"></span>
+            </div>
+
+            <div>
+                <strong>Semester:</strong>
+                <span id="modalSemester"></span>
+            </div>
+
+            <div>
+                <strong>Prerequisites:</strong>
+                <span id="modalPrerequisite"></span>
+            </div>
+
+            <div>
+                <strong>Timetable:</strong>
+                <span id="modalTimetable"></span>
+            </div>
+
+            <div>
+                <strong>Description:</strong>
+                <span id="modalDescription"></span>
+            </div>
+
+        </div>
+
+        <div class="modal-actions">
+
+            <button id="closeDetails">
+                Close
+            </button>
+
+            <button id="enrollNow">
+                Enroll Now
+            </button>
+
+        </div>
 
     </div>
 
-  </div>
-
 </div>
 
+<script src="course.js"></script>
 
-<script src="script.js"></script>
 </body>
 </html>
