@@ -110,3 +110,97 @@ document.querySelectorAll(".hero-buttons button")[0].addEventListener("click", (
 document.querySelectorAll(".hero-buttons button")[1].addEventListener("click", () => {
     document.getElementById("submit").scrollIntoView({ behavior: "smooth" });
 });
+
+document
+.getElementById("generateTranscriptBtn")
+.addEventListener("click", generateTranscript);
+
+function generateTranscript(){
+
+    if(results.length === 0){
+
+        alert("No Results Available");
+
+        return;
+    }
+
+    let transcript = `
+    <html>
+    <head>
+    <title>Student Transcript</title>
+
+    <style>
+
+    body{
+        font-family:Arial;
+        padding:30px;
+    }
+
+    table{
+        width:100%;
+        border-collapse:collapse;
+    }
+
+    th,td{
+        border:1px solid #000;
+        padding:10px;
+    }
+
+    h1{
+        text-align:center;
+    }
+
+    </style>
+
+    </head>
+
+    <body>
+
+    <h1>ACADEMIC TRANSCRIPT</h1>
+
+    <table>
+
+    <tr>
+        <th>Reg No</th>
+        <th>Name</th>
+        <th>Course</th>
+        <th>Marks</th>
+        <th>Grade</th>
+        <th>GPA</th>
+    </tr>
+    `;
+
+    results.forEach(result=>{
+
+        transcript += `
+
+        <tr>
+
+        <td>${result.regNo}</td>
+        <td>${result.studentName}</td>
+        <td>${result.courseCode}</td>
+        <td>${result.marks}</td>
+        <td>${result.grade}</td>
+        <td>${result.gpa}</td>
+
+        </tr>
+
+        `;
+
+    });
+
+    transcript += `
+    </table>
+    </body>
+    </html>
+    `;
+
+    const newWindow = window.open();
+
+    newWindow.document.write(transcript);
+
+    newWindow.document.close();
+
+    newWindow.print();
+
+}

@@ -1,64 +1,713 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
-<title>Results System</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
+
+<title>Result Management System</title>
+
+<link rel="stylesheet" href="result.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 </head>
 
 <body>
 
-<div class="container">
+<div class="result-container">
 
-  <h1>Student Results System</h1>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
 
-  <!-- ================= SUMMARY CARDS ================= -->
-  <div class="cards">
-    <div class="card">GPA <h2 id="gpa">0.00</h2></div>
-    <div class="card">CGPA <h2 id="cgpa">0.00</h2></div>
-    <div class="card">Credits <h2 id="credits">0</h2></div>
-    <div class="card">Status <h2 id="status">N/A</h2></div>
-  </div>
+        <div class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            <h2>Result System</h2>
+        </div>
 
-  <!-- ================= ADMIN PANEL ================= -->
-  <div class="admin">
-    <h2>Admin - Enter Results</h2>
+        <ul>
 
-    <input id="code" placeholder="Course Code">
-    <input id="cat" type="number" placeholder="CAT (30)">
-    <input id="exam" type="number" placeholder="Exam (70)">
+            <li class="active">
+                <a href="#">
+                    <i class="fas fa-chart-line"></i>
+                    Dashboard
+                </a>
+            </li>
 
-    <button onclick="addResult()">Submit Result</button>
-  </div>
+            <li>
+                <a href="#">
+                    <i class="fas fa-file-alt"></i>
+                    Results
+                </a>
+            </li>
 
-  <!-- ================= RESULTS TABLE ================= -->
-  <h2>Semester Results</h2>
+            <li>
+                <a href="#">
+                    <i class="fas fa-user-graduate"></i>
+                    Students
+                </a>
+            </li>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Course</th>
-        <th>CAT</th>
-        <th>Exam</th>
-        <th>Total</th>
-        <th>Grade</th>
-        <th>GP</th>
-        <th>Remark</th>
-      </tr>
-    </thead>
+            <li>
+                <a href="#">
+                    <i class="fas fa-book"></i>
+                    Courses
+                </a>
+            </li>
 
-    <tbody id="resultsTable"></tbody>
-  </table>
+            <li>
+                <a href="#">
+                    <i class="fas fa-calculator"></i>
+                    GPA Calculation
+                </a>
+            </li>
 
-  <!-- ================= TRANSCRIPT ================= -->
-  <div class="transcript">
-    <h2>Transcript</h2>
-    <button onclick="printTranscript()">Print Transcript</button>
-  </div>
+            <li>
+                <a href="#">
+                    <i class="fas fa-check-circle"></i>
+                    Approval Center
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fas fa-print"></i>
+                    Transcript
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fas fa-chart-pie"></i>
+                    Analytics
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- HEADER -->
+        <header class="topbar">
+
+            <div>
+                <h1>Result Management Dashboard</h1>
+                <p>Manage student academic performance</p>
+            </div>
+
+            <div class="top-actions">
+
+                <button>
+                    <i class="fas fa-file-export"></i>
+                    Export Results
+                </button>
+
+                <button>
+                    <i class="fas fa-upload"></i>
+                    Publish Results
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- SUMMARY CARDS -->
+        <section class="summary-cards">
+
+            <div class="card">
+                <h3>Total Students</h3>
+                <h2 id="totalStudents">0</h2>
+            </div>
+
+            <div class="card">
+                <h3>Results Submitted</h3>
+                <h2 id="submittedResults">0</h2>
+            </div>
+
+            <div class="card">
+                <h3>Pending Approval</h3>
+                <h2 id="pendingApproval">0</h2>
+            </div>
+
+            <div class="card">
+                <h3>Published Results</h3>
+                <h2 id="publishedResults">0</h2>
+            </div>
+
+            <div class="card">
+                <h3>Average GPA</h3>
+                <h2 id="averageGPA">0.00</h2>
+            </div>
+
+        </section>
+
+
+        <!-- FILTER SECTION -->
+        <section class="filter-section">
+
+            <select id="academicYear">
+                <option>Academic Year</option>
+                <option>2025/2026</option>
+                <option>2024/2025</option>
+                <option>2023/2024</option>
+            </select>
+
+            <select id="semester">
+                <option>Semester</option>
+                <option>Semester I</option>
+                <option>Semester II</option>
+            </select>
+
+            <select id="faculty">
+                <option>Faculty</option>
+                <option>Science</option>
+                <option>Business</option>
+                <option>Education</option>
+                <option>Engineering</option>
+            </select>
+
+            <select id="programme">
+                <option>Programme</option>
+            </select>
+
+            <input type="text"
+            placeholder="Search Student Reg No">
+
+            <button>
+                <i class="fas fa-search"></i>
+                Search
+            </button>
+
+        </section>
+
+
+        <!-- RESULT ENTRY -->
+        <section class="result-entry">
+
+            <div class="section-title">
+                <h2>Result Entry Form</h2>
+            </div>
+
+            <form id="resultForm">
+
+                <input type="text"
+                placeholder="Registration Number">
+
+                <input type="text"
+                placeholder="Student Name">
+
+                <input type="text"
+                placeholder="Course Code">
+
+                <input type="text"
+                placeholder="Course Title">
+
+                <input type="number"
+                placeholder="Credit Units">
+
+                <input type="number"
+                placeholder="Marks">
+
+                <select>
+                    <option>Select Grade</option>
+                    <option>A</option>
+                    <option>B+</option>
+                    <option>B</option>
+                    <option>C+</option>
+                    <option>C</option>
+                    <option>D</option>
+                    <option>F</option>
+                </select>
+
+                <button type="submit">
+                    Save Result
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- RESULT TABLE -->
+        <section class="result-table-section">
+
+            <div class="section-title">
+                <h2>Student Results</h2>
+            </div>
+
+            <table>
+
+                <thead>
+
+                <tr>
+
+                    <tr>
+                    <th>Course Code</th>
+                    <th>Course Title</th>
+                    <th>Credit Units</th>
+                    <th>Marks</th>
+                    <th>Grade</th>
+                    <th>Credit Units</th>
+                    <th>Grade Point</th>
+                    <th>Grade Point</th>
+                    <th>GPA</th>
+                    <th>Status</th>
+                    <th>Action</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody id="resultsTableBody">
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+
+        <!-- GPA SECTION -->
+        <section class="gpa-section">
+
+            <div class="gpa-card">
+
+                <h3>Semester GPA</h3>
+                <h1 id="semesterGPA">0.00</h1>
+
+            </div>
+
+            <div class="gpa-card">
+
+                <h3>CGPA</h3>
+                <h1 id="cgpa">0.00</h1>
+
+            </div>
+
+            <div class="gpa-card">
+
+                <h3>Academic Standing</h3>
+                <h1 id="standing">
+                    Good Standing
+                </h1>
+
+            </div>
+
+        </section>
+
+
+        <!-- APPROVAL WORKFLOW -->
+        <section class="approval-section">
+
+            <div class="section-title">
+                <h2>Result Approval Workflow</h2>
+            </div>
+
+            <table>
+
+                <thead>
+                <tr>
+
+                    <th>Course</th>
+                    <th>Lecturer</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Action</th>
+
+                </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>CSC210</td>
+                        <td>Dr. John</td>
+                        <td>Pending</td>
+
+                        <td>12/06/2026</td>
+
+                        <td>
+
+                            <button>
+                                Approve
+                            </button>
+
+                            <button>
+                                Reject
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+
+        <!-- ANALYTICS -->
+        <section class="analytics-section">
+
+            <div class="section-title">
+                <h2>Performance Analytics</h2>
+            </div>
+
+            <div class="analytics-grid">
+
+                <div class="analytics-card">
+                    Grade Distribution Chart
+                </div>
+
+                <div class="analytics-card">
+                    GPA Trend Chart
+                </div>
+
+                <div class="analytics-card">
+                    Pass Rate Chart
+                </div>
+
+                <div class="analytics-card">
+                    Faculty Comparison
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RE-EVALUATION -->
+        <section class="revaluation-section">
+
+            <div class="section-title">
+                <h2>Re-Evaluation Requests</h2>
+            </div>
+
+            <table>
+
+                <thead>
+
+                <tr>
+                    <th>Student</th>
+                    <th>Course</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+
+                </thead>
+
+                <tbody id="revaluationTable">
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+
+        <!-- TRANSCRIPT -->
+        <section class="transcript-section">
+
+            <div class="section-title">
+                <h2>Transcript Center</h2>
+            </div>
+            <!-- RESULT STATUS CENTER -->
+
+<section class="status-center">
+  <div class="institution-header">
+
+    <img src="images/logo.png" class="print-logo">
+
+    <h1>TEAM UNIVERSITY</h1>
+
+    <h3>Knowledge • Innovation • Excellence</h3>
+
+    <p>P.O Box 123, Kampala Uganda</p>
+
+    <p>Email: registrar@teamuniversity.ac.ug</p>
+
+    <p>Tel: +256 700000000</p>
 
 </div>
 
-<script src="script.js"></script>
+<hr>
+
+<h2>ACADEMIC TRANSCRIPT</h2>
+<div id="transcriptTemplate" style="display:none;">
+
+    <!-- UNIVERSITY HEADER -->
+    <div class="institution-header">
+
+        <img src="../images/logo.jpg" class="print-logo">
+
+        <h1>TEAM UNIVERSITY</h1>
+
+        <h3>Knowledge • Innovation • Excellence</h3>
+
+        <p>P.O Box 123, Kampala Uganda</p>
+
+        <p>Email: registrar@teamuniversity.ac.ug</p>
+
+        <p>Tel: +256 700000000</p>
+
+    </div>
+
+    <hr>
+
+    <!-- TRANSCRIPT TITLE -->
+    <h2 style="text-align:center;">
+        ACADEMIC TRANSCRIPT
+    </h2>
+
+    <!-- PLACE IT HERE -->
+    <div class="student-info">
+
+        <p>
+            <strong>Name:</strong>
+            <span id="printStudentName"></span>
+        </p>
+
+        <p>
+            <strong>Registration No:</strong>
+            <span id="printRegNo"></span>
+        </p>
+
+        <p>
+            <strong>Faculty:</strong>
+            <span id="printFaculty"></span>
+        </p>
+
+        <p>
+            <strong>Programme:</strong>
+            <span id="printProgramme"></span>
+        </p>
+
+        <p>
+            <strong>Academic Year:</strong>
+            <span id="printAcademicYear"></span>
+        </p>
+
+        <p>
+            <strong>Semester:</strong>
+            <span id="printSemester"></span>
+        </p>
+
+    </div>
+
+    <!-- RESULTS TABLE -->
+    <table id="printTable">
+
+        <thead>
+
+            <tr>
+
+                <th>Course Code</th>
+                <th>Course Title</th>
+                <th>Credit Units</th>
+                <th>Marks</th>
+                <th>Grade</th>
+                <th>Grade Point</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="printTableBody">
+
+        </tbody>
+
+    </table>
+
+    <!-- GPA SUMMARY -->
+    <div class="gpa-summary">
+
+        <h3>GPA: <span id="printGPA"></span></h3>
+
+        <h3>CGPA: <span id="printCGPA"></span></h3>
+
+        <h3>Classification:
+            <span id="printClass"></span>
+        </h3>
+
+    </div>
+
+</div>
+
+    <div class="section-title">
+        <h2>Result Publication Control</h2>
+    </div>
+
+    <div class="status-actions">
+
+        <button id="publishBtn">
+            Publish Results
+        </button>
+
+        <button id="unpublishBtn">
+            Unpublish Results
+        </button>
+
+        <button id="lockBtn">
+            Lock Results
+        </button>
+
+        <button id="unlockBtn">
+            Unlock Results
+        </button>
+
+    </div>
+
+</section>
+
+<!-- GRADE ANALYTICS -->
+
+<section class="grade-analytics">
+
+    <div class="section-title">
+        <h2>Grade Analytics</h2>
+    </div>
+
+    <div class="analytics-summary">
+
+        <div class="grade-box">
+            <h3>A Grades</h3>
+            <h1 id="gradeA">0</h1>
+        </div>
+
+        <div class="grade-box">
+            <h3>B Grades</h3>
+            <h1 id="gradeB">0</h1>
+        </div>
+
+        <div class="grade-box">
+            <h3>C Grades</h3>
+            <h1 id="gradeC">0</h1>
+        </div>
+
+        <div class="grade-box">
+            <h3>D Grades</h3>
+            <h1 id="gradeD">0</h1>
+        </div>
+
+        <div class="grade-box">
+            <h3>Failed</h3>
+            <h1 id="gradeF">0</h1>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- DEGREE CLASSIFICATION -->
+
+<section class="degree-classification">
+
+    <div class="section-title">
+        <h2>Degree Classification</h2>
+    </div>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>CGPA</th>
+                <th>Classification</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>4.40 - 5.00</td>
+                <td>First Class</td>
+            </tr>
+
+            <tr>
+                <td>3.60 - 4.39</td>
+                <td>Second Class Upper</td>
+            </tr>
+
+            <tr>
+                <td>2.80 - 3.59</td>
+                <td>Second Class Lower</td>
+            </tr>
+
+            <tr>
+                <td>2.00 - 2.79</td>
+                <td>Pass Degree</td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</section>
+
+<!-- AUDIT LOG -->
+
+<section class="audit-log">
+
+    <div class="section-title">
+        <h2>Result Activity Log</h2>
+    </div>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>User</th>
+                <th>Activity</th>
+            </tr>
+        </thead>
+
+        <tbody id="auditLogBody">
+
+        </tbody>
+
+    </table>
+
+</section>
+
+            <button id="generateTranscriptBtn">
+    Generate Transcript
+</button>
+
+            <button id="downloadPDF">
+    Download PDF
+</button>
+
+            <button id="downloadExcel">
+    Download Excel
+</button>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="result.js"></script>
+
+
+
 </body>
 </html>
+
