@@ -1,439 +1,789 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Research Portal - Laropi Secondary School</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benchmark Business and Technical College | Research Portal</title>
+    <meta name="description" content="Modern research portal for Benchmark Business and Technical College. Explore research projects, publications, innovation, staff, and student research.">
 
-<!-- CSS will be added later -->
-<link rel="stylesheet" href="research.css">
+    <link rel="stylesheet" href="research.css">
 
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
-<!-- =========================
-     TOP NAVIGATION
-========================= -->
-<header class="main-header">
-    <div class="logo">
-        <h1>Laropi Research Portal</h1>
-        <small>Strive to Achieve</small>
-    </div>
+    <!-- =========================
+         HEADER
+    ========================== -->
+    <header class="site-header">
+        <div class="container header-container">
+            <a href="#" class="brand">
+                <div class="brand-icon">B</div>
+                <div>
+                    <h1>Benchmark Research Hub</h1>
+                    <span>Business • Technology • Innovation</span>
+                </div>
+            </a>
 
-    <nav class="nav-bar">
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#overview">Overview</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#publications">Publications</a></li>
-            <li><a href="#staff">Staff</a></li>
-            <li><a href="#submit">Submit Research</a></li>
-            <li><a href="#notifications">Notifications 🔔</a></li>
-            <li><a href="#profile">My Profile</a></li>
-        </ul>
-    </nav>
-</header>
+            <button class="menu-toggle" id="menuToggle" aria-label="Open navigation">
+                ☰
+            </button>
 
-<!-- =========================
-     HERO SECTION
-========================= -->
-<section class="hero">
-    <div class="hero-content">
-        <h2>Research, Innovation & Knowledge Development</h2>
-        <p>
-            Building solutions through academic research in ICT, Education,
-            Business, Science, and Community Development.
-        </p>
+            <nav class="nav-menu" id="navMenu">
+                <a href="#home">Home</a>
+                <a href="#overview">Overview</a>
+                <a href="#projects">Projects</a>
+                <a href="#publications">Publications</a>
+                <a href="#innovation">Innovation</a>
+                <a href="#staff">Staff</a>
+                <a href="#submit">Submit</a>
+                <a href="#notifications">Alerts</a>
+            </nav>
 
-        <div class="hero-buttons">
-            <button>Explore Projects</button>
-            <button>Submit Research</button>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                🌙
+            </button>
+        </div>
+    </header>
+
+    <!-- =========================
+         HERO SECTION
+    ========================== -->
+    <main>
+        <section id="home" class="hero-section">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <span class="eyebrow">Benchmark Business and Technical College</span>
+                    <h2>Research, Innovation, and Applied Technical Excellence</h2>
+                    <p>
+                        A modern digital research platform for students, lecturers, departments,
+                        and industry partners to publish, review, discover, and collaborate on
+                        practical research in business, ICT, engineering, entrepreneurship, and
+                        community development.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="#projects" class="btn btn-primary">Explore Research</a>
+                        <a href="#submit" class="btn btn-secondary">Submit Research</a>
+                    </div>
+
+                    <div class="hero-highlights">
+                        <div>
+                            <strong>Industry-focused</strong>
+                            <span>Practical research solutions</span>
+                        </div>
+                        <div>
+                            <strong>Student-led</strong>
+                            <span>Innovation from learners</span>
+                        </div>
+                        <div>
+                            <strong>Digital-first</strong>
+                            <span>Modern research workflow</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-card glass-card">
+                    <div class="hero-card-header">
+                        <span>Live Research Dashboard</span>
+                        <span class="status-dot"></span>
+                    </div>
+
+                    <div class="dashboard-preview">
+                        <div class="preview-item">
+                            <p>Active Projects</p>
+                            <h3>186</h3>
+                        </div>
+                        <div class="preview-item">
+                            <p>Publications</p>
+                            <h3>72</h3>
+                        </div>
+                        <div class="preview-item">
+                            <p>Departments</p>
+                            <h3>9</h3>
+                        </div>
+                        <div class="preview-item">
+                            <p>Collaborators</p>
+                            <h3>41</h3>
+                        </div>
+                    </div>
+
+                    <div class="activity-feed">
+                        <h4>Recent Activity</h4>
+                        <p>✅ ICT Department approved a cybersecurity proposal.</p>
+                        <p>📘 Business students published a finance case study.</p>
+                        <p>💡 Engineering team submitted an IoT prototype paper.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================
+             PROFILE SECTION
+        ========================== -->
+        <section id="profile" class="section">
+            <div class="container">
+                <div class="section-heading">
+                    <span>Researcher Portal</span>
+                    <h2>My Research Profile</h2>
+                    <p>Track your submissions, publications, saved papers, and academic progress.</p>
+                </div>
+
+                <div class="profile-grid">
+                    <div class="profile-card">
+                        <div class="avatar">JS</div>
+                        <h3>John Student</h3>
+                        <p class="muted">Student Researcher</p>
+                        <p><strong>Department:</strong> ICT and Computer Science</p>
+                        <p><strong>Research Interest:</strong> AI, Cybersecurity, Web Systems</p>
+
+                        <div class="profile-actions">
+                            <button class="btn btn-primary small-btn">View My Research</button>
+                            <button class="btn btn-outline small-btn">Edit Profile</button>
+                        </div>
+                    </div>
+
+                    <div class="profile-stats">
+                        <div class="stat-box">
+                            <h3>5</h3>
+                            <p>Submitted Research</p>
+                        </div>
+                        <div class="stat-box">
+                            <h3>2</h3>
+                            <p>Approved Publications</p>
+                        </div>
+                        <div class="stat-box">
+                            <h3>14</h3>
+                            <p>Saved Papers</p>
+                        </div>
+                        <div class="stat-box">
+                            <h3>8</h3>
+                            <p>Peer Comments</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================
+             OVERVIEW SECTION
+        ========================== -->
+        <section id="overview" class="section alt-section">
+            <div class="container">
+                <div class="section-heading">
+                    <span>Research Overview</span>
+                    <h2>Applied Research for Business and Technical Transformation</h2>
+                    <p>
+                        Benchmark Business and Technical College promotes research that solves
+                        real problems in entrepreneurship, digital systems, accounting, engineering,
+                        health technology, agribusiness, and community development.
+                    </p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <h3 class="counter" data-target="186">0</h3>
+                        <p>Active Research Projects</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3 class="counter" data-target="72">0</h3>
+                        <p>Published Papers</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3 class="counter" data-target="38">0</h3>
+                        <p>Research Supervisors</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3 class="counter" data-target="9">0</h3>
+                        <p>Departments</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================
+             SEARCH AND FILTER
+        ========================== -->
+        <section class="section">
+            <div class="container">
+                <div class="section-heading">
+                    <span>Discover Research</span>
+                    <h2>Search and Filter Research Work</h2>
+                    <p>Find projects by title, department, status, or research category.</p>
+                </div>
+
+                <div class="filter-panel">
+                    <input type="text" id="searchInput" placeholder="Search by title, author, or keyword...">
+
+                    <select id="departmentFilter">
+                        <option value="all">All Departments</option>
+                        <option value="ICT">ICT</option>
+                        <option value="Business">Business</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Accounting">Accounting</option>
+                        <option value="Entrepreneurship">Entrepreneurship</option>
+                        <option value="Health">Health Technology</option>
+                    </select>
+
+                    <select id="statusFilter">
+                        <option value="all">All Status</option>
+                        <option value="Ongoing">Ongoing</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Under Review">Under Review</option>
+                    </select>
+
+                    <button class="btn btn-primary" id="resetFilters">Reset</button>
+                </div>
+
+                <div class="tag-filters" id="tagFilters">
+                    <button class="tag-btn active" data-tag="all">All</button>
+                    <button class="tag-btn" data-tag="AI">AI</button>
+                    <button class="tag-btn" data-tag="Cybersecurity">Cybersecurity</button>
+                    <button class="tag-btn" data-tag="Finance">Finance</button>
+                    <button class="tag-btn" data-tag="IoT">IoT</button>
+                    <button class="tag-btn" data-tag="Entrepreneurship">Entrepreneurship</button>
+                    <button class="tag-btn" data-tag="E-Learning">E-Learning</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================
+             RESEARCH PROJECTS
+        ========================== -->
+        <section id="projects" class="section alt-section">
+            <div class="container">
+                <div class="section-heading">
+                    <span>Research Projects</span>
+                    <h2>Featured Student and Staff Research</h2>
+                    <p>Explore active and completed research projects across departments.</p>
+                </div>
+
+                <div class="card-grid" id="projectsGrid">
+
+                    <article class="research-card"
+                        data-title="AI-Based Student Performance Prediction System"
+                        data-department="ICT"
+                        data-status="Ongoing"
+                        data-tags="AI E-Learning ICT">
+                        <div class="card-top">
+                            <span class="badge blue">ICT</span>
+                            <span class="badge orange">Ongoing</span>
+                        </div>
+                        <h3>AI-Based Student Performance Prediction System</h3>
+                        <p>
+                            A machine learning study that predicts student performance using attendance,
+                            coursework, assessment history, and learning behavior.
+                        </p>
+                        <div class="meta">
+                            <span>Author: John Student</span>
+                            <span>Supervisor: Dr. Daniel Okello</span>
+                        </div>
+                        <div class="workflow">
+                            <span>Draft</span>
+                            <div class="progress"><div style="width: 70%;"></div></div>
+                            <span>Review</span>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn btn-primary small-btn view-project">View Details</button>
+                            <button class="btn btn-outline small-btn">Download Proposal</button>
+                        </div>
+                    </article>
+
+                    <article class="research-card"
+                        data-title="Digital Accounting Systems for Small Businesses"
+                        data-department="Accounting"
+                        data-status="Completed"
+                        data-tags="Finance Business Accounting">
+                        <div class="card-top">
+                            <span class="badge green">Accounting</span>
+                            <span class="badge purple">Completed</span>
+                        </div>
+                        <h3>Digital Accounting Systems for Small Businesses</h3>
+                        <p>
+                            An applied business research project evaluating how accounting software
+                            improves financial accuracy for small enterprises.
+                        </p>
+                        <div class="meta">
+                            <span>Author: Sarah Namuli</span>
+                            <span>Supervisor: CPA Grace Auma</span>
+                        </div>
+                        <div class="workflow">
+                            <span>Approved</span>
+                            <div class="progress"><div style="width: 100%;"></div></div>
+                            <span>Published</span>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn btn-primary small-btn view-project">View Details</button>
+                            <button class="btn btn-outline small-btn">Download Report</button>
+                        </div>
+                    </article>
+
+                    <article class="research-card"
+                        data-title="IoT-Based Smart Irrigation Prototype"
+                        data-department="Engineering"
+                        data-status="Under Review"
+                        data-tags="IoT Engineering Agriculture">
+                        <div class="card-top">
+                            <span class="badge red">Engineering</span>
+                            <span class="badge gray">Under Review</span>
+                        </div>
+                        <h3>IoT-Based Smart Irrigation Prototype</h3>
+                        <p>
+                            A technical prototype that uses sensors and automation to improve water
+                            efficiency in small-scale agriculture.
+                        </p>
+                        <div class="meta">
+                            <span>Author: Peter Odongo</span>
+                            <span>Supervisor: Eng. Miriam Adoch</span>
+                        </div>
+                        <div class="workflow">
+                            <span>Submitted</span>
+                            <div class="progress"><div style="width: 45%;"></div></div>
+                            <span>Review</span>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn btn-primary small-btn view-project">View Details</button>
+                            <button class="btn btn-outline small-btn">Download Proposal</button>
+                        </div>
+                    </article>
+
+                    <article class="research-card"
+                        data-title="Cybersecurity Awareness in Technical Institutions"
+                        data-department="ICT"
+                        data-status="Completed"
+                        data-tags="Cybersecurity ICT Education">
+                        <div class="card-top">
+                            <span class="badge blue">ICT</span>
+                            <span class="badge purple">Completed</span>
+                        </div>
+                        <h3>Cybersecurity Awareness in Technical Institutions</h3>
+                        <p>
+                            A study assessing password practices, phishing awareness, device safety,
+                            and data protection among college students.
+                        </p>
+                        <div class="meta">
+                            <span>Author: Linda Akello</span>
+                            <span>Supervisor: Mr. Brian Ocen</span>
+                        </div>
+                        <div class="workflow">
+                            <span>Approved</span>
+                            <div class="progress"><div style="width: 100%;"></div></div>
+                            <span>Published</span>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn btn-primary small-btn view-project">View Details</button>
+                            <button class="btn btn-outline small-btn">Download Report</button>
+                        </div>
+                    </article>
+
+                    <article class="research-card"
+                        data-title="Entrepreneurship Skills and Youth Employment"
+                        data-department="Entrepreneurship"
+                        data-status="Ongoing"
+                        data-tags="Entrepreneurship Business">
+                        <div class="card-top">
+                            <span class="badge yellow">Entrepreneurship</span>
+                            <span class="badge orange">Ongoing</span>
+                        </div>
+                        <h3>Entrepreneurship Skills and Youth Employment</h3>
+                        <p>
+                            Research on how practical entrepreneurship training improves graduate
+                            employability and startup development.
+                        </p>
+                        <div class="meta">
+                            <span>Author: Mark Tumusiime</span>
+                            <span>Supervisor: Ms. Agnes Atim</span>
+                        </div>
+                        <div class="workflow">
+                            <span>Draft</span>
+                            <div class="progress"><div style="width: 62%;"></div></div>
+                            <span>Review</span>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn btn-primary small-btn view-project">View Details</button>
+                            <button class="btn btn-outline small-btn">Download Proposal</button>
+                        </div>
+                    </article>
+
+                    <article class="research-card"
+                        data-title="E-Learning Adoption in Business and Technical Colleges"
+                        data-department="Business"
+                        data-status="Completed"
+                        data-tags="E-Learning Business Education">
+                        <div class="card-top">
+                            <span class="badge green">Business</span>
+                            <span class="badge purple">Completed</span>
+                        </div>
+                        <h3>E-Learning Adoption in Business and Technical Colleges</h3>
+                        <p>
+                            An investigation into digital learning platforms, student access,
+                            lecturer readiness, and online assessment effectiveness.
+                        </p>
+                        <div class="meta">
+                            <span>Author: Research Department</span>
+                            <span>Supervisor: Academic Office</span>
+                        </div>
+                        <div class="workflow">
+                            <span>Approved</span>
+                            <div class="progress"><div style="width: 100%;"></div></div>
+                            <span>Published</span>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn btn-primary small-btn view-project">View Details</button>
+                            <button class="btn btn-outline small-btn">Download Report</button>
+                        </div>
+                    </article>
+
+                </div>
+
+                <p class="empty-message" id="emptyMessage">No research project matches your search.</p>
+            </div>
+        </section>
+
+        <!-- =========================
+             PUBLICATIONS
+        ========================== -->
+        <section id="publications" class="section">
+            <div class="container">
+                <div class="section-heading">
+                    <span>Publications</span>
+                    <h2>Research Publications and Academic Papers</h2>
+                    <p>Read approved research articles, reports, policy papers, and technical studies.</p>
+                </div>
+
+                <div class="publication-grid">
+
+                    <article class="publication-card">
+                        <div class="publication-icon">📘</div>
+                        <span class="badge blue">Education Technology</span>
+                        <h3>Digital Learning Readiness in Technical Colleges</h3>
+                        <p>
+                            A comprehensive study on e-learning infrastructure, student access,
+                            and digital teaching capacity in technical institutions.
+                        </p>
+
+                        <div class="tags">
+                            <span>E-Learning</span>
+                            <span>ICT</span>
+                            <span>Education</span>
+                        </div>
+
+                        <div class="discussion">
+                            <h4>Discussion</h4>
+                            <p><strong>Lecturer:</strong> Good methodology and practical findings.</p>
+                            <p><strong>Student:</strong> This helped my project literature review.</p>
+                            <textarea placeholder="Write a comment..."></textarea>
+                            <button class="btn btn-outline small-btn post-comment">Post Comment</button>
+                        </div>
+
+                        <div class="card-actions">
+                            <button class="btn btn-primary small-btn read-publication">Read Paper</button>
+                            <button class="btn btn-outline small-btn">Download PDF</button>
+                            <button class="btn btn-outline small-btn like-btn">♡ Like <span>0</span></button>
+                            <button class="btn btn-outline small-btn save-btn">🔖 Save</button>
+                        </div>
+                    </article>
+
+                    <article class="publication-card">
+                        <div class="publication-icon">🔐</div>
+                        <span class="badge red">Cybersecurity</span>
+                        <h3>Cybersecurity Practices in Student Information Systems</h3>
+                        <p>
+                            A technical review of login security, data privacy, access control,
+                            and safe usage of institutional digital systems.
+                        </p>
+
+                        <div class="tags">
+                            <span>Cybersecurity</span>
+                            <span>Systems</span>
+                            <span>Data Protection</span>
+                        </div>
+
+                        <div class="discussion">
+                            <h4>Discussion</h4>
+                            <p><strong>ICT Officer:</strong> The recommendations are very useful.</p>
+                            <textarea placeholder="Write a comment..."></textarea>
+                            <button class="btn btn-outline small-btn post-comment">Post Comment</button>
+                        </div>
+
+                        <div class="card-actions">
+                            <button class="btn btn-primary small-btn read-publication">Read Paper</button>
+                            <button class="btn btn-outline small-btn">Download PDF</button>
+                            <button class="btn btn-outline small-btn like-btn">♡ Like <span>0</span></button>
+                            <button class="btn btn-outline small-btn save-btn">🔖 Save</button>
+                        </div>
+                    </article>
+
+                    <article class="publication-card">
+                        <div class="publication-icon">💼</div>
+                        <span class="badge green">Business Research</span>
+                        <h3>Mobile Money and Small Enterprise Growth</h3>
+                        <p>
+                            This paper examines how mobile money services influence record keeping,
+                            payment efficiency, and business growth among small traders.
+                        </p>
+
+                        <div class="tags">
+                            <span>Finance</span>
+                            <span>Business</span>
+                            <span>Mobile Money</span>
+                        </div>
+
+                        <div class="discussion">
+                            <h4>Discussion</h4>
+                            <p><strong>Business Student:</strong> Very relevant to local enterprises.</p>
+                            <textarea placeholder="Write a comment..."></textarea>
+                            <button class="btn btn-outline small-btn post-comment">Post Comment</button>
+                        </div>
+
+                        <div class="card-actions">
+                            <button class="btn btn-primary small-btn read-publication">Read Paper</button>
+                            <button class="btn btn-outline small-btn">Download PDF</button>
+                            <button class="btn btn-outline small-btn like-btn">♡ Like <span>0</span></button>
+                            <button class="btn btn-outline small-btn save-btn">🔖 Save</button>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================
+             INNOVATION LAB
+        ========================== -->
+        <section id="innovation" class="section alt-section">
+            <div class="container">
+                <div class="section-heading">
+                    <span>Innovation Lab</span>
+                    <h2>Prototype and Applied Innovation Space</h2>
+                    <p>
+                        Benchmark encourages students to turn research into working prototypes,
+                        business ideas, community solutions, and technical products.
+                    </p>
+                </div>
+
+                <div class="innovation-grid">
+                    <div class="innovation-card">
+                        <h3>💡 Student Startup Incubation</h3>
+                        <p>Support for business plans, pitch decks, market research, and startup validation.</p>
+                    </div>
+                    <div class="innovation-card">
+                        <h3>🛠 Technical Prototyping</h3>
+                        <p>Development of software systems, IoT devices, engineering models, and automation tools.</p>
+                    </div>
+                    <div class="innovation-card">
+                        <h3>🤝 Industry Collaboration</h3>
+                        <p>Research partnerships with local companies, NGOs, government bodies, and communities.</p>
+                    </div>
+                    <div class="innovation-card">
+                        <h3>📊 Business Analytics</h3>
+                        <p>Data-driven studies for finance, marketing, operations, and enterprise growth.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================
+             STAFF DIRECTORY
+        ========================== -->
+        <section id="staff" class="section">
+            <div class="container">
+                <div class="section-heading">
+                    <span>Research Leadership</span>
+                    <h2>Staff Directory and Supervisors</h2>
+                    <p>Connect with research coordinators, supervisors, and department experts.</p>
+                </div>
+
+                <div class="staff-grid">
+                    <article class="staff-card" data-staff="Dr. Daniel Okello|Head of ICT Research|ICT and Computer Science|AI, cybersecurity, software systems, student innovation.">
+                        <div class="staff-avatar">DO</div>
+                        <h3>Dr. Daniel Okello</h3>
+                        <p>Head of ICT Research</p>
+                        <span>ICT and Computer Science</span>
+                    </article>
+
+                    <article class="staff-card" data-staff="CPA Grace Auma|Accounting Research Supervisor|Accounting and Finance|Financial systems, taxation, auditing, and SME accounting.">
+                        <div class="staff-avatar">GA</div>
+                        <h3>CPA Grace Auma</h3>
+                        <p>Accounting Research Supervisor</p>
+                        <span>Accounting and Finance</span>
+                    </article>
+
+                    <article class="staff-card" data-staff="Eng. Miriam Adoch|Engineering Innovation Lead|Engineering Department|IoT, automation, technical drawing, and practical prototyping.">
+                        <div class="staff-avatar">MA</div>
+                        <h3>Eng. Miriam Adoch</h3>
+                        <p>Engineering Innovation Lead</p>
+                        <span>Engineering Department</span>
+                    </article>
+
+                    <article class="staff-card" data-staff="Ms. Agnes Atim|Business Research Coordinator|Business and Entrepreneurship|Enterprise growth, marketing, startup incubation, and business planning.">
+                        <div class="staff-avatar">AA</div>
+                        <h3>Ms. Agnes Atim</h3>
+                        <p>Business Research Coordinator</p>
+                        <span>Business and Entrepreneurship</span>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================
+             SUBMIT RESEARCH
+        ========================== -->
+        <section id="submit" class="section alt-section">
+            <div class="container">
+                <div class="section-heading">
+                    <span>Submit Research</span>
+                    <h2>Submit a Research Project or Publication</h2>
+                    <p>Use this form to submit proposals, final reports, prototypes, or publication drafts.</p>
+                </div>
+
+                <form class="research-form" id="researchForm">
+                    <div class="form-grid">
+                        <input type="text" id="researchTitleInput" placeholder="Research Title" required>
+                        <input type="text" placeholder="Author Name" required>
+                        <input type="text" placeholder="Co-Authors, if any">
+
+                        <select required>
+                            <option value="">Select Department</option>
+                            <option value="ICT">ICT</option>
+                            <option value="Business">Business</option>
+                            <option value="Accounting">Accounting</option>
+                            <option value="Engineering">Engineering</option>
+                            <option value="Entrepreneurship">Entrepreneurship</option>
+                            <option value="Health Technology">Health Technology</option>
+                        </select>
+
+                        <select required>
+                            <option value="">Research Type</option>
+                            <option value="Proposal">Proposal</option>
+                            <option value="Final Report">Final Report</option>
+                            <option value="Publication">Publication</option>
+                            <option value="Prototype Documentation">Prototype Documentation</option>
+                        </select>
+
+                        <select required>
+                            <option value="">Visibility</option>
+                            <option value="Public">Public</option>
+                            <option value="Private">Private</option>
+                            <option value="Department Only">Department Only</option>
+                        </select>
+                    </div>
+
+                    <textarea placeholder="Research Abstract" rows="5" required></textarea>
+                    <textarea placeholder="Methodology Summary or Project Description" rows="6"></textarea>
+
+                    <label class="upload-box">
+                        <span>Upload Research Document</span>
+                        <small>Accepted files: PDF, DOC, DOCX</small>
+                        <input type="file" accept=".pdf,.doc,.docx">
+                    </label>
+
+                    <button type="submit" class="btn btn-primary">Submit Research</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- =========================
+             NOTIFICATIONS
+        ========================== -->
+        <section id="notifications" class="section">
+            <div class="container">
+                <div class="section-heading">
+                    <span>Notifications</span>
+                    <h2>Research Alerts and Updates</h2>
+                    <p>Stay updated on approvals, comments, reviews, deadlines, and new publications.</p>
+                </div>
+
+                <div class="notification-list">
+                    <div class="notification">
+                        <div>✅</div>
+                        <div>
+                            <p>Your research proposal “AI-Based Student Performance Prediction System” has moved to review stage.</p>
+                            <small>2 hours ago</small>
+                        </div>
+                    </div>
+
+                    <div class="notification">
+                        <div>💬</div>
+                        <div>
+                            <p>New supervisor comment added to “Digital Accounting Systems for Small Businesses”.</p>
+                            <small>Yesterday</small>
+                        </div>
+                    </div>
+
+                    <div class="notification">
+                        <div>📢</div>
+                        <div>
+                            <p>Research Symposium registration is now open for all final-year students.</p>
+                            <small>3 days ago</small>
+                        </div>
+                    </div>
+
+                    <div class="notification">
+                        <div>📘</div>
+                        <div>
+                            <p>Three new publications were added under ICT and Business Research.</p>
+                            <small>1 week ago</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- =========================
+         MODAL
+    ========================== -->
+    <div class="modal" id="infoModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">×</button>
+            <span class="modal-label" id="modalLabel">Research Details</span>
+            <h2 id="modalTitle">Title</h2>
+            <p id="modalBody">Content will appear here.</p>
+
+            <div class="modal-actions">
+                <button class="btn btn-primary">Download</button>
+                <button class="btn btn-outline">Save</button>
+                <button class="btn btn-outline">Share</button>
+            </div>
         </div>
     </div>
-</section>
 
-<section id="profile" class="section">
+    <!-- =========================
+         FOOTER
+    ========================== -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div>
+                <h3>Benchmark Research Hub</h3>
+                <p>
+                    Benchmark Business and Technical College research platform for academic,
+                    business, technical, and innovation development.
+                </p>
+            </div>
 
-    <h2>Researcher Profile</h2>
+            <div>
+                <h4>Quick Links</h4>
+                <a href="#projects">Research Projects</a>
+                <a href="#publications">Publications</a>
+                <a href="#submit">Submit Research</a>
+                <a href="#staff">Staff Directory</a>
+            </div>
 
-    <div class="profile-box">
-
-        <h3>John Student</h3>
-        <p><strong>Role:</strong> Student Researcher</p>
-        <p><strong>Department:</strong> ICT</p>
-
-        <p><strong>Submitted Research:</strong> 3</p>
-        <p><strong>Approved Publications:</strong> 1</p>
-
-        <button>View My Research</button>
-        <button>Edit Profile</button>
-
-    </div>
-
-</section>
-
-<!-- =========================
-     OVERVIEW SECTION
-========================= -->
-<section id="overview" class="section">
-    <h2>Research Overview</h2>
-
-    <p>
-        The Research Department at Laropi Secondary School focuses on developing
-        innovative academic and community-based solutions that improve education,
-        technology adoption, and local development.
-    </p>
-
-    <div class="stats">
-        <div class="stat-box">
-            <h3>120+</h3>
-            <p>Active Research Projects</p>
-        </div>
-
-        <div class="stat-box">
-            <h3>45+</h3>
-            <p>Completed Studies</p>
-        </div>
-
-        <div class="stat-box">
-            <h3>30+</h3>
-            <p>Research Staff</p>
-        </div>
-
-        <div class="stat-box">
-            <h3>10+</h3>
-            <p>Departments</p>
-        </div>
-    </div>
-</section>
-
-<!-- =========================
-     FILTER + SEARCH SECTION
-========================= -->
-<section class="section filter-section">
-    <h2>Search Research</h2>
-
-    <div class="filter-box">
-
-        <input type="text" placeholder="Search research title..." />
-
-        <select>
-            <option value="">All Departments</option>
-            <option value="ICT">ICT</option>
-            <option value="Education">Education</option>
-            <option value="Business">Business</option>
-            <option value="Science">Science</option>
-        </select>
-
-        <select>
-            <option value="">All Status</option>
-            <option value="ongoing">Ongoing</option>
-            <option value="completed">Completed</option>
-        </select>
-
-        <button>Search</button>
-    </div>
-</section>
-<!-- =========================
-     TAG FILTER SYSTEM
-========================= -->
-<section class="section">
-    <h2>Filter by Research Tags</h2>
-
-    <div class="tag-filters">
-
-        <button>All</button>
-        <button>AI</button>
-        <button>Blockchain</button>
-        <button>Education</button>
-        <button>Cybersecurity</button>
-        <button>Finance</button>
-        <button>Health</button>
-
-    </div>
-</section>
-
-<!-- =========================
-     RESEARCH PROJECTS
-========================= -->
-<section id="projects" class="section">
-    <h2>Research Projects</h2>
-
-    <div class="card-container">
-
-        <!-- Project Card 1 -->
-        <div class="card">
-            <h3>AI in Education Systems</h3>
-            <p><strong>Department:</strong> ICT</p>
-            <p><strong>Status:</strong> Ongoing</p>
-            <p>
-                This research explores how artificial intelligence can improve
-                student learning outcomes in secondary schools.
-            </p>
-            <div class="workflow">
-    <span>Draft → Pending → Approved</span>
-    <div class="progress-bar"></div>
-</div>
-
-            <div class="card-buttons">
-                <button>View Details</button>
-                <button>Download Proposal</button>
+            <div>
+                <h4>Contact</h4>
+                <p>Email: research@benchmarkcollege.ac.ug</p>
+                <p>Phone: +256 700 000 000</p>
+                <p>Location: Uganda</p>
             </div>
         </div>
 
-        <!-- Project Card 2 -->
-        <div class="card">
-            <h3>Digital Banking Security</h3>
-            <p><strong>Department:</strong> Business</p>
-            <p><strong>Status:</strong> Ongoing</p>
-            <p>
-                Analyzing risks and vulnerabilities in mobile and online banking systems.
-            </p>
-
-            <div class="card-buttons">
-                <button>View Details</button>
-                <button>Download Proposal</button>
-            </div>
+        <div class="footer-bottom">
+            <p>© 2026 Benchmark Business and Technical College Research Hub. All rights reserved.</p>
         </div>
+    </footer>
 
-        <!-- Project Card 3 -->
-        <div class="card">
-            <h3>E-Learning Impact Study</h3>
-            <p><strong>Department:</strong> Education</p>
-            <p><strong>Status:</strong> Completed</p>
-            <p>
-                Study on how digital learning platforms affect student performance.
-            </p>
-
-            <div class="card-buttons">
-                <button>View Details</button>
-                <button>Download Report</button>
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<section id="publications" class="section">
-    <h2>Research Publications</h2>
-
-    <div class="card-container">
-
-        <!-- PUBLICATION CARD -->
-        <div class="card publication-card">
-            <h3>Education Technology Trends in Uganda</h3>
-
-            <p><strong>Author:</strong> Research Department</p>
-            <p><strong>Category:</strong> Education Technology</p>
-
-            <div class="tags">
-                <span>AI</span>
-                <span>E-Learning</span>
-                <span>Education</span>
-            </div>
-
-            <p class="preview">
-                This study explores how modern digital tools are transforming learning outcomes in secondary schools across Uganda...
-            </p>
-            <div class="comments-section">
-
-    <h4>Discussion</h4>
-
-    <div class="comment-box">
-        <p><strong>Student A:</strong> Very insightful research!</p>
-    </div>
-
-    <div class="comment-box">
-        <p><strong>Lecturer B:</strong> Consider expanding methodology section.</p>
-    </div>
-
-    <textarea placeholder="Write a comment..."></textarea>
-    <button>Post Comment</button>
-
-</div>
-
-            <div class="card-buttons">
-                <button onclick="openPublication('pub1')">Read Full Paper</button>
-                <button>Download PDF</button>
-                <button>❤ Like</button>
-                <button>🔖 Save</button>
-            </div>
-        </div>
-
-        <!-- PUBLICATION CARD -->
-        <div class="card publication-card">
-            <h3>Blockchain Security Models in Finance</h3>
-
-            <p><strong>Author:</strong> Jane Smith</p>
-            <p><strong>Category:</strong> Cybersecurity</p>
-
-            <div class="tags">
-                <span>Blockchain</span>
-                <span>Security</span>
-                <span>Finance</span>
-            </div>
-
-            <p class="preview">
-                A deep analysis of blockchain-based security frameworks in digital financial systems...
-            </p>
-
-            <div class="card-buttons">
-                <button onclick="openPublication('pub2')">Read Full Paper</button>
-                <button>Download PDF</button>
-                <button>❤ Like</button>
-                <button>🔖 Save</button>
-            </div>
-        </div>
-
-    </div>
-</section>
-<section id="staff" class="section">
-    <h2>Research Staff Directory</h2>
-
-    <div class="card-container">
-
-        <!-- STAFF CARD -->
-        <div class="card staff-card" onclick="openStaff('staff1')">
-            <h3>Dr. John Doe</h3>
-            <p>Head of ICT Research</p>
-            <p><strong>Department:</strong> ICT</p>
-        </div>
-
-        <div class="card staff-card" onclick="openStaff('staff2')">
-            <h3>Prof. Jane Smith</h3>
-            <p>Business Research Lead</p>
-            <p><strong>Department:</strong> Business</p>
-        </div>
-
-        <div class="card staff-card" onclick="openStaff('staff3')">
-            <h3>Dr. Sarah Nakato</h3>
-            <p>Education Research Coordinator</p>
-            <p><strong>Department:</strong> Education</p>
-        </div>
-
-    </div>
-</section>
-<section id="submit" class="section">
-
-    <h2>Submit Research Project</h2>
-
-    <form class="research-form">
-
-        <input type="text" placeholder="Research Title" required>
-
-        <input type="text" placeholder="Author Name (Student / Lecturer)" required>
-
-        <input type="text" placeholder="Co-Authors (optional)">
-
-        <select required>
-            <option value="">Select Department</option>
-            <option value="ICT">ICT</option>
-            <option value="Education">Education</option>
-            <option value="Business">Business</option>
-            <option value="Science">Science</option>
-        </select>
-
-        <select required>
-            <option value="">Research Status</option>
-            <option value="draft">Draft</option>
-            <option value="pending">Pending Review</option>
-            <option value="approved">Approved</option>
-        </select>
-
-        <select required>
-            <option value="">Visibility</option>
-            <option value="public">Public</option>
-            <option value="private">Private</option>
-        </select>
-
-        <textarea placeholder="Research Abstract (short description)" rows="4" required></textarea>
-
-        <textarea placeholder="Full Research Content (optional preview for backend)" rows="6"></textarea>
-
-        <label>Upload Document (PDF, DOCX)</label>
-        <input type="file" accept=".pdf,.doc,.docx">
-
-        <button type="submit">Submit Research</button>
-
-    </form>
-</section>
-<section id="notifications" class="section">
-
-    <h2>Research Notifications</h2>
-
-    <div class="notification">
-
-        <p>📢 Your research "AI in Education" has been approved.</p>
-        <small>2 hours ago</small>
-
-    </div>
-
-    <div class="notification">
-
-        <p>💬 New comment on "Blockchain Security Models"</p>
-        <small>Yesterday</small>
-
-    </div>
-
-    <div class="notification">
-
-        <p>📥 New research submitted by ICT Department</p>
-        <small>3 days ago</small>
-
-    </div>
-
-</section>
-
-<!-- =========================
-     FULL RESEARCH VIEW MODAL
-========================= -->
-<div id="researchModal" class="modal">
-    <div class="modal-content">
-
-        <span class="close" onclick="closeResearch()">×</span>
-
-        <h2 id="researchTitle"></h2>
-
-        <p><strong>Author:</strong> <span id="researchAuthor"></span></p>
-        <p><strong>Department:</strong> <span id="researchDept"></span></p>
-        <p><strong>Status:</strong> <span id="researchStatus"></span></p>
-        <p><strong>Submitted:</strong> <span id="researchDate"></span></p>
-
-        <hr>
-        <h3>Related Research</h3>
-
-<ul>
-    <li>AI in Smart Classrooms</li>
-    <li>Digital Learning Systems</li>
-    <li>Machine Learning in Education</li>
-</ul>
-
-        <div id="researchBody">
-            Full research content will appear here...
-        </div>
-
-        <hr>
-
-        <div class="interaction-box">
-
-            <button>👍 Like (<span>0</span>)</button>
-            <button>🔖 Save</button>
-            <button>⬇ Download</button>
-            <button>📤 Share</button>
-
-        </div>
-
-    </div>
-</div>
-
-
-<!-- =========================
-     FOOTER
-========================= -->
-<footer class="footer">
-    <p>© 2026 Laropi Secondary School Research Portal | Strive to Achieve</p>
-</footer>
-<script src="research.js"></script>
+    <script src="research.js"></script>
 </body>
 </html>

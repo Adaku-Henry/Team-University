@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us | Benchmark Business and Technical College</title>
+    <link rel="stylesheet" href="contact.css" />
+</head>
+<body>
+
+    <!-- ================= HEADER ================= -->
+    <header class="site-header">
+        <div class="top-strip">
+            <div>
+                <span>📞 +256 700 123 456</span>
+                <span>✉️ info@benchmarkcollege.ac.ug</span>
+            </div>
+            <div>
+                <button id="contrastToggle" class="mini-btn">High Contrast</button>
+                <select id="languageSelect" class="language-select">
+                    <option value="en">English</option>
+                    <option value="sw">Swahili</option>
+                    <option value="lu">Lugbara</option>
+                </select>
+            </div>
+        </div>
+
+        <nav class="navbar">
+            <a href="#" class="brand">
+                <span class="brand-mark">B</span>
+                <span>
+                    <strong>Benchmark Business & Technical College</strong>
+                    <small>Skills • Innovation • Enterprise</small>
+                </span>
+            </a>
+
+            <button class="menu-toggle" id="menuToggle">☰</button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#quick-contact">Quick Contact</a></li>
+                <li><a href="#contact-form">Send Message</a></li>
+                <li><a href="#departments">Departments</a></li>
+                <li><a href="#staff">Staff</a></li>
+                <li><a href="#tickets">Support</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#map">Location</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ================= HERO ================= -->
+    <section id="home" class="hero">
+        <div class="hero-bg-shape shape-one"></div>
+        <div class="hero-bg-shape shape-two"></div>
+
+        <div class="floating-image image-one">
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=700&q=80" alt="Students contacting college support">
+        </div>
+
+        <div class="floating-image image-two">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=700&q=80" alt="College help desk">
+        </div>
+
+        <div class="hero-content">
+            <span class="badge">Official Contact Centre</span>
+            <h1>Contact Benchmark Business and Technical College</h1>
+            <p>
+                We are here to support prospective students, current students, parents, alumni,
+                researchers, partners, donors, media houses, and the public.
+            </p>
+
+            <div class="hero-actions">
+                <a href="#contact-form" class="btn btn-primary">Send Message</a>
+                <a href="tel:+256700123456" class="btn btn-outline">Call Now</a>
+                <a href="#appointments" class="btn btn-light">Book Appointment</a>
+            </div>
+
+            <div class="hero-mini-stats">
+                <div><strong>24/7</strong><span>Online Help</span></div>
+                <div><strong>20+</strong><span>Departments</span></div>
+                <div><strong>5 min</strong><span>Auto Response</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= CONTACT DASHBOARD ================= -->
+    <section class="section dashboard-section">
+        <div class="section-heading">
+            <span>Live Contact Dashboard</span>
+            <h2>Contact Activity Overview</h2>
+            <p>Frontend dashboard updates instantly as users submit messages, tickets, appointments, and feedback.</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="dash-card">
+                <div class="dash-icon">📨</div>
+                <h3 id="totalMessages">0</h3>
+                <p>Total Messages</p>
+            </div>
+            <div class="dash-card">
+                <div class="dash-icon">👀</div>
+                <h3 id="unreadMessages">0</h3>
+                <p>Unread Messages</p>
+            </div>
+            <div class="dash-card">
+                <div class="dash-icon">✅</div>
+                <h3 id="resolvedInquiries">0</h3>
+                <p>Resolved Inquiries</p>
+            </div>
+            <div class="dash-card">
+                <div class="dash-icon">⏳</div>
+                <h3 id="pendingResponses">0</h3>
+                <p>Pending Responses</p>
+            </div>
+            <div class="dash-card">
+                <div class="dash-icon">🎫</div>
+                <h3 id="supportTickets">0</h3>
+                <p>Support Tickets</p>
+            </div>
+            <div class="dash-card">
+                <div class="dash-icon">📅</div>
+                <h3 id="todayContacts">0</h3>
+                <p>Today's Contacts</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= QUICK CONTACT ================= -->
+    <section id="quick-contact" class="section">
+        <div class="section-heading">
+            <span>Reach Us Quickly</span>
+            <h2>Quick Contact Information</h2>
+            <p>Use direct contact channels for urgent and office-specific support.</p>
+        </div>
+
+        <div class="quick-grid">
+            <a class="quick-card" href="tel:+256700123456">
+                <div>📞</div>
+                <h3>Main Telephone</h3>
+                <p>+256 700 123 456</p>
+            </a>
+
+            <a class="quick-card" href="mailto:info@benchmarkcollege.ac.ug">
+                <div>✉️</div>
+                <h3>Email Address</h3>
+                <p>info@benchmarkcollege.ac.ug</p>
+            </a>
+
+            <a class="quick-card" href="https://wa.me/256700123456" target="_blank">
+                <div>💬</div>
+                <h3>WhatsApp</h3>
+                <p>+256 700 123 456</p>
+            </a>
+
+            <a class="quick-card" href="tel:+256701555999">
+                <div>🎓</div>
+                <h3>Admissions Hotline</h3>
+                <p>+256 701 555 999</p>
+            </a>
+
+            <a class="quick-card emergency" href="tel:+256777911911">
+                <div>🚨</div>
+                <h3>Emergency Contact</h3>
+                <p>+256 777 911 911</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- ================= OFFICIAL CONTACT INFO ================= -->
+    <section class="section split-section">
+        <div class="info-panel">
+            <span class="badge dark">Institution Details</span>
+            <h2>Official Contact Details</h2>
+
+            <div class="info-list">
+                <p><strong>Institution:</strong> Benchmark Business and Technical College</p>
+                <p><strong>Physical Address:</strong> Arua City, West Nile, Uganda</p>
+                <p><strong>Postal Address:</strong> P.O. Box 123, Arua, Uganda</p>
+                <p><strong>Phone:</strong> +256 700 123 456</p>
+                <p><strong>WhatsApp:</strong> +256 700 123 456</p>
+                <p><strong>Email:</strong> info@benchmarkcollege.ac.ug</p>
+                <p><strong>Website:</strong> www.benchmarkcollege.ac.ug</p>
+            </div>
+
+            <div class="office-hours">
+                <h3>Office Hours</h3>
+                <p><strong>Monday - Friday:</strong> 8:00 AM - 5:00 PM</p>
+                <p><strong>Saturday:</strong> 9:00 AM - 1:00 PM</p>
+                <p><strong>Sunday:</strong> Closed</p>
+                <p><strong>Public Holidays:</strong> Emergency services only</p>
+            </div>
+        </div>
+
+        <div class="animated-card">
+            <img src="https://images.unsplash.com/photo-1560264280-88b68371db39?auto=format&fit=crop&w=900&q=80" alt="Benchmark College office support">
+            <div class="pulse-note">
+                <span></span>
+                Live support simulation active
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= CONTACT FORM ================= -->
+    <section id="contact-form" class="section">
+        <div class="section-heading">
+            <span>Send Message</span>
+            <h2>Complete Contact Form</h2>
+            <p>Submit your inquiry and receive an instant confirmation on the page.</p>
+        </div>
+
+        <form class="form-card" id="mainContactForm">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" id="fullName" placeholder="Enter full name" maxlength="80" required>
+                    <small class="error"></small>
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address *</label>
+                    <input type="email" id="email" placeholder="example@email.com" required>
+                    <small class="error"></small>
+                </div>
+
+                <div class="form-group">
+                    <label>Phone Number *</label>
+                    <input type="tel" id="phone" placeholder="+256700123456" required>
+                    <small class="error"></small>
+                </div>
+
+                <div class="form-group">
+                    <label>Country</label>
+                    <input type="text" id="country" placeholder="Uganda">
+                </div>
+
+                <div class="form-group">
+                    <label>Organization</label>
+                    <input type="text" id="organization" placeholder="School, company, NGO, etc.">
+                </div>
+
+                <div class="form-group">
+                    <label>Department *</label>
+                    <select id="department" required>
+                        <option value="">Select Department</option>
+                        <option>Admissions</option>
+                        <option>Registrar</option>
+                        <option>Finance</option>
+                        <option>ICT Support</option>
+                        <option>Library</option>
+                        <option>Research Office</option>
+                        <option>Academic Affairs</option>
+                        <option>Human Resource</option>
+                        <option>Student Affairs</option>
+                    </select>
+                    <small class="error"></small>
+                </div>
+
+                <div class="form-group">
+                    <label>Category *</label>
+                    <select id="category" required>
+                        <option value="">Select Category</option>
+                        <option>General Inquiry</option>
+                        <option>Admissions</option>
+                        <option>Finance</option>
+                        <option>Research</option>
+                        <option>ICT Support</option>
+                        <option>Student Affairs</option>
+                        <option>Complaints</option>
+                        <option>Suggestions</option>
+                        <option>Partnerships</option>
+                        <option>Media</option>
+                    </select>
+                    <small class="error"></small>
+                </div>
+
+                <div class="form-group">
+                    <label>Priority</label>
+                    <select id="priority">
+                        <option>Normal</option>
+                        <option>Low</option>
+                        <option>High</option>
+                        <option>Urgent</option>
+                    </select>
+                </div>
+
+                <div class="form-group full">
+                    <label>Subject *</label>
+                    <input type="text" id="subject" placeholder="Brief message subject" maxlength="120" required>
+                    <small class="error"></small>
+                </div>
+
+                <div class="form-group full">
+                    <label>Message *</label>
+                    <textarea id="message" rows="6" placeholder="Write your message here..." maxlength="1000" required></textarea>
+                    <div class="char-row">
+                        <small class="error"></small>
+                        <small><span id="messageCount">0</span>/1000</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Attachment</label>
+                    <input type="file" id="attachment" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.zip">
+                </div>
+
+                <div class="form-group captcha-box">
+                    <label>Spam Protection *</label>
+                    <div>
+                        <span id="captchaQuestion"></span>
+                        <input type="number" id="captchaAnswer" placeholder="Answer" required>
+                    </div>
+                    <small class="error"></small>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Send Message</button>
+            <p id="formSuccess" class="success-message"></p>
+        </form>
+    </section>
+
+    <!-- ================= DEPARTMENT DIRECTORY ================= -->
+    <section id="departments" class="section">
+        <div class="section-heading">
+            <span>Offices</span>
+            <h2>Department Directory</h2>
+            <p>Contact specific college offices directly.</p>
+        </div>
+
+        <div class="directory-grid" id="departmentGrid"></div>
+    </section>
+
+    <!-- ================= STAFF DIRECTORY ================= -->
+    <section id="staff" class="section">
+        <div class="section-heading">
+            <span>People</span>
+            <h2>Searchable Staff Directory</h2>
+            <p>Search by name, position, department, email, phone, or office location.</p>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" id="staffSearch" placeholder="Search staff by name, department, position...">
+            <select id="staffDepartmentFilter">
+                <option value="">All Departments</option>
+                <option>Admissions</option>
+                <option>Registrar</option>
+                <option>Finance</option>
+                <option>ICT Support</option>
+                <option>Research Office</option>
+                <option>Student Affairs</option>
+            </select>
+        </div>
+
+        <div class="staff-grid" id="staffGrid"></div>
+    </section>
+
+    <!-- ================= CAMPUS LOCATIONS ================= -->
+    <section class="section">
+        <div class="section-heading">
+            <span>Campuses</span>
+            <h2>Campus Locations</h2>
+            <p>Main campus, branch campus, study centres, and innovation hubs.</p>
+        </div>
+
+        <div class="campus-grid">
+            <div class="campus-card">
+                <h3>Main Campus</h3>
+                <p>Arua City, West Nile, Uganda</p>
+                <p>Phone: +256 700 123 456</p>
+                <p>Email: maincampus@benchmarkcollege.ac.ug</p>
+                <p>Hours: Mon-Fri, 8:00 AM - 5:00 PM</p>
+            </div>
+
+            <div class="campus-card">
+                <h3>Business Training Centre</h3>
+                <p>Arua Central Business Area</p>
+                <p>Phone: +256 701 555 999</p>
+                <p>Email: business@benchmarkcollege.ac.ug</p>
+                <p>Hours: Mon-Sat, 9:00 AM - 4:00 PM</p>
+            </div>
+
+            <div class="campus-card">
+                <h3>Technical Skills Centre</h3>
+                <p>Industrial Area, Arua</p>
+                <p>Phone: +256 702 444 888</p>
+                <p>Email: technical@benchmarkcollege.ac.ug</p>
+                <p>Hours: Mon-Fri, 8:00 AM - 5:00 PM</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= MAP ================= -->
+    <section id="map" class="section">
+        <div class="section-heading">
+            <span>Find Us</span>
+            <h2>Interactive Campus Map</h2>
+            <p>Use the map to view location and directions.</p>
+        </div>
+
+        <div class="map-wrap">
+            <iframe
+                title="Benchmark College Location Map"
+                src="https://www.google.com/maps?q=Arua%20Uganda&output=embed"
+                loading="lazy">
+            </iframe>
+        </div>
+
+        <div class="map-actions">
+            <a href="https://www.google.com/maps/search/?api=1&query=Arua+Uganda" target="_blank" class="btn btn-primary">Open in Google Maps</a>
+            <a href="https://www.google.com/maps/dir/?api=1&destination=Arua+Uganda" target="_blank" class="btn btn-outline">Get Directions</a>
+        </div>
+    </section>
+
+    <!-- ================= APPOINTMENTS ================= -->
+    <section id="appointments" class="section two-column">
+        <div>
+            <div class="section-heading left">
+                <span>Booking</span>
+                <h2>Appointment Booking</h2>
+                <p>Book a meeting with college offices.</p>
+            </div>
+
+            <form class="form-card compact" id="appointmentForm">
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" id="appointmentName" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" id="appointmentEmail" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Officer *</label>
+                    <select id="appointmentOfficer" required>
+                        <option value="">Select Officer</option>
+                        <option>Admissions Officer</option>
+                        <option>Registrar</option>
+                        <option>Finance Officer</option>
+                        <option>Dean</option>
+                        <option>Research Director</option>
+                        <option>Head of Department</option>
+                    </select>
+                </div>
+
+                <div class="form-grid small-grid">
+                    <div class="form-group">
+                        <label>Date *</label>
+                        <input type="date" id="appointmentDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Time *</label>
+                        <input type="time" id="appointmentTime" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Meeting Type *</label>
+                    <select id="meetingType" required>
+                        <option>Physical</option>
+                        <option>Online</option>
+                        <option>Phone Call</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Purpose *</label>
+                    <textarea id="appointmentPurpose" rows="4" required></textarea>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Book Appointment</button>
+                <p id="appointmentSuccess" class="success-message"></p>
+            </form>
+        </div>
+
+        <div class="booking-visual">
+            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=900&q=80" alt="Appointment booking">
+            <div class="calendar-float">
+                <strong id="currentDay">Today</strong>
+                <span id="currentDate">--</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SUPPORT TICKETS ================= -->
+    <section id="tickets" class="section">
+        <div class="section-heading">
+            <span>Help Desk</span>
+            <h2>Support Ticket System</h2>
+            <p>Submit a ticket for technical, admissions, finance, registration, results, or research support.</p>
+        </div>
+
+        <div class="ticket-layout">
+            <form class="form-card" id="ticketForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Name *</label>
+                        <input type="text" id="ticketName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" id="ticketEmail" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Category *</label>
+                        <select id="ticketCategory" required>
+                            <option value="">Select Category</option>
+                            <option>Admission</option>
+                            <option>Finance</option>
+                            <option>Registration</option>
+                            <option>ICT Support</option>
+                            <option>Results</option>
+                            <option>Research</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Priority *</label>
+                        <select id="ticketPriority" required>
+                            <option>Low</option>
+                            <option>Normal</option>
+                            <option>High</option>
+                            <option>Urgent</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Issue Description *</label>
+                        <textarea id="ticketIssue" rows="5" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Upload Document</label>
+                        <input type="file" id="ticketFile" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.zip">
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Submit Ticket</button>
+                <p id="ticketSuccess" class="success-message"></p>
+            </form>
+
+            <div class="ticket-panel">
+                <h3>Recent Tickets</h3>
+                <div id="ticketList" class="activity-list"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= COMPLAINTS / SUGGESTIONS / FEEDBACK ================= -->
+    <section class="section">
+        <div class="section-heading">
+            <span>Voice of Users</span>
+            <h2>Complaints, Suggestions & Feedback</h2>
+            <p>Submit confidential complaints, improvement suggestions, or service ratings.</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="complaintTab">Complaint</button>
+            <button class="tab-btn" data-tab="suggestionTab">Suggestion</button>
+            <button class="tab-btn" data-tab="feedbackTab">Feedback</button>
+        </div>
+
+        <div class="tab-content active" id="complaintTab">
+            <form class="form-card compact" id="complaintForm">
+                <div class="form-group">
+                    <label>Complaint Category *</label>
+                    <select id="complaintCategory" required>
+                        <option>Academic</option>
+                        <option>Finance</option>
+                        <option>Staff Conduct</option>
+                        <option>Facilities</option>
+                        <option>ICT</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Priority *</label>
+                    <select id="complaintPriority" required>
+                        <option>Normal</option>
+                        <option>High</option>
+                        <option>Urgent</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Complaint *</label>
+                    <textarea id="complaintText" rows="5" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Evidence</label>
+                    <input type="file" id="complaintEvidence" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.zip">
+                </div>
+
+                <button class="btn btn-primary" type="submit">Submit Complaint</button>
+                <p id="complaintSuccess" class="success-message"></p>
+            </form>
+        </div>
+
+        <div class="tab-content" id="suggestionTab">
+            <form class="form-card compact" id="suggestionForm">
+                <div class="form-group">
+                    <label>Suggestion Category *</label>
+                    <select id="suggestionCategory" required>
+                        <option>Academics</option>
+                        <option>Student Services</option>
+                        <option>Facilities</option>
+                        <option>Research</option>
+                        <option>ICT</option>
+                    </select>
+                </div>
+
+                <div class="form-group checkbox-row">
+                    <input type="checkbox" id="anonymousSuggestion">
+                    <label for="anonymousSuggestion">Submit anonymously</label>
+                </div>
+
+                <div class="form-group">
+                    <label>Suggestion *</label>
+                    <textarea id="suggestionText" rows="5" required></textarea>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Send Suggestion</button>
+                <p id="suggestionSuccess" class="success-message"></p>
+            </form>
+        </div>
+
+        <div class="tab-content" id="feedbackTab">
+            <form class="form-card compact" id="feedbackForm">
+                <div class="form-group">
+                    <label>Department *</label>
+                    <select id="feedbackDepartment" required>
+                        <option>Admissions</option>
+                        <option>Registrar</option>
+                        <option>Finance</option>
+                        <option>ICT Support</option>
+                        <option>Research Office</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Service Rating *</label>
+                    <div class="rating" id="ratingStars">
+                        <span data-value="1">★</span>
+                        <span data-value="2">★</span>
+                        <span data-value="3">★</span>
+                        <span data-value="4">★</span>
+                        <span data-value="5">★</span>
+                    </div>
+                    <input type="hidden" id="ratingValue" value="0">
+                </div>
+
+                <div class="form-group">
+                    <label>Comments</label>
+                    <textarea id="feedbackComment" rows="5"></textarea>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Submit Feedback</button>
+                <p id="feedbackSuccess" class="success-message"></p>
+            </form>
+        </div>
+    </section>
+
+    <!-- ================= SPECIAL CONTACTS ================= -->
+    <section class="section special-section">
+        <div class="section-heading">
+            <span>Special Units</span>
+            <h2>Specialized Contact Offices</h2>
+            <p>For international students, partnerships, media, alumni, and research collaborations.</p>
+        </div>
+
+        <div class="special-grid">
+            <div class="special-card">
+                <h3>🌍 International Students</h3>
+                <p>Visa support, accommodation guidance, airport pickup, and orientation.</p>
+                <a href="mailto:international@benchmarkcollege.ac.ug">international@benchmarkcollege.ac.ug</a>
+            </div>
+
+            <div class="special-card">
+                <h3>🤝 Partnerships</h3>
+                <p>NGO, industry, government, and academic collaboration contacts.</p>
+                <a href="mailto:partnerships@benchmarkcollege.ac.ug">partnerships@benchmarkcollege.ac.ug</a>
+            </div>
+
+            <div class="special-card">
+                <h3>📰 Media & Public Relations</h3>
+                <p>Press releases, interviews, media visits, and public communication.</p>
+                <a href="mailto:media@benchmarkcollege.ac.ug">media@benchmarkcollege.ac.ug</a>
+            </div>
+
+            <div class="special-card">
+                <h3>🎓 Alumni Relations</h3>
+                <p>Alumni events, transcript support, career services, and networking.</p>
+                <a href="mailto:alumni@benchmarkcollege.ac.ug">alumni@benchmarkcollege.ac.ug</a>
+            </div>
+
+            <div class="special-card">
+                <h3>🔬 Research & Innovation</h3>
+                <p>Research grants, innovation hub, technology transfer, and publications.</p>
+                <a href="mailto:research@benchmarkcollege.ac.ug">research@benchmarkcollege.ac.ug</a>
+            </div>
+
+            <div class="special-card">
+                <h3>♿ Accessibility Support</h3>
+                <p>Screen reader support, accessible services, and disability support.</p>
+                <a href="mailto:accessibility@benchmarkcollege.ac.ug">accessibility@benchmarkcollege.ac.ug</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FAQ ================= -->
+    <section id="faq" class="section">
+        <div class="section-heading">
+            <span>Help Centre</span>
+            <h2>Frequently Asked Questions</h2>
+            <p>Search common questions before contacting support.</p>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" id="faqSearch" placeholder="Search FAQ: admissions, fees, results, graduation...">
+        </div>
+
+        <div class="faq-list" id="faqList"></div>
+    </section>
+
+    <!-- ================= SOCIAL / EMERGENCY / RESOURCES ================= -->
+    <section class="section three-column-section">
+        <div class="resource-card">
+            <h3>Social Media Hub</h3>
+            <div class="social-links">
+                <a href="#">Facebook</a>
+                <a href="#">X / Twitter</a>
+                <a href="#">Instagram</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">YouTube</a>
+                <a href="#">TikTok</a>
+            </div>
+        </div>
+
+        <div class="resource-card emergency-box">
+            <h3>Emergency Contacts</h3>
+            <p><strong>Security Office:</strong> +256 777 911 911</p>
+            <p><strong>Medical Centre:</strong> +256 777 222 333</p>
+            <p><strong>ICT Emergency:</strong> +256 700 888 999</p>
+            <p><strong>Fire Department:</strong> 999</p>
+            <p><strong>Student Welfare:</strong> +256 701 333 222</p>
+        </div>
+
+        <div class="resource-card">
+            <h3>Download Resources</h3>
+            <button class="download-btn" data-file="Campus Map">Campus Map PDF</button>
+            <button class="download-btn" data-file="Prospectus">Prospectus</button>
+            <button class="download-btn" data-file="Application Form">Application Form</button>
+            <button class="download-btn" data-file="Contact Directory">Contact Directory PDF</button>
+        </div>
+    </section>
+
+    <!-- ================= HELP LINKS / NEWSLETTER / ANNOUNCEMENTS ================= -->
+    <section class="section two-column">
+        <div class="resource-card">
+            <h3>Student Help Centre</h3>
+            <div class="help-links">
+                <a href="#">Admissions Portal</a>
+                <a href="#">Student Portal</a>
+                <a href="#">E-Learning</a>
+                <a href="#">Library</a>
+                <a href="#">Results Portal</a>
+                <a href="#">Finance Portal</a>
+            </div>
+        </div>
+
+        <div class="resource-card">
+            <h3>Newsletter Subscription</h3>
+            <p>Receive admissions notices, registration deadlines, events, and research calls.</p>
+            <form id="newsletterForm" class="newsletter-form">
+                <input type="text" id="newsletterName" placeholder="Your name" required>
+                <input type="email" id="newsletterEmail" placeholder="Your email" required>
+                <button class="btn btn-primary" type="submit">Subscribe</button>
+                <p id="newsletterSuccess" class="success-message"></p>
+            </form>
+
+            <div class="announcements">
+                <h4>Latest Announcements</h4>
+                <ul>
+                    <li>Admissions for the new intake are open.</li>
+                    <li>Research proposal submission deadline is approaching.</li>
+                    <li>Graduation application portal is now active.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= ADMIN PREVIEW ================= -->
+    <section class="section admin-preview">
+        <div class="section-heading">
+            <span>Contact Management Preview</span>
+            <h2>Admin Message Management</h2>
+            <p>Preview of stored contact messages from this browser session.</p>
+        </div>
+
+        <div class="admin-actions">
+            <button class="btn btn-outline" id="markResolvedBtn">Mark First Pending as Resolved</button>
+            <button class="btn btn-danger" id="clearDataBtn">Clear Local Contact Data</button>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Message ID</th>
+                        <th>Sender</th>
+                        <th>Date</th>
+                        <th>Subject</th>
+                        <th>Department</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="messageTable"></tbody>
+            </table>
+        </div>
+
+        <div class="analytics">
+            <h3>Reports & Analytics</h3>
+            <div class="chart-row">
+                <div>
+                    <span>Messages Received</span>
+                    <div class="bar"><span id="messagesBar"></span></div>
+                </div>
+                <div>
+                    <span>Ticket Resolution Rate</span>
+                    <div class="bar"><span id="ticketsBar"></span></div>
+                </div>
+                <div>
+                    <span>Department Contact Statistics</span>
+                    <div class="bar"><span id="departmentBar"></span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= TRAVEL INFO ================= -->
+    <section class="section travel-section">
+        <div class="section-heading">
+            <span>Visitors</span>
+            <h2>Nearby Accommodation & Travel Information</h2>
+            <p>Helpful information for visitors, parents, partners, and guest lecturers.</p>
+        </div>
+
+        <div class="travel-grid">
+            <div>
+                <h3>Hotels</h3>
+                <p>Several hotels and guest houses are available within Arua City.</p>
+            </div>
+            <div>
+                <h3>Transport</h3>
+                <p>Visitors can use taxis, buses, boda bodas, and private hire vehicles.</p>
+            </div>
+            <div>
+                <h3>Airport Directions</h3>
+                <p>Arua Airfield is accessible by road from the main campus area.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <h3>Benchmark Business & Technical College</h3>
+                <p>Empowering learners with business, technical, research, and innovation skills.</p>
+            </div>
+
+            <div>
+                <h4>Quick Links</h4>
+                <a href="#home">Home</a>
+                <a href="#contact-form">Contact</a>
+                <a href="#departments">Departments</a>
+                <a href="#appointments">Appointments</a>
+            </div>
+
+            <div>
+                <h4>Contact</h4>
+                <p>📍 Arua City, Uganda</p>
+                <p>📞 +256 700 123 456</p>
+                <p>✉️ info@benchmarkcollege.ac.ug</p>
+            </div>
+
+            <div>
+                <h4>Emergency</h4>
+                <p>Security: +256 777 911 911</p>
+                <p>Medical: +256 777 222 333</p>
+                <p>ICT: +256 700 888 999</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 Benchmark Business and Technical College. All Rights Reserved.</p>
+            <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <!-- ================= LIVE CHAT ================= -->
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-header">
+            <div>
+                <strong>Benchmark Live Support</strong>
+                <small><span class="online-dot"></span> Online simulation</small>
+            </div>
+            <button id="closeChat">×</button>
+        </div>
+
+        <div class="chat-body" id="chatBody"></div>
+
+        <form class="chat-input" id="chatForm">
+            <input type="text" id="chatMessage" placeholder="Type your message..." required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <button class="chat-launcher" id="chatLauncher">💬</button>
+
+    <!-- ================= TOAST NOTIFICATIONS ================= -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="contact.js"></script>
+</body>
+</html>
