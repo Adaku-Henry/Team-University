@@ -1,0 +1,2677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enterprise University Attendance Management System</title>
+  <style>
+    :root {
+      --primary: #0f766e;
+      --primary-dark: #115e59;
+      --primary-soft: #ccfbf1;
+      --secondary: #1e3a8a;
+      --danger: #dc2626;
+      --warning: #d97706;
+      --success: #16a34a;
+      --info: #2563eb;
+      --dark: #0f172a;
+      --muted: #64748b;
+      --light: #f8fafc;
+      --border: #e2e8f0;
+      --card: #ffffff;
+      --sidebar: #0f172a;
+      --sidebar-soft: #1e293b;
+      --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, Segoe UI, Arial, sans-serif;
+      background: #eef2f7;
+      color: var(--dark);
+    }
+
+    .app {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 290px;
+      background: linear-gradient(180deg, #0f172a, #111827);
+      color: white;
+      position: fixed;
+      inset: 0 auto 0 0;
+      overflow-y: auto;
+      padding: 22px 16px;
+      z-index: 10;
+    }
+
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 10px 10px 22px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 14px;
+    }
+
+    .brand-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      background: var(--primary);
+      display: grid;
+      place-items: center;
+      font-size: 24px;
+      box-shadow: 0 10px 20px rgba(20,184,166,0.25);
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.2;
+    }
+
+    .brand span {
+      color: #94a3b8;
+      font-size: 12px;
+    }
+
+    .nav-group {
+      margin-top: 14px;
+    }
+
+    .nav-title {
+      color: #94a3b8;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 12px 12px 8px;
+    }
+
+    .nav-btn {
+      width: 100%;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      border: 0;
+      background: transparent;
+      color: #cbd5e1;
+      padding: 12px 12px;
+      border-radius: 13px;
+      cursor: pointer;
+      text-align: left;
+      font-size: 14px;
+      transition: 0.2s ease;
+    }
+
+    .nav-btn:hover,
+    .nav-btn.active {
+      background: var(--sidebar-soft);
+      color: white;
+      transform: translateX(2px);
+    }
+
+    .main {
+      margin-left: 290px;
+      width: calc(100% - 290px);
+      padding: 22px;
+    }
+
+    .topbar {
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      position: sticky;
+      top: 16px;
+      z-index: 5;
+      margin-bottom: 20px;
+    }
+
+    .topbar h2 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .topbar p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .content {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .card h3 {
+      margin: 0 0 12px;
+      font-size: 16px;
+    }
+
+    .metric {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .metric-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: var(--primary-soft);
+      color: var(--primary-dark);
+      font-size: 22px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 28px;
+      margin-top: 4px;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 13px;
+      background: #e2e8f0;
+      color: var(--dark);
+      transition: 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(0.98);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-dark {
+      background: var(--dark);
+      color: white;
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+
+    .btn-warning {
+      background: var(--warning);
+      color: white;
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: white;
+    }
+
+    .btn-info {
+      background: var(--info);
+      color: white;
+    }
+
+    .btn-outline {
+      background: white;
+      border: 1px solid var(--border);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 11px 12px;
+      outline: none;
+      font: inherit;
+      background: white;
+    }
+
+    textarea {
+      min-height: 95px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(15,118,110,0.12);
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: white;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 780px;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 12px 13px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      vertical-align: middle;
+    }
+
+    th {
+      background: #f8fafc;
+      color: #334155;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    tr:hover td {
+      background: #f8fafc;
+    }
+
+    .badge {
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+    }
+
+    .badge-success {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .badge-warning {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .badge-danger {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .badge-info {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    .badge-dark {
+      background: #e2e8f0;
+      color: #334155;
+    }
+
+    .progress {
+      height: 10px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+      min-width: 90px;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--success);
+    }
+
+    .progress.warning span {
+      background: var(--warning);
+    }
+
+    .progress.danger span {
+      background: var(--danger);
+    }
+
+    canvas {
+      width: 100%;
+      height: 280px;
+      background: #fff;
+      border-radius: 16px;
+    }
+
+    .split {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .notice {
+      padding: 14px;
+      border-radius: 14px;
+      background: #f0fdfa;
+      border: 1px solid #99f6e4;
+      color: #134e4a;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .alert {
+      padding: 12px 14px;
+      border-radius: 14px;
+      margin-bottom: 10px;
+      border: 1px solid var(--border);
+      background: white;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+
+    .day {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      min-height: 92px;
+      padding: 10px;
+    }
+
+    .day strong {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .legend {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .heatmap {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+
+    .heat {
+      height: 58px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 900;
+    }
+
+    .mobile-toggle {
+      display: none;
+    }
+
+    .toast {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      background: var(--dark);
+      color: white;
+      padding: 14px 16px;
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      z-index: 999;
+      display: none;
+      max-width: 360px;
+    }
+
+    .workflow {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .workflow-step {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      font-weight: 800;
+    }
+
+    @media (max-width: 1100px) {
+      .grid-4,
+      .grid-3,
+      .grid-2,
+      .form-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .sidebar {
+        transform: translateX(-100%);
+        transition: 0.25s ease;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .main {
+        margin-left: 0;
+        width: 100%;
+        padding: 14px;
+      }
+
+      .topbar {
+        position: static;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .mobile-toggle {
+        display: inline-flex;
+      }
+
+      .grid-4,
+      .grid-3,
+      .grid-2,
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .calendar,
+      .heatmap {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media print {
+      .sidebar,
+      .topbar,
+      .no-print,
+      .btn {
+        display: none !important;
+      }
+
+      .main {
+        margin: 0;
+        width: 100%;
+      }
+
+      .card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-icon">🎓</div>
+        <div>
+          <h1>University ERP</h1>
+          <span>Attendance Management</span>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-title">Core Attendance</div>
+        <button class="nav-btn active" data-page="dashboard">📊 Attendance Dashboard</button>
+        <button class="nav-btn" data-page="take">✅ Take Attendance</button>
+        <button class="nav-btn" data-page="register">📋 Attendance Register</button>
+        <button class="nav-btn" data-page="history">🕘 Attendance History</button>
+        <button class="nav-btn" data-page="calendar">📅 Attendance Calendar</button>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-title">Monitoring</div>
+        <button class="nav-btn" data-page="students">👨‍🎓 Student Attendance</button>
+        <button class="nav-btn" data-page="lecturers">👨‍🏫 Lecturer Attendance</button>
+        <button class="nav-btn" data-page="alerts">🚨 Low Attendance Alerts</button>
+        <button class="nav-btn" data-page="eligibility">📝 Exam Eligibility</button>
+        <button class="nav-btn" data-page="analytics">📈 Attendance Analytics</button>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-title">Administration</div>
+        <button class="nav-btn" data-page="reports">📑 Attendance Reports</button>
+        <button class="nav-btn" data-page="appeals">📨 Attendance Appeals</button>
+        <button class="nav-btn" data-page="workflow">🔐 Approval Workflow</button>
+        <button class="nav-btn" data-page="policies">⚙️ Attendance Policies</button>
+        <button class="nav-btn" data-page="exports">⬇️ Export Reports</button>
+        <button class="nav-btn" data-page="settings">🛠️ Settings / Audit</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div>
+          <button class="btn btn-dark mobile-toggle" onclick="toggleSidebar()">☰ Menu</button>
+          <h2 id="pageTitle">Attendance Dashboard</h2>
+          <p id="pageSubtitle">Enterprise attendance control center for lecturers, HODs, registrar, and administrators.</p>
+        </div>
+        <div class="top-actions no-print">
+          <button class="btn btn-outline" onclick="syncOffline()">🔄 Sync Offline Data</button>
+          <button class="btn btn-info" onclick="window.print()">🖨️ Print</button>
+          <button class="btn btn-danger" onclick="resetDemo()">♻️ Reset Demo</button>
+        </div>
+      </div>
+
+      <section class="content" id="content"></section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const STORE = "enterprise_university_attendance_v1";
+    let db = {};
+    let currentPage = "dashboard";
+    let lastReportRows = [];
+
+    const $ = (selector, parent = document) => parent.querySelector(selector);
+    const $$ = (selector, parent = document) => Array.from(parent.querySelectorAll(selector));
+
+    function todayISO() {
+      return new Date().toISOString().slice(0, 10);
+    }
+
+    function addDays(days) {
+      const d = new Date();
+      d.setDate(d.getDate() + days);
+      return d.toISOString().slice(0, 10);
+    }
+
+    function uid(prefix) {
+      return prefix + "_" + Math.random().toString(36).slice(2, 9) + "_" + Date.now().toString(36);
+    }
+
+    function escapeHTML(value) {
+      return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      }[char]));
+    }
+
+    function saveDB() {
+      localStorage.setItem(STORE, JSON.stringify(db));
+    }
+
+    function loadDB() {
+      const stored = localStorage.getItem(STORE);
+      if (stored) {
+        db = JSON.parse(stored);
+      } else {
+        seedDB();
+      }
+    }
+
+    function seedDB() {
+      db = {
+        settings: {
+          academicYear: "2025/2026",
+          semester: "Semester II",
+          faculty: "Faculty of Computing and Informatics",
+          department: "Department of Information Technology",
+          programme: "Bachelor of Information Technology",
+          minimumAttendance: 75,
+          latePenalty: 5,
+          maxExcusedAbsences: 3,
+          examEligibility: 75,
+          attendanceGradeWeight: 10,
+          autoBanBelowThreshold: true,
+          offlineMode: true
+        },
+        lecturers: [
+          { id: "L001", name: "Dr. Sarah Nambooze", department: "Information Technology", punctuality: 94, workload: 12, missed: 1 },
+          { id: "L002", name: "Mr. David Kato", department: "Computer Science", punctuality: 90, workload: 10, missed: 2 },
+          { id: "L003", name: "Dr. Grace Achieng", department: "Software Engineering", punctuality: 97, workload: 14, missed: 0 },
+          { id: "L004", name: "Ms. Linda Namuli", department: "Information Systems", punctuality: 88, workload: 9, missed: 3 }
+        ],
+        courses: [
+          { id: "C001", code: "BIT2201", name: "Database Systems", className: "BIT II", faculty: "Computing", department: "Information Technology", programme: "BIT", lecturerId: "L001", venue: "Computer Lab A", day: "Monday", time: "08:00", duration: "2 Hours" },
+          { id: "C002", code: "BIT2202", name: "Computer Networks", className: "BIT II", faculty: "Computing", department: "Information Technology", programme: "BIT", lecturerId: "L002", venue: "Block B Room 12", day: "Tuesday", time: "10:00", duration: "2 Hours" },
+          { id: "C003", code: "BCS3104", name: "Artificial Intelligence", className: "BCS III", faculty: "Computing", department: "Computer Science", programme: "BCS", lecturerId: "L003", venue: "Innovation Hall", day: "Wednesday", time: "14:00", duration: "3 Hours" },
+          { id: "C004", code: "BIS2103", name: "Systems Analysis", className: "BIS II", faculty: "Computing", department: "Information Systems", programme: "BIS", lecturerId: "L004", venue: "Room ICT 4", day: "Thursday", time: "09:00", duration: "2 Hours" }
+        ],
+        students: [
+          { id: "S001", regNo: "BIT001", name: "John Doe", className: "BIT II", programme: "BIT", department: "Information Technology", guardian: "parent1@example.com" },
+          { id: "S002", regNo: "BIT002", name: "Mary Jane", className: "BIT II", programme: "BIT", department: "Information Technology", guardian: "parent2@example.com" },
+          { id: "S003", regNo: "BIT003", name: "Peter Okello", className: "BIT II", programme: "BIT", department: "Information Technology", guardian: "parent3@example.com" },
+          { id: "S004", regNo: "BIT004", name: "James Mukasa", className: "BIT II", programme: "BIT", department: "Information Technology", guardian: "parent4@example.com" },
+          { id: "S005", regNo: "BIT005", name: "Amina Nsubuga", className: "BIT II", programme: "BIT", department: "Information Technology", guardian: "parent5@example.com" },
+          { id: "S006", regNo: "BCS001", name: "Robert Ouma", className: "BCS III", programme: "BCS", department: "Computer Science", guardian: "parent6@example.com" },
+          { id: "S007", regNo: "BCS002", name: "Irene Akello", className: "BCS III", programme: "BCS", department: "Computer Science", guardian: "parent7@example.com" },
+          { id: "S008", regNo: "BCS003", name: "Daniel Mugisha", className: "BCS III", programme: "BCS", department: "Computer Science", guardian: "parent8@example.com" },
+          { id: "S009", regNo: "BIS001", name: "Esther Nalubega", className: "BIS II", programme: "BIS", department: "Information Systems", guardian: "parent9@example.com" },
+          { id: "S010", regNo: "BIS002", name: "Brian Kisekka", className: "BIS II", programme: "BIS", department: "Information Systems", guardian: "parent10@example.com" },
+          { id: "S011", regNo: "BIS003", name: "Faith Namata", className: "BIS II", programme: "BIS", department: "Information Systems", guardian: "parent11@example.com" },
+          { id: "S012", regNo: "BIS004", name: "Samuel Otieno", className: "BIS II", programme: "BIS", department: "Information Systems", guardian: "parent12@example.com" }
+        ],
+        venues: [
+          { name: "Computer Lab A", capacity: 60 },
+          { name: "Block B Room 12", capacity: 120 },
+          { name: "Innovation Hall", capacity: 80 },
+          { name: "Room ICT 4", capacity: 70 }
+        ],
+        sessions: [],
+        attendance: [],
+        appeals: [
+          { id: "AP001", studentId: "S003", courseId: "C001", date: addDays(-2), reason: "I attended but was marked absent.", evidence: "Class photo submitted", status: "Lecturer Review" }
+        ],
+        reports: [],
+        notifications: [],
+        audit: [],
+        pendingSync: []
+      };
+
+      const dates = [todayISO(), addDays(-1), addDays(-2), addDays(-3), addDays(-4), addDays(-7), addDays(-8), addDays(-10)];
+      db.courses.forEach(course => {
+        dates.forEach((date, index) => {
+          const lecturer = getLecturer(course.lecturerId, true);
+          const session = {
+            id: uid("SESS"),
+            courseId: course.id,
+            date,
+            time: course.time,
+            venue: course.venue,
+            duration: course.duration,
+            lecturer: lecturer.name,
+            academicYear: db.settings.academicYear,
+            semester: db.settings.semester,
+            approvalStage: index < 3 ? "Submitted" : "Final Archive",
+            isMakeup: index === 5
+          };
+          db.sessions.push(session);
+
+          db.students.filter(s => s.className === course.className).forEach((student, sIndex) => {
+            const statuses = ["Present", "Present", "Present", "Late", "Absent", "Excused"];
+            let status = statuses[(sIndex + index) % statuses.length];
+
+            if (student.id === "S004" || student.id === "S003") {
+              status = index % 2 === 0 ? "Absent" : "Late";
+            }
+
+            if (student.id === "S012") {
+              status = index % 3 === 0 ? "Absent" : "Present";
+            }
+
+            db.attendance.push({
+              id: uid("ATT"),
+              sessionId: session.id,
+              studentId: student.id,
+              courseId: course.id,
+              date,
+              time: course.time,
+              venue: course.venue,
+              status,
+              recordedBy: lecturer.name,
+              lecturer: lecturer.name,
+              className: course.className,
+              approvedStage: session.approvalStage,
+              modifiedAt: new Date().toISOString()
+            });
+          });
+        });
+      });
+
+      generateNotifications();
+      saveDB();
+    }
+
+    function init() {
+      loadDB();
+      bindNavigation();
+      go(location.hash.replace("#", "") || "dashboard");
+      window.addEventListener("hashchange", () => go(location.hash.replace("#", "") || "dashboard"));
+    }
+
+    function bindNavigation() {
+      $$(".nav-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          go(btn.dataset.page);
+          if (innerWidth < 760) toggleSidebar(false);
+        });
+      });
+    }
+
+    function go(page) {
+      currentPage = page;
+      location.hash = page;
+      $$(".nav-btn").forEach(btn => btn.classList.toggle("active", btn.dataset.page === page));
+
+      const titles = {
+        dashboard: ["Attendance Dashboard", "Real-time overview of classes, attendance rates, alerts, and trends."],
+        take: ["Take Attendance", "Select course, class, lecture date, session time, then mark students present, absent, late, or excused."],
+        register: ["Attendance Register", "Complete student attendance register with calculated percentages and status indicators."],
+        history: ["Attendance History", "Search and filter previous attendance sessions and records."],
+        calendar: ["Attendance Calendar", "Calendar view using Present, Absent, Late, and Excused attendance legends."],
+        students: ["Student Attendance", "Individual student attendance profiles, warnings, forecasts, and certificates."],
+        lecturers: ["Lecturer Attendance", "Monitor lecturer punctuality, missed lectures, and teaching workload."],
+        alerts: ["Low Attendance Alerts", "Automatic attendance risk detection and parent/guardian notifications."],
+        eligibility: ["Exam Eligibility", "Check if students meet minimum attendance requirements for examinations."],
+        analytics: ["Attendance Analytics", "Daily, monthly, course comparison, heatmap, and risk analytics."],
+        reports: ["Attendance Reports", "Generate student, course, department, and semester attendance reports."],
+        appeals: ["Attendance Appeals", "Student correction requests with lecturer and HOD review workflow."],
+        workflow: ["Approval Workflow", "Lecturer submission, HOD review, registrar verification, and final archive."],
+        policies: ["Attendance Policies", "Configure rules such as minimum percentage, penalties, and exam eligibility."],
+        exports: ["Export Reports", "Export attendance data to CSV, Excel-compatible format, PDF print, or direct print."],
+        settings: ["Settings / Audit", "System configuration, integrations, biometric readiness, and audit trail."]
+      };
+
+      $("#pageTitle").textContent = titles[page][0];
+      $("#pageSubtitle").textContent = titles[page][1];
+
+      const renderers = {
+        dashboard: renderDashboard,
+        take: renderTakeAttendance,
+        register: renderRegister,
+        history: renderHistory,
+        calendar: renderCalendar,
+        students: renderStudents,
+        lecturers: renderLecturers,
+        alerts: renderAlerts,
+        eligibility: renderEligibility,
+        analytics: renderAnalytics,
+        reports: renderReports,
+        appeals: renderAppeals,
+        workflow: renderWorkflow,
+        policies: renderPolicies,
+        exports: renderExports,
+        settings: renderSettings
+      };
+
+      renderers[page]();
+    }
+
+    function toggleSidebar(force) {
+      const sidebar = $("#sidebar");
+      if (typeof force === "boolean") {
+        sidebar.classList.toggle("open", force);
+      } else {
+        sidebar.classList.toggle("open");
+      }
+    }
+
+    function toast(message) {
+      const el = $("#toast");
+      el.textContent = message;
+      el.style.display = "block";
+      setTimeout(() => el.style.display = "none", 3200);
+    }
+
+    function getStudent(id) {
+      return db.students.find(s => s.id === id) || {};
+    }
+
+    function getCourse(id) {
+      return db.courses.find(c => c.id === id) || {};
+    }
+
+    function getLecturer(id, silent = false) {
+      const lecturer = db.lecturers.find(l => l.id === id);
+      return lecturer || { id: "", name: silent ? "Unknown Lecturer" : "Unknown Lecturer" };
+    }
+
+    function attendanceScore(status) {
+      if (status === "Present") return 1;
+      if (status === "Excused") return 1;
+      if (status === "Late") return Math.max(0, 1 - Number(db.settings.latePenalty || 0) / 100);
+      return 0;
+    }
+
+    function studentPercentage(studentId, courseId = "") {
+      const records = db.attendance.filter(r => r.studentId === studentId && (!courseId || r.courseId === courseId));
+      if (!records.length) return 0;
+      const score = records.reduce((sum, r) => sum + attendanceScore(r.status), 0);
+      return Math.round((score / records.length) * 100);
+    }
+
+    function courseRate(courseId) {
+      const records = db.attendance.filter(r => r.courseId === courseId);
+      if (!records.length) return 0;
+      const score = records.reduce((sum, r) => sum + attendanceScore(r.status), 0);
+      return Math.round((score / records.length) * 100);
+    }
+
+    function statusBadge(status) {
+      const map = {
+        Present: "badge-success",
+        Absent: "badge-danger",
+        Late: "badge-warning",
+        Excused: "badge-info",
+        Submitted: "badge-info",
+        "HOD Review": "badge-warning",
+        "Registrar Verification": "badge-info",
+        "Final Archive": "badge-success",
+        Approved: "badge-success",
+        Rejected: "badge-danger",
+        "Lecturer Review": "badge-warning"
+      };
+      return `<span class="badge ${map[status] || "badge-dark"}">${escapeHTML(status)}</span>`;
+    }
+
+    function riskInfo(pct) {
+      const threshold = Number(db.settings.minimumAttendance);
+      if (pct >= threshold) return { label: "Good", cls: "badge-success", progress: "" };
+      if (pct >= 50) return { label: "Warning", cls: "badge-warning", progress: "warning" };
+      return { label: "Critical", cls: "badge-danger", progress: "danger" };
+    }
+
+    function generateNotifications() {
+      db.notifications = [];
+      db.students.forEach(student => {
+        const pct = studentPercentage(student.id);
+        if (pct < Number(db.settings.minimumAttendance)) {
+          db.notifications.push({
+            id: uid("NOT"),
+            type: "Low Attendance",
+            studentId: student.id,
+            message: `${student.name} is below ${db.settings.minimumAttendance}% attendance threshold. Current: ${pct}%.`,
+            date: todayISO(),
+            channel: "Portal / Email / SMS",
+            sent: false
+          });
+        }
+
+        const recent = db.attendance
+          .filter(r => r.studentId === student.id)
+          .sort((a, b) => b.date.localeCompare(a.date))
+          .slice(0, 3);
+
+        if (recent.length === 3 && recent.every(r => r.status === "Absent")) {
+          db.notifications.push({
+            id: uid("NOT"),
+            type: "Consecutive Absence",
+            studentId: student.id,
+            message: `${student.name} missed 3 consecutive classes.`,
+            date: todayISO(),
+            channel: "Portal / Email / SMS",
+            sent: false
+          });
+        }
+      });
+      saveDB();
+    }
+
+    function dashboardMetrics() {
+      const today = todayISO();
+      const todayRecords = db.attendance.filter(r => r.date === today);
+      return {
+        classes: db.sessions.length,
+        records: db.attendance.length,
+        presentToday: todayRecords.filter(r => r.status === "Present").length,
+        absentToday: todayRecords.filter(r => r.status === "Absent").length,
+        lateToday: todayRecords.filter(r => r.status === "Late").length,
+        below: db.students.filter(s => studentPercentage(s.id) < Number(db.settings.minimumAttendance)).length,
+        overall: db.attendance.length ? Math.round(db.attendance.reduce((sum, r) => sum + attendanceScore(r.status), 0) / db.attendance.length * 100) : 0
+      };
+    }
+
+    function metricCard(label, value, icon, note) {
+      return `
+        <div class="card">
+          <div class="metric">
+            <div>
+              <span class="muted">${label}</span>
+              <strong>${value}</strong>
+              <span class="muted">${note || ""}</span>
+            </div>
+            <div class="metric-icon">${icon}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderDashboard() {
+      const m = dashboardMetrics();
+      const belowStudents = db.students
+        .map(s => ({ ...s, pct: studentPercentage(s.id) }))
+        .filter(s => s.pct < Number(db.settings.minimumAttendance))
+        .sort((a, b) => a.pct - b.pct);
+
+      $("#content").innerHTML = `
+        <div class="grid grid-4">
+          ${metricCard("Total Classes Conducted", m.classes, "🏫", "All attendance sessions")}
+          ${metricCard("Total Attendance Records", m.records, "📋", "Saved student records")}
+          ${metricCard("Present Students Today", m.presentToday, "✅", "Today's present count")}
+          ${metricCard("Absent Students Today", m.absentToday, "❌", "Today's absent count")}
+          ${metricCard("Late Arrivals Today", m.lateToday, "⏰", "Late attendance records")}
+          ${metricCard("Attendance Overview", m.overall + "%", "📈", "Weighted by policy")}
+          ${metricCard("Below Minimum", belowStudents.length, "🚨", "Threshold: ${db.settings.minimumAttendance}%")}
+          ${metricCard("Notifications", db.notifications.length, "🔔", "Auto-generated alerts")}
+        </div>
+
+        <div class="grid grid-2">
+          <div class="card">
+            <h3>📈 Attendance Trends Chart</h3>
+            <canvas id="dailyChart" width="900" height="300"></canvas>
+          </div>
+          <div class="card">
+            <h3>📊 Course Attendance Overview</h3>
+            <canvas id="courseChart" width="900" height="300"></canvas>
+          </div>
+        </div>
+
+        <div class="grid grid-2">
+          <div class="card">
+            <h3>⚙️ Attendance Setup</h3>
+            <div class="form-row">
+              <div><label>Academic Year</label><input value="${escapeHTML(db.settings.academicYear)}" id="setupYear"></div>
+              <div><label>Semester</label><input value="${escapeHTML(db.settings.semester)}" id="setupSemester"></div>
+              <div><label>Faculty</label><input value="${escapeHTML(db.settings.faculty)}" id="setupFaculty"></div>
+              <div><label>Department</label><input value="${escapeHTML(db.settings.department)}" id="setupDepartment"></div>
+            </div>
+            <div class="form-row">
+              <div><label>Programme</label><input value="${escapeHTML(db.settings.programme)}" id="setupProgramme"></div>
+              <div><label>Minimum Attendance %</label><input type="number" value="${db.settings.minimumAttendance}" id="setupMin"></div>
+              <div><label>Late Penalty %</label><input type="number" value="${db.settings.latePenalty}" id="setupPenalty"></div>
+              <div><label>Exam Eligibility %</label><input type="number" value="${db.settings.examEligibility}" id="setupExam"></div>
+            </div>
+            <button class="btn btn-primary" onclick="saveSetup()">💾 Save Academic Setup</button>
+          </div>
+
+          <div class="card">
+            <h3>🚨 Students Below Minimum Attendance</h3>
+            ${belowStudents.length ? belowStudents.slice(0, 7).map(s => `
+              <div class="alert">
+                <div>
+                  <strong>${escapeHTML(s.name)}</strong>
+                  <div class="muted">${escapeHTML(s.regNo)} • ${escapeHTML(s.programme)}</div>
+                </div>
+                ${statusBadge(s.pct < 50 ? "Critical" : "Warning")} <strong>${s.pct}%</strong>
+              </div>
+            `).join("") : `<div class="notice">All students currently meet the minimum attendance requirement.</div>`}
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>🔴 Real-Time Attendance Dashboard</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Course</th>
+                  <th>Lecturer</th>
+                  <th>Day</th>
+                  <th>Time</th>
+                  <th>Venue</th>
+                  <th>Capacity</th>
+                  <th>Current Rate</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${db.courses.map(c => {
+                  const venue = db.venues.find(v => v.name === c.venue) || { capacity: "-" };
+                  const rate = courseRate(c.id);
+                  return `
+                    <tr>
+                      <td><strong>${escapeHTML(c.code)}</strong><br>${escapeHTML(c.name)}</td>
+                      <td>${escapeHTML(getLecturer(c.lecturerId).name)}</td>
+                      <td>${escapeHTML(c.day)}</td>
+                      <td>${escapeHTML(c.time)}</td>
+                      <td>${escapeHTML(c.venue)}</td>
+                      <td>${venue.capacity}</td>
+                      <td>${rate}%</td>
+                      <td>${statusBadge(rate >= db.settings.minimumAttendance ? "Good" : "Warning")}</td>
+                    </tr>
+                  `;
+                }).join("")}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+
+      setTimeout(() => {
+        drawLineChart("dailyChart", dailyAttendanceSeries(), "Daily Attendance %");
+        drawBarChart("courseChart", db.courses.map(c => c.code), db.courses.map(c => courseRate(c.id)), "Course Attendance %");
+      }, 50);
+    }
+
+    function saveSetup() {
+      db.settings.academicYear = $("#setupYear").value;
+      db.settings.semester = $("#setupSemester").value;
+      db.settings.faculty = $("#setupFaculty").value;
+      db.settings.department = $("#setupDepartment").value;
+      db.settings.programme = $("#setupProgramme").value;
+      db.settings.minimumAttendance = Number($("#setupMin").value);
+      db.settings.latePenalty = Number($("#setupPenalty").value);
+      db.settings.examEligibility = Number($("#setupExam").value);
+      db.audit.unshift({
+        id: uid("AUD"),
+        user: "Administrator",
+        action: "Updated Attendance Setup",
+        oldValue: "Previous academic setup",
+        newValue: JSON.stringify(db.settings),
+        reason: "Policy/configuration update",
+        date: new Date().toLocaleString()
+      });
+      generateNotifications();
+      saveDB();
+      toast("Academic setup saved successfully.");
+      renderDashboard();
+    }
+
+    function renderTakeAttendance() {
+      const selectedCourse = db.courses[0];
+
+      $("#content").innerHTML = `
+        <div class="card">
+          <h3>🎯 Course Selection</h3>
+          <div class="form-row">
+            <div>
+              <label>Select Course</label>
+              <select id="takeCourse" onchange="updateTakeRegister()">
+                ${db.courses.map(c => `<option value="${c.id}">${escapeHTML(c.code)} - ${escapeHTML(c.name)}</option>`).join("")}
+              </select>
+            </div>
+            <div>
+              <label>Select Class</label>
+              <input id="takeClass" value="${escapeHTML(selectedCourse.className)}" readonly>
+            </div>
+            <div>
+              <label>Lecture Date</label>
+              <input type="date" id="takeDate" value="${todayISO()}" onchange="updateTakeRegister()">
+            </div>
+            <div>
+              <label>Session Time</label>
+              <input type="time" id="takeTime" value="${escapeHTML(selectedCourse.time)}" onchange="updateTakeRegister()">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div>
+              <label>Venue</label>
+              <input id="takeVenue" value="${escapeHTML(selectedCourse.venue)}">
+            </div>
+            <div>
+              <label>Session Duration</label>
+              <input id="takeDuration" value="${escapeHTML(selectedCourse.duration)}">
+            </div>
+            <div>
+              <label>Lecturer</label>
+              <input id="takeLecturer" value="${escapeHTML(getLecturer(selectedCourse.lecturerId).name)}">
+            </div>
+            <div>
+              <label>Make-up Class?</label>
+              <select id="takeMakeup">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="split no-print">
+            <button class="btn btn-success" onclick="bulkMark('Present')">✅ Mark All Present</button>
+            <button class="btn btn-danger" onclick="bulkMark('Absent')">❌ Mark All Absent</button>
+            <button class="btn btn-warning" onclick="bulkMark('Late')">⏰ Mark All Late</button>
+            <button class="btn btn-info" onclick="bulkMark('Excused')">🔵 Mark All Excused</button>
+            <button class="btn btn-outline" onclick="clearRegister()">🧹 Clear Register</button>
+            <button class="btn btn-primary" onclick="saveAttendance()">💾 Save Attendance</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>📋 Student Attendance Register</h3>
+          <div id="takeRegister"></div>
+        </div>
+
+        <div class="card">
+          <h3>🔮 Biometric / QR Integration Readiness</h3>
+          <div class="notice">
+            This one-file version includes placeholders for future QR Code, RFID, fingerprint, and face recognition integration. In production, these should connect to secure backend APIs and verified device SDKs.
+          </div>
+          <div class="split" style="margin-top:12px;">
+            <button class="btn btn-outline" onclick="toast('QR attendance scanner placeholder ready for API integration.')">▣ QR Code Attendance</button>
+            <button class="btn btn-outline" onclick="toast('RFID reader placeholder ready for device SDK integration.')">💳 RFID Attendance</button>
+            <button class="btn btn-outline" onclick="toast('Fingerprint module placeholder ready for biometric SDK integration.')">☝️ Fingerprint Attendance</button>
+            <button class="btn btn-outline" onclick="toast('Face recognition placeholder ready for AI vision API integration.')">🙂 Face Recognition</button>
+          </div>
+        </div>
+      `;
+
+      updateTakeRegister();
+    }
+
+    function updateTakeRegister() {
+      const course = getCourse($("#takeCourse").value);
+      $("#takeClass").value = course.className;
+      $("#takeTime").value = course.time;
+      $("#takeVenue").value = course.venue;
+      $("#takeDuration").value = course.duration;
+      $("#takeLecturer").value = getLecturer(course.lecturerId).name;
+
+      const date = $("#takeDate").value;
+      const time = $("#takeTime").value;
+      const students = db.students.filter(s => s.className === course.className);
+
+      $("#takeRegister").innerHTML = `
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Reg No</th>
+                <th>Name</th>
+                <th>Programme</th>
+                <th>Current Attendance %</th>
+                <th>Status</th>
+                <th>Comment</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${students.map(s => {
+                const existing = db.attendance.find(r => r.studentId === s.id && r.courseId === course.id && r.date === date && r.time === time);
+                const pct = studentPercentage(s.id, course.id);
+                const risk = riskInfo(pct);
+                return `
+                  <tr>
+                    <td><strong>${escapeHTML(s.regNo)}</strong></td>
+                    <td>${escapeHTML(s.name)}</td>
+                    <td>${escapeHTML(s.programme)}</td>
+                    <td>
+                      <div class="split">
+                        <div class="progress ${risk.progress}"><span style="width:${pct}%"></span></div>
+                        <strong>${pct}%</strong>
+                      </div>
+                    </td>
+                    <td>
+                      <select class="attendance-status" data-student="${s.id}">
+                        ${["Present", "Absent", "Late", "Excused"].map(st => `<option value="${st}" ${existing && existing.status === st ? "selected" : ""}>${st}</option>`).join("")}
+                      </select>
+                    </td>
+                    <td><input class="attendance-comment" data-student="${s.id}" placeholder="Optional reason or note"></td>
+                  </tr>
+                `;
+              }).join("")}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    function bulkMark(status) {
+      $$(".attendance-status").forEach(select => select.value = status);
+      toast(`All students marked as ${status}.`);
+    }
+
+    function clearRegister() {
+      $$(".attendance-status").forEach(select => select.value = "Absent");
+      $$(".attendance-comment").forEach(input => input.value = "");
+      toast("Register cleared to Absent.");
+    }
+
+    function saveAttendance() {
+      const course = getCourse($("#takeCourse").value);
+      const date = $("#takeDate").value;
+      const time = $("#takeTime").value;
+      const venue = $("#takeVenue").value;
+      const lecturer = $("#takeLecturer").value;
+      const duration = $("#takeDuration").value;
+      const isMakeup = $("#takeMakeup").value === "Yes";
+
+      let session = db.sessions.find(s => s.courseId === course.id && s.date === date && s.time === time);
+
+      if (!session) {
+        session = {
+          id: uid("SESS"),
+          courseId: course.id,
+          date,
+          time,
+          venue,
+          duration,
+          lecturer,
+          academicYear: db.settings.academicYear,
+          semester: db.settings.semester,
+          approvalStage: "Submitted",
+          isMakeup
+        };
+        db.sessions.push(session);
+      } else {
+        session.venue = venue;
+        session.duration = duration;
+        session.lecturer = lecturer;
+        session.isMakeup = isMakeup;
+      }
+
+      $$(".attendance-status").forEach(select => {
+        const studentId = select.dataset.student;
+        const status = select.value;
+        const commentInput = $(`.attendance-comment[data-student="${studentId}"]`);
+        const existing = db.attendance.find(r => r.studentId === studentId && r.courseId === course.id && r.date === date && r.time === time);
+
+        if (existing) {
+          const old = existing.status;
+          existing.status = status;
+          existing.venue = venue;
+          existing.lecturer = lecturer;
+          existing.recordedBy = lecturer;
+          existing.approvedStage = "Submitted";
+          existing.comment = commentInput.value;
+          existing.modifiedAt = new Date().toISOString();
+
+          if (old !== status) {
+            db.audit.unshift({
+              id: uid("AUD"),
+              user: lecturer,
+              action: "Modified Attendance",
+              oldValue: old,
+              newValue: status,
+              reason: commentInput.value || "Attendance update",
+              date: new Date().toLocaleString(),
+              student: getStudent(studentId).name,
+              course: course.name
+            });
+          }
+        } else {
+          db.attendance.push({
+            id: uid("ATT"),
+            sessionId: session.id,
+            studentId,
+            courseId: course.id,
+            date,
+            time,
+            venue,
+            status,
+            recordedBy: lecturer,
+            lecturer,
+            className: course.className,
+            approvedStage: "Submitted",
+            comment: commentInput.value,
+            modifiedAt: new Date().toISOString()
+          });
+        }
+      });
+
+      db.pendingSync.push({
+        id: uid("SYNC"),
+        type: "Attendance Save",
+        date: new Date().toLocaleString(),
+        status: db.settings.offlineMode ? "Pending Local Sync" : "Online"
+      });
+
+      generateNotifications();
+      saveDB();
+      toast("Attendance saved successfully.");
+      renderTakeAttendance();
+    }
+
+    function renderRegister() {
+      const rows = db.students.map(s => {
+        const pct = studentPercentage(s.id);
+        const risk = riskInfo(pct);
+        return { ...s, pct, risk };
+      });
+
+      $("#content").innerHTML = `
+        <div class="card">
+          <h3>📋 Attendance Register</h3>
+          <div class="table-wrap">
+            <table id="registerTable">
+              <thead>
+                <tr>
+                  <th>Reg No</th>
+                  <th>Name</th>
+                  <th>Programme</th>
+                  <th>Department</th>
+                  <th>Attendance %</th>
+                  <th>Risk Status</th>
+                  <th>Exam Eligible</th>
+                  <th>Profile</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${rows.map(s => `
+                  <tr>
+                    <td><strong>${escapeHTML(s.regNo)}</strong></td>
+                    <td>${escapeHTML(s.name)}</td>
+                    <td>${escapeHTML(s.programme)}</td>
+                    <td>${escapeHTML(s.department)}</td>
+                    <td>
+                      <div class="split">
+                        <div class="progress ${s.risk.progress}"><span style="width:${s.pct}%"></span></div>
+                        <strong>${s.pct}%</strong>
+                      </div>
+                    </td>
+                    <td><span class="badge ${s.risk.cls}">${s.risk.label}</span></td>
+                    <td>${s.pct >= db.settings.examEligibility ? statusBadge("Yes") : statusBadge("No")}</td>
+                    <td><button class="btn btn-outline" onclick="openStudentProfile('${s.id}')">Open</button></td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderHistory() {
+      $("#content").innerHTML = `
+        <div class="card no-print">
+          <h3>🔎 Search and Filters</h3>
+          <div class="form-row">
+            <div>
+              <label>Academic Year</label>
+              <input id="filterYear" value="${escapeHTML(db.settings.academicYear)}">
+            </div>
+            <div>
+              <label>Semester</label>
+              <input id="filterSemester" value="${escapeHTML(db.settings.semester)}">
+            </div>
+            <div>
+              <label>Course</label>
+              <select id="filterCourse">
+                <option value="">All Courses</option>
+                ${db.courses.map(c => `<option value="${c.id}">${escapeHTML(c.name)}</option>`).join("")}
+              </select>
+            </div>
+            <div>
+              <label>Lecturer</label>
+              <select id="filterLecturer">
+                <option value="">All Lecturers</option>
+                ${db.lecturers.map(l => `<option value="${escapeHTML(l.name)}">${escapeHTML(l.name)}</option>`).join("")}
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div><label>Student</label><input id="filterStudent" placeholder="Name or Reg No"></div>
+            <div><label>From Date</label><input type="date" id="filterFrom"></div>
+            <div><label>To Date</label><input type="date" id="filterTo"></div>
+            <div><label>Status</label><select id="filterStatus"><option value="">All</option><option>Present</option><option>Absent</option><option>Late</option><option>Excused</option></select></div>
+          </div>
+          <button class="btn btn-primary" onclick="applyHistoryFilters()">Apply Filters</button>
+          <button class="btn btn-outline" onclick="renderHistory()">Clear</button>
+        </div>
+
+        <div class="card">
+          <h3>🕘 All Previous Attendance Records</h3>
+          <div id="historyTable"></div>
+        </div>
+      `;
+      applyHistoryFilters();
+    }
+
+    function applyHistoryFilters() {
+      const course = $("#filterCourse")?.value || "";
+      const lecturer = $("#filterLecturer")?.value || "";
+      const studentTerm = ($("#filterStudent")?.value || "").toLowerCase();
+      const from = $("#filterFrom")?.value || "";
+      const to = $("#filterTo")?.value || "";
+      const status = $("#filterStatus")?.value || "";
+
+      let records = db.attendance.filter(r => {
+        const student = getStudent(r.studentId);
+        return (!course || r.courseId === course)
+          && (!lecturer || r.lecturer === lecturer)
+          && (!studentTerm || student.name.toLowerCase().includes(studentTerm) || student.regNo.toLowerCase().includes(studentTerm))
+          && (!from || r.date >= from)
+          && (!to || r.date <= to)
+          && (!status || r.status === status);
+      }).sort((a, b) => b.date.localeCompare(a.date));
+
+      $("#historyTable").innerHTML = `
+        <div class="table-wrap">
+          <table id="historyExportTable">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Course</th>
+                <th>Student</th>
+                <th>Lecturer</th>
+                <th>Venue</th>
+                <th>Status</th>
+                <th>Attendance Rate</th>
+                <th>Approval</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${records.map(r => {
+                const s = getStudent(r.studentId);
+                const c = getCourse(r.courseId);
+                return `
+                  <tr>
+                    <td>${escapeHTML(r.date)}<br><span class="muted">${escapeHTML(r.time)}</span></td>
+                    <td><strong>${escapeHTML(c.code)}</strong><br>${escapeHTML(c.name)}</td>
+                    <td>${escapeHTML(s.regNo)}<br>${escapeHTML(s.name)}</td>
+                    <td>${escapeHTML(r.lecturer)}</td>
+                    <td>${escapeHTML(r.venue)}</td>
+                    <td>${statusBadge(r.status)}</td>
+                    <td>${studentPercentage(r.studentId, r.courseId)}%</td>
+                    <td>${statusBadge(r.approvedStage || "Submitted")}</td>
+                  </tr>
+                `;
+              }).join("")}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    function renderCalendar() {
+      const studentOptions = db.students.map(s => `<option value="${s.id}">${escapeHTML(s.regNo)} - ${escapeHTML(s.name)}</option>`).join("");
+      $("#content").innerHTML = `
+        <div class="card no-print">
+          <h3>📅 Attendance Calendar View</h3>
+          <div class="form-row">
+            <div>
+              <label>Select Student</label>
+              <select id="calendarStudent" onchange="drawCalendar()">${studentOptions}</select>
+            </div>
+            <div>
+              <label>Course</label>
+              <select id="calendarCourse" onchange="drawCalendar()">
+                <option value="">All Courses</option>
+                ${db.courses.map(c => `<option value="${c.id}">${escapeHTML(c.name)}</option>`).join("")}
+              </select>
+            </div>
+          </div>
+          <div class="legend">
+            <span>🟢 Present</span>
+            <span>🔴 Absent</span>
+            <span>🟡 Late</span>
+            <span>🔵 Excused</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Monthly Attendance Calendar</h3>
+          <div id="calendarGrid" class="calendar"></div>
+        </div>
+      `;
+      drawCalendar();
+    }
+
+    function drawCalendar() {
+      const studentId = $("#calendarStudent").value;
+      const courseId = $("#calendarCourse").value;
+      const records = db.attendance.filter(r => r.studentId === studentId && (!courseId || r.courseId === courseId));
+      const symbols = { Present: "🟢", Absent: "🔴", Late: "🟡", Excused: "🔵" };
+      const days = Array.from({ length: 30 }, (_, i) => addDays(i - 29));
+      $("#calendarGrid").innerHTML = days.map(date => {
+        const daily = records.filter(r => r.date === date);
+        return `
+          <div class="day">
+            <strong>${date}</strong>
+            ${daily.length ? daily.map(r => `<div>${symbols[r.status]} ${escapeHTML(getCourse(r.courseId).code)}</div>`).join("") : `<span class="muted">No class</span>`}
+          </div>
+        `;
+      }).join("");
+    }
+
+    function renderStudents() {
+      $("#content").innerHTML = `
+        <div class="card">
+          <h3>👨‍🎓 Individual Student Attendance Profiles</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Reg No</th>
+                  <th>Student Name</th>
+                  <th>Programme</th>
+                  <th>Attendance %</th>
+                  <th>Warnings</th>
+                  <th>Forecast</th>
+                  <th>Certificate</th>
+                  <th>Profile</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${db.students.map(s => {
+                  const pct = studentPercentage(s.id);
+                  const risk = riskInfo(pct);
+                  return `
+                    <tr>
+                      <td><strong>${escapeHTML(s.regNo)}</strong></td>
+                      <td>${escapeHTML(s.name)}</td>
+                      <td>${escapeHTML(s.programme)}</td>
+                      <td>${pct}%</td>
+                      <td><span class="badge ${risk.cls}">${risk.label}</span></td>
+                      <td>${forecastAbsences(s.id)} more classes can be missed</td>
+                      <td><button class="btn btn-outline" onclick="generateCertificate('${s.id}')">Certificate</button></td>
+                      <td><button class="btn btn-primary" onclick="openStudentProfile('${s.id}')">Open</button></td>
+                    </tr>
+                  `;
+                }).join("")}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div id="studentProfileArea"></div>
+      `;
+    }
+
+    function openStudentProfile(studentId) {
+      if (currentPage !== "students" && currentPage !== "register") {
+        go("students");
+      }
+
+      setTimeout(() => {
+        const s = getStudent(studentId);
+        const pct = studentPercentage(studentId);
+        const risk = riskInfo(pct);
+        const records = db.attendance.filter(r => r.studentId === studentId).sort((a, b) => b.date.localeCompare(a.date));
+
+        const area = $("#studentProfileArea");
+        if (!area) return;
+
+        area.innerHTML = `
+          <div class="card">
+            <h3>👤 Student Attendance Profile</h3>
+            <div class="grid grid-4">
+              ${metricCard("Student Name", escapeHTML(s.name), "👨‍🎓", s.regNo)}
+              ${metricCard("Programme", escapeHTML(s.programme), "🎓", s.department)}
+              ${metricCard("Attendance Percentage", pct + "%", "📈", "Minimum: " + db.settings.minimumAttendance + "%")}
+              ${metricCard("Risk Status", risk.label, "🚨", "Forecast: " + forecastAbsences(studentId) + " missable classes")}
+            </div>
+            <div class="notice" style="margin-top:14px;">
+              Warning Status: <strong>${risk.label}</strong>. Exam Eligibility: <strong>${pct >= db.settings.examEligibility ? "Eligible" : "Not Eligible"}</strong>.
+            </div>
+            <h3 style="margin-top:18px;">Attendance History</h3>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Course</th>
+                    <th>Status</th>
+                    <th>Lecturer</th>
+                    <th>Venue</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${records.map(r => `
+                    <tr>
+                      <td>${escapeHTML(r.date)}</td>
+                      <td>${escapeHTML(getCourse(r.courseId).name)}</td>
+                      <td>${statusBadge(r.status)}</td>
+                      <td>${escapeHTML(r.lecturer)}</td>
+                      <td>${escapeHTML(r.venue)}</td>
+                    </tr>
+                  `).join("")}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+        area.scrollIntoView({ behavior: "smooth" });
+      }, 80);
+    }
+
+    function forecastAbsences(studentId) {
+      const records = db.attendance.filter(r => r.studentId === studentId);
+      const total = records.length;
+      if (!total) return 0;
+      const score = records.reduce((sum, r) => sum + attendanceScore(r.status), 0);
+      const threshold = Number(db.settings.minimumAttendance) / 100;
+      const canMiss = Math.floor((score / threshold) - total);
+      return Math.max(0, canMiss);
+    }
+
+    function generateCertificate(studentId) {
+      const s = getStudent(studentId);
+      const pct = studentPercentage(studentId);
+      const cert = `
+        ATTENDANCE COMPLIANCE CERTIFICATE
+
+        This certifies that ${s.name} (${s.regNo}), enrolled in ${s.programme},
+        has achieved an attendance percentage of ${pct}% for the current academic period.
+
+        Minimum Required Attendance: ${db.settings.minimumAttendance}%
+        Exam Eligibility Status: ${pct >= db.settings.examEligibility ? "Eligible" : "Not Eligible"}
+
+        Generated Date: ${new Date().toLocaleString()}
+        Registrar Office
+      `;
+      alert(cert);
+    }
+
+    function renderLecturers() {
+      $("#content").innerHTML = `
+        <div class="card">
+          <h3>👨‍🏫 Lecturer Attendance Monitoring</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Lecturer</th>
+                  <th>Department</th>
+                  <th>Teaching Workload</th>
+                  <th>Punctuality</th>
+                  <th>Missed Lectures</th>
+                  <th>Courses</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${db.lecturers.map(l => {
+                  const courses = db.courses.filter(c => c.lecturerId === l.id);
+                  return `
+                    <tr>
+                      <td><strong>${escapeHTML(l.name)}</strong></td>
+                      <td>${escapeHTML(l.department)}</td>
+                      <td>${l.workload} hours/week</td>
+                      <td>${l.punctuality}%</td>
+                      <td>${l.missed}</td>
+                      <td>${courses.map(c => escapeHTML(c.code)).join(", ")}</td>
+                      <td>${statusBadge(l.missed <= 1 ? "Good" : "Warning")}</td>
+                    </tr>
+                  `;
+                }).join("")}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>🏫 Venue Attendance Tracking</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Venue</th>
+                  <th>Capacity</th>
+                  <th>Sessions Held</th>
+                  <th>Average Present</th>
+                  <th>Utilization</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${db.venues.map(v => {
+                  const records = db.attendance.filter(r => r.venue === v.name);
+                  const sessions = db.sessions.filter(s => s.venue === v.name).length;
+                  const present = records.filter(r => r.status === "Present" || r.status === "Late").length;
+                  const avgPresent = sessions ? Math.round(present / sessions) : 0;
+                  const utilization = v.capacity ? Math.min(100, Math.round(avgPresent / v.capacity * 100)) : 0;
+                  return `
+                    <tr>
+                      <td><strong>${escapeHTML(v.name)}</strong></td>
+                      <td>${v.capacity}</td>
+                      <td>${sessions}</td>
+                      <td>${avgPresent}</td>
+                      <td>${utilization}%</td>
+                    </tr>
+                  `;
+                }).join("")}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAlerts() {
+      generateNotifications();
+
+      $("#content").innerHTML = `
+        <div class="grid grid-2">
+          <div class="card">
+            <h3>🚨 Low Attendance Alerts</h3>
+            ${db.students.map(s => ({ ...s, pct: studentPercentage(s.id) }))
+              .filter(s => s.pct < Number(db.settings.minimumAttendance))
+              .sort((a, b) => a.pct - b.pct)
+              .map(s => `
+                <div class="alert">
+                  <div>
+                    <strong>${escapeHTML(s.name)}</strong>
+                    <div class="muted">${escapeHTML(s.regNo)} • ${escapeHTML(s.programme)} • Guardian: ${escapeHTML(s.guardian)}</div>
+                    <div style="margin-top:6px;">Attendance: <strong>${s.pct}%</strong></div>
+                  </div>
+                  <button class="btn btn-warning" onclick="notifyGuardian('${s.id}')">Notify Guardian</button>
+                </div>
+              `).join("") || `<div class="notice">No low attendance alerts at the moment.</div>`}
+          </div>
+
+          <div class="card">
+            <h3>🔔 Automatic Notifications</h3>
+            ${db.notifications.map(n => `
+              <div class="alert">
+                <div>
+                  <strong>${escapeHTML(n.type)}</strong>
+                  <div class="muted">${escapeHTML(n.date)} • ${escapeHTML(n.channel)}</div>
+                  <div>${escapeHTML(n.message)}</div>
+                </div>
+                ${statusBadge(n.sent ? "Sent" : "Pending")}
+              </div>
+            `).join("") || `<div class="notice">No notifications generated.</div>`}
+          </div>
+        </div>
+      `;
+    }
+
+    function notifyGuardian(studentId) {
+      const s = getStudent(studentId);
+      db.notifications.push({
+        id: uid("NOT"),
+        type: "Parent/Guardian Notification",
+        studentId,
+        message: `Guardian of ${s.name} notified about low attendance.`,
+        date: todayISO(),
+        channel: "Email / SMS / Portal",
+        sent: true
+      });
+      saveDB();
+      toast(`Guardian notification sent for ${s.name}.`);
+      renderAlerts();
+    }
+
+    function renderEligibility() {
+      const rows = db.students.map(s => {
+        const pct = studentPercentage(s.id);
+        return { ...s, pct, eligible: pct >= Number(db.settings.examEligibility) };
+      });
+
+      $("#content").innerHTML = `
+        <div class="card">
+          <h3>📝 Exam Eligibility Checker</h3>
+          <div class="notice">
+            Eligibility rule: students must have at least <strong>${db.settings.examEligibility}%</strong> attendance. Attendance may also contribute <strong>${db.settings.attendanceGradeWeight}%</strong> to final coursework/grade.
+          </div>
+          <div class="table-wrap" style="margin-top:14px;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Student Name</th>
+                  <th>Registration Number</th>
+                  <th>Programme</th>
+                  <th>Attendance %</th>
+                  <th>Exam Eligible?</th>
+                  <th>Risk Analysis</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${rows.map(s => {
+                  const risk = riskInfo(s.pct);
+                  return `
+                    <tr>
+                      <td>${escapeHTML(s.name)}</td>
+                      <td><strong>${escapeHTML(s.regNo)}</strong></td>
+                      <td>${escapeHTML(s.programme)}</td>
+                      <td>${s.pct}%</td>
+                      <td>${s.eligible ? statusBadge("Yes") : statusBadge("No")}</td>
+                      <td><span class="badge ${risk.cls}">${s.pct < 50 ? "High Risk" : s.pct < db.settings.minimumAttendance ? "Medium Risk" : "Safe"}</span></td>
+                    </tr>
+                  `;
+                }).join("")}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function dailyAttendanceSeries() {
+      const dates = [...new Set(db.attendance.map(r => r.date))].sort().slice(-8);
+      return dates.map(date => {
+        const records = db.attendance.filter(r => r.date === date);
+        const score = records.reduce((sum, r) => sum + attendanceScore(r.status), 0);
+        return {
+          label: date.slice(5),
+          value: records.length ? Math.round(score / records.length * 100) : 0
+        };
+      });
+    }
+
+    function renderAnalytics() {
+      $("#content").innerHTML = `
+        <div class="grid grid-2">
+          <div class="card">
+            <h3>📈 Daily Attendance</h3>
+            <canvas id="analyticsDaily" width="900" height="300"></canvas>
+          </div>
+          <div class="card">
+            <h3>📊 Monthly Attendance Trend</h3>
+            <canvas id="analyticsMonthly" width="900" height="300"></canvas>
+          </div>
+        </div>
+
+        <div class="grid grid-2">
+          <div class="card">
+            <h3>📚 Course Attendance Comparison</h3>
+            <canvas id="analyticsCourse" width="900" height="300"></canvas>
+          </div>
+          <div class="card">
+            <h3>🔥 Attendance Heatmap</h3>
+            <div class="heatmap">
+              ${["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day, i) => {
+                const val = [95, 92, 87, 90, 88, 73, 61][i];
+                const color = val >= 90 ? "#16a34a" : val >= 75 ? "#d97706" : "#dc2626";
+                return `<div class="heat" style="background:${color}">${day}<br>${val}%</div>`;
+              }).join("")}
+            </div>
+            <div class="notice" style="margin-top:14px;">
+              Heatmap shows most absent days, most attended classes, and peak attendance periods.
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>🧠 Student Risk Analysis</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Risk Level</th>
+                  <th>Rule</th>
+                  <th>Students</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>${statusBadge("Critical")}</td>
+                  <td>Attendance below 50%</td>
+                  <td>${db.students.filter(s => studentPercentage(s.id) < 50).map(s => escapeHTML(s.name)).join(", ") || "None"}</td>
+                </tr>
+                <tr>
+                  <td>${statusBadge("Warning")}</td>
+                  <td>Attendance 50% - ${db.settings.minimumAttendance}%</td>
+                  <td>${db.students.filter(s => studentPercentage(s.id) >= 50 && studentPercentage(s.id) < db.settings.minimumAttendance).map(s => escapeHTML(s.name)).join(", ") || "None"}</td>
+                </tr>
+                <tr>
+                  <td>${statusBadge("Good")}</td>
+                  <td>Attendance above ${db.settings.minimumAttendance}%</td>
+                  <td>${db.students.filter(s => studentPercentage(s.id) >= db.settings.minimumAttendance).length} students</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+
+      setTimeout(() => {
+        drawLineChart("analyticsDaily", dailyAttendanceSeries(), "Daily %");
+        drawLineChart("analyticsMonthly", [
+          { label: "Jan", value: 81 },
+          { label: "Feb", value: 84 },
+          { label: "Mar", value: 87 },
+          { label: "Apr", value: 82 },
+          { label: "May", value: 89 },
+          { label: "Jun", value: dashboardMetrics().overall }
+        ], "Monthly %");
+        drawBarChart("analyticsCourse", db.courses.map(c => c.code), db.courses.map(c => courseRate(c.id)), "Course %");
+      }, 50);
+    }
+
+    function renderReports() {
+      $("#content").innerHTML = `
+        <div class="card no-print">
+          <h3>📑 Generate Attendance Reports</h3>
+          <div class="form-row">
+            <div>
+              <label>Report Type</label>
+              <select id="reportType">
+                <option value="student">Student Report</option>
+                <option value="course">Course Report</option>
+                <option value="department">Department Report</option>
+                <option value="semester">Semester Report</option>
+              </select>
+            </div>
+            <div>
+              <label>Course</label>
+              <select id="reportCourse">
+                <option value="">All Courses</option>
+                ${db.courses.map(c => `<option value="${c.id}">${escapeHTML(c.name)}</option>`).join("")}
+              </select>
+            </div>
+            <div>
+              <label>From Date</label>
+              <input type="date" id="reportFrom">
+            </div>
+            <div>
+              <label>To Date</label>
+              <input type="date" id="reportTo">
+            </div>
+          </div>
+          <div class="split">
+            <button class="btn btn-primary" onclick="generateReport()">Generate Report</button>
+            <button class="btn btn-success" onclick="exportCSV()">Export CSV</button>
+            <button class="btn btn-info" onclick="exportExcel()">Export Excel</button>
+            <button class="btn btn-warning" onclick="window.print()">Export PDF / Print</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Report Output</h3>
+          <div id="reportOutput" class="notice">Select a report type and click Generate Report.</div>
+        </div>
+      `;
+    }
+
+    function generateReport() {
+      const type = $("#reportType").value;
+      const courseId = $("#reportCourse").value;
+      const from = $("#reportFrom").value;
+      const to = $("#reportTo").value;
+
+      let title = "";
+      let headers = [];
+      let rows = [];
+
+      if (type === "student") {
+        title = "Student Attendance Report";
+        headers = ["Reg No", "Student", "Programme", "Attendance %", "Exam Eligible"];
+        rows = db.students.map(s => {
+          const pct = studentPercentage(s.id, courseId);
+          return [s.regNo, s.name, s.programme, pct + "%", pct >= db.settings.examEligibility ? "Yes" : "No"];
+        });
+      }
+
+      if (type === "course") {
+        title = "Course Attendance Report";
+        headers = ["Course Code", "Course", "Lecturer", "Class", "Attendance Rate"];
+        rows = db.courses.filter(c => !courseId || c.id === courseId).map(c => [c.code, c.name, getLecturer(c.lecturerId).name, c.className, courseRate(c.id) + "%"]);
+      }
+
+      if (type === "department") {
+        title = "Department Attendance Report";
+        headers = ["Department", "Students", "Average Attendance"];
+        const departments = [...new Set(db.students.map(s => s.department))];
+        rows = departments.map(dep => {
+          const students = db.students.filter(s => s.department === dep);
+          const avg = students.length ? Math.round(students.reduce((sum, s) => sum + studentPercentage(s.id), 0) / students.length) : 0;
+          return [dep, students.length, avg + "%"];
+        });
+      }
+
+      if (type === "semester") {
+        title = "Semester Attendance Summary";
+        headers = ["Academic Year", "Semester", "Classes", "Records", "Overall Attendance"];
+        const m = dashboardMetrics();
+        rows = [[db.settings.academicYear, db.settings.semester, m.classes, m.records, m.overall + "%"]];
+      }
+
+      lastReportRows = [headers, ...rows];
+
+      db.reports.unshift({
+        id: uid("REP"),
+        generatedDate: new Date().toLocaleString(),
+        generatedBy: "Staff Portal User",
+        reportType: title,
+        filters: { courseId, from, to }
+      });
+      saveDB();
+
+      $("#reportOutput").className = "";
+      $("#reportOutput").innerHTML = `
+        <div class="table-wrap">
+          <table id="reportTable">
+            <thead>
+              <tr>${headers.map(h => `<th>${escapeHTML(h)}</th>`).join("")}</tr>
+            </thead>
+            <tbody>
+              ${rows.map(row => `<tr>${row.map(cell => `<td>${escapeHTML(cell)}</td>`).join("")}</tr>`).join("")}
+            </tbody>
+          </table>
+        </div>
+      `;
+
+      toast(`${title} generated successfully.`);
+    }
+
+    function renderAppeals() {
+      $("#content").innerHTML = `
+        <div class="grid grid-2">
+          <div class="card">
+            <h3>📨 Submit Attendance Appeal</h3>
+            <div class="form-row">
+              <div>
+                <label>Student</label>
+                <select id="appealStudent">${db.students.map(s => `<option value="${s.id}">${escapeHTML(s.regNo)} - ${escapeHTML(s.name)}</option>`).join("")}</select>
+              </div>
+              <div>
+                <label>Course</label>
+                <select id="appealCourse">${db.courses.map(c => `<option value="${c.id}">${escapeHTML(c.name)}</option>`).join("")}</select>
+              </div>
+              <div>
+                <label>Date</label>
+                <input type="date" id="appealDate" value="${todayISO()}">
+              </div>
+              <div>
+                <label>Evidence</label>
+                <input id="appealEvidence" placeholder="File name or evidence note">
+              </div>
+            </div>
+            <label>Complaint / Reason</label>
+            <textarea id="appealReason" placeholder="Example: I attended on 12 June but was marked absent."></textarea>
+            <button class="btn btn-primary" onclick="submitAppeal()">Submit Appeal</button>
+          </div>
+
+          <div class="card">
+            <h3>🔎 Appeal Workflow</h3>
+            <div class="workflow">
+              <div class="workflow-step">Student Submit</div>
+              <strong>→</strong>
+              <div class="workflow-step">Lecturer Review</div>
+              <strong>→</strong>
+              <div class="workflow-step">HOD Approval</div>
+              <strong>→</strong>
+              <div class="workflow-step">Final Decision</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Appeals List</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Student</th>
+                  <th>Course</th>
+                  <th>Date</th>
+                  <th>Reason</th>
+                  <th>Evidence</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${db.appeals.map(a => `
+                  <tr>
+                    <td>${escapeHTML(getStudent(a.studentId).name)}</td>
+                    <td>${escapeHTML(getCourse(a.courseId).name)}</td>
+                    <td>${escapeHTML(a.date)}</td>
+                    <td>${escapeHTML(a.reason)}</td>
+                    <td>${escapeHTML(a.evidence)}</td>
+                    <td>${statusBadge(a.status)}</td>
+                    <td>
+                      <button class="btn btn-success" onclick="updateAppeal('${a.id}','Approved')">Approve</button>
+                      <button class="btn btn-danger" onclick="updateAppeal('${a.id}','Rejected')">Reject</button>
+                    </td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function submitAppeal() {
+      db.appeals.unshift({
+        id: uid("AP"),
+        studentId: $("#appealStudent").value,
+        courseId: $("#appealCourse").value,
+        date: $("#appealDate").value,
+        reason: $("#appealReason").value,
+        evidence: $("#appealEvidence").value,
+        status: "Lecturer Review"
+      });
+      saveDB();
+      toast("Attendance appeal submitted.");
+      renderAppeals();
+    }
+
+    function updateAppeal(id, status) {
+      const appeal = db.appeals.find(a => a.id === id);
+      if (!appeal) return;
+      appeal.status = status;
+      db.audit.unshift({
+        id: uid("AUD"),
+        user: "HOD / Lecturer",
+        action: "Attendance Appeal " + status,
+        oldValue: "Lecturer Review",
+        newValue: status,
+        reason: appeal.reason,
+        date: new Date().toLocaleString(),
+        student: getStudent(appeal.studentId).name,
+        course: getCourse(appeal.courseId).name
+      });
+      saveDB();
+      toast(`Appeal ${status}.`);
+      renderAppeals();
+    }
+
+    function renderWorkflow() {
+      const sessions = db.sessions.sort((a, b) => b.date.localeCompare(a.date)).slice(0, 40);
+
+      $("#content").innerHTML = `
+        <div class="card">
+          <h3>🔐 Attendance Approval Workflow</h3>
+          <div class="workflow">
+            <div class="workflow-step">Lecturer</div>
+            <strong>↓</strong>
+            <div class="workflow-step">HOD Review</div>
+            <strong>↓</strong>
+            <div class="workflow-step">Registrar Verification</div>
+            <strong>↓</strong>
+            <div class="workflow-step">Final Archive</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Session Approval Queue</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Course</th>
+                  <th>Lecturer</th>
+                  <th>Venue</th>
+                  <th>Stage</th>
+                  <th>Approve Next</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${sessions.map(s => `
+                  <tr>
+                    <td>${escapeHTML(s.date)}<br>${escapeHTML(s.time)}</td>
+                    <td>${escapeHTML(getCourse(s.courseId).name)}</td>
+                    <td>${escapeHTML(s.lecturer)}</td>
+                    <td>${escapeHTML(s.venue)}</td>
+                    <td>${statusBadge(s.approvalStage)}</td>
+                    <td><button class="btn btn-primary" onclick="advanceWorkflow('${s.id}')">Advance</button></td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function advanceWorkflow(sessionId) {
+      const stages = ["Submitted", "HOD Review", "Registrar Verification", "Final Archive"];
+      const session = db.sessions.find(s => s.id === sessionId);
+      const current = stages.indexOf(session.approvalStage);
+      const next = stages[Math.min(current + 1, stages.length - 1)];
+      const old = session.approvalStage;
+      session.approvalStage = next;
+      db.attendance.filter(r => r.sessionId === sessionId).forEach(r => r.approvedStage = next);
+
+      db.audit.unshift({
+        id: uid("AUD"),
+        user: "Approval Officer",
+        action: "Advanced Attendance Workflow",
+        oldValue: old,
+        newValue: next,
+        reason: "Approval process",
+        date: new Date().toLocaleString(),
+        course: getCourse(session.courseId).name
+      });
+
+      saveDB();
+      toast(`Workflow advanced to ${next}.`);
+      renderWorkflow();
+    }
+
+    function renderPolicies() {
+      $("#content").innerHTML = `
+        <div class="card">
+          <h3>⚙️ Attendance Policies & Rules</h3>
+          <div class="form-row">
+            <div>
+              <label>Minimum Attendance Percentage</label>
+              <input type="number" id="policyMin" value="${db.settings.minimumAttendance}">
+            </div>
+            <div>
+              <label>Attendance Grading Weight %</label>
+              <input type="number" id="policyWeight" value="${db.settings.attendanceGradeWeight}">
+            </div>
+            <div>
+              <label>Maximum Excused Absences</label>
+              <input type="number" id="policyExcused" value="${db.settings.maxExcusedAbsences}">
+            </div>
+            <div>
+              <label>Late Arrival Penalty %</label>
+              <input type="number" id="policyLate" value="${db.settings.latePenalty}">
+            </div>
+          </div>
+          <div class="form-row">
+            <div>
+              <label>Exam Eligibility %</label>
+              <input type="number" id="policyExam" value="${db.settings.examEligibility}">
+            </div>
+            <div>
+              <label>Auto-ban From Exams Below Threshold</label>
+              <select id="policyBan">
+                <option value="true" ${db.settings.autoBanBelowThreshold ? "selected" : ""}>Enabled</option>
+                <option value="false" ${!db.settings.autoBanBelowThreshold ? "selected" : ""}>Disabled</option>
+              </select>
+            </div>
+            <div>
+              <label>Offline Attendance Mode</label>
+              <select id="policyOffline">
+                <option value="true" ${db.settings.offlineMode ? "selected" : ""}>Enabled</option>
+                <option value="false" ${!db.settings.offlineMode ? "selected" : ""}>Disabled</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="savePolicies()">Save Policies</button>
+        </div>
+
+        <div class="card">
+          <h3>🔗 ERP Integration Rules</h3>
+          <div class="notice">
+            Attendance sessions can integrate with timetable, results, coursework grading, exam eligibility, parent notification, and registrar archive modules. This frontend stores everything locally, but the structure is ready for backend API integration.
+          </div>
+        </div>
+      `;
+    }
+
+    function savePolicies() {
+      db.settings.minimumAttendance = Number($("#policyMin").value);
+      db.settings.attendanceGradeWeight = Number($("#policyWeight").value);
+      db.settings.maxExcusedAbsences = Number($("#policyExcused").value);
+      db.settings.latePenalty = Number($("#policyLate").value);
+      db.settings.examEligibility = Number($("#policyExam").value);
+      db.settings.autoBanBelowThreshold = $("#policyBan").value === "true";
+      db.settings.offlineMode = $("#policyOffline").value === "true";
+      db.audit.unshift({
+        id: uid("AUD"),
+        user: "Administrator",
+        action: "Updated Attendance Policies",
+        oldValue: "Previous policies",
+        newValue: JSON.stringify(db.settings),
+        reason: "University policy update",
+        date: new Date().toLocaleString()
+      });
+      generateNotifications();
+      saveDB();
+      toast("Attendance policies saved.");
+      renderPolicies();
+    }
+
+    function renderExports() {
+      $("#content").innerHTML = `
+        <div class="card">
+          <h3>⬇️ Export Options</h3>
+          <div class="notice">
+            Generate a report first from the Reports page, or export the full attendance register directly from here.
+          </div>
+          <div class="split" style="margin-top:14px;">
+            <button class="btn btn-success" onclick="exportFullCSV()">Export CSV</button>
+            <button class="btn btn-info" onclick="exportFullExcel()">Export Excel</button>
+            <button class="btn btn-warning" onclick="window.print()">Export PDF / Print Report</button>
+            <button class="btn btn-dark" onclick="go('reports')">Go to Report Generator</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>📦 Database Tables Preview</h3>
+          <div class="grid grid-3">
+            <div class="notice"><strong>attendance</strong><br>attendance_id, student_id, course_id, date, status, recorded_by</div>
+            <div class="notice"><strong>attendance_sessions</strong><br>session_id, course_id, date, time, venue, lecturer</div>
+            <div class="notice"><strong>attendance_reports</strong><br>report_id, generated_date, generated_by, report_type</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderSettings() {
+      $("#content").innerHTML = `
+        <div class="grid grid-2">
+          <div class="card">
+            <h3>🛠️ System Settings</h3>
+            <div class="notice">
+              Data is saved in browser localStorage for demo/offline mode. For production, connect the same data structure to a secure backend database with authentication and role-based permissions.
+            </div>
+            <div class="split" style="margin-top:14px;">
+              <button class="btn btn-primary" onclick="backupData()">Backup JSON</button>
+              <button class="btn btn-outline" onclick="syncOffline()">Sync Offline Queue</button>
+              <button class="btn btn-danger" onclick="resetDemo()">Reset Demo Data</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>📡 Advanced Integration Readiness</h3>
+            <ul>
+              <li>Timetable auto-session generation</li>
+              <li>Results system attendance weighting</li>
+              <li>QR, RFID, fingerprint, and face recognition APIs</li>
+              <li>SMS, email, and portal notification gateways</li>
+              <li>Role-based approval workflow</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>🧾 Attendance Audit Trail</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>User</th>
+                  <th>Action</th>
+                  <th>Old Value</th>
+                  <th>New Value</th>
+                  <th>Reason</th>
+                  <th>Student</th>
+                  <th>Course</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${db.audit.map(a => `
+                  <tr>
+                    <td>${escapeHTML(a.date)}</td>
+                    <td>${escapeHTML(a.user)}</td>
+                    <td>${escapeHTML(a.action)}</td>
+                    <td>${escapeHTML(a.oldValue)}</td>
+                    <td>${escapeHTML(a.newValue)}</td>
+                    <td>${escapeHTML(a.reason)}</td>
+                    <td>${escapeHTML(a.student || "-")}</td>
+                    <td>${escapeHTML(a.course || "-")}</td>
+                  </tr>
+                `).join("") || `<tr><td colspan="8">No audit records yet.</td></tr>`}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>🔄 Offline Sync Queue</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Sync ID</th>
+                  <th>Type</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${db.pendingSync.map(s => `
+                  <tr>
+                    <td>${escapeHTML(s.id)}</td>
+                    <td>${escapeHTML(s.type)}</td>
+                    <td>${escapeHTML(s.date)}</td>
+                    <td>${statusBadge(s.status)}</td>
+                  </tr>
+                `).join("") || `<tr><td colspan="4">No pending offline data.</td></tr>`}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function exportCSV() {
+      if (!lastReportRows.length) {
+        toast("Generate a report first.");
+        return;
+      }
+      const csv = lastReportRows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(",")).join("\n");
+      downloadBlob(csv, "attendance_report.csv", "text/csv");
+    }
+
+    function exportExcel() {
+      if (!lastReportRows.length) {
+        toast("Generate a report first.");
+        return;
+      }
+      const html = `<table>${lastReportRows.map((row, i) => `<tr>${row.map(cell => i === 0 ? `<th>${escapeHTML(cell)}</th>` : `<td>${escapeHTML(cell)}</td>`).join("")}</tr>`).join("")}</table>`;
+      downloadBlob(html, "attendance_report.xls", "application/vnd.ms-excel");
+    }
+
+    function exportFullCSV() {
+      const rows = [["Date", "Time", "Reg No", "Student", "Course", "Status", "Lecturer", "Venue", "Approval"]];
+      db.attendance.forEach(r => {
+        rows.push([r.date, r.time, getStudent(r.studentId).regNo, getStudent(r.studentId).name, getCourse(r.courseId).name, r.status, r.lecturer, r.venue, r.approvedStage]);
+      });
+      const csv = rows.map(row => row.map(cell => `"${String(cell ?? "").replace(/"/g, '""')}"`).join(",")).join("\n");
+      downloadBlob(csv, "full_attendance_data.csv", "text/csv");
+    }
+
+    function exportFullExcel() {
+      const rows = [["Date", "Time", "Reg No", "Student", "Course", "Status", "Lecturer", "Venue", "Approval"]];
+      db.attendance.forEach(r => {
+        rows.push([r.date, r.time, getStudent(r.studentId).regNo, getStudent(r.studentId).name, getCourse(r.courseId).name, r.status, r.lecturer, r.venue, r.approvedStage]);
+      });
+      const html = `<table>${rows.map((row, i) => `<tr>${row.map(cell => i === 0 ? `<th>${escapeHTML(cell)}</th>` : `<td>${escapeHTML(cell)}</td>`).join("")}</tr>`).join("")}</table>`;
+      downloadBlob(html, "full_attendance_data.xls", "application/vnd.ms-excel");
+    }
+
+    function downloadBlob(content, fileName, type) {
+      const blob = new Blob([content], { type });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      toast(`${fileName} downloaded.`);
+    }
+
+    function backupData() {
+      downloadBlob(JSON.stringify(db, null, 2), "attendance_system_backup.json", "application/json");
+    }
+
+    function syncOffline() {
+      db.pendingSync = db.pendingSync.map(item => ({ ...item, status: "Synced" }));
+      saveDB();
+      toast("Offline data synced successfully.");
+      if (currentPage === "settings") renderSettings();
+    }
+
+    function resetDemo() {
+      if (!confirm("Reset all demo attendance data?")) return;
+      localStorage.removeItem(STORE);
+      seedDB();
+      toast("Demo data reset successfully.");
+      go("dashboard");
+    }
+
+    function drawBarChart(canvasId, labels, values, title) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      const w = canvas.width;
+      const h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = "#0f172a";
+      ctx.font = "bold 18px Arial";
+      ctx.fillText(title, 25, 30);
+
+      const max = 100;
+      const chartX = 50;
+      const chartY = 55;
+      const chartW = w - 80;
+      const chartH = h - 100;
+      const barGap = 20;
+      const barW = Math.max(32, (chartW - barGap * values.length) / values.length);
+
+      ctx.strokeStyle = "#e2e8f0";
+      ctx.lineWidth = 1;
+      for (let i = 0; i <= 5; i++) {
+        const y = chartY + chartH - (chartH / 5) * i;
+        ctx.beginPath();
+        ctx.moveTo(chartX, y);
+        ctx.lineTo(chartX + chartW, y);
+        ctx.stroke();
+        ctx.fillStyle = "#64748b";
+        ctx.font = "12px Arial";
+        ctx.fillText((i * 20) + "%", 8, y + 4);
+      }
+
+      values.forEach((value, i) => {
+        const x = chartX + i * (barW + barGap) + 10;
+        const barH = (value / max) * chartH;
+        const y = chartY + chartH - barH;
+        ctx.fillStyle = value >= db.settings.minimumAttendance ? "#0f766e" : value >= 50 ? "#d97706" : "#dc2626";
+        roundRect(ctx, x, y, barW, barH, 10);
+        ctx.fill();
+        ctx.fillStyle = "#0f172a";
+        ctx.font = "bold 12px Arial";
+        ctx.fillText(value + "%", x + 4, y - 8);
+        ctx.fillStyle = "#334155";
+        ctx.font = "12px Arial";
+        ctx.fillText(labels[i], x, h - 25);
+      });
+    }
+
+    function drawLineChart(canvasId, series, title) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      const w = canvas.width;
+      const h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = "#0f172a";
+      ctx.font = "bold 18px Arial";
+      ctx.fillText(title, 25, 30);
+
+      const chartX = 55;
+      const chartY = 55;
+      const chartW = w - 90;
+      const chartH = h - 100;
+
+      ctx.strokeStyle = "#e2e8f0";
+      for (let i = 0; i <= 5; i++) {
+        const y = chartY + chartH - (chartH / 5) * i;
+        ctx.beginPath();
+        ctx.moveTo(chartX, y);
+        ctx.lineTo(chartX + chartW, y);
+        ctx.stroke();
+        ctx.fillStyle = "#64748b";
+        ctx.font = "12px Arial";
+        ctx.fillText((i * 20) + "%", 10, y + 4);
+      }
+
+      const points = series.map((item, i) => ({
+        x: chartX + (series.length === 1 ? 0 : i * (chartW / (series.length - 1))),
+        y: chartY + chartH - (item.value / 100) * chartH,
+        label: item.label,
+        value: item.value
+      }));
+
+      ctx.strokeStyle = "#0f766e";
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      points.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y));
+      ctx.stroke();
+
+      points.forEach(p => {
+        ctx.fillStyle = p.value >= db.settings.minimumAttendance ? "#0f766e" : "#dc2626";
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 6, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = "#0f172a";
+        ctx.font = "bold 12px Arial";
+        ctx.fillText(p.value + "%", p.x - 12, p.y - 12);
+
+        ctx.fillStyle = "#334155";
+        ctx.font = "12px Arial";
+        ctx.fillText(p.label, p.x - 16, h - 25);
+      });
+    }
+
+    function roundRect(ctx, x, y, width, height, radius) {
+      const r = Math.min(radius, width / 2, height / 2);
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + width, y, x + width, y + height, r);
+      ctx.arcTo(x + width, y + height, x, y + height, r);
+      ctx.arcTo(x, y + height, x, y, r);
+      ctx.arcTo(x, y, x + width, y, r);
+      ctx.closePath();
+    }
+
+    window.addEventListener("load", init);
+  </script>
+</body>
+</html>

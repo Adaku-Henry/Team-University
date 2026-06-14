@@ -1,0 +1,2623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enterprise University Course Management System</title>
+
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-light: #2563eb;
+      --secondary: #0f172a;
+      --accent: #14b8a6;
+      --success: #16a34a;
+      --warning: #f59e0b;
+      --danger: #dc2626;
+      --info: #0284c7;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --sidebar: #020617;
+      --sidebar-hover: #1e293b;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      background: linear-gradient(180deg, #020617, #0f172a);
+      color: white;
+      padding: 24px 18px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--primary-light), var(--accent));
+      font-weight: 900;
+      font-size: 20px;
+    }
+
+    .brand h1 {
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    .brand small {
+      display: block;
+      color: #94a3b8;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .nav-section-title {
+      color: #94a3b8;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 22px 10px 8px;
+    }
+
+    .nav button {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: #cbd5e1;
+      padding: 13px 14px;
+      border-radius: 12px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: 0.2s;
+      font-size: 14px;
+    }
+
+    .nav button:hover,
+    .nav button.active {
+      background: var(--sidebar-hover);
+      color: white;
+    }
+
+    .nav span:first-child {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .main {
+      padding: 24px;
+      overflow-x: hidden;
+    }
+
+    .topbar {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      box-shadow: var(--shadow);
+      margin-bottom: 22px;
+    }
+
+    .topbar h2 {
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+
+    .topbar p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .top-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .role-badge {
+      background: #e0f2fe;
+      color: #075985;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .metric {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .metric h3 {
+      font-size: 28px;
+      margin-top: 8px;
+    }
+
+    .metric p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .metric-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 20px;
+    }
+
+    .bg-primary { background: var(--primary-light); }
+    .bg-success { background: var(--success); }
+    .bg-warning { background: var(--warning); }
+    .bg-danger { background: var(--danger); }
+    .bg-info { background: var(--info); }
+    .bg-accent { background: var(--accent); }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .section-title h3 {
+      font-size: 17px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .small {
+      font-size: 13px;
+    }
+
+    .btn {
+      border: none;
+      cursor: pointer;
+      border-radius: 10px;
+      padding: 10px 13px;
+      font-weight: 700;
+      transition: 0.2s;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      opacity: 0.95;
+    }
+
+    .btn-primary {
+      background: var(--primary-light);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: var(--secondary);
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: white;
+    }
+
+    .btn-warning {
+      background: var(--warning);
+      color: white;
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+
+    .btn-outline {
+      background: white;
+      border: 1px solid var(--border);
+      color: var(--secondary);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .toolbar-left,
+    .toolbar-right {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 14px;
+      background: white;
+      color: var(--text);
+      outline: none;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .form-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+    }
+
+    th,
+    td {
+      padding: 13px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+      font-size: 14px;
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #334155;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    tr:hover td {
+      background: #f8fafc;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    .badge {
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+    }
+
+    .badge-success {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .badge-warning {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .badge-danger {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .badge-info {
+      background: #e0f2fe;
+      color: #075985;
+    }
+
+    .badge-muted {
+      background: #e2e8f0;
+      color: #334155;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .panel {
+      display: none;
+    }
+
+    .panel.active {
+      display: block;
+      animation: fadeIn 0.2s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1000;
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+    }
+
+    .modal {
+      width: min(920px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+      background: white;
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-header h3 {
+      font-size: 20px;
+    }
+
+    .close {
+      border: none;
+      background: #f1f5f9;
+      border-radius: 10px;
+      width: 38px;
+      height: 38px;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .recommendation {
+      border-left: 5px solid var(--primary-light);
+      background: #f8fafc;
+      padding: 14px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    .recommendation.high {
+      border-left-color: var(--danger);
+      background: #fff1f2;
+    }
+
+    .recommendation.medium {
+      border-left-color: var(--warning);
+      background: #fffbeb;
+    }
+
+    .recommendation.low {
+      border-left-color: var(--info);
+      background: #f0f9ff;
+    }
+
+    .recommendation strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .progress {
+      width: 100%;
+      height: 9px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress > span {
+      display: block;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--primary-light), var(--accent));
+    }
+
+    .audit-item {
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+    }
+
+    .audit-item:last-child {
+      border-bottom: none;
+    }
+
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background: #020617;
+      color: white;
+      padding: 14px 16px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: 0.25s;
+      z-index: 2000;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .login-screen {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.28), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(20, 184, 166, 0.22), transparent 32%),
+        #020617;
+    }
+
+    .login-card {
+      width: min(460px, 100%);
+      background: white;
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.35);
+    }
+
+    .login-card h1 {
+      font-size: 26px;
+      margin-bottom: 8px;
+    }
+
+    .login-card p {
+      color: var(--muted);
+      margin-bottom: 22px;
+      line-height: 1.5;
+    }
+
+    .login-actions {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .footer-note {
+      color: #94a3b8;
+      font-size: 12px;
+      margin-top: 18px;
+      text-align: center;
+    }
+
+    @media (max-width: 1100px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        height: auto;
+        position: relative;
+      }
+
+      .grid-4,
+      .grid-3,
+      .grid-2,
+      .form-grid,
+      .form-grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      .sidebar,
+      .top-actions,
+      .toolbar,
+      .btn,
+      .modal-backdrop {
+        display: none !important;
+      }
+
+      .app {
+        display: block;
+      }
+
+      .main {
+        padding: 0;
+      }
+
+      .card {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="loginScreen" class="login-screen">
+    <div class="login-card">
+      <div class="brand" style="color:#0f172a;margin-bottom:18px;">
+        <div class="brand-icon">U</div>
+        <div>
+          <h1>University ERP</h1>
+          <small style="color:#64748b;">Enterprise Course Management System</small>
+        </div>
+      </div>
+
+      <p>
+        Select a role to enter the demo system. Permissions, recommendations, audit logs,
+        enrollments, waitlists, reports, and data persistence are handled in-browser.
+      </p>
+
+      <label for="roleSelect">Login Role</label>
+      <select id="roleSelect">
+        <option value="Registrar">Registrar</option>
+        <option value="Academic Admin">Academic Admin</option>
+        <option value="Lecturer">Lecturer</option>
+        <option value="Advisor">Advisor</option>
+        <option value="Student Services">Student Services</option>
+      </select>
+
+      <div class="login-actions">
+        <button class="btn btn-primary" onclick="login()">Enter System</button>
+        <button class="btn btn-secondary" onclick="resetDemoData()">Reset Demo Data</button>
+      </div>
+
+      <div class="footer-note">
+        Single-file HTML, CSS, and JavaScript implementation.
+      </div>
+    </div>
+  </div>
+
+  <div id="app" class="app hidden">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">U</div>
+        <div>
+          <h1>University ERP</h1>
+          <small>Course Management</small>
+        </div>
+      </div>
+
+      <div class="nav">
+        <div class="nav-section-title">Main</div>
+        <button class="active" data-panel="dashboard" onclick="showPanel('dashboard')">
+          <span>📊 Dashboard</span><span>›</span>
+        </button>
+        <button data-panel="courses" onclick="showPanel('courses')">
+          <span>📚 Courses</span><span>›</span>
+        </button>
+        <button data-panel="offerings" onclick="showPanel('offerings')">
+          <span>🏫 Offerings</span><span>›</span>
+        </button>
+        <button data-panel="students" onclick="showPanel('students')">
+          <span>🎓 Students</span><span>›</span>
+        </button>
+        <button data-panel="enrollment" onclick="showPanel('enrollment')">
+          <span>📝 Enrollment</span><span>›</span>
+        </button>
+
+        <div class="nav-section-title">Academic Operations</div>
+        <button data-panel="assessments" onclick="showPanel('assessments')">
+          <span>🧪 Assessments</span><span>›</span>
+        </button>
+        <button data-panel="recommendations" onclick="showPanel('recommendations')">
+          <span>🤖 Recommendations</span><span>›</span>
+        </button>
+        <button data-panel="reports" onclick="showPanel('reports')">
+          <span>📈 Reports</span><span>›</span>
+        </button>
+
+        <div class="nav-section-title">Governance</div>
+        <button data-panel="audit" onclick="showPanel('audit')">
+          <span>🛡️ Audit Logs</span><span>›</span>
+        </button>
+        <button onclick="exportData()">
+          <span>⬇️ Export JSON</span><span></span>
+        </button>
+        <button onclick="logout()">
+          <span>🚪 Logout</span><span></span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h2 id="pageTitle">Dashboard</h2>
+          <p id="pageSubtitle">Enterprise academic operations overview</p>
+        </div>
+        <div class="top-actions">
+          <span class="role-badge" id="roleBadge">Registrar</span>
+          <button class="btn btn-outline" onclick="print()">🖨️ Print</button>
+          <button class="btn btn-primary" onclick="openQuickCreate()">＋ Quick Create</button>
+        </div>
+      </header>
+
+      <section id="dashboard" class="panel active"></section>
+      <section id="courses" class="panel"></section>
+      <section id="offerings" class="panel"></section>
+      <section id="students" class="panel"></section>
+      <section id="enrollment" class="panel"></section>
+      <section id="assessments" class="panel"></section>
+      <section id="recommendations" class="panel"></section>
+      <section id="reports" class="panel"></section>
+      <section id="audit" class="panel"></section>
+    </main>
+  </div>
+
+  <div id="modalBackdrop" class="modal-backdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <h3 id="modalTitle">Modal</h3>
+          <p id="modalSubtitle" class="muted small"></p>
+        </div>
+        <button class="close" onclick="closeModal()">×</button>
+      </div>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    const STORAGE_KEY = "enterprise_university_course_management_v1";
+
+    const seedData = {
+      currentUser: {
+        name: "Demo User",
+        role: "Registrar"
+      },
+      courses: [
+        {
+          id: uid(),
+          code: "CS101",
+          title: "Introduction to Computer Science",
+          department: "Computer Science",
+          level: "Undergraduate",
+          credits: 3,
+          status: "Approved",
+          prerequisites: "",
+          description: "Foundations of programming, computational thinking, and software problem-solving.",
+          learningOutcomes: "Programming fundamentals; algorithms; debugging; software design basics",
+          version: 2
+        },
+        {
+          id: uid(),
+          code: "CS305",
+          title: "Database Systems",
+          department: "Computer Science",
+          level: "Undergraduate",
+          credits: 4,
+          status: "Approved",
+          prerequisites: "CS101",
+          description: "Relational databases, SQL, normalization, indexing, and transaction management.",
+          learningOutcomes: "Design schemas; write SQL; optimize queries; understand ACID transactions",
+          version: 1
+        },
+        {
+          id: uid(),
+          code: "BUS220",
+          title: "Principles of Management",
+          department: "Business",
+          level: "Undergraduate",
+          credits: 3,
+          status: "Approved",
+          prerequisites: "",
+          description: "Management theory, organizational behavior, leadership, and strategic thinking.",
+          learningOutcomes: "Analyze organizations; apply leadership models; manage teams",
+          version: 3
+        },
+        {
+          id: uid(),
+          code: "MTH210",
+          title: "Applied Statistics",
+          department: "Mathematics",
+          level: "Undergraduate",
+          credits: 3,
+          status: "Draft",
+          prerequisites: "",
+          description: "Probability, hypothesis testing, regression, and statistical applications.",
+          learningOutcomes: "Analyze data; perform hypothesis testing; interpret regression models",
+          version: 1
+        }
+      ],
+      offerings: [],
+      students: [
+        {
+          id: uid(),
+          studentNo: "S1001",
+          name: "Amina Yusuf",
+          program: "BSc Computer Science",
+          year: 2,
+          gpa: 3.55,
+          attendance: 92,
+          advisor: "Dr. Mensah",
+          status: "Active"
+        },
+        {
+          id: uid(),
+          studentNo: "S1002",
+          name: "James Okafor",
+          program: "BSc Computer Science",
+          year: 1,
+          gpa: 1.82,
+          attendance: 68,
+          advisor: "Dr. Mensah",
+          status: "At Risk"
+        },
+        {
+          id: uid(),
+          studentNo: "S1003",
+          name: "Leila Hassan",
+          program: "BBA Management",
+          year: 3,
+          gpa: 3.1,
+          attendance: 84,
+          advisor: "Prof. Clarke",
+          status: "Active"
+        }
+      ],
+      enrollments: [],
+      assessments: [],
+      auditLogs: []
+    };
+
+    let state = loadState();
+
+    function uid() {
+      return "id_" + Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+    }
+
+    function loadState() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) return JSON.parse(saved);
+
+      const data = structuredClone(seedData);
+
+      const cs101 = data.courses.find(c => c.code === "CS101");
+      const cs305 = data.courses.find(c => c.code === "CS305");
+      const bus220 = data.courses.find(c => c.code === "BUS220");
+
+      data.offerings = [
+        {
+          id: uid(),
+          courseId: cs101.id,
+          term: "2025/2026 Semester 1",
+          section: "A",
+          campus: "Main Campus",
+          lecturer: "Dr. Kofi Mensah",
+          room: "SCI-101",
+          schedule: "Mon/Wed 09:00-10:30",
+          capacity: 2,
+          status: "Open"
+        },
+        {
+          id: uid(),
+          courseId: cs305.id,
+          term: "2025/2026 Semester 1",
+          section: "B",
+          campus: "Main Campus",
+          lecturer: "Dr. Evelyn Stone",
+          room: "LAB-3",
+          schedule: "Tue/Thu 11:00-13:00",
+          capacity: 35,
+          status: "Open"
+        },
+        {
+          id: uid(),
+          courseId: bus220.id,
+          term: "2025/2026 Semester 1",
+          section: "A",
+          campus: "City Campus",
+          lecturer: "Prof. Daniel Clarke",
+          room: "BUS-202",
+          schedule: "Fri 10:00-13:00",
+          capacity: 40,
+          status: "Open"
+        }
+      ];
+
+      data.enrollments = [
+        {
+          id: uid(),
+          studentId: data.students[0].id,
+          offeringId: data.offerings[0].id,
+          status: "Enrolled",
+          date: new Date().toISOString()
+        },
+        {
+          id: uid(),
+          studentId: data.students[1].id,
+          offeringId: data.offerings[0].id,
+          status: "Enrolled",
+          date: new Date().toISOString()
+        },
+        {
+          id: uid(),
+          studentId: data.students[2].id,
+          offeringId: data.offerings[2].id,
+          status: "Enrolled",
+          date: new Date().toISOString()
+        }
+      ];
+
+      data.assessments = [
+        {
+          id: uid(),
+          offeringId: data.offerings[0].id,
+          title: "Midterm Exam",
+          type: "Exam",
+          weight: 40,
+          scores: {
+            [data.students[0].id]: 82,
+            [data.students[1].id]: 48
+          }
+        },
+        {
+          id: uid(),
+          offeringId: data.offerings[0].id,
+          title: "Project",
+          type: "Project",
+          weight: 60,
+          scores: {
+            [data.students[0].id]: 88,
+            [data.students[1].id]: 55
+          }
+        }
+      ];
+
+      data.auditLogs = [
+        {
+          id: uid(),
+          actor: "System",
+          action: "Seeded demo data",
+          entity: "System",
+          timestamp: new Date().toISOString()
+        }
+      ];
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      return data;
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function audit(action, entity) {
+      state.auditLogs.unshift({
+        id: uid(),
+        actor: `${state.currentUser.name} (${state.currentUser.role})`,
+        action,
+        entity,
+        timestamp: new Date().toISOString()
+      });
+      saveState();
+    }
+
+    function login() {
+      const role = document.getElementById("roleSelect").value;
+      state.currentUser.role = role;
+      saveState();
+
+      document.getElementById("loginScreen").classList.add("hidden");
+      document.getElementById("app").classList.remove("hidden");
+      document.getElementById("roleBadge").textContent = role;
+
+      audit("Logged in", "Authentication");
+      renderAll();
+      toast(`Logged in as ${role}`);
+    }
+
+    function logout() {
+      audit("Logged out", "Authentication");
+      document.getElementById("app").classList.add("hidden");
+      document.getElementById("loginScreen").classList.remove("hidden");
+      toast("Logged out");
+    }
+
+    function resetDemoData() {
+      localStorage.removeItem(STORAGE_KEY);
+      state = loadState();
+      toast("Demo data reset");
+      renderAll();
+    }
+
+    function showPanel(panelId) {
+      document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+      document.getElementById(panelId).classList.add("active");
+
+      document.querySelectorAll(".nav button[data-panel]").forEach(btn => btn.classList.remove("active"));
+      const activeButton = document.querySelector(`.nav button[data-panel="${panelId}"]`);
+      if (activeButton) activeButton.classList.add("active");
+
+      const titles = {
+        dashboard: ["Dashboard", "Enterprise academic operations overview"],
+        courses: ["Course Catalog", "Create, approve, version, and maintain curriculum records"],
+        offerings: ["Course Offerings", "Manage semester sections, capacity, rooms, schedules, and lecturers"],
+        students: ["Students", "Manage student academic profiles, advisors, attendance, and risk status"],
+        enrollment: ["Enrollment Management", "Enroll students, manage waitlists, and monitor capacity"],
+        assessments: ["Assessments & Grades", "Create assessments, enter scores, and calculate weighted results"],
+        recommendations: ["Recommendations", "AI-style operational insights for advisors and administrators"],
+        reports: ["Reports & Analytics", "Institutional reporting for planning and quality assurance"],
+        audit: ["Audit Logs", "Governance trail for academic operations"]
+      };
+
+      document.getElementById("pageTitle").textContent = titles[panelId][0];
+      document.getElementById("pageSubtitle").textContent = titles[panelId][1];
+
+      renderAll();
+    }
+
+    function renderAll() {
+      document.getElementById("roleBadge").textContent = state.currentUser.role;
+      renderDashboard();
+      renderCourses();
+      renderOfferings();
+      renderStudents();
+      renderEnrollment();
+      renderAssessments();
+      renderRecommendations();
+      renderReports();
+      renderAudit();
+    }
+
+    function courseById(id) {
+      return state.courses.find(c => c.id === id);
+    }
+
+    function offeringById(id) {
+      return state.offerings.find(o => o.id === id);
+    }
+
+    function studentById(id) {
+      return state.students.find(s => s.id === id);
+    }
+
+    function enrolledCount(offeringId) {
+      return state.enrollments.filter(e => e.offeringId === offeringId && e.status === "Enrolled").length;
+    }
+
+    function waitlistCount(offeringId) {
+      return state.enrollments.filter(e => e.offeringId === offeringId && e.status === "Waitlisted").length;
+    }
+
+    function calculateStudentOfferingGrade(studentId, offeringId) {
+      const assessments = state.assessments.filter(a => a.offeringId === offeringId);
+      const totalWeight = assessments.reduce((sum, a) => sum + Number(a.weight || 0), 0);
+      if (!assessments.length || totalWeight === 0) return null;
+
+      let weighted = 0;
+
+      assessments.forEach(a => {
+        const score = Number(a.scores?.[studentId] ?? 0);
+        weighted += score * (Number(a.weight) / totalWeight);
+      });
+
+      return Math.round(weighted * 10) / 10;
+    }
+
+    function gradeLetter(score) {
+      if (score === null) return "N/A";
+      if (score >= 80) return "A";
+      if (score >= 70) return "B";
+      if (score >= 60) return "C";
+      if (score >= 50) return "D";
+      return "F";
+    }
+
+    function statusBadge(status) {
+      const map = {
+        Approved: "badge-success",
+        Draft: "badge-warning",
+        Archived: "badge-muted",
+        Open: "badge-success",
+        Closed: "badge-danger",
+        Enrolled: "badge-success",
+        Waitlisted: "badge-warning",
+        Dropped: "badge-muted",
+        Active: "badge-success",
+        "At Risk": "badge-danger",
+        Completed: "badge-info"
+      };
+
+      return `<span class="badge ${map[status] || "badge-muted"}">${status}</span>`;
+    }
+
+    function renderDashboard() {
+      const totalCourses = state.courses.length;
+      const approvedCourses = state.courses.filter(c => c.status === "Approved").length;
+      const totalOfferings = state.offerings.length;
+      const totalStudents = state.students.length;
+      const totalEnrollments = state.enrollments.filter(e => e.status === "Enrolled").length;
+      const waitlisted = state.enrollments.filter(e => e.status === "Waitlisted").length;
+      const atRisk = state.students.filter(s => s.gpa < 2 || s.attendance < 75 || s.status === "At Risk").length;
+      const recommendations = generateRecommendations();
+
+      document.getElementById("dashboard").innerHTML = `
+        <div class="grid grid-4">
+          ${metricCard("📚", "Courses", totalCourses, `${approvedCourses} approved`, "bg-primary")}
+          ${metricCard("🏫", "Offerings", totalOfferings, "Active semester sections", "bg-accent")}
+          ${metricCard("🎓", "Students", totalStudents, `${atRisk} at risk`, "bg-warning")}
+          ${metricCard("📝", "Enrollments", totalEnrollments, `${waitlisted} waitlisted`, "bg-success")}
+        </div>
+
+        <div class="grid grid-2" style="margin-top:18px;">
+          <div class="card">
+            <div class="section-title">
+              <h3>Enrollment Capacity Monitor</h3>
+              <button class="btn btn-outline" onclick="showPanel('offerings')">View Offerings</button>
+            </div>
+            ${state.offerings.map(o => {
+              const c = courseById(o.courseId);
+              const used = enrolledCount(o.id);
+              const pct = Math.min(100, Math.round((used / o.capacity) * 100));
+              return `
+                <div style="margin-bottom:14px;">
+                  <div style="display:flex;justify-content:space-between;margin-bottom:7px;">
+                    <strong>${c?.code || "Unknown"}-${o.section}</strong>
+                    <span class="small muted">${used}/${o.capacity} enrolled</span>
+                  </div>
+                  <div class="progress"><span style="width:${pct}%"></span></div>
+                </div>
+              `;
+            }).join("")}
+          </div>
+
+          <div class="card">
+            <div class="section-title">
+              <h3>Top Recommendations</h3>
+              <button class="btn btn-outline" onclick="showPanel('recommendations')">Open Engine</button>
+            </div>
+            ${recommendations.slice(0, 4).map(renderRecommendationCard).join("") || `<p class="muted">No urgent recommendations.</p>`}
+          </div>
+        </div>
+
+        <div class="grid grid-2" style="margin-top:18px;">
+          <div class="card">
+            <div class="section-title">
+              <h3>Academic Risk Watchlist</h3>
+              <button class="btn btn-outline" onclick="showPanel('students')">View Students</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Student</th>
+                    <th>Program</th>
+                    <th>GPA</th>
+                    <th>Attendance</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${state.students
+                    .filter(s => s.gpa < 2 || s.attendance < 75 || s.status === "At Risk")
+                    .map(s => `
+                      <tr>
+                        <td><strong>${s.name}</strong><br><span class="muted small">${s.studentNo}</span></td>
+                        <td>${s.program}</td>
+                        <td>${s.gpa}</td>
+                        <td>${s.attendance}%</td>
+                        <td>${statusBadge(s.status)}</td>
+                      </tr>
+                    `).join("") || `<tr><td colspan="5">No at-risk students.</td></tr>`}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="section-title">
+              <h3>Recent Audit Activity</h3>
+              <button class="btn btn-outline" onclick="showPanel('audit')">View Logs</button>
+            </div>
+            ${state.auditLogs.slice(0, 6).map(log => `
+              <div class="audit-item">
+                <strong>${log.action}</strong>
+                <div class="muted small">${log.entity} · ${log.actor} · ${new Date(log.timestamp).toLocaleString()}</div>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    function metricCard(icon, label, value, helper, colorClass) {
+      return `
+        <div class="card metric">
+          <div>
+            <p>${label}</p>
+            <h3>${value}</h3>
+            <p>${helper}</p>
+          </div>
+          <div class="metric-icon ${colorClass}">${icon}</div>
+        </div>
+      `;
+    }
+
+    function renderCourses() {
+      document.getElementById("courses").innerHTML = `
+        <div class="card">
+          <div class="toolbar">
+            <div class="toolbar-left">
+              <input id="courseSearch" placeholder="Search courses by code, title, or department" style="width:340px;" oninput="renderCourseTable()" />
+              <select id="courseStatusFilter" style="width:180px;" onchange="renderCourseTable()">
+                <option value="">All Statuses</option>
+                <option value="Draft">Draft</option>
+                <option value="Approved">Approved</option>
+                <option value="Archived">Archived</option>
+              </select>
+            </div>
+            <div class="toolbar-right">
+              <button class="btn btn-primary" onclick="openCourseForm()">＋ Add Course</button>
+            </div>
+          </div>
+          <div id="courseTable"></div>
+        </div>
+      `;
+
+      renderCourseTable();
+    }
+
+    function renderCourseTable() {
+      const search = document.getElementById("courseSearch")?.value?.toLowerCase() || "";
+      const status = document.getElementById("courseStatusFilter")?.value || "";
+
+      const filtered = state.courses.filter(c => {
+        const text = `${c.code} ${c.title} ${c.department}`.toLowerCase();
+        return text.includes(search) && (!status || c.status === status);
+      });
+
+      document.getElementById("courseTable").innerHTML = `
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Code</th>
+                <th>Course</th>
+                <th>Department</th>
+                <th>Level</th>
+                <th>Credits</th>
+                <th>Status</th>
+                <th>Version</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${filtered.map(c => `
+                <tr>
+                  <td><strong>${c.code}</strong></td>
+                  <td>
+                    <strong>${c.title}</strong><br>
+                    <span class="muted small">${c.description || ""}</span>
+                  </td>
+                  <td>${c.department}</td>
+                  <td>${c.level}</td>
+                  <td>${c.credits}</td>
+                  <td>${statusBadge(c.status)}</td>
+                  <td>v${c.version}</td>
+                  <td>
+                    <button class="btn btn-outline" onclick="openCourseForm('${c.id}')">Edit</button>
+                    <button class="btn btn-warning" onclick="approveCourse('${c.id}')">Approve</button>
+                    <button class="btn btn-danger" onclick="deleteCourse('${c.id}')">Delete</button>
+                  </td>
+                </tr>
+              `).join("") || `<tr><td colspan="8">No courses found.</td></tr>`}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    function openCourseForm(id = null) {
+      const c = id ? courseById(id) : {
+        code: "",
+        title: "",
+        department: "",
+        level: "Undergraduate",
+        credits: 3,
+        status: "Draft",
+        prerequisites: "",
+        description: "",
+        learningOutcomes: "",
+        version: 1
+      };
+
+      openModal(id ? "Edit Course" : "Create Course", "Curriculum catalog and approval workflow", `
+        <form onsubmit="saveCourse(event, '${id || ""}')">
+          <div class="form-grid">
+            <div>
+              <label>Course Code</label>
+              <input name="code" required value="${escapeHtml(c.code)}" />
+            </div>
+            <div>
+              <label>Title</label>
+              <input name="title" required value="${escapeHtml(c.title)}" />
+            </div>
+            <div>
+              <label>Department</label>
+              <input name="department" required value="${escapeHtml(c.department)}" />
+            </div>
+            <div>
+              <label>Level</label>
+              <select name="level">
+                ${["Certificate", "Diploma", "Undergraduate", "Postgraduate"].map(x => `<option ${c.level === x ? "selected" : ""}>${x}</option>`).join("")}
+              </select>
+            </div>
+            <div>
+              <label>Credits</label>
+              <input name="credits" type="number" min="1" max="12" required value="${c.credits}" />
+            </div>
+            <div>
+              <label>Status</label>
+              <select name="status">
+                ${["Draft", "Approved", "Archived"].map(x => `<option ${c.status === x ? "selected" : ""}>${x}</option>`).join("")}
+              </select>
+            </div>
+            <div class="full">
+              <label>Prerequisites</label>
+              <input name="prerequisites" placeholder="Example: CS101, MTH110" value="${escapeHtml(c.prerequisites || "")}" />
+            </div>
+            <div class="full">
+              <label>Description</label>
+              <textarea name="description" rows="3">${escapeHtml(c.description || "")}</textarea>
+            </div>
+            <div class="full">
+              <label>Learning Outcomes</label>
+              <textarea name="learningOutcomes" rows="3">${escapeHtml(c.learningOutcomes || "")}</textarea>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:18px;">
+            <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Course</button>
+          </div>
+        </form>
+      `);
+    }
+
+    function saveCourse(event, id) {
+      event.preventDefault();
+      const form = new FormData(event.target);
+      const payload = Object.fromEntries(form.entries());
+      payload.credits = Number(payload.credits);
+
+      if (id) {
+        const index = state.courses.findIndex(c => c.id === id);
+        payload.id = id;
+        payload.version = Number(state.courses[index].version || 1) + 1;
+        state.courses[index] = payload;
+        audit("Updated course", payload.code);
+      } else {
+        payload.id = uid();
+        payload.version = 1;
+        state.courses.push(payload);
+        audit("Created course", payload.code);
+      }
+
+      saveState();
+      closeModal();
+      renderAll();
+      toast("Course saved");
+    }
+
+    function approveCourse(id) {
+      const c = courseById(id);
+      if (!c) return;
+      c.status = "Approved";
+      c.version = Number(c.version || 1) + 1;
+      audit("Approved course", c.code);
+      saveState();
+      renderAll();
+      toast(`${c.code} approved`);
+    }
+
+    function deleteCourse(id) {
+      const c = courseById(id);
+      if (!c) return;
+
+      const hasOfferings = state.offerings.some(o => o.courseId === id);
+      if (hasOfferings) {
+        alert("Cannot delete course with existing offerings. Archive it instead.");
+        return;
+      }
+
+      if (!confirm(`Delete ${c.code}?`)) return;
+      state.courses = state.courses.filter(course => course.id !== id);
+      audit("Deleted course", c.code);
+      saveState();
+      renderAll();
+      toast("Course deleted");
+    }
+
+    function renderOfferings() {
+      document.getElementById("offerings").innerHTML = `
+        <div class="card">
+          <div class="toolbar">
+            <div class="toolbar-left">
+              <input id="offeringSearch" placeholder="Search offering, lecturer, room, campus" style="width:340px;" oninput="renderOfferingTable()" />
+            </div>
+            <div class="toolbar-right">
+              <button class="btn btn-primary" onclick="openOfferingForm()">＋ Add Offering</button>
+            </div>
+          </div>
+          <div id="offeringTable"></div>
+        </div>
+      `;
+
+      renderOfferingTable();
+    }
+
+    function renderOfferingTable() {
+      const search = document.getElementById("offeringSearch")?.value?.toLowerCase() || "";
+
+      const filtered = state.offerings.filter(o => {
+        const c = courseById(o.courseId);
+        const text = `${c?.code} ${c?.title} ${o.lecturer} ${o.room} ${o.campus} ${o.term}`.toLowerCase();
+        return text.includes(search);
+      });
+
+      document.getElementById("offeringTable").innerHTML = `
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Course</th>
+                <th>Term</th>
+                <th>Section</th>
+                <th>Lecturer</th>
+                <th>Room/Schedule</th>
+                <th>Capacity</th>
+                <th>Waitlist</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${filtered.map(o => {
+                const c = courseById(o.courseId);
+                return `
+                  <tr>
+                    <td><strong>${c?.code || "Unknown"}</strong><br><span class="muted small">${c?.title || ""}</span></td>
+                    <td>${o.term}<br><span class="muted small">${o.campus}</span></td>
+                    <td>${o.section}</td>
+                    <td>${o.lecturer}</td>
+                    <td>${o.room}<br><span class="muted small">${o.schedule}</span></td>
+                    <td>${enrolledCount(o.id)}/${o.capacity}</td>
+                    <td>${waitlistCount(o.id)}</td>
+                    <td>${statusBadge(o.status)}</td>
+                    <td>
+                      <button class="btn btn-outline" onclick="openOfferingForm('${o.id}')">Edit</button>
+                      <button class="btn btn-danger" onclick="deleteOffering('${o.id}')">Delete</button>
+                    </td>
+                  </tr>
+                `;
+              }).join("") || `<tr><td colspan="9">No offerings found.</td></tr>`}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    function openOfferingForm(id = null) {
+      const o = id ? offeringById(id) : {
+        courseId: state.courses[0]?.id || "",
+        term: "2025/2026 Semester 1",
+        section: "A",
+        campus: "Main Campus",
+        lecturer: "",
+        room: "",
+        schedule: "",
+        capacity: 30,
+        status: "Open"
+      };
+
+      openModal(id ? "Edit Offering" : "Create Offering", "Semester section, lecturer, capacity, room, and timetable management", `
+        <form onsubmit="saveOffering(event, '${id || ""}')">
+          <div class="form-grid">
+            <div class="full">
+              <label>Course</label>
+              <select name="courseId" required>
+                ${state.courses.map(c => `<option value="${c.id}" ${o.courseId === c.id ? "selected" : ""}>${c.code} - ${c.title}</option>`).join("")}
+              </select>
+            </div>
+            <div>
+              <label>Term</label>
+              <input name="term" required value="${escapeHtml(o.term)}" />
+            </div>
+            <div>
+              <label>Section</label>
+              <input name="section" required value="${escapeHtml(o.section)}" />
+            </div>
+            <div>
+              <label>Campus</label>
+              <input name="campus" required value="${escapeHtml(o.campus)}" />
+            </div>
+            <div>
+              <label>Lecturer</label>
+              <input name="lecturer" required value="${escapeHtml(o.lecturer)}" />
+            </div>
+            <div>
+              <label>Room</label>
+              <input name="room" required value="${escapeHtml(o.room)}" />
+            </div>
+            <div>
+              <label>Schedule</label>
+              <input name="schedule" required value="${escapeHtml(o.schedule)}" />
+            </div>
+            <div>
+              <label>Capacity</label>
+              <input name="capacity" type="number" min="1" required value="${o.capacity}" />
+            </div>
+            <div>
+              <label>Status</label>
+              <select name="status">
+                ${["Open", "Closed", "Completed"].map(x => `<option ${o.status === x ? "selected" : ""}>${x}</option>`).join("")}
+              </select>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:18px;">
+            <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Offering</button>
+          </div>
+        </form>
+      `);
+    }
+
+    function saveOffering(event, id) {
+      event.preventDefault();
+      const form = new FormData(event.target);
+      const payload = Object.fromEntries(form.entries());
+      payload.capacity = Number(payload.capacity);
+
+      if (id) {
+        payload.id = id;
+        const index = state.offerings.findIndex(o => o.id === id);
+        state.offerings[index] = payload;
+        audit("Updated offering", formatOffering(payload));
+      } else {
+        payload.id = uid();
+        state.offerings.push(payload);
+        audit("Created offering", formatOffering(payload));
+      }
+
+      saveState();
+      closeModal();
+      renderAll();
+      toast("Offering saved");
+    }
+
+    function deleteOffering(id) {
+      const o = offeringById(id);
+      if (!o) return;
+
+      const hasEnrollments = state.enrollments.some(e => e.offeringId === id);
+      if (hasEnrollments) {
+        alert("Cannot delete offering with enrollments. Close it instead.");
+        return;
+      }
+
+      if (!confirm("Delete this offering?")) return;
+      state.offerings = state.offerings.filter(item => item.id !== id);
+      audit("Deleted offering", formatOffering(o));
+      saveState();
+      renderAll();
+      toast("Offering deleted");
+    }
+
+    function formatOffering(o) {
+      const c = courseById(o.courseId);
+      return `${c?.code || "Unknown"}-${o.section} ${o.term}`;
+    }
+
+    function renderStudents() {
+      document.getElementById("students").innerHTML = `
+        <div class="card">
+          <div class="toolbar">
+            <div class="toolbar-left">
+              <input id="studentSearch" placeholder="Search students by name, number, program, advisor" style="width:360px;" oninput="renderStudentTable()" />
+              <select id="studentRiskFilter" style="width:180px;" onchange="renderStudentTable()">
+                <option value="">All Students</option>
+                <option value="risk">At Risk Only</option>
+                <option value="active">Active Only</option>
+              </select>
+            </div>
+            <div class="toolbar-right">
+              <button class="btn btn-primary" onclick="openStudentForm()">＋ Add Student</button>
+            </div>
+          </div>
+          <div id="studentTable"></div>
+        </div>
+      `;
+
+      renderStudentTable();
+    }
+
+    function renderStudentTable() {
+      const search = document.getElementById("studentSearch")?.value?.toLowerCase() || "";
+      const risk = document.getElementById("studentRiskFilter")?.value || "";
+
+      const filtered = state.students.filter(s => {
+        const text = `${s.studentNo} ${s.name} ${s.program} ${s.advisor}`.toLowerCase();
+        const isRisk = s.gpa < 2 || s.attendance < 75 || s.status === "At Risk";
+        return text.includes(search) &&
+          (!risk || (risk === "risk" ? isRisk : !isRisk));
+      });
+
+      document.getElementById("studentTable").innerHTML = `
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th>Program</th>
+                <th>Year</th>
+                <th>GPA</th>
+                <th>Attendance</th>
+                <th>Advisor</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${filtered.map(s => `
+                <tr>
+                  <td><strong>${s.name}</strong><br><span class="muted small">${s.studentNo}</span></td>
+                  <td>${s.program}</td>
+                  <td>${s.year}</td>
+                  <td>${s.gpa}</td>
+                  <td>${s.attendance}%</td>
+                  <td>${s.advisor}</td>
+                  <td>${statusBadge(s.status)}</td>
+                  <td>
+                    <button class="btn btn-outline" onclick="openStudentForm('${s.id}')">Edit</button>
+                    <button class="btn btn-info" onclick="openStudentPlan('${s.id}')">Plan</button>
+                    <button class="btn btn-danger" onclick="deleteStudent('${s.id}')">Delete</button>
+                  </td>
+                </tr>
+              `).join("") || `<tr><td colspan="8">No students found.</td></tr>`}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    function openStudentForm(id = null) {
+      const s = id ? studentById(id) : {
+        studentNo: "",
+        name: "",
+        program: "",
+        year: 1,
+        gpa: 0,
+        attendance: 100,
+        advisor: "",
+        status: "Active"
+      };
+
+      openModal(id ? "Edit Student" : "Create Student", "Academic profile, advisor assignment, attendance, and risk tracking", `
+        <form onsubmit="saveStudent(event, '${id || ""}')">
+          <div class="form-grid">
+            <div>
+              <label>Student Number</label>
+              <input name="studentNo" required value="${escapeHtml(s.studentNo)}" />
+            </div>
+            <div>
+              <label>Full Name</label>
+              <input name="name" required value="${escapeHtml(s.name)}" />
+            </div>
+            <div>
+              <label>Program</label>
+              <input name="program" required value="${escapeHtml(s.program)}" />
+            </div>
+            <div>
+              <label>Year</label>
+              <input name="year" type="number" min="1" max="8" required value="${s.year}" />
+            </div>
+            <div>
+              <label>GPA</label>
+              <input name="gpa" type="number" min="0" max="4" step="0.01" required value="${s.gpa}" />
+            </div>
+            <div>
+              <label>Attendance %</label>
+              <input name="attendance" type="number" min="0" max="100" required value="${s.attendance}" />
+            </div>
+            <div>
+              <label>Advisor</label>
+              <input name="advisor" required value="${escapeHtml(s.advisor)}" />
+            </div>
+            <div>
+              <label>Status</label>
+              <select name="status">
+                ${["Active", "At Risk", "Completed"].map(x => `<option ${s.status === x ? "selected" : ""}>${x}</option>`).join("")}
+              </select>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:18px;">
+            <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Student</button>
+          </div>
+        </form>
+      `);
+    }
+
+    function saveStudent(event, id) {
+      event.preventDefault();
+      const form = new FormData(event.target);
+      const payload = Object.fromEntries(form.entries());
+      payload.year = Number(payload.year);
+      payload.gpa = Number(payload.gpa);
+      payload.attendance = Number(payload.attendance);
+
+      if (payload.gpa < 2 || payload.attendance < 75) payload.status = "At Risk";
+
+      if (id) {
+        payload.id = id;
+        const index = state.students.findIndex(s => s.id === id);
+        state.students[index] = payload;
+        audit("Updated student", payload.studentNo);
+      } else {
+        payload.id = uid();
+        state.students.push(payload);
+        audit("Created student", payload.studentNo);
+      }
+
+      saveState();
+      closeModal();
+      renderAll();
+      toast("Student saved");
+    }
+
+    function deleteStudent(id) {
+      const s = studentById(id);
+      if (!s) return;
+
+      const hasEnrollments = state.enrollments.some(e => e.studentId === id);
+      if (hasEnrollments) {
+        alert("Cannot delete student with enrollment history.");
+        return;
+      }
+
+      if (!confirm(`Delete ${s.name}?`)) return;
+      state.students = state.students.filter(item => item.id !== id);
+      audit("Deleted student", s.studentNo);
+      saveState();
+      renderAll();
+      toast("Student deleted");
+    }
+
+    function openStudentPlan(studentId) {
+      const s = studentById(studentId);
+      const recommendations = recommendCoursesForStudent(studentId);
+
+      openModal("Student Course Plan", `${s.name} · ${s.program}`, `
+        <div class="grid">
+          <div class="card" style="box-shadow:none;">
+            <h3>Academic Profile</h3>
+            <p class="muted small" style="margin-top:6px;">GPA: ${s.gpa} · Attendance: ${s.attendance}% · Advisor: ${s.advisor}</p>
+          </div>
+
+          <div>
+            <h3 style="margin-bottom:12px;">Recommended Courses</h3>
+            ${recommendations.map(r => `
+              <div class="recommendation ${r.priority}">
+                <strong>${r.course.code} - ${r.course.title}</strong>
+                <p class="small">${r.reason}</p>
+              </div>
+            `).join("") || `<p class="muted">No recommendations available.</p>`}
+          </div>
+        </div>
+      `);
+    }
+
+    function renderEnrollment() {
+      document.getElementById("enrollment").innerHTML = `
+        <div class="grid grid-2">
+          <div class="card">
+            <div class="section-title">
+              <h3>Enroll Student</h3>
+            </div>
+            <form onsubmit="enrollStudent(event)">
+              <div style="display:grid;gap:14px;">
+                <div>
+                  <label>Student</label>
+                  <select name="studentId" required>
+                    ${state.students.map(s => `<option value="${s.id}">${s.studentNo} - ${s.name}</option>`).join("")}
+                  </select>
+                </div>
+                <div>
+                  <label>Offering</label>
+                  <select name="offeringId" required>
+                    ${state.offerings.map(o => {
+                      const c = courseById(o.courseId);
+                      return `<option value="${o.id}">${c?.code} ${o.section} · ${o.term} · ${enrolledCount(o.id)}/${o.capacity}</option>`;
+                    }).join("")}
+                  </select>
+                </div>
+                <button class="btn btn-primary" type="submit">Enroll / Waitlist</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="card">
+            <div class="section-title">
+              <h3>Enrollment Rules</h3>
+            </div>
+            <ul style="line-height:1.9;margin-left:18px;">
+              <li>Students are automatically <strong>waitlisted</strong> if capacity is full.</li>
+              <li>Duplicate enrollments are blocked.</li>
+              <li>Closed offerings cannot receive new enrollments.</li>
+              <li>When a student drops, the first waitlisted student is promoted automatically.</li>
+              <li>All changes are written to the audit log.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:18px;">
+          <div class="section-title">
+            <h3>Enrollment Records</h3>
+            <button class="btn btn-outline" onclick="promoteAllWaitlists()">Promote Eligible Waitlists</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Student</th>
+                  <th>Offering</th>
+                  <th>Lecturer</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                  <th>Grade</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${state.enrollments.map(e => {
+                  const s = studentById(e.studentId);
+                  const o = offeringById(e.offeringId);
+                  const c = courseById(o?.courseId);
+                  const score = calculateStudentOfferingGrade(e.studentId, e.offeringId);
+                  return `
+                    <tr>
+                      <td><strong>${s?.name || "Unknown"}</strong><br><span class="muted small">${s?.studentNo || ""}</span></td>
+                      <td><strong>${c?.code || "Unknown"}-${o?.section || ""}</strong><br><span class="muted small">${o?.term || ""}</span></td>
+                      <td>${o?.lecturer || ""}</td>
+                      <td>${statusBadge(e.status)}</td>
+                      <td>${new Date(e.date).toLocaleDateString()}</td>
+                      <td>${score === null ? "N/A" : `${score} (${gradeLetter(score)})`}</td>
+                      <td>
+                        ${e.status === "Enrolled" ? `<button class="btn btn-warning" onclick="dropEnrollment('${e.id}')">Drop</button>` : ""}
+                        ${e.status === "Waitlisted" ? `<button class="btn btn-success" onclick="manualPromote('${e.id}')">Promote</button>` : ""}
+                      </td>
+                    </tr>
+                  `;
+                }).join("") || `<tr><td colspan="7">No enrollment records.</td></tr>`}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function enrollStudent(event) {
+      event.preventDefault();
+      const form = new FormData(event.target);
+      const studentId = form.get("studentId");
+      const offeringId = form.get("offeringId");
+      const o = offeringById(offeringId);
+      const s = studentById(studentId);
+
+      if (!o || !s) return;
+
+      if (o.status !== "Open") {
+        alert("This offering is not open for enrollment.");
+        return;
+      }
+
+      const duplicate = state.enrollments.some(e =>
+        e.studentId === studentId &&
+        e.offeringId === offeringId &&
+        ["Enrolled", "Waitlisted"].includes(e.status)
+      );
+
+      if (duplicate) {
+        alert("Student is already enrolled or waitlisted in this offering.");
+        return;
+      }
+
+      const status = enrolledCount(offeringId) >= Number(o.capacity) ? "Waitlisted" : "Enrolled";
+
+      state.enrollments.push({
+        id: uid(),
+        studentId,
+        offeringId,
+        status,
+        date: new Date().toISOString()
+      });
+
+      audit(`${status} student`, `${s.studentNo} in ${formatOffering(o)}`);
+      saveState();
+      renderAll();
+      toast(`${s.name} ${status.toLowerCase()}`);
+    }
+
+    function dropEnrollment(enrollmentId) {
+      const e = state.enrollments.find(item => item.id === enrollmentId);
+      if (!e) return;
+
+      e.status = "Dropped";
+      audit("Dropped enrollment", enrollmentId);
+      promoteWaitlist(e.offeringId);
+      saveState();
+      renderAll();
+      toast("Enrollment dropped");
+    }
+
+    function promoteWaitlist(offeringId) {
+      const o = offeringById(offeringId);
+      if (!o) return;
+
+      while (enrolledCount(offeringId) < Number(o.capacity)) {
+        const next = state.enrollments
+          .filter(e => e.offeringId === offeringId && e.status === "Waitlisted")
+          .sort((a, b) => new Date(a.date) - new Date(b.date))[0];
+
+        if (!next) break;
+
+        next.status = "Enrolled";
+        audit("Promoted waitlisted student", formatOffering(o));
+      }
+    }
+
+    function manualPromote(enrollmentId) {
+      const e = state.enrollments.find(item => item.id === enrollmentId);
+      if (!e) return;
+
+      const o = offeringById(e.offeringId);
+      if (enrolledCount(o.id) >= Number(o.capacity)) {
+        alert("Cannot promote because offering capacity is full.");
+        return;
+      }
+
+      e.status = "Enrolled";
+      audit("Manually promoted waitlisted student", formatOffering(o));
+      saveState();
+      renderAll();
+      toast("Student promoted");
+    }
+
+    function promoteAllWaitlists() {
+      state.offerings.forEach(o => promoteWaitlist(o.id));
+      saveState();
+      renderAll();
+      toast("Eligible waitlists promoted");
+    }
+
+    function renderAssessments() {
+      document.getElementById("assessments").innerHTML = `
+        <div class="card">
+          <div class="toolbar">
+            <div class="toolbar-left">
+              <select id="assessmentOfferingFilter" style="width:360px;" onchange="renderAssessmentTable()">
+                <option value="">All Offerings</option>
+                ${state.offerings.map(o => {
+                  const c = courseById(o.courseId);
+                  return `<option value="${o.id}">${c?.code}-${o.section} · ${o.term}</option>`;
+                }).join("")}
+              </select>
+            </div>
+            <div class="toolbar-right">
+              <button class="btn btn-primary" onclick="openAssessmentForm()">＋ Add Assessment</button>
+            </div>
+          </div>
+          <div id="assessmentTable"></div>
+        </div>
+      `;
+
+      renderAssessmentTable();
+    }
+
+    function renderAssessmentTable() {
+      const filter = document.getElementById("assessmentOfferingFilter")?.value || "";
+      const assessments = state.assessments.filter(a => !filter || a.offeringId === filter);
+
+      document.getElementById("assessmentTable").innerHTML = `
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Assessment</th>
+                <th>Offering</th>
+                <th>Type</th>
+                <th>Weight</th>
+                <th>Scores Entered</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${assessments.map(a => {
+                const o = offeringById(a.offeringId);
+                const c = courseById(o?.courseId);
+                return `
+                  <tr>
+                    <td><strong>${a.title}</strong></td>
+                    <td>${c?.code || "Unknown"}-${o?.section || ""}<br><span class="muted small">${o?.term || ""}</span></td>
+                    <td>${a.type}</td>
+                    <td>${a.weight}%</td>
+                    <td>${Object.keys(a.scores || {}).length}</td>
+                    <td>
+                      <button class="btn btn-outline" onclick="openAssessmentForm('${a.id}')">Edit</button>
+                      <button class="btn btn-success" onclick="openScoresForm('${a.id}')">Scores</button>
+                      <button class="btn btn-danger" onclick="deleteAssessment('${a.id}')">Delete</button>
+                    </td>
+                  </tr>
+                `;
+              }).join("") || `<tr><td colspan="6">No assessments found.</td></tr>`}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    function openAssessmentForm(id = null) {
+      const a = id ? state.assessments.find(x => x.id === id) : {
+        offeringId: state.offerings[0]?.id || "",
+        title: "",
+        type: "Exam",
+        weight: 30,
+        scores: {}
+      };
+
+      openModal(id ? "Edit Assessment" : "Create Assessment", "Assessment structure and grade weighting", `
+        <form onsubmit="saveAssessment(event, '${id || ""}')">
+          <div class="form-grid">
+            <div class="full">
+              <label>Offering</label>
+              <select name="offeringId" required>
+                ${state.offerings.map(o => {
+                  const c = courseById(o.courseId);
+                  return `<option value="${o.id}" ${a.offeringId === o.id ? "selected" : ""}>${c?.code}-${o.section} · ${o.term}</option>`;
+                }).join("")}
+              </select>
+            </div>
+            <div>
+              <label>Title</label>
+              <input name="title" required value="${escapeHtml(a.title)}" />
+            </div>
+            <div>
+              <label>Type</label>
+              <select name="type">
+                ${["Quiz", "Assignment", "Project", "Lab", "Midterm", "Exam"].map(x => `<option ${a.type === x ? "selected" : ""}>${x}</option>`).join("")}
+              </select>
+            </div>
+            <div>
+              <label>Weight %</label>
+              <input name="weight" type="number" min="1" max="100" required value="${a.weight}" />
+            </div>
+          </div>
+          <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:18px;">
+            <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Assessment</button>
+          </div>
+        </form>
+      `);
+    }
+
+    function saveAssessment(event, id) {
+      event.preventDefault();
+      const form = new FormData(event.target);
+      const payload = Object.fromEntries(form.entries());
+      payload.weight = Number(payload.weight);
+
+      if (id) {
+        const existing = state.assessments.find(a => a.id === id);
+        payload.id = id;
+        payload.scores = existing.scores || {};
+        const index = state.assessments.findIndex(a => a.id === id);
+        state.assessments[index] = payload;
+        audit("Updated assessment", payload.title);
+      } else {
+        payload.id = uid();
+        payload.scores = {};
+        state.assessments.push(payload);
+        audit("Created assessment", payload.title);
+      }
+
+      saveState();
+      closeModal();
+      renderAll();
+      toast("Assessment saved");
+    }
+
+    function openScoresForm(assessmentId) {
+      const a = state.assessments.find(x => x.id === assessmentId);
+      const o = offeringById(a.offeringId);
+      const c = courseById(o.courseId);
+      const enrolled = state.enrollments.filter(e => e.offeringId === o.id && e.status === "Enrolled");
+
+      openModal("Enter Scores", `${a.title} · ${c.code}-${o.section}`, `
+        <form onsubmit="saveScores(event, '${assessmentId}')">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Student</th>
+                  <th>Score / 100</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${enrolled.map(e => {
+                  const s = studentById(e.studentId);
+                  return `
+                    <tr>
+                      <td><strong>${s.name}</strong><br><span class="muted small">${s.studentNo}</span></td>
+                      <td><input name="${s.id}" type="number" min="0" max="100" value="${a.scores?.[s.id] ?? ""}" /></td>
+                    </tr>
+                  `;
+                }).join("") || `<tr><td colspan="2">No enrolled students.</td></tr>`}
+              </tbody>
+            </table>
+          </div>
+          <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:18px;">
+            <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Scores</button>
+          </div>
+        </form>
+      `);
+    }
+
+    function saveScores(event, assessmentId) {
+      event.preventDefault();
+      const a = state.assessments.find(x => x.id === assessmentId);
+      const form = new FormData(event.target);
+
+      a.scores = {};
+      for (const [studentId, value] of form.entries()) {
+        if (value !== "") a.scores[studentId] = Number(value);
+      }
+
+      audit("Updated assessment scores", a.title);
+      saveState();
+      closeModal();
+      renderAll();
+      toast("Scores saved");
+    }
+
+    function deleteAssessment(id) {
+      const a = state.assessments.find(x => x.id === id);
+      if (!a) return;
+
+      if (!confirm(`Delete assessment ${a.title}?`)) return;
+      state.assessments = state.assessments.filter(item => item.id !== id);
+      audit("Deleted assessment", a.title);
+      saveState();
+      renderAll();
+      toast("Assessment deleted");
+    }
+
+    function generateRecommendations() {
+      const recommendations = [];
+
+      state.students.forEach(s => {
+        if (s.gpa < 2) {
+          recommendations.push({
+            priority: "high",
+            title: `Academic intervention required for ${s.name}`,
+            message: `${s.name} has a GPA of ${s.gpa}. Recommend advisor meeting, tutoring, reduced credit load, and weekly progress monitoring.`,
+            owner: "Advisor"
+          });
+        }
+
+        if (s.attendance < 75) {
+          recommendations.push({
+            priority: "high",
+            title: `Attendance warning for ${s.name}`,
+            message: `${s.name}'s attendance is ${s.attendance}%. Recommend automated alert, counseling referral, and lecturer follow-up.`,
+            owner: "Student Services"
+          });
+        }
+      });
+
+      state.offerings.forEach(o => {
+        const c = courseById(o.courseId);
+        const used = enrolledCount(o.id);
+        const utilization = used / Number(o.capacity);
+
+        if (utilization >= 0.9) {
+          recommendations.push({
+            priority: "medium",
+            title: `Add capacity for ${c?.code}-${o.section}`,
+            message: `This offering is ${Math.round(utilization * 100)}% full. Recommend opening another section, increasing room capacity, or assigning a larger lecture hall.`,
+            owner: "Registrar"
+          });
+        }
+
+        if (utilization <= 0.25 && o.status === "Open") {
+          recommendations.push({
+            priority: "low",
+            title: `Low enrollment in ${c?.code}-${o.section}`,
+            message: `Only ${used}/${o.capacity} seats are filled. Recommend reviewing timetable conflicts, marketing to eligible students, or consolidating sections.`,
+            owner: "Academic Admin"
+          });
+        }
+
+        if (waitlistCount(o.id) > 0) {
+          recommendations.push({
+            priority: "medium",
+            title: `Waitlist exists for ${c?.code}-${o.section}`,
+            message: `${waitlistCount(o.id)} student(s) are waitlisted. Recommend capacity review and automatic promotion when seats become available.`,
+            owner: "Registrar"
+          });
+        }
+      });
+
+      state.courses.forEach(c => {
+        if (c.status === "Draft") {
+          recommendations.push({
+            priority: "low",
+            title: `Course approval pending for ${c.code}`,
+            message: `${c.title} is still in draft. Recommend curriculum committee review before publication to students.`,
+            owner: "Academic Admin"
+          });
+        }
+
+        if (!c.learningOutcomes || c.learningOutcomes.length < 20) {
+          recommendations.push({
+            priority: "low",
+            title: `Improve learning outcomes for ${c.code}`,
+            message: `Learning outcomes appear incomplete. Recommend measurable outcomes aligned to assessment strategy.`,
+            owner: "Quality Assurance"
+          });
+        }
+      });
+
+      return recommendations.sort((a, b) => {
+        const rank = { high: 1, medium: 2, low: 3 };
+        return rank[a.priority] - rank[b.priority];
+      });
+    }
+
+    function recommendCoursesForStudent(studentId) {
+      const s = studentById(studentId);
+      if (!s) return [];
+
+      const enrolledOfferingIds = state.enrollments
+        .filter(e => e.studentId === studentId && ["Enrolled", "Waitlisted"].includes(e.status))
+        .map(e => e.offeringId);
+
+      const enrolledCourseIds = state.offerings
+        .filter(o => enrolledOfferingIds.includes(o.id))
+        .map(o => o.courseId);
+
+      const programText = s.program.toLowerCase();
+
+      return state.courses
+        .filter(c => c.status === "Approved" && !enrolledCourseIds.includes(c.id))
+        .map(c => {
+          let score = 0;
+          let reason = [];
+
+          if (programText.includes("computer") && c.department === "Computer Science") {
+            score += 3;
+            reason.push("matches the student's program");
+          }
+
+          if (programText.includes("business") && c.department === "Business") {
+            score += 3;
+            reason.push("matches the student's program");
+          }
+
+          if (s.year <= 2 && c.level === "Undergraduate") {
+            score += 1;
+            reason.push("appropriate for current academic level");
+          }
+
+          if (s.gpa < 2 && Number(c.credits) <= 3) {
+            score += 2;
+            reason.push("lower credit load is suitable for academic recovery");
+          }
+
+          if (!c.prerequisites) {
+            score += 1;
+            reason.push("has no prerequisite barrier");
+          }
+
+          return {
+            course: c,
+            score,
+            priority: score >= 4 ? "high" : score >= 2 ? "medium" : "low",
+            reason: reason.length ? reason.join(", ") + "." : "general elective option."
+          };
+        })
+        .filter(r => r.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 5);
+    }
+
+    function renderRecommendations() {
+      const recommendations = generateRecommendations();
+
+      document.getElementById("recommendations").innerHTML = `
+        <div class="grid grid-3">
+          ${metricCard("🚨", "High Priority", recommendations.filter(r => r.priority === "high").length, "Immediate action", "bg-danger")}
+          ${metricCard("⚠️", "Medium Priority", recommendations.filter(r => r.priority === "medium").length, "Planning required", "bg-warning")}
+          ${metricCard("💡", "Low Priority", recommendations.filter(r => r.priority === "low").length, "Quality improvements", "bg-info")}
+        </div>
+
+        <div class="card" style="margin-top:18px;">
+          <div class="section-title">
+            <h3>Enterprise Recommendations Engine</h3>
+            <button class="btn btn-primary" onclick="renderAll()">Refresh Recommendations</button>
+          </div>
+
+          ${recommendations.map(renderRecommendationCard).join("") || `<p class="muted">No recommendations generated.</p>`}
+        </div>
+
+        <div class="card" style="margin-top:18px;">
+          <div class="section-title">
+            <h3>Recommended Administrative Actions</h3>
+          </div>
+          <ul style="line-height:1.9;margin-left:18px;">
+            <li><strong>For high-risk students:</strong> schedule advisor meetings, assign tutors, and monitor attendance weekly.</li>
+            <li><strong>For full offerings:</strong> create additional sections, increase capacity, or move to larger rooms.</li>
+            <li><strong>For low enrollment:</strong> check timetable conflicts, prerequisites, and student demand trends.</li>
+            <li><strong>For draft courses:</strong> route to curriculum committee and verify learning outcomes.</li>
+            <li><strong>For waitlists:</strong> enable automated promotion when enrolled students drop.</li>
+          </ul>
+        </div>
+      `;
+    }
+
+    function renderRecommendationCard(r) {
+      return `
+        <div class="recommendation ${r.priority}">
+          <strong>${priorityIcon(r.priority)} ${r.title}</strong>
+          <p class="small">${r.message}</p>
+          <p class="muted small" style="margin-top:6px;">Recommended owner: ${r.owner}</p>
+        </div>
+      `;
+    }
+
+    function priorityIcon(priority) {
+      if (priority === "high") return "🚨";
+      if (priority === "medium") return "⚠️";
+      return "💡";
+    }
+
+    function renderReports() {
+      const enrollmentByDept = {};
+
+      state.enrollments
+        .filter(e => e.status === "Enrolled")
+        .forEach(e => {
+          const o = offeringById(e.offeringId);
+          const c = courseById(o?.courseId);
+          if (!c) return;
+          enrollmentByDept[c.department] = (enrollmentByDept[c.department] || 0) + 1;
+        });
+
+      const avgGpa = state.students.length
+        ? (state.students.reduce((sum, s) => sum + Number(s.gpa), 0) / state.students.length).toFixed(2)
+        : 0;
+
+      document.getElementById("reports").innerHTML = `
+        <div class="grid grid-4">
+          ${metricCard("🎯", "Average GPA", avgGpa, "Across all students", "bg-primary")}
+          ${metricCard("🚨", "At-Risk Students", state.students.filter(s => s.gpa < 2 || s.attendance < 75).length, "Need intervention", "bg-danger")}
+          ${metricCard("⏳", "Waitlisted", state.enrollments.filter(e => e.status === "Waitlisted").length, "Capacity pressure", "bg-warning")}
+          ${metricCard("✅", "Approved Courses", state.courses.filter(c => c.status === "Approved").length, "Ready for offering", "bg-success")}
+        </div>
+
+        <div class="grid grid-2" style="margin-top:18px;">
+          <div class="card">
+            <div class="section-title">
+              <h3>Enrollment by Department</h3>
+            </div>
+            ${Object.entries(enrollmentByDept).map(([dept, count]) => {
+              const max = Math.max(...Object.values(enrollmentByDept), 1);
+              const pct = Math.round((count / max) * 100);
+              return `
+                <div style="margin-bottom:14px;">
+                  <div style="display:flex;justify-content:space-between;margin-bottom:7px;">
+                    <strong>${dept}</strong>
+                    <span class="small muted">${count} enrollment(s)</span>
+                  </div>
+                  <div class="progress"><span style="width:${pct}%"></span></div>
+                </div>
+              `;
+            }).join("") || `<p class="muted">No enrollment data available.</p>`}
+          </div>
+
+          <div class="card">
+            <div class="section-title">
+              <h3>Grade Summary</h3>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Student</th>
+                    <th>Offering</th>
+                    <th>Score</th>
+                    <th>Letter</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${state.enrollments
+                    .filter(e => e.status === "Enrolled")
+                    .map(e => {
+                      const s = studentById(e.studentId);
+                      const o = offeringById(e.offeringId);
+                      const c = courseById(o?.courseId);
+                      const score = calculateStudentOfferingGrade(e.studentId, e.offeringId);
+                      return `
+                        <tr>
+                          <td>${s?.name || "Unknown"}</td>
+                          <td>${c?.code || "Unknown"}-${o?.section || ""}</td>
+                          <td>${score === null ? "N/A" : score}</td>
+                          <td>${gradeLetter(score)}</td>
+                        </tr>
+                      `;
+                    }).join("") || `<tr><td colspan="4">No grade data.</td></tr>`}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:18px;">
+          <div class="section-title">
+            <h3>Institutional Quality Recommendations</h3>
+          </div>
+          <ul style="line-height:1.9;margin-left:18px;">
+            <li>Review departments with low enrollment before final timetable publication.</li>
+            <li>Route repeated high-failure courses to academic quality assurance review.</li>
+            <li>Use waitlist demand to forecast next semester teaching load.</li>
+            <li>Require measurable learning outcomes before course approval.</li>
+            <li>Monitor GPA and attendance together for more accurate risk identification.</li>
+          </ul>
+        </div>
+      `;
+    }
+
+    function renderAudit() {
+      document.getElementById("audit").innerHTML = `
+        <div class="card">
+          <div class="toolbar">
+            <div class="toolbar-left">
+              <input id="auditSearch" placeholder="Search audit logs" style="width:340px;" oninput="renderAuditTable()" />
+            </div>
+            <div class="toolbar-right">
+              <button class="btn btn-danger" onclick="clearAuditLogs()">Clear Logs</button>
+            </div>
+          </div>
+          <div id="auditTable"></div>
+        </div>
+      `;
+
+      renderAuditTable();
+    }
+
+    function renderAuditTable() {
+      const search = document.getElementById("auditSearch")?.value?.toLowerCase() || "";
+      const logs = state.auditLogs.filter(l =>
+        `${l.actor} ${l.action} ${l.entity}`.toLowerCase().includes(search)
+      );
+
+      document.getElementById("auditTable").innerHTML = `
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Actor</th>
+                <th>Action</th>
+                <th>Entity</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${logs.map(l => `
+                <tr>
+                  <td>${new Date(l.timestamp).toLocaleString()}</td>
+                  <td>${l.actor}</td>
+                  <td><strong>${l.action}</strong></td>
+                  <td>${l.entity}</td>
+                </tr>
+              `).join("") || `<tr><td colspan="4">No audit logs found.</td></tr>`}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    function clearAuditLogs() {
+      if (!confirm("Clear all audit logs?")) return;
+      state.auditLogs = [];
+      audit("Cleared audit logs", "Audit");
+      saveState();
+      renderAll();
+      toast("Audit logs cleared");
+    }
+
+    function openQuickCreate() {
+      openModal("Quick Create", "Choose what you want to create", `
+        <div class="grid grid-2">
+          <button class="btn btn-primary" onclick="closeModal();openCourseForm()">📚 Create Course</button>
+          <button class="btn btn-primary" onclick="closeModal();openOfferingForm()">🏫 Create Offering</button>
+          <button class="btn btn-primary" onclick="closeModal();openStudentForm()">🎓 Create Student</button>
+          <button class="btn btn-primary" onclick="closeModal();openAssessmentForm()">🧪 Create Assessment</button>
+        </div>
+      `);
+    }
+
+    function openModal(title, subtitle, body) {
+      document.getElementById("modalTitle").textContent = title;
+      document.getElementById("modalSubtitle").textContent = subtitle || "";
+      document.getElementById("modalBody").innerHTML = body;
+      document.getElementById("modalBackdrop").classList.add("active");
+    }
+
+    function closeModal() {
+      document.getElementById("modalBackdrop").classList.remove("active");
+      document.getElementById("modalBody").innerHTML = "";
+    }
+
+    function toast(message) {
+      const el = document.getElementById("toast");
+      el.textContent = message;
+      el.classList.add("show");
+      setTimeout(() => el.classList.remove("show"), 2400);
+    }
+
+    function exportData() {
+      const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "university-course-management-export.json";
+      a.click();
+      URL.revokeObjectURL(url);
+      audit("Exported data", "JSON Export");
+      saveState();
+      renderAll();
+      toast("Data exported");
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    document.getElementById("modalBackdrop").addEventListener("click", function(event) {
+      if (event.target.id === "modalBackdrop") closeModal();
+    });
+
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") closeModal();
+    });
+
+    renderAll();
+  </script>
+</body>
+</html>

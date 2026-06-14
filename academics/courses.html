@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Registration System</title>
+
+<link rel="stylesheet" href="courses.css">
+</head>
+
+<body>
+
+<!-- ================= SIDEBAR ================= -->
+<aside class="sidebar">
+    <div class="logo-area">
+        <h2>Student Portal</h2>
+    </div>
+
+    <nav class="sidebar-menu">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="profile.html">My Profile</a>
+        <a href="course.html" class="active">Course Registration</a>
+        <a href="results.html">Results</a>
+        <a href="finance.html">Finance</a>
+        <a href="attendance.html">Attendance</a>
+        <a href="research.html">Research</a>
+        <a href="library.html">Library</a>
+        <a href="settings.html">Settings</a>
+    </nav>
+</aside>
+
+<!-- ================= MAIN CONTENT ================= -->
+<main class="main-content">
+
+<!-- ================= PAGE HEADER ================= -->
+<header class="page-header">
+    <div>
+        <h1>Course Registration</h1>
+        <p>Register courses for the current semester</p>
+    </div>
+
+    <div class="deadline-card">
+        <h3>Registration Deadline</h3>
+        <span id="countdownDays">14 Days Remaining</span>
+    </div>
+</header>
+
+<!-- ================= STUDENT PROFILE ================= -->
+<section class="student-profile">
+    <div class="student-photo">
+        <img src="images/student.png" alt="Student Photo">
+    </div>
+
+    <div class="student-details">
+        <h2>John Doe</h2>
+
+        <div class="profile-grid">
+            <div><label>Registration Number</label><p>BIT/2025/001</p></div>
+            <div><label>Faculty</label><p>Computing & Informatics</p></div>
+            <div><label>Department</label><p>Information Technology</p></div>
+            <div><label>Programme</label><p>Bachelor of Information Technology</p></div>
+            <div><label>Academic Year</label><p>2025/2026</p></div>
+            <div><label>Semester</label><p>Semester II</p></div>
+            <div><label>Study Status</label><p>Continuing</p></div>
+            <div><label>Fee Clearance</label><p class="cleared">Cleared</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= REGISTRATION STEPS ================= -->
+<section class="registration-steps">
+    <div class="step completed">1 Academic Information</div>
+    <div class="step completed">2 Registration Type</div>
+    <div class="step active">3 Course Selection</div>
+    <div class="step">4 Review</div>
+    <div class="step">5 Confirmation</div>
+</section>
+
+<!-- ================= DASHBOARD CARDS ================= -->
+<section class="dashboard-cards">
+
+    <div class="card"><h3 id="totalCourses">42</h3><p>Total Courses Available</p></div>
+    <div class="card"><h3 id="registeredCourses">0</h3><p>Registered Courses</p></div>
+    <div class="card"><h3 id="totalCU">0</h3><p>Total Credit Units</p></div>
+    <div class="card"><h3 id="remainingCU">24</h3><p>Remaining CU</p></div>
+
+    <div class="card"><h3>12</h3><p>Minimum Required CU</p></div>
+    <div class="card"><h3>24</h3><p>Maximum Allowed CU</p></div>
+    <div class="card"><h3 id="registrationStatus">Not Eligible</h3><p>Registration Status</p></div>
+
+</section>
+
+<!-- ================= CREDIT MONITOR ================= -->
+<section class="credit-monitor">
+
+    <h3>Credit Monitoring</h3>
+
+    <div class="credit-summary">
+        <div>Current CU: <span id="currentCU">0</span></div>
+        <div>Minimum: 12</div>
+        <div>Maximum: 24</div>
+        <div>Remaining: <span id="remainingCredits">24</span></div>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="creditProgress"></div>
+    </div>
+
+</section>
+
+<!-- ================= FILTERS ================= -->
+<section class="filters-section">
+    <input type="text" placeholder="Search Course">
+
+    <select><option>Faculty</option></select>
+    <select><option>Department</option></select>
+    <select><option>Level</option></select>
+    <select><option>Semester</option></select>
+    <select><option>Course Type</option></select>
+    <select><option>Status</option></select>
+</section>
+
+<!-- ================= COURSE TABLE + SELECTED ================= -->
+<section class="course-registration-grid">
+
+    <div class="available-courses">
+        <h2>Available Courses</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Code</th>
+                    <th>Title</th>
+                    <th>CU</th>
+                    <th>Type</th>
+                    <th>Semester</th>
+                    <th>Lecturer</th>
+                    <th>Capacity</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody id="courseTableBody"></tbody>
+        </table>
+    </div>
+
+    <div class="selected-courses">
+        <h2>Selected Courses</h2>
+        <div id="selectedCourses"></div>
+    </div>
+
+</section>
+
+<!-- ================= PREREQUISITE CHECKER ================= -->
+<section class="prerequisite-checker">
+    <h3>Prerequisite Checker</h3>
+
+    <div class="checker-grid">
+        <div>
+            <h4>Eligible Courses</h4>
+            <ul id="eligibleCourses"></ul>
+        </div>
+
+        <div>
+            <h4>Missing Prerequisites</h4>
+            <ul id="missingPrerequisites"></ul>
+        </div>
+
+        <div>
+            <h4>Blocked Courses</h4>
+            <ul id="blockedCourses"></ul>
+        </div>
+    </div>
+</section>
+
+<!-- ================= TIMETABLE ================= -->
+<section class="timetable-checker">
+
+    <h3>Timetable Conflict Checker</h3>
+
+    <table>
+        <tr>
+            <th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th>
+        </tr>
+        <tr>
+            <td id="mon"></td>
+            <td id="tue"></td>
+            <td id="wed"></td>
+            <td id="thu"></td>
+            <td id="fri"></td>
+        </tr>
+    </table>
+
+    <div id="conflictAlerts"></div>
+
+</section>
+
+<!-- ================= RECOMMENDATIONS ================= -->
+<section class="recommendations">
+    <h2>Recommended Courses</h2>
+    <div id="recommendedCourses"></div>
+</section>
+
+<!-- ================= ADVISOR ================= -->
+<section class="advisor-panel">
+    <h2>Academic Advisor</h2>
+    <div id="advisorMessage">
+        Select courses to receive academic recommendations.
+    </div>
+</section>
+
+<!-- ================= HISTORY ================= -->
+<section class="registration-history">
+    <h3>Registration History</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Year</th>
+                <th>Semester</th>
+                <th>Courses</th>
+                <th>Credits</th>
+            </tr>
+        </thead>
+
+        <tbody id="historyTable"></tbody>
+    </table>
+</section>
+
+<!-- ================= STATISTICS ================= -->
+<section class="course-statistics">
+    <div class="stat-box">Core Courses</div>
+    <div class="stat-box">Electives</div>
+    <div class="stat-box">Retakes</div>
+    <div class="stat-box">Audits</div>
+</section>
+
+<!-- ================= DECLARATION ================= -->
+<section class="registration-declaration">
+    <label>
+        <input type="checkbox" id="declaration">
+        I confirm that the selected courses are correct and comply with university regulations.
+    </label>
+</section>
+
+<!-- ================= ACTION BUTTONS ================= -->
+<section class="action-buttons">
+
+    <button id="saveDraftBtn">Save Draft</button>
+    <button id="clearBtn">Clear Selection</button>
+    <button id="previewBtn">Preview Registration</button>
+    <button id="printBtn">Print Registration Form</button>
+    <button id="submitBtn">Submit Registration</button>
+
+</section>
+
+</main>
+
+<script src="courses.js"></script>
+
+</body>
+</html>

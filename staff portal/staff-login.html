@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff Portal — Benchmark University</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/* ============================================================
+   RESET & BASE
+============================================================ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+
+:root {
+  --navy:       #0f172a;
+  --navy-mid:   #1e293b;
+  --navy-light: #334155;
+  --blue:       #2563eb;
+  --blue-light: #3b82f6;
+  --blue-glow:  rgba(37,99,235,.18);
+  --teal:       #0ea5e9;
+  --green:      #10b981;
+  --amber:      #f59e0b;
+  --red:        #ef4444;
+  --white:      #ffffff;
+  --off-white:  #f8fafc;
+  --gray-200:   #e2e8f0;
+  --gray-400:   #94a3b8;
+  --gray-500:   #64748b;
+  --radius:     14px;
+  --shadow-lg:  0 20px 60px rgba(0,0,0,.35);
+  --shadow-sm:  0 4px 16px rgba(0,0,0,.12);
+  --trans:      .25s ease;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--navy);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* animated grid bg */
+body::before {
+  content:'';
+  position:fixed; inset:0;
+  background-image:
+    linear-gradient(rgba(37,99,235,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37,99,235,.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events:none; z-index:0;
+}
+
+/* floating orbs */
+.orb {
+  position:fixed; border-radius:50%;
+  filter:blur(80px); pointer-events:none; z-index:0;
+  animation: float 8s ease-in-out infinite alternate;
+}
+.orb-1 { width:420px; height:420px; background:rgba(37,99,235,.14); top:-120px; left:-120px; }
+.orb-2 { width:360px; height:360px; background:rgba(14,165,233,.10); bottom:-80px; right:-80px; animation-delay:3s; }
+.orb-3 { width:200px; height:200px; background:rgba(16,185,129,.08); top:40%; left:40%; animation-delay:1.5s; }
+
+@keyframes float {
+  from { transform: translateY(0) scale(1); }
+  to   { transform: translateY(-30px) scale(1.06); }
+}
+
+/* ============================================================
+   TOAST
+============================================================ */
+#toastContainer {
+  position:fixed; top:24px; right:24px;
+  display:flex; flex-direction:column; gap:10px;
+  z-index:99999; pointer-events:none;
+}
+.toast {
+  display:flex; align-items:center; gap:12px;
+  padding:14px 20px; border-radius:12px;
+  color:#fff; font-size:14px; font-weight:600;
+  box-shadow: 0 8px 32px rgba(0,0,0,.3);
+  pointer-events:all; min-width:280px; max-width:380px;
+  animation: toastIn .35s cubic-bezier(.34,1.56,.64,1) forwards;
+}
+.toast.out { animation: toastOut .3s ease forwards; }
+.toast.success { background: linear-gradient(135deg,#059669,#10b981); }
+.toast.error   { background: linear-gradient(135deg,#dc2626,#ef4444); }
+.toast.warning { background: linear-gradient(135deg,#d97706,#f59e0b); }
+.toast.info    { background: linear-gradient(135deg,#1d4ed8,#3b82f6); }
+.toast i { font-size:18px; flex-shrink:0; }
+@keyframes toastIn  { from{opacity:0;transform:translateX(40px)} to{opacity:1;transform:translateX(0)} }
+@keyframes toastOut { from{opacity:1;transform:translateX(0)} to{opacity:0;transform:translateX(40px)} }
+
+/* ============================================================
+   MAIN WRAPPER
+============================================================ */
+.portal-wrapper {
+  position:relative; z-index:1;
+  flex:1; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  padding:30px 16px;
+}
+
+/* ============================================================
+   HEADER
+============================================================ */
+.portal-header {
+  text-align:center; margin-bottom:32px;
+}
+.portal-header .logo-ring {
+  width:72px; height:72px; border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--teal));
+  display:flex; align-items:center; justify-content:center;
+  font-size:28px; color:#fff; margin:0 auto 14px;
+  box-shadow:0 0 0 8px rgba(37,99,235,.15);
+}
+.portal-header h1 {
+  font-size:28px; font-weight:800; color:#fff;
+  letter-spacing:-.5px;
+}
+.portal-header p { color:var(--gray-400); font-size:14px; margin-top:4px; }
+
+/* ============================================================
+   CARD (shared login + register)
+============================================================ */
+.card {
+  width:100%; max-width:920px;
+  background: rgba(30,41,59,.92);
+  backdrop-filter: blur(20px);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:24px;
+  box-shadow: var(--shadow-lg);
+  overflow:hidden;
+  display:none; /* toggled by JS */
+}
+.card.active { display:flex; animation: cardIn .4s ease; }
+@keyframes cardIn {
+  from { opacity:0; transform:translateY(20px) scale(.98); }
+  to   { opacity:1; transform:translateY(0) scale(1); }
+}
+
+/* ============================================================
+   LEFT PANEL
+============================================================ */
+.left-panel {
+  width:40%; min-width:280px;
+  background:linear-gradient(160deg,#1e3a8a 0%,#0f172a 100%);
+  padding:40px 32px;
+  display:flex; flex-direction:column; gap:28px;
+  position:relative; overflow:hidden;
+}
+.left-panel::after {
+  content:'';
+  position:absolute; bottom:-60px; right:-60px;
+  width:200px; height:200px; border-radius:50%;
+  background:rgba(59,130,246,.12);
+}
+
+.brand { display:flex; align-items:center; gap:14px; }
+.brand .b-icon {
+  width:52px; height:52px; border-radius:14px;
+  background:linear-gradient(135deg,var(--blue),var(--teal));
+  display:flex; align-items:center; justify-content:center;
+  font-size:22px; color:#fff;
+  box-shadow:0 4px 16px rgba(37,99,235,.4);
+}
+.brand h2 { font-size:18px; font-weight:800; color:#fff; }
+.brand p  { font-size:12px; color:var(--gray-400); }
+
+.panel-desc h3 { font-size:20px; color:#fff; font-weight:700; margin-bottom:8px; }
+.panel-desc p  { font-size:13px; color:var(--gray-400); line-height:1.7; }
+
+.roles-label {
+  font-size:11px; letter-spacing:2px; font-weight:700;
+  color:var(--blue-light); text-transform:uppercase;
+  margin-bottom:4px;
+}
+.role-item {
+  display:flex; align-items:center; gap:12px;
+  padding:12px 14px; border-radius:12px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.06);
+  margin-bottom:8px; transition:var(--trans);
+  cursor:default;
+}
+.role-item:hover { background:rgba(37,99,235,.15); border-color:rgba(37,99,235,.3); }
+.role-item .ri { width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; }
+.ri.admin     { background:rgba(37,99,235,.25); color:#60a5fa; }
+.ri.lecturer  { background:rgba(16,185,129,.25); color:#34d399; }
+.ri.hod       { background:rgba(245,158,11,.25); color:#fbbf24; }
+.ri.registrar { background:rgba(239,68,68,.25);  color:#f87171; }
+.ri.finance   { background:rgba(139,92,246,.25); color:#a78bfa; }
+.role-item h4 { font-size:13px; color:#fff; font-weight:700; }
+.role-item p  { font-size:11px; color:var(--gray-400); }
+
+/* ============================================================
+   RIGHT PANEL (FORM AREA)
+============================================================ */
+.right-panel {
+  flex:1; padding:40px 36px; overflow-y:auto;
+  display:flex; flex-direction:column; justify-content:center;
+}
+.right-panel::-webkit-scrollbar { width:4px; }
+.right-panel::-webkit-scrollbar-thumb { background:var(--blue); border-radius:4px; }
+
+.form-title { font-size:22px; font-weight:800; color:#fff; margin-bottom:4px; }
+.form-sub   { font-size:13px; color:var(--gray-400); margin-bottom:24px; }
+
+/* tab switcher */
+.tab-switch {
+  display:flex; gap:0; margin-bottom:24px;
+  background:rgba(255,255,255,.05);
+  border-radius:12px; padding:4px;
+}
+.tab-btn {
+  flex:1; padding:10px; border:none; background:transparent;
+  color:var(--gray-400); font-size:13px; font-weight:600;
+  border-radius:10px; cursor:pointer; transition:var(--trans);
+}
+.tab-btn.active {
+  background:var(--blue); color:#fff;
+  box-shadow:0 4px 12px rgba(37,99,235,.35);
+}
+
+/* form groups */
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.form-group { display:flex; flex-direction:column; gap:6px; margin-bottom:14px; }
+.form-group label { font-size:12px; font-weight:700; color:var(--gray-400); text-transform:uppercase; letter-spacing:.5px; }
+
+.input-wrap {
+  position:relative; display:flex; align-items:center;
+}
+.input-wrap .ic {
+  position:absolute; left:13px; color:var(--gray-400); font-size:14px;
+  pointer-events:none; transition:var(--trans);
+}
+.input-wrap input,
+.input-wrap select,
+.input-wrap textarea {
+  width:100%; padding:12px 14px 12px 38px;
+  background:rgba(255,255,255,.06);
+  border:1.5px solid rgba(255,255,255,.1);
+  border-radius:10px; color:#fff;
+  font-size:14px; outline:none;
+  transition:var(--trans);
+  -webkit-appearance:none; appearance:none;
+}
+.input-wrap select option { background:#1e293b; color:#fff; }
+.input-wrap input::placeholder,
+.input-wrap textarea::placeholder { color:var(--gray-500); }
+.input-wrap input:focus,
+.input-wrap select:focus,
+.input-wrap textarea:focus {
+  border-color:var(--blue);
+  background:rgba(37,99,235,.08);
+  box-shadow:0 0 0 3px rgba(37,99,235,.15);
+}
+.input-wrap input:focus ~ .ic,
+.input-wrap select:focus ~ .ic { color:var(--blue-light); }
+/* toggle password */
+.eye-btn {
+  position:absolute; right:12px;
+  background:none; border:none; color:var(--gray-400);
+  cursor:pointer; font-size:15px; padding:4px;
+  transition:var(--trans);
+}
+.eye-btn:hover { color:var(--blue-light); }
+
+/* validation states */
+.input-wrap.valid   input,
+.input-wrap.valid   select { border-color:var(--green) !important; }
+.input-wrap.invalid input,
+.input-wrap.invalid select { border-color:var(--red) !important; }
+.input-wrap.valid::after {
+  content:'\f00c'; font-family:'Font Awesome 6 Free'; font-weight:900;
+  position:absolute; right:14px; color:var(--green); font-size:12px;
+}
+.input-wrap.has-eye.valid::after { right:38px; }
+.field-error { font-size:11px; color:var(--red); margin-top:4px; display:none; }
+.field-error.show { display:block; }
+
+/* password strength */
+.strength-bar {
+  height:4px; border-radius:4px;
+  background:rgba(255,255,255,.08); margin-top:6px; overflow:hidden;
+}
+.strength-fill { height:100%; width:0; border-radius:4px; transition:.4s ease; }
+.strength-text { font-size:11px; margin-top:4px; font-weight:600; }
+
+/* submit btn */
+.btn-submit {
+  width:100%; padding:14px; border:none; border-radius:12px;
+  background:linear-gradient(135deg,var(--blue),var(--teal));
+  color:#fff; font-size:15px; font-weight:700; cursor:pointer;
+  letter-spacing:.3px; transition:var(--trans); margin-top:6px;
+  position:relative; overflow:hidden;
+}
+.btn-submit:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(37,99,235,.45); }
+.btn-submit:active { transform:translateY(0); }
+.btn-submit .spinner {
+  display:none; width:18px; height:18px; border:2px solid rgba(255,255,255,.4);
+  border-top-color:#fff; border-radius:50%;
+  animation:spin .7s linear infinite; margin:0 auto;
+}
+.btn-submit.loading .btn-text  { display:none; }
+.btn-submit.loading .spinner   { display:block; }
+@keyframes spin { to { transform:rotate(360deg); } }
+
+/* options row */
+.options-row {
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom:16px; flex-wrap:wrap; gap:8px;
+}
+.check-label { display:flex; align-items:center; gap:8px; cursor:pointer; }
+.check-label input[type=checkbox] { accent-color:var(--blue); width:15px; height:15px; }
+.check-label span { font-size:13px; color:var(--gray-400); }
+.link-btn {
+  background:none; border:none; color:var(--blue-light);
+  font-size:13px; cursor:pointer; font-weight:600; padding:0;
+  transition:var(--trans);
+}
+.link-btn:hover { color:var(--teal); text-decoration:underline; }
+
+/* section divider */
+.divider {
+  display:flex; align-items:center; gap:12px; margin:18px 0;
+}
+.divider span { flex:1; height:1px; background:rgba(255,255,255,.08); }
+.divider p { font-size:12px; color:var(--gray-500); flex-shrink:0; }
+
+/* security badge */
+.security-badge {
+  display:flex; align-items:center; gap:12px;
+  padding:12px 16px; border-radius:12px;
+  background:rgba(16,185,129,.08); border:1px solid rgba(16,185,129,.2);
+  margin-top:16px;
+}
+.security-badge i { color:var(--green); font-size:18px; }
+.security-badge h5 { font-size:13px; color:#fff; font-weight:700; }
+.security-badge p  { font-size:11px; color:var(--gray-400); }
+
+/* ============================================================
+   FORGOT PASSWORD MODAL
+============================================================ */
+.modal-overlay {
+  position:fixed; inset:0; background:rgba(0,0,0,.65);
+  backdrop-filter:blur(6px); z-index:9000;
+  display:none; align-items:center; justify-content:center;
+}
+.modal-overlay.open { display:flex; animation:fadeIn .25s ease; }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+.modal-box {
+  background:var(--navy-mid); border:1px solid rgba(255,255,255,.08);
+  border-radius:20px; padding:36px; width:100%; max-width:420px;
+  box-shadow:var(--shadow-lg); animation:cardIn .3s ease;
+}
+.modal-box h3 { font-size:20px; font-weight:800; color:#fff; margin-bottom:6px; }
+.modal-box p  { font-size:13px; color:var(--gray-400); margin-bottom:20px; }
+.modal-actions { display:flex; gap:10px; margin-top:16px; }
+.btn-cancel {
+  flex:1; padding:12px; border-radius:10px;
+  background:rgba(255,255,255,.06); border:1.5px solid rgba(255,255,255,.1);
+  color:var(--gray-400); font-size:14px; font-weight:600; cursor:pointer;
+  transition:var(--trans);
+}
+.btn-cancel:hover { background:rgba(255,255,255,.1); color:#fff; }
+.btn-reset {
+  flex:1; padding:12px; border-radius:10px;
+  background:var(--blue); border:none;
+  color:#fff; font-size:14px; font-weight:700; cursor:pointer;
+  transition:var(--trans);
+}
+.btn-reset:hover { background:#1d4ed8; }
+
+/* ============================================================
+   FOOTER
+============================================================ */
+.portal-footer {
+  position:relative; z-index:1;
+  text-align:center; padding:16px;
+  font-size:12px; color:var(--gray-500);
+  border-top:1px solid rgba(255,255,255,.05);
+}
+
+/* ============================================================
+   DEMO CREDENTIALS BOX
+============================================================ */
+.demo-box {
+  background:rgba(245,158,11,.07);
+  border:1px solid rgba(245,158,11,.2);
+  border-radius:12px; padding:14px 16px; margin-bottom:20px;
+}
+.demo-box p { font-size:12px; color:var(--amber); line-height:1.7; }
+.demo-box strong { color:#fcd34d; }
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width:768px) {
+  .card.active { flex-direction:column; }
+  .left-panel { width:100%; padding:24px 20px; }
+  .right-panel { padding:24px 20px; }
+  .form-row { grid-template-columns:1fr; }
+  .role-item:nth-child(n+3) { display:none; }
+}
+@media (max-width:480px) {
+  .portal-header h1 { font-size:22px; }
+  .left-panel { display:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Background orbs -->
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- Toast container -->
+<div id="toastContainer"></div>
+
+<!-- Forgot password modal -->
+<div class="modal-overlay" id="forgotModal">
+  <div class="modal-box">
+    <h3>Reset Password</h3>
+    <p>Enter your registered email address. We'll send password reset instructions.</p>
+    <div class="form-group">
+      <label>Email Address</label>
+      <div class="input-wrap" id="resetEmailWrap">
+        <i class="fas fa-envelope ic"></i>
+        <input type="email" id="resetEmail" placeholder="your.email@university.edu">
+      </div>
+      <span class="field-error" id="resetEmailErr">Please enter a valid email address.</span>
+    </div>
+    <div class="form-group">
+      <label>Select Role</label>
+      <div class="input-wrap" id="resetRoleWrap">
+        <i class="fas fa-users ic"></i>
+        <select id="resetRole">
+          <option value="">Choose your role</option>
+          <option value="admin">Admin</option>
+          <option value="lecturer">Lecturer / Staff</option>
+          <option value="hod">HOD</option>
+          <option value="registrar">Registrar</option>
+          <option value="finance">Finance Officer</option>
+        </select>
+      </div>
+      <span class="field-error" id="resetRoleErr">Please select your role.</span>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" id="closeModal">Cancel</button>
+      <button class="btn-reset" id="sendReset">Send Reset Link</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN WRAPPER -->
+<div class="portal-wrapper">
+
+  <!-- Header -->
+  <div class="portal-header">
+    <div class="logo-ring">
+  <img src="../images/logo.jpg" alt="University Logo" style="width:100%; height:100%; border-radius:190%;">
+</div>
+    <h1>Benchmark Business and Technical College</h1>
+    <p>Staff Management Portal &mdash; Benchmark Business and Technical College</p>
+  </div>
+
+  <!-- ============================
+       LOGIN CARD
+  ============================= -->
+  <div class="card active" id="loginCard">
+
+    <!-- Left Panel -->
+    <div class="left-panel">
+      <div class="brand">
+        <div class="b-icon"><i class="fas fa-graduation-cap"></i></div>
+        <div><h2>STAFF PORTAL</h2><p>Benchmark Business and Technical College</p></div>
+      </div>
+      <div class="panel-desc">
+        <h3>Welcome Back</h3>
+        <p>Sign in with your staff credentials to access your personalized dashboard and manage university operations.</p>
+      </div>
+      <div>
+        <div class="roles-label">Available Roles</div>
+        <div class="role-item"><div class="ri admin"><i class="fas fa-user-shield"></i></div><div><h4>Admin</h4><p>Full system control</p></div></div>
+        <div class="role-item"><div class="ri lecturer"><i class="fas fa-chalkboard-teacher"></i></div><div><h4>Lecturer / Staff</h4><p>Courses &amp; grading</p></div></div>
+        <div class="role-item"><div class="ri hod"><i class="fas fa-users"></i></div><div><h4>HOD</h4><p>Department oversight</p></div></div>
+        <div class="role-item"><div class="ri registrar"><i class="fas fa-clipboard-list"></i></div><div><h4>Registrar</h4><p>Enrollment records</p></div></div>
+        <div class="role-item"><div class="ri finance"><i class="fas fa-coins"></i></div><div><h4>Finance Officer</h4><p>Fees &amp; payments</p></div></div>
+      </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="right-panel">
+      <p class="form-title">Sign In</p>
+      <p class="form-sub">Select your role and enter your credentials</p>
+
+      <div class="tab-switch">
+        <button class="tab-btn active" onclick="showCard('login')">Sign In</button>
+        <button class="tab-btn" onclick="showCard('register')">Register</button>
+      </div>
+
+      <!-- Demo credentials -->
+      <div class="demo-box">
+        <p><strong>Demo Credentials</strong><br>
+        Admin: <strong>admin / Admin@123</strong> &nbsp;|&nbsp;
+        Lecturer: <strong>lecturer / Lect@123</strong><br>
+        HOD: <strong>hod / Hod@123</strong> &nbsp;|&nbsp;
+        Registrar: <strong>registrar / Reg@123</strong> &nbsp;|&nbsp;
+        Finance: <strong>finance / Fin@123</strong></p>
+      </div>
+
+      <form id="loginForm" novalidate>
+
+        <!-- Role -->
+        <div class="form-group">
+          <label>Staff Role <span style="color:var(--red)">*</span></label>
+          <div class="input-wrap" id="l_roleWrap">
+            <i class="fas fa-id-badge ic"></i>
+            <select id="l_role" required>
+              <option value="">-- Select your role --</option>
+              <option value="admin">Admin</option>
+              <option value="lecturer">Lecturer / Staff</option>
+              <option value="hod">HOD</option>
+              <option value="registrar">Registrar</option>
+              <option value="finance">Finance Officer</option>
+            </select>
+          </div>
+          <span class="field-error" id="l_roleErr">Please select your staff role.</span>
+        </div>
+
+        <!-- Staff ID -->
+        <div class="form-group">
+          <label>Staff ID / Username <span style="color:var(--red)">*</span></label>
+          <div class="input-wrap" id="l_userWrap">
+            <i class="fas fa-user ic"></i>
+            <input type="text" id="l_user" placeholder="Enter staff ID or username" autocomplete="username" required>
+          </div>
+          <span class="field-error" id="l_userErr">Username must be at least 3 characters.</span>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label>Password <span style="color:var(--red)">*</span></label>
+          <div class="input-wrap has-eye" id="l_passWrap">
+            <i class="fas fa-lock ic"></i>
+            <input type="password" id="l_pass" placeholder="Enter your password" autocomplete="current-password" required>
+            <button type="button" class="eye-btn" onclick="toggleEye('l_pass',this)"><i class="fas fa-eye"></i></button>
+          </div>
+          <span class="field-error" id="l_passErr">Password is required.</span>
+        </div>
+
+        <div class="options-row">
+          <label class="check-label">
+            <input type="checkbox" id="rememberMe">
+            <span>Remember me</span>
+          </label>
+          <button type="button" class="link-btn" id="forgotBtn">Forgot Password?</button>
+        </div>
+
+        <button type="submit" class="btn-submit" id="loginBtn">
+          <div class="spinner"></div>
+          <span class="btn-text"> <a href="/staff portal/admin-dashboard.html"></a>Sign In to Portal</span>
+        </button>
+
+      </form>
+
+      <div class="divider"><span></span><p>secured connection</p><span></span></div>
+      <div class="security-badge">
+        <i class="fas fa-shield-alt"></i>
+        <div>
+          <h5>256-bit SSL Encrypted</h5>
+          <p>Your session is protected. Never share your credentials.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================
+       REGISTER CARD
+  ============================= -->
+  <div class="card" id="registerCard">
+
+    <!-- Left Panel -->
+    <div class="left-panel">
+      <div class="brand">
+        <div class="b-icon"><i class="fas fa-graduation-cap"></i></div>
+        <div><h2>STAFF PORTAL</h2><p>University Management System</p></div>
+      </div>
+      <div class="panel-desc">
+        <h3>New Registration</h3>
+        <p>Create your staff account to gain access to the university management portal. All fields marked with * are required.</p>
+      </div>
+      <div>
+        <div class="roles-label">Role Permissions</div>
+        <div class="role-item"><div class="ri admin"><i class="fas fa-user-shield"></i></div><div><h4>Admin</h4><p>Full system access + user management</p></div></div>
+        <div class="role-item"><div class="ri lecturer"><i class="fas fa-chalkboard-teacher"></i></div><div><h4>Lecturer</h4><p>Courses, results, attendance</p></div></div>
+        <div class="role-item"><div class="ri hod"><i class="fas fa-users"></i></div><div><h4>HOD</h4><p>Approve results, dept reports</p></div></div>
+        <div class="role-item"><div class="ri registrar"><i class="fas fa-clipboard-list"></i></div><div><h4>Registrar</h4><p>Student records, enrollment</p></div></div>
+        <div class="role-item"><div class="ri finance"><i class="fas fa-coins"></i></div><div><h4>Finance Officer</h4><p>Fees, payments, reports</p></div></div>
+      </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="right-panel">
+      <p class="form-title">Create Account</p>
+      <p class="form-sub">Complete all required fields to register your staff account</p>
+
+      <div class="tab-switch">
+        <button class="tab-btn" onclick="showCard('login')">Sign In</button>
+        <button class="tab-btn active" onclick="showCard('register')">Register</button>
+      </div>
+
+      <form id="registerForm" novalidate>
+
+        <!-- Row 1 -->
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name <span style="color:var(--red)">*</span></label>
+            <div class="input-wrap" id="r_fnWrap">
+              <i class="fas fa-user ic"></i>
+              <input type="text" id="r_fn" placeholder="First name" required>
+            </div>
+            <span class="field-error" id="r_fnErr">Enter a valid first name (letters only).</span>
+          </div>
+          <div class="form-group">
+            <label>Last Name <span style="color:var(--red)">*</span></label>
+            <div class="input-wrap" id="r_lnWrap">
+              <i class="fas fa-user ic"></i>
+              <input type="text" id="r_ln" placeholder="Last name" required>
+            </div>
+            <span class="field-error" id="r_lnErr">Enter a valid last name (letters only).</span>
+          </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="form-row">
+          <div class="form-group">
+            <label>Staff ID <span style="color:var(--red)">*</span></label>
+            <div class="input-wrap" id="r_sidWrap">
+              <i class="fas fa-id-card ic"></i>
+              <input type="text" id="r_sid" placeholder="e.g. STF-2026-001" required>
+            </div>
+            <span class="field-error" id="r_sidErr">Format: STF-YYYY-### (e.g. STF-2026-001)</span>
+          </div>
+          <div class="form-group">
+            <label>Staff Role <span style="color:var(--red)">*</span></label>
+            <div class="input-wrap" id="r_roleWrap">
+              <i class="fas fa-id-badge ic"></i>
+              <select id="r_role" required>
+                <option value="">-- Select role --</option>
+                <option value="admin">Admin</option>
+                <option value="lecturer">Lecturer / Staff</option>
+                <option value="hod">HOD</option>
+                <option value="registrar">Registrar</option>
+                <option value="finance">Finance Officer</option>
+              </select>
+            </div>
+            <span class="field-error" id="r_roleErr">Please select a role.</span>
+          </div>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="form-row">
+          <div class="form-group">
+            <label>Faculty / Department <span style="color:var(--red)">*</span></label>
+            <div class="input-wrap" id="r_deptWrap">
+              <i class="fas fa-building ic"></i>
+              <select id="r_dept" required>
+                <option value="">-- Select department --</option>
+                <option>Faculty of Science</option>
+                <option>Faculty of Engineering</option>
+                <option>Faculty of Arts</option>
+                <option>Faculty of Medicine</option>
+                <option>Faculty of Business</option>
+                <option>Faculty of Law</option>
+                <option>Faculty of Education</option>
+                <option>Faculty of Social Sciences</option>
+                <option>ICT &amp; Systems Administration</option>
+                <option>Registry &amp; Admissions</option>
+                <option>Finance &amp; Accounts</option>
+                <option>Research &amp; Development</option>
+              </select>
+            </div>
+            <span class="field-error" id="r_deptErr">Please select a department.</span>
+          </div>
+          <div class="form-group">
+            <label>Phone Number <span style="color:var(--red)">*</span></label>
+            <div class="input-wrap" id="r_phoneWrap">
+              <i class="fas fa-phone ic"></i>
+              <input type="tel" id="r_phone" placeholder="+1 234 567 8900" required>
+            </div>
+            <span class="field-error" id="r_phoneErr">Enter a valid phone number (7–15 digits).</span>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label>Official Email Address <span style="color:var(--red)">*</span></label>
+          <div class="input-wrap" id="r_emailWrap">
+            <i class="fas fa-envelope ic"></i>
+            <input type="email" id="r_email" placeholder="firstname.lastname@university.edu" required>
+          </div>
+          <span class="field-error" id="r_emailErr">Enter a valid email address.</span>
+        </div>
+
+        <!-- Username -->
+        <div class="form-group">
+          <label>Username <span style="color:var(--red)">*</span></label>
+          <div class="input-wrap" id="r_userWrap">
+            <i class="fas fa-at ic"></i>
+            <input type="text" id="r_user" placeholder="Choose a username (min 4 chars)" required autocomplete="new-username">
+          </div>
+          <span class="field-error" id="r_userErr">Username must be 4–20 characters, letters/numbers/underscore only. No duplicates.</span>
+        </div>
+
+        <!-- Row 4 — passwords -->
+        <div class="form-row">
+          <div class="form-group">
+            <label>Password <span style="color:var(--red)">*</span></label>
+            <div class="input-wrap has-eye" id="r_passWrap">
+              <i class="fas fa-lock ic"></i>
+              <input type="password" id="r_pass" placeholder="Create password" autocomplete="new-password" required oninput="checkStrength(this.value)">
+              <button type="button" class="eye-btn" onclick="toggleEye('r_pass',this)"><i class="fas fa-eye"></i></button>
+            </div>
+            <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+            <div class="strength-text" id="strengthText"></div>
+            <span class="field-error" id="r_passErr">Min 8 chars, uppercase, lowercase, number, symbol.</span>
+          </div>
+          <div class="form-group">
+            <label>Confirm Password <span style="color:var(--red)">*</span></label>
+            <div class="input-wrap has-eye" id="r_cpassWrap">
+              <i class="fas fa-lock ic"></i>
+              <input type="password" id="r_cpass" placeholder="Repeat password" autocomplete="new-password" required>
+              <button type="button" class="eye-btn" onclick="toggleEye('r_cpass',this)"><i class="fas fa-eye"></i></button>
+            </div>
+            <span class="field-error" id="r_cpassErr">Passwords do not match.</span>
+          </div>
+        </div>
+
+        <!-- Terms -->
+        <div class="form-group">
+          <label class="check-label" style="margin-top:4px">
+            <input type="checkbox" id="r_terms" required>
+            <span style="color:var(--gray-400);font-size:13px">I agree to the <button type="button" class="link-btn" style="font-size:13px">Terms of Use</button> and <button type="button" class="link-btn" style="font-size:13px">Privacy Policy</button></span>
+          </label>
+          <span class="field-error" id="r_termsErr">You must accept the terms to register.</span>
+        </div>
+
+        <button type="submit" class="btn-submit" id="registerBtn">
+          <div class="spinner"></div>
+          <span class="btn-text">Create Staff Account</span>
+        </button>
+
+      </form>
+
+      <div class="divider"><span></span><p>already registered?</p><span></span></div>
+      <div style="text-align:center">
+        <button class="link-btn" onclick="showCard('login')" style="font-size:14px">Back to Sign In</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<footer class="portal-footer">
+  &copy; 2026 Benchmark University ERP System. All Rights Reserved. &nbsp;|&nbsp; Staff Portal v3.0
+</footer>
+
+<script>
+/* ============================================================
+   DATA STORE — pre-seeded accounts
+============================================================ */
+const DEFAULT_USERS = [
+  { staffId:'ADMIN-001',  username:'admin',     password:'Admin@123',    role:'admin',     name:'System Administrator',  dept:'ICT & Systems Administration', email:'admin@university.edu',    phone:'+1000000001' },
+  { staffId:'STF-2026-001', username:'lecturer', password:'Lect@123',    role:'lecturer',  name:'Dr. James Okafor',      dept:'Faculty of Science',           email:'j.okafor@university.edu',  phone:'+2348012345678' },
+  { staffId:'STF-2026-002', username:'hod',      password:'Hod@123',     role:'hod',       name:'Prof. Amina Bello',     dept:'Faculty of Engineering',       email:'a.bello@university.edu',   phone:'+2348023456789' },
+  { staffId:'STF-2026-003', username:'registrar',password:'Reg@123',     role:'registrar', name:'Mr. Chukwuma Eze',      dept:'Registry & Admissions',        email:'c.eze@university.edu',     phone:'+2348034567890' },
+  { staffId:'STF-2026-004', username:'finance',  password:'Fin@123',     role:'finance',   name:'Mrs. Fatima Sule',      dept:'Finance & Accounts',           email:'f.sule@university.edu',    phone:'+2348045678901' }
+];
+
+function getUsers() {
+  const stored = localStorage.getItem('bmu_staff_users');
+  return stored ? JSON.parse(stored) : DEFAULT_USERS;
+}
+function saveUsers(arr) {
+  localStorage.setItem('bmu_staff_users', JSON.stringify(arr));
+}
+// seed defaults if first time
+if (!localStorage.getItem('bmu_staff_users')) saveUsers(DEFAULT_USERS);
+
+/* ============================================================
+   TOAST SYSTEM
+============================================================ */
+function toast(type, msg, duration = 4000) {
+  const icons = { success:'fa-circle-check', error:'fa-circle-xmark', warning:'fa-triangle-exclamation', info:'fa-circle-info' };
+  const c = document.getElementById('toastContainer');
+  const t = document.createElement('div');
+  t.className = `toast ${type}`;
+  t.innerHTML = `<i class="fas ${icons[type]}"></i><span>${msg}</span>`;
+  c.appendChild(t);
+  setTimeout(() => {
+    t.classList.add('out');
+    setTimeout(() => t.remove(), 300);
+  }, duration);
+}
+
+/* ============================================================
+   CARD TOGGLE
+============================================================ */
+function showCard(which) {
+  document.getElementById('loginCard').classList.remove('active');
+  document.getElementById('registerCard').classList.remove('active');
+  document.getElementById(which === 'login' ? 'loginCard' : 'registerCard').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ============================================================
+   TOGGLE PASSWORD VISIBILITY
+============================================================ */
+function toggleEye(id, btn) {
+  const input = document.getElementById(id);
+  const isText = input.type === 'text';
+  input.type = isText ? 'password' : 'text';
+  btn.innerHTML = isText ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+}
+
+/* ============================================================
+   PASSWORD STRENGTH
+============================================================ */
+function checkStrength(val) {
+  const fill = document.getElementById('strengthFill');
+  const text = document.getElementById('strengthText');
+  let score = 0;
+  if (val.length >= 8)  score++;
+  if (/[A-Z]/.test(val)) score++;
+  if (/[a-z]/.test(val)) score++;
+  if (/[0-9]/.test(val)) score++;
+  if (/[^A-Za-z0-9]/.test(val)) score++;
+  const levels = [
+    { pct:'0%',   color:'transparent',         label:'',             col:'' },
+    { pct:'20%',  color:'#ef4444',              label:'Very Weak',    col:'#ef4444' },
+    { pct:'40%',  color:'#f97316',              label:'Weak',         col:'#f97316' },
+    { pct:'60%',  color:'#f59e0b',              label:'Fair',         col:'#f59e0b' },
+    { pct:'80%',  color:'#3b82f6',              label:'Strong',       col:'#3b82f6' },
+    { pct:'100%', color:'#10b981',              label:'Very Strong',  col:'#10b981' }
+  ];
+  const l = levels[val.length === 0 ? 0 : score];
+  fill.style.width      = l.pct;
+  fill.style.background = l.color;
+  text.textContent      = l.label;
+  text.style.color      = l.col;
+}
+
+/* ============================================================
+   GENERIC FIELD VALIDATOR HELPERS
+============================================================ */
+function setField(wrapId, errId, valid) {
+  const w = document.getElementById(wrapId);
+  const e = document.getElementById(errId);
+  w.classList.toggle('valid',   valid);
+  w.classList.toggle('invalid', !valid);
+  e.classList.toggle('show', !valid);
+  return valid;
+}
+
+function validateName(val)    { return /^[A-Za-z\s'-]{2,}$/.test(val.trim()); }
+function validateEmail(val)   { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val.trim()); }
+function validatePhone(val)   { return /^\+?[0-9\s\-().]{7,15}$/.test(val.trim()); }
+function validateStaffId(val) { return /^[A-Z]+-\d{4}-\d{3,}$/.test(val.trim()); }
+function validateUsername(val){ return /^[A-Za-z0-9_]{4,20}$/.test(val.trim()); }
+function validatePassword(val){ return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/.test(val); }
+
+/* ============================================================
+   REMEMBER ME — restore on load
+============================================================ */
+(function restoreRemember() {
+  const saved = JSON.parse(localStorage.getItem('bmu_remember') || 'null');
+  if (saved) {
+    document.getElementById('l_role').value = saved.role;
+    document.getElementById('l_user').value = saved.username;
+    document.getElementById('rememberMe').checked = true;
+  }
+})();
+
+/* ============================================================
+   LOGIN FORM
+============================================================ */
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const role = document.getElementById('l_role').value.trim();
+  const user = document.getElementById('l_user').value.trim();
+  const pass = document.getElementById('l_pass').value;
+
+  let ok = true;
+  ok = setField('l_roleWrap','l_roleErr', role !== '')    && ok;
+  ok = setField('l_userWrap','l_userErr', user.length >= 3) && ok;
+  ok = setField('l_passWrap','l_passErr', pass.length > 0)  && ok;
+
+  if (!ok) {
+    toast('error','Please fix the highlighted errors before signing in.');
+    return;
+  }
+
+  const btn = document.getElementById('loginBtn');
+  btn.classList.add('loading');
+
+  setTimeout(() => {
+    btn.classList.remove('loading');
+
+    const users = getUsers();
+    const match = users.find(u =>
+      u.username.toLowerCase() === user.toLowerCase() &&
+      u.password === pass &&
+      u.role === role
+    );
+
+    if (match) {
+      // save session
+      const session = { username:match.username, name:match.name, role:match.role, dept:match.dept, staffId:match.staffId, email:match.email, loginTime: new Date().toISOString() };
+      sessionStorage.setItem('bmu_session', JSON.stringify(session));
+
+      // remember me
+      if (document.getElementById('rememberMe').checked) {
+        localStorage.setItem('bmu_remember', JSON.stringify({ role:match.role, username:match.username }));
+      } else {
+        localStorage.removeItem('bmu_remember');
+      }
+
+      toast('success', `Welcome back, ${match.name}! Redirecting to your dashboard...`, 2500);
+      setTimeout(() => {
+        window.location.href = 'admin-dashboard.html';
+      }, 2600);
+    } else {
+      // partial matches for better error messages
+      const userExists = users.find(u => u.username.toLowerCase() === user.toLowerCase());
+      if (!userExists) {
+        setField('l_userWrap','l_userErr', false);
+        document.getElementById('l_userErr').textContent = 'No account found with this username.';
+        toast('error', 'Username not found. Please check and try again.');
+      } else {
+        const roleMatch = users.find(u => u.username.toLowerCase() === user.toLowerCase() && u.role === role);
+        if (!roleMatch) {
+          setField('l_roleWrap','l_roleErr', false);
+          document.getElementById('l_roleErr').textContent = 'Selected role does not match this account.';
+          toast('error', 'Role mismatch. Please select the correct role for this account.');
+        } else {
+          setField('l_passWrap','l_passErr', false);
+          document.getElementById('l_passErr').textContent = 'Incorrect password.';
+          toast('error', 'Incorrect password. Please try again.');
+        }
+      }
+    }
+  }, 1200);
+});
+
+/* live clear errors on change */
+['l_role','l_user','l_pass'].forEach(id => {
+  document.getElementById(id).addEventListener('input', function() {
+    const map = { l_role:'l_roleWrap', l_user:'l_userWrap', l_pass:'l_passWrap' };
+    const eMap = { l_role:'l_roleErr', l_user:'l_userErr', l_pass:'l_passErr' };
+    document.getElementById(map[id]).classList.remove('valid','invalid');
+    document.getElementById(eMap[id]).classList.remove('show');
+  });
+});
+
+/* ============================================================
+   REGISTER FORM
+============================================================ */
+document.getElementById('registerForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const fn    = document.getElementById('r_fn').value;
+  const ln    = document.getElementById('r_ln').value;
+  const sid   = document.getElementById('r_sid').value;
+  const role  = document.getElementById('r_role').value;
+  const dept  = document.getElementById('r_dept').value;
+  const phone = document.getElementById('r_phone').value;
+  const email = document.getElementById('r_email').value;
+  const uname = document.getElementById('r_user').value;
+  const pass  = document.getElementById('r_pass').value;
+  const cpass = document.getElementById('r_cpass').value;
+  const terms = document.getElementById('r_terms').checked;
+
+  const users = getUsers();
+  const unameTaken = users.some(u => u.username.toLowerCase() === uname.toLowerCase());
+  const sidTaken   = users.some(u => u.staffId.toUpperCase() === sid.toUpperCase());
+  const emailTaken = users.some(u => u.email.toLowerCase() === email.toLowerCase());
+
+  let ok = true;
+  ok = setField('r_fnWrap',   'r_fnErr',   validateName(fn))     && ok;
+  ok = setField('r_lnWrap',   'r_lnErr',   validateName(ln))     && ok;
+  ok = setField('r_sidWrap',  'r_sidErr',  validateStaffId(sid) && !sidTaken)   && ok;
+  ok = setField('r_roleWrap', 'r_roleErr', role !== '')           && ok;
+  ok = setField('r_deptWrap', 'r_deptErr', dept !== '')           && ok;
+  ok = setField('r_phoneWrap','r_phoneErr',validatePhone(phone))  && ok;
+  ok = setField('r_emailWrap','r_emailErr',validateEmail(email) && !emailTaken) && ok;
+  ok = setField('r_userWrap', 'r_userErr', validateUsername(uname) && !unameTaken) && ok;
+  ok = setField('r_passWrap', 'r_passErr', validatePassword(pass)) && ok;
+  ok = setField('r_cpassWrap','r_cpassErr',pass === cpass && cpass.length > 0) && ok;
+
+  // terms
+  const termsErr = document.getElementById('r_termsErr');
+  if (!terms) { termsErr.classList.add('show'); ok = false; }
+  else         { termsErr.classList.remove('show'); }
+
+  // custom duplicate messages
+  if (sidTaken)   { document.getElementById('r_sidErr').textContent = 'This Staff ID is already registered.'; }
+  if (unameTaken) { document.getElementById('r_userErr').textContent = 'This username is already taken. Choose another.'; }
+  if (emailTaken) { document.getElementById('r_emailErr').textContent = 'This email is already registered.'; }
+
+  if (!ok) {
+    toast('error','Please fix all errors before submitting.');
+    return;
+  }
+
+  const btn = document.getElementById('registerBtn');
+  btn.classList.add('loading');
+
+  setTimeout(() => {
+    btn.classList.remove('loading');
+
+    const newUser = {
+      staffId: sid.toUpperCase(),
+      username: uname,
+      password: pass,
+      role: role,
+      name: `${fn.trim()} ${ln.trim()}`,
+      dept: dept,
+      email: email.trim().toLowerCase(),
+      phone: phone.trim()
+    };
+    users.push(newUser);
+    saveUsers(users);
+
+    toast('success', `Account created for ${newUser.name}! You can now sign in.`, 4000);
+    document.getElementById('registerForm').reset();
+    document.getElementById('strengthFill').style.width = '0%';
+    document.getElementById('strengthText').textContent = '';
+    // clear all validation states
+    document.querySelectorAll('#registerCard .input-wrap').forEach(w => w.classList.remove('valid','invalid'));
+
+    setTimeout(() => showCard('login'), 1500);
+  }, 1400);
+});
+
+/* live validation on register inputs */
+const regValidators = {
+  r_fn:    { wrap:'r_fnWrap',    err:'r_fnErr',    fn: v => validateName(v) },
+  r_ln:    { wrap:'r_lnWrap',    err:'r_lnErr',    fn: v => validateName(v) },
+  r_phone: { wrap:'r_phoneWrap', err:'r_phoneErr', fn: v => validatePhone(v) },
+  r_email: { wrap:'r_emailWrap', err:'r_emailErr', fn: v => {
+    const users = getUsers();
+    const dup = users.some(u => u.email.toLowerCase() === v.trim().toLowerCase());
+    if (dup) { document.getElementById('r_emailErr').textContent = 'This email is already registered.'; }
+    else     { document.getElementById('r_emailErr').textContent = 'Enter a valid email address.'; }
+    return validateEmail(v) && !dup;
+  }},
+  r_user:  { wrap:'r_userWrap',  err:'r_userErr',  fn: v => {
+    const users = getUsers();
+    const dup = users.some(u => u.username.toLowerCase() === v.trim().toLowerCase());
+    if (dup) { document.getElementById('r_userErr').textContent = 'This username is already taken.'; }
+    else     { document.getElementById('r_userErr').textContent = 'Username must be 4–20 chars, letters/numbers/underscore only.'; }
+    return validateUsername(v) && !dup;
+  }},
+  r_pass:  { wrap:'r_passWrap',  err:'r_passErr',  fn: v => validatePassword(v) },
+  r_cpass: { wrap:'r_cpassWrap', err:'r_cpassErr', fn: v => v === document.getElementById('r_pass').value && v.length > 0 },
+};
+Object.keys(regValidators).forEach(id => {
+  document.getElementById(id).addEventListener('blur', function() {
+    const cfg = regValidators[id];
+    setField(cfg.wrap, cfg.err, cfg.fn(this.value));
+  });
+  document.getElementById(id).addEventListener('input', function() {
+    const cfg = regValidators[id];
+    const wrap = document.getElementById(cfg.wrap);
+    if (wrap.classList.contains('invalid') || wrap.classList.contains('valid')) {
+      setField(cfg.wrap, cfg.err, cfg.fn(this.value));
+    }
+  });
+});
+['r_role','r_dept','r_sid'].forEach(id => {
+  document.getElementById(id).addEventListener('change', function() {
+    const mapW = { r_role:'r_roleWrap', r_dept:'r_deptWrap', r_sid:'r_sidWrap' };
+    const mapE = { r_role:'r_roleErr',  r_dept:'r_deptErr',  r_sid:'r_sidErr'  };
+    if (id === 'r_sid') {
+      const users = getUsers();
+      const dup = users.some(u => u.staffId.toUpperCase() === this.value.toUpperCase());
+      if (dup) document.getElementById(mapE[id]).textContent = 'This Staff ID is already registered.';
+      else     document.getElementById(mapE[id]).textContent = 'Format: STF-YYYY-### (e.g. STF-2026-001)';
+      setField(mapW[id], mapE[id], validateStaffId(this.value) && !dup);
+    } else {
+      setField(mapW[id], mapE[id], this.value !== '');
+    }
+  });
+});
+
+/* ============================================================
+   FORGOT PASSWORD MODAL
+============================================================ */
+document.getElementById('forgotBtn').addEventListener('click', () => {
+  document.getElementById('forgotModal').classList.add('open');
+});
+document.getElementById('closeModal').addEventListener('click', () => {
+  document.getElementById('forgotModal').classList.remove('open');
+  document.getElementById('resetEmail').value = '';
+  document.getElementById('resetRole').value  = '';
+  document.getElementById('resetEmailWrap').classList.remove('valid','invalid');
+  document.getElementById('resetRoleWrap').classList.remove('valid','invalid');
+  document.getElementById('resetEmailErr').classList.remove('show');
+  document.getElementById('resetRoleErr').classList.remove('show');
+});
+document.getElementById('forgotModal').addEventListener('click', function(e) {
+  if (e.target === this) document.getElementById('closeModal').click();
+});
+document.getElementById('sendReset').addEventListener('click', () => {
+  const email = document.getElementById('resetEmail').value;
+  const role  = document.getElementById('resetRole').value;
+
+  let ok = true;
+  ok = setField('resetEmailWrap','resetEmailErr', validateEmail(email)) && ok;
+  ok = setField('resetRoleWrap', 'resetRoleErr',  role !== '')          && ok;
+
+  if (!ok) { toast('error','Please fill in all fields correctly.'); return; }
+
+  const users = getUsers();
+  const match = users.find(u => u.email.toLowerCase() === email.trim().toLowerCase() && u.role === role);
+  if (!match) {
+    setField('resetEmailWrap','resetEmailErr', false);
+    document.getElementById('resetEmailErr').textContent = 'No account found with this email and role combination.';
+    toast('error','No matching account found. Check your email and role.');
+    return;
+  }
+
+  document.getElementById('closeModal').click();
+  toast('success', `Password reset instructions sent to ${email}. Check your inbox.`, 5000);
+});
+
+/* ============================================================
+   LOGOUT AUTO-CHECK (clear stale session flag)
+============================================================ */
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('logout') === '1') {
+  sessionStorage.removeItem('bmu_session');
+  toast('info','You have been logged out successfully.');
+}
+</script>
+</body>
+</html>

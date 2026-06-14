@@ -1,0 +1,2250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Result Management System</title>
+
+  <style>
+    :root {
+      --primary: #123c69;
+      --secondary: #0b7285;
+      --success: #2f9e44;
+      --danger: #c92a2a;
+      --warning: #f08c00;
+      --info: #1971c2;
+      --dark: #1f2937;
+      --light: #f8fafc;
+      --muted: #64748b;
+      --border: #dbe3ef;
+      --card: #ffffff;
+      --bg: #eef3f9;
+      --shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Inter, Segoe UI, Arial, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--dark);
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 14px;
+      background: var(--primary);
+      color: white;
+      font-weight: 700;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      opacity: 0.95;
+    }
+
+    button.secondary {
+      background: var(--secondary);
+    }
+
+    button.success {
+      background: var(--success);
+    }
+
+    button.danger {
+      background: var(--danger);
+    }
+
+    button.warning {
+      background: var(--warning);
+      color: #111827;
+    }
+
+    button.info {
+      background: var(--info);
+    }
+
+    button.light {
+      background: #e2e8f0;
+      color: #111827;
+    }
+
+    button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: white;
+      outline: none;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 3px rgba(11, 114, 133, 0.12);
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid var(--border);
+      padding: 11px;
+      text-align: left;
+      vertical-align: middle;
+      font-size: 14px;
+    }
+
+    th {
+      background: #edf2f7;
+      color: #334155;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    tr:hover td {
+      background: #f8fafc;
+    }
+
+    .login-wrap {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background:
+        linear-gradient(135deg, rgba(18, 60, 105, 0.93), rgba(11, 114, 133, 0.88)),
+        url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1600&q=80");
+      background-size: cover;
+      background-position: center;
+      padding: 20px;
+    }
+
+    .login-card {
+      width: min(980px, 100%);
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      background: white;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .login-info {
+      padding: 44px;
+      background: linear-gradient(135deg, #123c69, #0b7285);
+      color: white;
+    }
+
+    .login-info h1 {
+      font-size: 36px;
+      line-height: 1.1;
+      margin-bottom: 18px;
+    }
+
+    .login-info p {
+      opacity: 0.9;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .login-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .login-badges span {
+      background: rgba(255, 255, 255, 0.14);
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .login-form {
+      padding: 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .login-form h2 {
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .demo-box {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      color: #334155;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+    }
+
+    .sidebar {
+      background: #0f2438;
+      color: white;
+      padding: 20px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      margin-bottom: 18px;
+    }
+
+    .brand-logo {
+      width: 45px;
+      height: 45px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #4dabf7, #63e6be);
+      display: grid;
+      place-items: center;
+      color: #082032;
+      font-weight: 900;
+      font-size: 20px;
+    }
+
+    .brand h2 {
+      font-size: 18px;
+      line-height: 1.1;
+    }
+
+    .brand small {
+      color: #a7b5c5;
+    }
+
+    .nav {
+      display: grid;
+      gap: 8px;
+    }
+
+    .nav button {
+      background: transparent;
+      color: #dbeafe;
+      text-align: left;
+      padding: 12px;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+
+    .nav button.active,
+    .nav button:hover {
+      background: rgba(255, 255, 255, 0.12);
+      transform: none;
+    }
+
+    .nav button.locked {
+      color: #64748b;
+      cursor: not-allowed;
+    }
+
+    .main {
+      padding: 22px;
+      min-width: 0;
+    }
+
+    .topbar {
+      background: white;
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      gap: 14px;
+    }
+
+    .topbar h1 {
+      font-size: 22px;
+      color: var(--primary);
+    }
+
+    .user-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      overflow: hidden;
+    }
+
+    .card h2,
+    .card h3 {
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .stat {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      border-left: 6px solid var(--secondary);
+    }
+
+    .stat strong {
+      font-size: 30px;
+      color: var(--primary);
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      align-items: end;
+      margin-bottom: 14px;
+    }
+
+    .field label {
+      display: block;
+      color: #475569;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .badge.draft {
+      background: #e2e8f0;
+      color: #334155;
+    }
+
+    .badge.submitted {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .badge.review {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .badge.approved {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .badge.rejected {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .badge.published {
+      background: #ccfbf1;
+      color: #115e59;
+    }
+
+    .badge.locked {
+      background: #111827;
+      color: white;
+    }
+
+    .alert {
+      padding: 12px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      border: 1px solid var(--border);
+      background: #f8fafc;
+      line-height: 1.6;
+    }
+
+    .alert.success {
+      background: #dcfce7;
+      color: #166534;
+      border-color: #86efac;
+    }
+
+    .alert.danger {
+      background: #fee2e2;
+      color: #991b1b;
+      border-color: #fecaca;
+    }
+
+    .alert.warning {
+      background: #fef3c7;
+      color: #92400e;
+      border-color: #fde68a;
+    }
+
+    .alert.info {
+      background: #dbeafe;
+      color: #1d4ed8;
+      border-color: #bfdbfe;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+
+    .mini {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .bar {
+      height: 12px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+      min-width: 130px;
+    }
+
+    .bar span {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, var(--secondary), #63e6be);
+      border-radius: 999px;
+    }
+
+    .distribution {
+      display: grid;
+      gap: 10px;
+    }
+
+    .dist-row {
+      display: grid;
+      grid-template-columns: 60px 1fr 40px;
+      gap: 10px;
+      align-items: center;
+      font-weight: 700;
+    }
+
+    .audit-item,
+    .notif-item {
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 10px;
+      background: white;
+      line-height: 1.5;
+    }
+
+    .audit-item small,
+    .notif-item small {
+      color: var(--muted);
+      display: block;
+      margin-top: 4px;
+    }
+
+    .print-area {
+      background: white;
+      color: #111827;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .transcript-head {
+      text-align: center;
+      border-bottom: 2px solid #111827;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+
+    .watermark {
+      position: relative;
+    }
+
+    .watermark:after {
+      content: "UNIVERSITY ERP";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-size: 52px;
+      font-weight: 900;
+      color: rgba(0, 0, 0, 0.035);
+      pointer-events: none;
+      transform: rotate(-20deg);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+
+      #printable,
+      #printable * {
+        visibility: visible;
+      }
+
+      #printable {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        box-shadow: none;
+        border: none;
+      }
+
+      .no-print {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 1000px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        height: auto;
+        position: static;
+      }
+
+      .form-grid,
+      .grid-2,
+      .grid-3,
+      .grid-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .login-card {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+
+  <script>
+    const STORE_KEY = "enterprise_university_result_system_v1";
+
+    const state = {
+      db: null,
+      user: JSON.parse(sessionStorage.getItem("activeUser") || "null"),
+      tab: "dashboard",
+      message: "",
+      selectedBatchId: null
+    };
+
+    function uid(prefix) {
+      return prefix + "_" + Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+    }
+
+    function now() {
+      return new Date().toLocaleString();
+    }
+
+    function seedDB() {
+      return {
+        users: [
+          { id: "u1", username: "lecturer1", password: "1234", name: "Dr. Ada Johnson", role: "Lecturer", department: "Computer Science" },
+          { id: "u2", username: "hod1", password: "1234", name: "Prof. Michael Smith", role: "HOD", department: "Computer Science" },
+          { id: "u3", username: "admin1", password: "1234", name: "ERP Administrator", role: "Admin", department: "Registry" }
+        ],
+        students: [
+          { id: "s1", regNo: "CSC/2021/001", name: "Amara Okafor", department: "Computer Science", level: "300" },
+          { id: "s2", regNo: "CSC/2021/002", name: "Daniel Musa", department: "Computer Science", level: "300" },
+          { id: "s3", regNo: "CSC/2021/003", name: "Fatima Bello", department: "Computer Science", level: "300" },
+          { id: "s4", regNo: "CSC/2021/004", name: "John Mensah", department: "Computer Science", level: "300" },
+          { id: "s5", regNo: "CSC/2021/005", name: "Grace Adeyemi", department: "Computer Science", level: "300" },
+          { id: "s6", regNo: "CSC/2021/006", name: "Samuel Eze", department: "Computer Science", level: "300" },
+          { id: "s7", regNo: "CSC/2021/007", name: "Aisha Lawal", department: "Computer Science", level: "300" },
+          { id: "s8", regNo: "CSC/2021/008", name: "Peter Nwankwo", department: "Computer Science", level: "300" }
+        ],
+        courses: [
+          { id: "c1", code: "CSC301", title: "Database Systems", credit: 3, semester: "First Semester", department: "Computer Science", lecturerId: "u1", hodId: "u2" },
+          { id: "c2", code: "CSC305", title: "Software Engineering", credit: 3, semester: "First Semester", department: "Computer Science", lecturerId: "u1", hodId: "u2" },
+          { id: "c3", code: "CSC312", title: "Computer Networks", credit: 2, semester: "Second Semester", department: "Computer Science", lecturerId: "u1", hodId: "u2" }
+        ],
+        enrollments: [
+          { courseId: "c1", studentId: "s1" }, { courseId: "c1", studentId: "s2" }, { courseId: "c1", studentId: "s3" }, { courseId: "c1", studentId: "s4" },
+          { courseId: "c1", studentId: "s5" }, { courseId: "c1", studentId: "s6" }, { courseId: "c1", studentId: "s7" }, { courseId: "c1", studentId: "s8" },
+          { courseId: "c2", studentId: "s1" }, { courseId: "c2", studentId: "s2" }, { courseId: "c2", studentId: "s3" }, { courseId: "c2", studentId: "s4" },
+          { courseId: "c2", studentId: "s5" }, { courseId: "c2", studentId: "s6" },
+          { courseId: "c3", studentId: "s1" }, { courseId: "c3", studentId: "s2" }, { courseId: "c3", studentId: "s7" }, { courseId: "c3", studentId: "s8" }
+        ],
+        batches: [],
+        notifications: [],
+        audit: []
+      };
+    }
+
+    function loadDB() {
+      const saved = localStorage.getItem(STORE_KEY);
+      state.db = saved ? JSON.parse(saved) : seedDB();
+      saveDB();
+    }
+
+    function saveDB() {
+      localStorage.setItem(STORE_KEY, JSON.stringify(state.db));
+    }
+
+    function notify(text, type = "info") {
+      state.db.notifications.unshift({
+        id: uid("n"),
+        text,
+        type,
+        user: state.user ? state.user.name : "System",
+        time: now(),
+        read: false
+      });
+      saveDB();
+    }
+
+    function audit(action, details = "") {
+      state.db.audit.unshift({
+        id: uid("a"),
+        action,
+        details,
+        user: state.user ? state.user.name : "System",
+        role: state.user ? state.user.role : "System",
+        time: now()
+      });
+      saveDB();
+    }
+
+    function setMessage(msg, type = "info") {
+      state.message = `<div class="alert ${type}">${msg}</div>`;
+    }
+
+    function gradeEngine(total) {
+      if (total >= 80) return { grade: "A", point: 5.0, remark: "Excellent", status: "Pass" };
+      if (total >= 70) return { grade: "B", point: 4.0, remark: "Very Good", status: "Pass" };
+      if (total >= 60) return { grade: "C", point: 3.0, remark: "Good", status: "Pass" };
+      if (total >= 50) return { grade: "D", point: 2.0, remark: "Pass", status: "Pass" };
+      if (total >= 40) return { grade: "E", point: 1.0, remark: "Weak Pass", status: "Pass" };
+      return { grade: "F", point: 0.0, remark: "Fail", status: "Fail" };
+    }
+
+    function getCourse(id) {
+      return state.db.courses.find(c => c.id === id);
+    }
+
+    function getStudent(id) {
+      return state.db.students.find(s => s.id === id);
+    }
+
+    function getUser(id) {
+      return state.db.users.find(u => u.id === id);
+    }
+
+    function userCourses() {
+      if (!state.user) return [];
+      if (state.user.role === "Lecturer") return state.db.courses.filter(c => c.lecturerId === state.user.id);
+      if (state.user.role === "HOD") return state.db.courses.filter(c => c.hodId === state.user.id);
+      return state.db.courses;
+    }
+
+    function batchStatusClass(status) {
+      return String(status || "Draft").toLowerCase().replace(/\s/g, "");
+    }
+
+    function statusBadge(status, locked) {
+      return `<span class="badge ${batchStatusClass(status)}">${status}</span>${locked ? ' <span class="badge locked">Locked</span>' : ""}`;
+    }
+
+    function enrolledStudents(courseId) {
+      const ids = state.db.enrollments.filter(e => e.courseId === courseId).map(e => e.studentId);
+      return state.db.students.filter(s => ids.includes(s.id));
+    }
+
+    function findOrCreateBatch(courseId, semester, year) {
+      let batch = state.db.batches.find(b => b.courseId === courseId && b.semester === semester && b.academicYear === year);
+      if (!batch) {
+        const course = getCourse(courseId);
+        batch = {
+          id: uid("b"),
+          courseId,
+          semester,
+          academicYear: year,
+          department: course.department,
+          lecturerId: course.lecturerId,
+          hodId: course.hodId,
+          status: "Draft",
+          locked: false,
+          version: 1,
+          comments: [],
+          createdAt: now(),
+          updatedAt: now(),
+          results: enrolledStudents(courseId).map(s => ({
+            studentId: s.id,
+            ca: "",
+            exam: "",
+            total: "",
+            grade: "",
+            point: "",
+            remark: "",
+            status: "Missing"
+          })),
+          versions: []
+        };
+        state.db.batches.push(batch);
+        audit("Created result batch", `${course.code} ${semester} ${year}`);
+        saveDB();
+      }
+      return batch;
+    }
+
+    function validateBatch(batch) {
+      const errors = [];
+      const seen = new Set();
+
+      batch.results.forEach(r => {
+        const student = getStudent(r.studentId);
+        if (seen.has(r.studentId)) errors.push(`Duplicate entry detected for ${student.regNo}`);
+        seen.add(r.studentId);
+
+        const caEmpty = r.ca === "" || r.ca === null || r.ca === undefined;
+        const examEmpty = r.exam === "" || r.exam === null || r.exam === undefined;
+
+        if (caEmpty || examEmpty) errors.push(`Missing marks for ${student.regNo}`);
+
+        const ca = Number(r.ca);
+        const exam = Number(r.exam);
+
+        if (!caEmpty && (isNaN(ca) || ca < 0 || ca > 40)) errors.push(`CA must be 0–40 for ${student.regNo}`);
+        if (!examEmpty && (isNaN(exam) || exam < 0 || exam > 60)) errors.push(`Exam must be 0–60 for ${student.regNo}`);
+        if (!caEmpty && !examEmpty && ca + exam > 100) errors.push(`Total cannot exceed 100 for ${student.regNo}`);
+      });
+
+      return errors;
+    }
+
+    function recalcBatch(batch) {
+      batch.results.forEach(r => {
+        if (r.ca === "" || r.exam === "") {
+          r.total = "";
+          r.grade = "";
+          r.point = "";
+          r.remark = "";
+          r.status = "Missing";
+          return;
+        }
+
+        const total = Number(r.ca) + Number(r.exam);
+        const g = gradeEngine(total);
+        r.total = total;
+        r.grade = g.grade;
+        r.point = g.point;
+        r.remark = g.remark;
+        r.status = g.status;
+      });
+      batch.updatedAt = now();
+    }
+
+    function metrics(batch) {
+      const complete = batch.results.filter(r => r.total !== "");
+      const totalStudents = batch.results.length;
+      const missing = batch.results.filter(r => r.status === "Missing").length;
+      const avg = complete.length ? complete.reduce((a, r) => a + Number(r.total), 0) / complete.length : 0;
+      const pass = complete.filter(r => r.status === "Pass").length;
+      const fail = complete.filter(r => r.status === "Fail").length;
+
+      const dist = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0 };
+      complete.forEach(r => {
+        if (dist[r.grade] !== undefined) dist[r.grade]++;
+      });
+
+      const totals = complete.map(r => Number(r.total));
+      const suspicious = [];
+      if (missing > 0) suspicious.push(`${missing} missing mark(s)`);
+      if (complete.length >= 4) {
+        const sameScores = new Set(totals);
+        if (sameScores.size <= 2) suspicious.push("Suspicious pattern: many identical scores");
+      }
+      if (complete.length && fail / complete.length > 0.5) suspicious.push("High failure rate above 50%");
+      if (complete.some(r => Number(r.total) > 95)) suspicious.push("Very high score detected, review recommended");
+
+      return {
+        totalStudents,
+        complete: complete.length,
+        missing,
+        avg,
+        pass,
+        fail,
+        passRate: complete.length ? (pass / complete.length) * 100 : 0,
+        failRate: complete.length ? (fail / complete.length) * 100 : 0,
+        dist,
+        suspicious
+      };
+    }
+
+    function calculateStudentGPA(studentId) {
+      const published = state.db.batches.filter(b => b.status === "Published");
+      let units = 0;
+      let weighted = 0;
+      const rows = [];
+
+      published.forEach(b => {
+        const r = b.results.find(x => x.studentId === studentId);
+        if (!r || r.total === "") return;
+
+        const course = getCourse(b.courseId);
+        units += course.credit;
+        weighted += Number(r.point) * course.credit;
+
+        rows.push({
+          course,
+          batch: b,
+          result: r,
+          quality: Number(r.point) * course.credit
+        });
+      });
+
+      return {
+        rows,
+        units,
+        gpa: units ? weighted / units : 0
+      };
+    }
+
+    function canAccess(tab) {
+      const role = state.user.role;
+      const permissions = {
+        dashboard: ["Lecturer", "HOD", "Admin"],
+        entry: ["Lecturer", "HOD", "Admin"],
+        hod: ["HOD", "Admin"],
+        admin: ["Admin"],
+        transcript: ["Lecturer", "HOD", "Admin"],
+        reports: ["Lecturer", "HOD", "Admin"],
+        audit: ["HOD", "Admin"],
+        notifications: ["Lecturer", "HOD", "Admin"],
+        settings: ["Admin"]
+      };
+      return permissions[tab].includes(role);
+    }
+
+    function render() {
+      if (!state.db) loadDB();
+      if (!state.user) return renderLogin();
+      renderShell();
+    }
+
+    function renderLogin() {
+      document.getElementById("app").innerHTML = `
+        <div class="login-wrap">
+          <div class="login-card">
+            <div class="login-info">
+              <h1>Enterprise University Result Management System</h1>
+              <p>
+                A complete staff result workflow module with lecturer entry, HOD review,
+                admin publication, GPA calculation, audit trails, notifications, CSV import,
+                locking, reports, and transcript preview.
+              </p>
+              <div class="login-badges">
+                <span>Role-Based Access</span>
+                <span>Approval Workflow</span>
+                <span>GPA Engine</span>
+                <span>Audit Trail</span>
+                <span>Result Locking</span>
+                <span>CSV Import/Export</span>
+              </div>
+            </div>
+
+            <form onsubmit="loginUser(event)">
+              <h2>Staff Login</h2>
+              <p class="mini">Use the demo accounts below to test each workflow role.</p>
+
+              <div class="demo-box">
+                Lecturer: <b>lecturer1</b> / <b>1234</b><br>
+                HOD: <b>hod1</b> / <b>1234</b><br>
+                Admin: <b>admin1</b> / <b>1234</b>
+              </div>
+
+              <div class="field">
+                <label>Username</label>
+                <input id="loginUsername" required placeholder="Enter username" />
+              </div>
+
+              <div class="field">
+                <label>Password</label>
+                <input id="loginPassword" type="password" required placeholder="Enter password" />
+              </div>
+
+              <button type="submit">Login</button>
+              <button type="button" class="light" onclick="resetDemoData()">Reset Demo Database</button>
+
+              <div id="loginError"></div>
+            </form>
+          </div>
+        </div>
+      `;
+    }
+
+    function login(e) {
+      e.preventDefault();
+
+      const username = document.getElementById("loginUsername").value.trim();
+      const password = document.getElementById("loginPassword").value.trim();
+
+      const user = state.db.users.find(u => u.username === username && u.password === password);
+
+      if (!user) {
+        document.getElementById("loginError").innerHTML = `<div class="alert danger">Invalid username or password.</div>`;
+        return;
+      }
+
+      state.user = user;
+      sessionStorage.setItem("activeUser", JSON.stringify(user));
+      audit("User login", `${user.name} logged in`);
+      notify(`${user.name} logged in as ${user.role}`, "info");
+      render();
+    }
+
+    function logout() {
+      audit("User logout", `${state.user.name} logged out`);
+      sessionStorage.removeItem("activeUser");
+      state.user = null;
+      state.tab = "dashboard";
+      render();
+    }
+
+    function resetDemoData() {
+      if (!confirm("Reset all demo data?")) return;
+      localStorage.removeItem(STORE_KEY);
+      sessionStorage.removeItem("activeUser");
+      state.db = seedDB();
+      state.user = null;
+      saveDB();
+      render();
+    }
+
+    function renderShell() {
+      const nav = [
+        ["dashboard", "📊 Dashboard"],
+        ["entry", "📝 Result Entry"],
+        ["hod", "✅ HOD Review"],
+        ["admin", "🔐 Admin Publishing"],
+        ["transcript", "🎓 GPA / Transcript"],
+        ["reports", "📈 Reports"],
+        ["notifications", "🔔 Notifications"],
+        ["audit", "🧾 Audit Trail"],
+        ["settings", "⚙️ Settings"]
+      ];
+
+      document.getElementById("app").innerHTML = `
+        <div class="app">
+          <aside class="sidebar">
+            <div class="brand">
+              <div class="brand-logo">U</div>
+              <div>
+                <h2>University ERP</h2>
+                <small>Result Management</small>
+              </div>
+            </div>
+
+            <div class="nav">
+              ${nav.map(([key, label]) => {
+                const allowed = canAccess(key);
+                return `
+                  <button
+                    class="${state.tab === key ? "active" : ""} ${allowed ? "" : "locked"}"
+                    onclick="${allowed ? `setTab('${key}')` : ""}"
+                    title="${allowed ? "" : "Access denied for your role"}">
+                    ${label}
+                  </button>
+                `;
+              }).join("")}
+              <button class="danger" onclick="logout()">🚪 Logout</button>
+            </div>
+          </aside>
+
+          <main class="main">
+            <div class="topbar">
+              <div>
+                <h1>${pageTitle()}</h1>
+                <p class="mini">Enterprise workflow: Lecturer → HOD → Admin → Published Result</p>
+              </div>
+
+              <div class="user-pill">
+                <div class="avatar">${state.user.name[0]}</div>
+                <div>
+                  <b>${state.user.name}</b><br>
+                  <small>${state.user.role} · ${state.user.department}</small>
+                </div>
+              </div>
+            </div>
+
+            <div id="message">${state.message || ""}</div>
+            <section id="page"></section>
+          </main>
+        </div>
+      `;
+
+      state.message = "";
+      renderPage();
+    }
+
+    function pageTitle() {
+      const titles = {
+        dashboard: "Dashboard",
+        entry: "Lecturer Result Entry Panel",
+        hod: "HOD Review & Approval",
+        admin: "Admin Final Approval & Publishing",
+        transcript: "Student GPA & Transcript Preview",
+        reports: "Reports & Analytics",
+        notifications: "Notifications",
+        audit: "Audit Trail",
+        settings: "System Settings"
+      };
+      return titles[state.tab] || "Dashboard";
+    }
+
+    function setTab(tab) {
+      if (!canAccess(tab)) return;
+      state.tab = tab;
+      state.selectedBatchId = null;
+      renderShell();
+    }
+
+    function renderPage() {
+      const pages = {
+        dashboard: renderDashboard,
+        entry: renderEntry,
+        hod: renderHOD,
+        admin: renderAdmin,
+        transcript: renderTranscript,
+        reports: renderReports,
+        notifications: renderNotifications,
+        audit: renderAudit,
+        settings: renderSettings
+      };
+
+      pages[state.tab]();
+    }
+
+    function renderDashboard() {
+      const batches = state.db.batches;
+      const myCourses = userCourses();
+      const pendingHod = batches.filter(b => ["Submitted", "Under Review"].includes(b.status)).length;
+      const approved = batches.filter(b => b.status === "Approved").length;
+      const published = batches.filter(b => b.status === "Published").length;
+      const rejected = batches.filter(b => b.status === "Rejected").length;
+
+      document.getElementById("page").innerHTML = `
+        <div class="grid grid-4">
+          <div class="stat"><div><span>My Courses</span><strong>${myCourses.length}</strong></div>📚</div>
+          <div class="stat"><div><span>Pending HOD Review</span><strong>${pendingHod}</strong></div>🕒</div>
+          <div class="stat"><div><span>Approved Batches</span><strong>${approved}</strong></div>✅</div>
+          <div class="stat"><div><span>Published Results</span><strong>${published}</strong></div>🎓</div>
+        </div>
+
+        <br>
+
+        <div class="grid grid-2">
+          <div class="card">
+            <h2>Workflow Status</h2>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Course</th>
+                    <th>Semester</th>
+                    <th>Year</th>
+                    <th>Status</th>
+                    <th>Version</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${batches.length ? batches.slice(0, 8).map(b => {
+                    const c = getCourse(b.courseId);
+                    return `
+                      <tr>
+                        <td><b>${c.code}</b><br><small>${c.title}</small></td>
+                        <td>${b.semester}</td>
+                        <td>${b.academicYear}</td>
+                        <td>${statusBadge(b.status, b.locked)}</td>
+                        <td>v${b.version}</td>
+                      </tr>
+                    `;
+                  }).join("") : `<tr><td colspan="5">No result batches created yet.</td></tr>`}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Enterprise Recommendations</h2>
+            <div class="alert info">
+              <b>Recommended production upgrade:</b> connect this module to a backend API with PostgreSQL/MySQL,
+              JWT authentication, server-side audit logs, and PDF transcript generation.
+            </div>
+            <div class="alert warning">
+              <b>Security rule:</b> published results should never be deleted. Use corrections, versioning,
+              approval notes, and admin unlock logs.
+            </div>
+            <div class="alert success">
+              <b>Academic integrity:</b> keep CA max at 40 and Exam max at 60, or configure this per course
+              from your course management module.
+            </div>
+            <div class="alert danger">
+              <b>Registry control:</b> final publication should only be available to Admin/Registry.
+            </div>
+          </div>
+        </div>
+
+        <br>
+
+        <div class="card">
+          <h2>Recent Notifications</h2>
+          ${state.db.notifications.slice(0, 5).map(n => `
+            <div class="notif-item">
+              <b>${n.text}</b>
+              <small>${n.time} · ${n.user}</small>
+            </div>
+          `).join("") || "No notifications yet."}
+        </div>
+      `;
+    }
+
+    function renderEntry() {
+      const courses = userCourses();
+      const defaultCourse = courses[0] ? courses[0].id : "";
+      const year = new Date().getFullYear() + "/" + (new Date().getFullYear() + 1);
+
+      document.getElementById("page").innerHTML = `
+        <div class="card">
+          <h2>Result Entry Selection</h2>
+
+          <div class="form-grid">
+            <div class="field">
+              <label>Course</label>
+              <select id="entryCourse" onchange="loadEntryBatch()">
+                ${courses.map(c => `<option value="${c.id}">${c.code} - ${c.title}</option>`).join("")}
+              </select>
+            </div>
+
+            <div class="field">
+              <label>Semester</label>
+              <select id="entrySemester" onchange="loadEntryBatch()">
+                <option>First Semester</option>
+                <option>Second Semester</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label>Academic Year</label>
+              <input id="entryYear" value="${year}" onchange="loadEntryBatch()" />
+            </div>
+
+            <div class="field">
+              <label>Search Student</label>
+              <input id="entrySearch" placeholder="Name or Reg No" oninput="renderEntryTable()" />
+            </div>
+          </div>
+
+          <div class="toolbar">
+            <button onclick="loadEntryBatch()">Load Students</button>
+            <button class="secondary" onclick="saveDraft()">Save Draft</button>
+            <button class="success" onclick="submitResults()">Submit Results to HOD</button>
+            <button class="warning" onclick="downloadCSVTemplate()">Download CSV Template</button>
+          </div>
+
+          <div class="alert info">
+            CSV upload format: <b>regNo,ca,exam</b>. CA must be 0–40. Exam must be 0–60.
+          </div>
+
+          <div class="toolbar">
+            <input type="file" id="csvFile" accept=".csv" />
+            <button class="info" onclick="importCSV()">Import CSV Marks</button>
+          </div>
+        </div>
+
+        <br>
+
+        <div id="entryBatchArea"></div>
+      `;
+
+      if (defaultCourse) {
+        document.getElementById("entryCourse").value = defaultCourse;
+        loadEntryBatch();
+      }
+    }
+
+    function loadEntryBatch() {
+      const courseId = document.getElementById("entryCourse").value;
+      const semester = document.getElementById("entrySemester").value;
+      const year = document.getElementById("entryYear").value.trim();
+
+      if (!courseId || !semester || !year) return;
+
+      const batch = findOrCreateBatch(courseId, semester, year);
+      state.selectedBatchId = batch.id;
+      renderEntryTable();
+    }
+
+    function selectedBatch() {
+      return state.db.batches.find(b => b.id === state.selectedBatchId);
+    }
+
+    function canEditBatch(batch) {
+      if (!batch) return false;
+      if (batch.locked || batch.status === "Published") return false;
+
+      if (state.user.role === "Lecturer") {
+        return ["Draft", "Rejected"].includes(batch.status) && batch.lecturerId === state.user.id;
+      }
+
+      if (state.user.role === "HOD") {
+        return ["Submitted", "Under Review"].includes(batch.status);
+      }
+
+      return state.user.role === "Admin";
+    }
+
+    function renderEntryTable() {
+      const batch = selectedBatch();
+      if (!batch) return;
+
+      const course = getCourse(batch.courseId);
+      const m = metrics(batch);
+      const editable = canEditBatch(batch);
+      const q = (document.getElementById("entrySearch")?.value || "").toLowerCase();
+
+      const rows = batch.results
+        .filter(r => {
+          const s = getStudent(r.studentId);
+          return s.name.toLowerCase().includes(q) || s.regNo.toLowerCase().includes(q);
+        })
+        .map((r, index) => {
+          const s = getStudent(r.studentId);
+          return `
+            <tr>
+              <td>${index + 1}</td>
+              <td><b>${s.regNo}</b></td>
+              <td>${s.name}</td>
+              <td>${s.department}</td>
+              <td>
+                <input type="number" min="0" max="40" value="${r.ca}" ${editable ? "" : "disabled"}
+                  onchange="updateMark('${r.studentId}', 'ca', this.value)" />
+              </td>
+              <td>
+                <input type="number" min="0" max="60" value="${r.exam}" ${editable ? "" : "disabled"}
+                  onchange="updateMark('${r.studentId}', 'exam', this.value)" />
+              </td>
+              <td><b>${r.total}</b></td>
+              <td>${r.grade ? `<span class="badge ${r.grade === "F" ? "rejected" : "approved"}">${r.grade}</span>` : "-"}</td>
+              <td>${r.point}</td>
+              <td>${r.status}</td>
+              <td>${r.remark}</td>
+            </tr>
+          `;
+        }).join("");
+
+      document.getElementById("entryBatchArea").innerHTML = `
+        <div class="grid grid-4">
+          <div class="stat"><div><span>Students</span><strong>${m.totalStudents}</strong></div>👨‍🎓</div>
+          <div class="stat"><div><span>Average</span><strong>${m.avg.toFixed(1)}</strong></div>📊</div>
+          <div class="stat"><div><span>Pass Rate</span><strong>${m.passRate.toFixed(0)}%</strong></div>✅</div>
+          <div class="stat"><div><span>Missing Marks</span><strong>${m.missing}</strong></div>⚠️</div>
+        </div>
+
+        <br>
+
+        <div class="card">
+          <h2>${course.code} - ${course.title}</h2>
+          <p>
+            ${statusBadge(batch.status, batch.locked)}
+            <span class="badge draft">Version v${batch.version}</span>
+            <span class="badge submitted">${batch.academicYear}</span>
+            <span class="badge submitted">${batch.semester}</span>
+          </p>
+
+          ${m.suspicious.length ? `
+            <br>
+            <div class="alert warning">
+              <b>Review Alerts:</b><br>
+              ${m.suspicious.map(x => `• ${x}`).join("<br>")}
+            </div>
+          ` : ""}
+
+          ${batch.comments.length ? `
+            <div class="alert danger">
+              <b>Workflow Comments:</b><br>
+              ${batch.comments.map(c => `• ${c.time} - ${c.by}: ${c.text}`).join("<br>")}
+            </div>
+          ` : ""}
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Reg No</th>
+                  <th>Name</th>
+                  <th>Department</th>
+                  <th>CA / 40</th>
+                  <th>Exam / 60</th>
+                  <th>Total</th>
+                  <th>Grade</th>
+                  <th>Point</th>
+                  <th>Status</th>
+                  <th>Remark</th>
+                </tr>
+              </thead>
+              <tbody>${rows || `<tr><td colspan="11">No matching students.</td></tr>`}</tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function updateMark(studentId, field, value) {
+      const batch = selectedBatch();
+      if (!canEditBatch(batch)) return;
+
+      const r = batch.results.find(x => x.studentId === studentId);
+      r[field] = value === "" ? "" : Number(value);
+      recalcBatch(batch);
+      saveDB();
+      renderEntryTable();
+    }
+
+    function snapshotVersion(batch, label) {
+      batch.versions.push({
+        version: batch.version,
+        label,
+        time: now(),
+        by: state.user.name,
+        results: JSON.parse(JSON.stringify(batch.results))
+      });
+    }
+
+    function saveDraft() {
+      const batch = selectedBatch();
+      if (!batch) return setMessage("No batch selected.", "danger"), renderShell();
+
+      if (!canEditBatch(batch)) {
+        setMessage("This result batch is locked or not editable at this workflow stage.", "danger");
+        return renderShell();
+      }
+
+      recalcBatch(batch);
+      const errors = validateBatch(batch).filter(e => !e.includes("Missing marks"));
+
+      if (errors.length) {
+        setMessage(errors.slice(0, 6).join("<br>"), "danger");
+        return renderShell();
+      }
+
+      batch.status = batch.status === "Rejected" ? "Draft" : batch.status;
+      batch.version += 1;
+      snapshotVersion(batch, "Draft saved");
+      saveDB();
+      audit("Saved result draft", `${getCourse(batch.courseId).code} v${batch.version}`);
+      notify("Result draft saved successfully", "success");
+      setMessage("Draft saved successfully.", "success");
+      renderShell();
+    }
+
+    function submitResults() {
+      const batch = selectedBatch();
+      if (!batch) return;
+
+      if (state.user.role !== "Lecturer" && state.user.role !== "Admin") {
+        setMessage("Only Lecturer or Admin can submit results.", "danger");
+        return renderShell();
+      }
+
+      if (!["Draft", "Rejected"].includes(batch.status)) {
+        setMessage("Only Draft or Rejected results can be submitted.", "danger");
+        return renderShell();
+      }
+
+      recalcBatch(batch);
+      const errors = validateBatch(batch);
+
+      if (errors.length) {
+        setMessage(`<b>Fix validation errors before submission:</b><br>${errors.slice(0, 10).join("<br>")}`, "danger");
+        return renderShell();
+      }
+
+      batch.status = "Submitted";
+      batch.locked = true;
+      batch.version += 1;
+      snapshotVersion(batch, "Submitted to HOD");
+      saveDB();
+
+      audit("Submitted results to HOD", `${getCourse(batch.courseId).code} ${batch.semester}`);
+      notify("Results submitted successfully. Pending approval by HOD.", "success");
+      setMessage("Results submitted to HOD successfully. Editing is now locked.", "success");
+      renderShell();
+    }
+
+    function renderHOD() {
+      const batches = state.db.batches.filter(b => {
+        if (state.user.role === "HOD") return b.hodId === state.user.id && ["Submitted", "Under Review"].includes(b.status);
+        return ["Submitted", "Under Review"].includes(b.status);
+      });
+
+      document.getElementById("page").innerHTML = `
+        <div class="card">
+          <h2>Submitted Results Awaiting HOD Action</h2>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Course</th>
+                  <th>Lecturer</th>
+                  <th>Semester</th>
+                  <th>Year</th>
+                  <th>Metrics</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${batches.length ? batches.map(b => {
+                  const c = getCourse(b.courseId);
+                  const lecturer = getUser(b.lecturerId);
+                  const m = metrics(b);
+                  return `
+                    <tr>
+                      <td><b>${c.code}</b><br><small>${c.title}</small></td>
+                      <td>${lecturer.name}</td>
+                      <td>${b.semester}</td>
+                      <td>${b.academicYear}</td>
+                      <td>
+                        Avg: <b>${m.avg.toFixed(1)}</b><br>
+                        Pass: <b>${m.passRate.toFixed(0)}%</b><br>
+                        Missing: <b>${m.missing}</b>
+                      </td>
+                      <td>${statusBadge(b.status, b.locked)}</td>
+                      <td><button onclick="reviewBatch('${b.id}')">Review</button></td>
+                    </tr>
+                  `;
+                }).join("") : `<tr><td colspan="7">No submitted results pending HOD review.</td></tr>`}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <br>
+
+        <div id="hodReviewArea"></div>
+      `;
+    }
+
+    function reviewBatch(batchId) {
+      const b = state.db.batches.find(x => x.id === batchId);
+      state.selectedBatchId = batchId;
+
+      if (b.status === "Submitted") {
+        b.status = "Under Review";
+        b.locked = false;
+        audit("HOD started review", `${getCourse(b.courseId).code}`);
+        notify("Result is now under HOD review", "info");
+        saveDB();
+      }
+
+      const c = getCourse(b.courseId);
+      const m = metrics(b);
+
+      document.getElementById("hodReviewArea").innerHTML = `
+        <div class="card">
+          <h2>Review: ${c.code} - ${c.title}</h2>
+
+          <div class="grid grid-4">
+            <div class="stat"><div><span>Average</span><strong>${m.avg.toFixed(1)}</strong></div>📊</div>
+            <div class="stat"><div><span>Pass Rate</span><strong>${m.passRate.toFixed(0)}%</strong></div>✅</div>
+            <div class="stat"><div><span>Fail Rate</span><strong>${m.failRate.toFixed(0)}%</strong></div>❌</div>
+            <div class="stat"><div><span>Alerts</span><strong>${m.suspicious.length}</strong></div>⚠️</div>
+          </div>
+
+          <br>
+
+          ${m.suspicious.length ? `<div class="alert warning"><b>Review Warnings:</b><br>${m.suspicious.map(x => "• " + x).join("<br>")}</div>` : `<div class="alert success">No major inconsistency detected.</div>`}
+
+          <div class="field">
+            <label>HOD Comment / Rejection Reason</label>
+            <textarea id="hodComment" placeholder="Enter approval note or rejection reason"></textarea>
+          </div>
+
+          <br>
+
+          <div class="actions">
+            <button class="secondary" onclick="saveHODEdits()">Save HOD Corrections</button>
+            <button class="success" onclick="approveByHOD()">Approve and Send to Admin</button>
+            <button class="danger" onclick="rejectByHOD()">Reject to Lecturer</button>
+          </div>
+
+          <br>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Reg No</th>
+                  <th>Name</th>
+                  <th>CA</th>
+                  <th>Exam</th>
+                  <th>Total</th>
+                  <th>Grade</th>
+                  <th>Status</th>
+                  <th>Remark</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${b.results.map(r => {
+                  const s = getStudent(r.studentId);
+                  return `
+                    <tr>
+                      <td><b>${s.regNo}</b></td>
+                      <td>${s.name}</td>
+                      <td><input type="number" min="0" max="40" value="${r.ca}" onchange="updateHODMark('${r.studentId}', 'ca', this.value)" /></td>
+                      <td><input type="number" min="0" max="60" value="${r.exam}" onchange="updateHODMark('${r.studentId}', 'exam', this.value)" /></td>
+                      <td><b>${r.total}</b></td>
+                      <td>${r.grade}</td>
+                      <td>${r.status}</td>
+                      <td>${r.remark}</td>
+                    </tr>
+                  `;
+                }).join("")}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function updateHODMark(studentId, field, value) {
+      const b = selectedBatch();
+      if (!b || !["Submitted", "Under Review"].includes(b.status)) return;
+
+      const r = b.results.find(x => x.studentId === studentId);
+      r[field] = value === "" ? "" : Number(value);
+      recalcBatch(b);
+      saveDB();
+    }
+
+    function saveHODEdits() {
+      const b = selectedBatch();
+      if (!b) return;
+
+      const errors = validateBatch(b);
+      if (errors.length) {
+        setMessage(errors.slice(0, 8).join("<br>"), "danger");
+        return renderShell();
+      }
+
+      b.version += 1;
+      snapshotVersion(b, "HOD corrections saved");
+      saveDB();
+      audit("HOD corrected result batch", `${getCourse(b.courseId).code} v${b.version}`);
+      notify("HOD corrections saved", "info");
+      setMessage("HOD corrections saved successfully.", "success");
+      renderShell();
+    }
+
+    function approveByHOD() {
+      const b = selectedBatch();
+      const comment = document.getElementById("hodComment")?.value.trim() || "Approved by HOD";
+
+      const errors = validateBatch(b);
+      if (errors.length) {
+        setMessage(errors.slice(0, 8).join("<br>"), "danger");
+        return renderShell();
+      }
+
+      b.status = "Approved";
+      b.locked = true;
+      b.version += 1;
+      b.comments.push({ by: state.user.name, text: comment, time: now(), type: "approval" });
+      snapshotVersion(b, "Approved by HOD");
+      saveDB();
+
+      audit("HOD approved results", `${getCourse(b.courseId).code}`);
+      notify("Results approved by HOD. Pending admin final publishing.", "success");
+      setMessage("Results approved and forwarded to Admin.", "success");
+      renderShell();
+    }
+
+    function rejectByHOD() {
+      const b = selectedBatch();
+      const comment = document.getElementById("hodComment")?.value.trim();
+
+      if (!comment) {
+        alert("Please enter rejection reason.");
+        return;
+      }
+
+      b.status = "Rejected";
+      b.locked = false;
+      b.version += 1;
+      b.comments.push({ by: state.user.name, text: comment, time: now(), type: "rejection" });
+      snapshotVersion(b, "Rejected by HOD");
+      saveDB();
+
+      audit("HOD rejected results", `${getCourse(b.courseId).code}: ${comment}`);
+      notify("Results rejected with comments. Lecturer correction required.", "danger");
+      setMessage("Results rejected and returned to lecturer.", "warning");
+      renderShell();
+    }
+
+    function renderAdmin() {
+      const batches = state.db.batches.filter(b => ["Approved", "Published"].includes(b.status));
+
+      document.getElementById("page").innerHTML = `
+        <div class="card">
+          <h2>Admin Final Approval, Publication & Unlock Control</h2>
+
+          <div class="alert warning">
+            Admin is the only role allowed to publish official student results and unlock published results.
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Course</th>
+                  <th>Department</th>
+                  <th>Semester</th>
+                  <th>Year</th>
+                  <th>Status</th>
+                  <th>Version</th>
+                  <th>Metrics</th>
+                  <th>Admin Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${batches.length ? batches.map(b => {
+                  const c = getCourse(b.courseId);
+                  const m = metrics(b);
+                  return `
+                    <tr>
+                      <td><b>${c.code}</b><br><small>${c.title}</small></td>
+                      <td>${b.department}</td>
+                      <td>${b.semester}</td>
+                      <td>${b.academicYear}</td>
+                      <td>${statusBadge(b.status, b.locked)}</td>
+                      <td>v${b.version}</td>
+                      <td>Avg: ${m.avg.toFixed(1)}<br>Pass: ${m.passRate.toFixed(0)}%</td>
+                      <td>
+                        <div class="actions">
+                          ${b.status === "Approved" ? `<button class="success" onclick="publishBatch('${b.id}')">Publish</button>` : ""}
+                          ${b.status === "Published" ? `<button class="warning" onclick="unlockBatch('${b.id}')">Unlock</button>` : ""}
+                          <button class="info" onclick="previewBatchReport('${b.id}')">Preview</button>
+                        </div>
+                      </td>
+                    </tr>
+                  `;
+                }).join("") : `<tr><td colspan="8">No HOD-approved result batches awaiting publication.</td></tr>`}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <br>
+
+        <div id="adminPreview"></div>
+      `;
+    }
+
+    function publishBatch(id) {
+      if (!confirm("Publish this result officially to students? This will lock the result.")) return;
+
+      const b = state.db.batches.find(x => x.id === id);
+      b.status = "Published";
+      b.locked = true;
+      b.version += 1;
+      snapshotVersion(b, "Published by Admin");
+      saveDB();
+
+      audit("Admin published result", `${getCourse(b.courseId).code}`);
+      notify("Results published officially to students.", "success");
+      setMessage("Result published and locked successfully.", "success");
+      renderShell();
+    }
+
+    function unlockBatch(id) {
+      const reason = prompt("Enter unlock reason. This will be recorded in audit trail:");
+      if (!reason) return;
+
+      const b = state.db.batches.find(x => x.id === id);
+      b.status = "Approved";
+      b.locked = false;
+      b.version += 1;
+      b.comments.push({ by: state.user.name, text: "Admin unlock: " + reason, time: now(), type: "unlock" });
+      snapshotVersion(b, "Unlocked by Admin");
+      saveDB();
+
+      audit("Admin unlocked published result", `${getCourse(b.courseId).code}: ${reason}`);
+      notify("A published result was unlocked by Admin.", "warning");
+      setMessage("Result unlocked and returned to Approved state.", "warning");
+      renderShell();
+    }
+
+    function previewBatchReport(id) {
+      const b = state.db.batches.find(x => x.id === id);
+      const c = getCourse(b.courseId);
+      const m = metrics(b);
+
+      document.getElementById("adminPreview").innerHTML = `
+        <div class="card print-area watermark" id="printable">
+          <div class="transcript-head">
+            <h2>OFFICIAL COURSE RESULT SHEET</h2>
+            <p>${c.code} - ${c.title} · ${b.semester} · ${b.academicYear}</p>
+            <p>${statusBadge(b.status, b.locked)}</p>
+          </div>
+
+          <p><b>Department:</b> ${b.department}</p>
+          <p><b>Credit Unit:</b> ${c.credit}</p>
+          <p><b>Average Score:</b> ${m.avg.toFixed(2)}</p>
+          <p><b>Pass Rate:</b> ${m.passRate.toFixed(2)}%</p>
+
+          <br>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Reg No</th>
+                <th>Name</th>
+                <th>CA</th>
+                <th>Exam</th>
+                <th>Total</th>
+                <th>Grade</th>
+                <th>Point</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${b.results.map(r => {
+                const s = getStudent(r.studentId);
+                return `
+                  <tr>
+                    <td>${s.regNo}</td>
+                    <td>${s.name}</td>
+                    <td>${r.ca}</td>
+                    <td>${r.exam}</td>
+                    <td>${r.total}</td>
+                    <td>${r.grade}</td>
+                    <td>${r.point}</td>
+                    <td>${r.status}</td>
+                  </tr>
+                `;
+              }).join("")}
+            </tbody>
+          </table>
+        </div>
+
+        <br>
+
+        <button class="no-print" onclick="window.print()">Print / Save PDF</button>
+      `;
+    }
+
+    function renderTranscript() {
+      document.getElementById("page").innerHTML = `
+        <div class="card">
+          <h2>Student GPA & Transcript Preview</h2>
+
+          <div class="form-grid">
+            <div class="field">
+              <label>Select Student</label>
+              <select id="studentTranscript" onchange="showTranscript()">
+                <option value="">Choose student</option>
+                ${state.db.students.map(s => `<option value="${s.id}">${s.regNo} - ${s.name}</option>`).join("")}
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <br>
+
+        <div id="transcriptArea"></div>
+      `;
+    }
+
+    function showTranscript() {
+      const studentId = document.getElementById("studentTranscript").value;
+      if (!studentId) return;
+
+      const s = getStudent(studentId);
+      const g = calculateStudentGPA(studentId);
+
+      document.getElementById("transcriptArea").innerHTML = `
+        <div class="card print-area watermark" id="printable">
+          <div class="transcript-head">
+            <h2>STUDENT RESULT PREVIEW</h2>
+            <p>Enterprise University Academic Registry</p>
+          </div>
+
+          <p><b>Name:</b> ${s.name}</p>
+          <p><b>Registration Number:</b> ${s.regNo}</p>
+          <p><b>Department:</b> ${s.department}</p>
+          <p><b>Level:</b> ${s.level}</p>
+
+          <br>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Course</th>
+                <th>Title</th>
+                <th>Credit</th>
+                <th>Semester</th>
+                <th>Year</th>
+                <th>Total</th>
+                <th>Grade</th>
+                <th>Point</th>
+                <th>Quality Point</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${g.rows.length ? g.rows.map(row => `
+                <tr>
+                  <td>${row.course.code}</td>
+                  <td>${row.course.title}</td>
+                  <td>${row.course.credit}</td>
+                  <td>${row.batch.semester}</td>
+                  <td>${row.batch.academicYear}</td>
+                  <td>${row.result.total}</td>
+                  <td>${row.result.grade}</td>
+                  <td>${row.result.point}</td>
+                  <td>${row.quality.toFixed(2)}</td>
+                </tr>
+              `).join("") : `<tr><td colspan="9">No published results available for this student.</td></tr>`}
+            </tbody>
+          </table>
+
+          <br>
+
+          <h3>Total Credit Units: ${g.units}</h3>
+          <h3>GPA / CGPA Preview: ${g.gpa.toFixed(2)}</h3>
+        </div>
+
+        <br>
+
+        <button onclick="window.print()">Print / Save PDF</button>
+      `;
+    }
+
+    function renderReports() {
+      const batches = state.db.batches;
+
+      document.getElementById("page").innerHTML = `
+        <div class="grid grid-2">
+          <div class="card">
+            <h2>Course Performance Reports</h2>
+
+            <div class="field">
+              <label>Select Batch</label>
+              <select id="reportBatch" onchange="showReport()">
+                <option value="">Choose result batch</option>
+                ${batches.map(b => {
+                  const c = getCourse(b.courseId);
+                  return `<option value="${b.id}">${c.code} - ${b.semester} - ${b.academicYear} (${b.status})</option>`;
+                }).join("")}
+              </select>
+            </div>
+
+            <br>
+
+            <button onclick="showReport()">Generate Report</button>
+            <button class="secondary" onclick="exportSelectedBatchCSV()">Export CSV</button>
+          </div>
+
+          <div class="card">
+            <h2>Department Summary</h2>
+            ${departmentSummary()}
+          </div>
+        </div>
+
+        <br>
+
+        <div id="reportArea"></div>
+      `;
+    }
+
+    function departmentSummary() {
+      const published = state.db.batches.filter(b => b.status === "Published");
+      if (!published.length) return `<div class="alert warning">No published results yet.</div>`;
+
+      const dept = {};
+
+      published.forEach(b => {
+        const m = metrics(b);
+        if (!dept[b.department]) dept[b.department] = { batches: 0, avg: 0, passRate: 0 };
+        dept[b.department].batches++;
+        dept[b.department].avg += m.avg;
+        dept[b.department].passRate += m.passRate;
+      });
+
+      return Object.entries(dept).map(([name, d]) => `
+        <div class="alert info">
+          <b>${name}</b><br>
+          Published Batches: ${d.batches}<br>
+          Average Score: ${(d.avg / d.batches).toFixed(2)}<br>
+          Average Pass Rate: ${(d.passRate / d.batches).toFixed(2)}%
+        </div>
+      `).join("");
+    }
+
+    function showReport() {
+      const id = document.getElementById("reportBatch").value;
+      if (!id) return;
+
+      const b = state.db.batches.find(x => x.id === id);
+      const c = getCourse(b.courseId);
+      const m = metrics(b);
+      const max = Math.max(...Object.values(m.dist), 1);
+
+      document.getElementById("reportArea").innerHTML = `
+        <div class="card">
+          <h2>${c.code} - ${c.title} Performance Report</h2>
+
+          <div class="grid grid-4">
+            <div class="stat"><div><span>Average</span><strong>${m.avg.toFixed(1)}</strong></div>📊</div>
+            <div class="stat"><div><span>Pass</span><strong>${m.pass}</strong></div>✅</div>
+            <div class="stat"><div><span>Fail</span><strong>${m.fail}</strong></div>❌</div>
+            <div class="stat"><div><span>Missing</span><strong>${m.missing}</strong></div>⚠️</div>
+          </div>
+
+          <br>
+
+          <h3>Grade Distribution</h3>
+          <div class="distribution">
+            ${Object.entries(m.dist).map(([grade, count]) => `
+              <div class="dist-row">
+                <span>Grade ${grade}</span>
+                <div class="bar"><span style="width:${(count / max) * 100}%"></span></div>
+                <span>${count}</span>
+              </div>
+            `).join("")}
+          </div>
+
+          <br>
+
+          <h3>Review Alerts</h3>
+          ${m.suspicious.length ? `<div class="alert warning">${m.suspicious.map(x => "• " + x).join("<br>")}</div>` : `<div class="alert success">No major alerts.</div>`}
+        </div>
+      `;
+    }
+
+    function exportSelectedBatchCSV() {
+      const id = document.getElementById("reportBatch").value;
+      if (!id) return alert("Select a batch first.");
+
+      const b = state.db.batches.find(x => x.id === id);
+      const c = getCourse(b.courseId);
+
+      let csv = "Reg No,Name,Course,CA,Exam,Total,Grade,Point,Status,Remark\\n";
+      b.results.forEach(r => {
+        const s = getStudent(r.studentId);
+        csv += `${s.regNo},${s.name},${c.code},${r.ca},${r.exam},${r.total},${r.grade},${r.point},${r.status},${r.remark}\\n`;
+      });
+
+      downloadFile(`${c.code}_${b.semester}_result.csv`, csv);
+      audit("Exported CSV report", c.code);
+    }
+
+    function downloadCSVTemplate() {
+      const batch = selectedBatch();
+      if (!batch) return alert("Load a course first.");
+
+      let csv = "regNo,ca,exam\\n";
+      batch.results.forEach(r => {
+        const s = getStudent(r.studentId);
+        csv += `${s.regNo},,\\n`;
+      });
+
+      downloadFile("result_upload_template.csv", csv);
+    }
+
+    function downloadFile(filename, content) {
+      const blob = new Blob([content], { type: "text/csv" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    function importCSV() {
+      const file = document.getElementById("csvFile").files[0];
+      const batch = selectedBatch();
+
+      if (!file) return alert("Choose a CSV file first.");
+      if (!batch) return alert("Load a batch first.");
+      if (!canEditBatch(batch)) return alert("This batch is not editable.");
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const text = e.target.result;
+        const lines = text.split(/\r?\n/).filter(Boolean);
+        const header = lines.shift().toLowerCase().replace(/\s/g, "");
+
+        if (header !== "regno,ca,exam") {
+          alert("Invalid CSV header. Use: regNo,ca,exam");
+          return;
+        }
+
+        let imported = 0;
+
+        lines.forEach(line => {
+          const [regNo, ca, exam] = line.split(",").map(x => x.trim());
+          const student = state.db.students.find(s => s.regNo === regNo);
+          if (!student) return;
+
+          const r = batch.results.find(x => x.studentId === student.id);
+          if (!r) return;
+
+          r.ca = ca === "" ? "" : Number(ca);
+          r.exam = exam === "" ? "" : Number(exam);
+          imported++;
+        });
+
+        recalcBatch(batch);
+
+        const errors = validateBatch(batch).filter(e => !e.includes("Missing marks"));
+        if (errors.length) {
+          alert("Imported with validation errors:\\n" + errors.slice(0, 8).join("\\n"));
+        }
+
+        saveDB();
+        audit("Imported CSV marks", `${imported} rows imported`);
+        notify(`${imported} CSV result rows imported`, "success");
+        renderEntryTable();
+      };
+      reader.readAsText(file);
+    }
+
+    function renderNotifications() {
+      document.getElementById("page").innerHTML = `
+        <div class="card">
+          <h2>Workflow Notifications</h2>
+          ${state.db.notifications.length ? state.db.notifications.map(n => `
+            <div class="notif-item">
+              <span class="badge ${n.type === "danger" ? "rejected" : n.type === "success" ? "approved" : n.type === "warning" ? "review" : "submitted"}">${n.type}</span>
+              <b>${n.text}</b>
+              <small>${n.time} · ${n.user}</small>
+            </div>
+          `).join("") : "No notifications yet."}
+        </div>
+      `;
+    }
+
+    function renderAudit() {
+      document.getElementById("page").innerHTML = `
+        <div class="card">
+          <h2>Audit Trail</h2>
+
+          <div class="alert info">
+            Every sensitive action is logged: login, result entry, edits, HOD approval, rejection,
+            admin publishing, unlocking, CSV import, and exports.
+          </div>
+
+          ${state.db.audit.length ? state.db.audit.map(a => `
+            <div class="audit-item">
+              <b>${a.action}</b>
+              <p>${a.details}</p>
+              <small>${a.time} · ${a.user} · ${a.role}</small>
+            </div>
+          `).join("") : "No audit logs yet."}
+        </div>
+      `;
+    }
+
+    function renderSettings() {
+      document.getElementById("page").innerHTML = `
+        <div class="card">
+          <h2>System Settings</h2>
+
+          <div class="alert warning">
+            This single-file version uses browser LocalStorage. For production, replace LocalStorage with
+            a secure backend database and API.
+          </div>
+
+          <div class="grid grid-2">
+            <div class="card">
+              <h3>Demo Users</h3>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Username</th>
+                      <th>Role</th>
+                      <th>Department</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${state.db.users.map(u => `
+                      <tr>
+                        <td>${u.name}</td>
+                        <td>${u.username}</td>
+                        <td>${u.role}</td>
+                        <td>${u.department}</td>
+                      </tr>
+                    `).join("")}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>Danger Zone</h3>
+              <button class="danger" onclick="resetDemoData()">Reset Whole Demo Database</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    loadDB();
+    render();
+  
+function loginUser(e) {
+  e.preventDefault();
+
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
+
+  if (username === "" || password === "") {
+    alert("Please fill in all fields");
+    return;
+  }
+
+  // Demo credentials
+  if (username === "admin" && password === "admin123") {
+    alert("Login successful");
+
+    document.querySelector(".login-wrap").style.display = "none";
+    document.querySelector(".app").style.display = "grid";
+
+  } else {
+    alert("Invalid login credentials");
+  }
+}
+</script>
+
+  </script>
+</body>
+</html> 

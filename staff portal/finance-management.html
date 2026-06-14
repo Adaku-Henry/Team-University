@@ -1,0 +1,1973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>University Finance Management System</title>
+
+  <style>
+    :root {
+      --primary: #0f766e;
+      --primary-dark: #115e59;
+      --secondary: #0ea5e9;
+      --danger: #dc2626;
+      --warning: #f59e0b;
+      --success: #16a34a;
+      --dark: #0f172a;
+      --muted: #64748b;
+      --light: #f8fafc;
+      --border: #e2e8f0;
+      --white: #ffffff;
+      --sidebar: #111827;
+      --sidebar-hover: #1f2937;
+      --card-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Inter, Arial, sans-serif;
+    }
+
+    body {
+      background: #f1f5f9;
+      color: var(--dark);
+      min-height: 100vh;
+    }
+
+    .app {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 280px;
+      background: var(--sidebar);
+      color: #fff;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      overflow-y: auto;
+      padding: 18px 14px;
+      z-index: 20;
+    }
+
+    .brand {
+      padding: 12px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .brand h1 {
+      font-size: 18px;
+      line-height: 1.3;
+    }
+
+    .brand p {
+      color: #cbd5e1;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    .menu-search {
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 10px;
+      border: none;
+      margin-bottom: 12px;
+      outline: none;
+      background: #020617;
+      color: #fff;
+    }
+
+    .nav-btn {
+      width: 100%;
+      background: transparent;
+      color: #d1d5db;
+      border: none;
+      text-align: left;
+      padding: 11px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      transition: 0.2s;
+      font-size: 14px;
+    }
+
+    .nav-btn:hover,
+    .nav-btn.active {
+      background: var(--sidebar-hover);
+      color: #fff;
+    }
+
+    .main {
+      margin-left: 280px;
+      width: calc(100% - 280px);
+      min-height: 100vh;
+    }
+
+    .topbar {
+      background: var(--white);
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .topbar h2 {
+      font-size: 22px;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .role-select,
+    .global-search {
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+      background: #fff;
+    }
+
+    .content {
+      padding: 24px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .cards {
+      grid-template-columns: repeat(4, minmax(160px, 1fr));
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid var(--border);
+    }
+
+    .stat-title {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .stat-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .section {
+      margin-top: 22px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(160px, 1fr));
+      gap: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 5px;
+      font-weight: 700;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+      background: #fff;
+    }
+
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.12);
+    }
+
+    .btn {
+      border: none;
+      border-radius: 10px;
+      padding: 11px 14px;
+      cursor: pointer;
+      font-weight: 800;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      background: var(--secondary);
+      color: #fff;
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: #fff;
+    }
+
+    .btn-warning {
+      background: var(--warning);
+      color: #111827;
+    }
+
+    .btn-light {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: #fff;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: #fff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 900px;
+    }
+
+    th,
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      font-size: 13px;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f8fafc;
+      color: #334155;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    tr:hover td {
+      background: #f8fafc;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .badge-paid,
+    .badge-approved,
+    .badge-active,
+    .badge-completed {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .badge-partial,
+    .badge-pending,
+    .badge-processing {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .badge-unpaid,
+    .badge-rejected,
+    .badge-overdue,
+    .badge-inactive {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .badge-info {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    .alert-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .alert-item {
+      padding: 12px;
+      border-radius: 12px;
+      border-left: 5px solid var(--warning);
+      background: #fff7ed;
+      font-size: 13px;
+    }
+
+    .chart {
+      height: 230px;
+      display: flex;
+      align-items: end;
+      gap: 12px;
+      padding-top: 20px;
+    }
+
+    .bar {
+      flex: 1;
+      min-width: 30px;
+      background: linear-gradient(180deg, var(--secondary), var(--primary));
+      border-radius: 10px 10px 0 0;
+      position: relative;
+    }
+
+    .bar span {
+      position: absolute;
+      bottom: -24px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .toast {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      background: #111827;
+      color: #fff;
+      padding: 14px 16px;
+      border-radius: 12px;
+      box-shadow: var(--card-shadow);
+      display: none;
+      z-index: 99;
+      max-width: 360px;
+    }
+
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      z-index: 50;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal {
+      background: #fff;
+      border-radius: 18px;
+      padding: 22px;
+      max-width: 760px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
+    }
+
+    .receipt-box {
+      border: 2px dashed var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      margin-top: 12px;
+      background: #f8fafc;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+    }
+
+    .mini-kpi {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .danger-text {
+      color: var(--danger);
+      font-weight: 800;
+    }
+
+    .success-text {
+      color: var(--success);
+      font-weight: 800;
+    }
+
+    @media (max-width: 1100px) {
+      .cards,
+      .form-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+      }
+
+      .app {
+        flex-direction: column;
+      }
+
+      .main {
+        margin-left: 0;
+        width: 100%;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .cards,
+      .form-grid,
+      .mini-kpi {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+
+      #printArea,
+      #printArea * {
+        visibility: visible;
+      }
+
+      #printArea {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <h1>University Finance ERP</h1>
+        <p>Enterprise Finance Management System</p>
+      </div>
+
+      <input id="menuSearch" class="menu-search" placeholder="Search modules..." />
+      <div id="sidebarMenu"></div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h2 id="pageTitle">Finance Dashboard</h2>
+          <p class="muted" id="pageSubtitle">Monitor institutional revenue, expenses, student payments and compliance.</p>
+        </div>
+
+        <div class="topbar-actions">
+          <input id="globalSearch" class="global-search" placeholder="Search records..." />
+          <select id="roleSelect" class="role-select">
+            <option value="Admin">Admin</option>
+            <option value="Finance Officer">Finance Officer</option>
+            <option value="Accountant">Accountant</option>
+            <option value="Registrar">Registrar</option>
+            <option value="Auditor">Auditor</option>
+            <option value="Vice Chancellor">Vice Chancellor</option>
+            <option value="Student">Student</option>
+            <option value="Sponsor">Sponsor</option>
+          </select>
+          <button class="btn btn-light" onclick="backupData()">Backup</button>
+          <button class="btn btn-warning" onclick="restoreDemoData()">Reset Demo</button>
+        </div>
+      </header>
+
+      <section id="content" class="content"></section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <div id="modalBackdrop" class="modal-backdrop">
+    <div class="modal">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+        <h3 id="modalTitle">Details</h3>
+        <button class="btn btn-light no-print" onclick="closeModal()">Close</button>
+      </div>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <script>
+    const money = new Intl.NumberFormat("en-UG", {
+      style: "currency",
+      currency: "UGX",
+      maximumFractionDigits: 0
+    });
+
+    const STORAGE_KEY = "university_finance_erp_v1";
+
+    const modules = [
+      "Finance Dashboard",
+      "Student Portal",
+      "Parent/Sponsor Portal",
+      "Student Fees",
+      "Fee Structures",
+      "Invoices",
+      "Payments",
+      "Receipts",
+      "Accounts Receivable",
+      "Accounts Payable",
+      "General Ledger",
+      "Journal Entries",
+      "Fiscal Years",
+      "Bank Management",
+      "Bank Reconciliation",
+      "Payroll",
+      "Budget Management",
+      "Expense Management",
+      "Procurement",
+      "Vendor Management",
+      "Contracts",
+      "Scholarships",
+      "Financial Aid",
+      "Research Grants",
+      "Project Finance",
+      "Donations",
+      "Endowments",
+      "Investments",
+      "Loans & Debts",
+      "Hostel Finance",
+      "Library Finance",
+      "Transport Finance",
+      "Asset Management",
+      "Inventory Finance",
+      "Cash Management",
+      "Refunds",
+      "Penalties & Fines",
+      "Fund Accounting",
+      "Cost Centers",
+      "Tax Management",
+      "Risk Management",
+      "Compliance",
+      "Internal Audit",
+      "Financial Reports",
+      "Analytics",
+      "Forecasting",
+      "Notifications",
+      "Document Management",
+      "Workflow Approvals",
+      "Audit Trail",
+      "Backup & Recovery",
+      "Security",
+      "Settings"
+    ];
+
+    const genericSchemas = {
+      "Accounts Payable": ["Supplier", "Invoice No", "Amount", "Due Date", "Status"],
+      "Payroll": ["Staff ID", "Employee", "Department", "Basic Salary", "Allowances", "Deductions", "Net Salary", "Status"],
+      "Budget Management": ["Budget Name", "Faculty/Department", "Budget Amount", "Used Amount", "Fiscal Year", "Status"],
+      "Expense Management": ["Expense Type", "Department", "Amount", "Requested By", "Approval Status", "Payment Status"],
+      "Procurement": ["Purchase Request", "Vendor", "Amount", "Department", "Approval Status", "PO Status"],
+      "Vendor Management": ["Vendor Name", "Category", "Contact", "Performance Rating", "Payment Terms", "Status"],
+      "Contracts": ["Contract Title", "Vendor", "Start Date", "End Date", "Value", "Status"],
+      "Scholarships": ["Scholarship Type", "Sponsor", "Beneficiary", "Coverage %", "Amount", "Balance"],
+      "Financial Aid": ["Aid Type", "Student", "Amount", "Academic Year", "Status"],
+      "Research Grants": ["Grant Name", "Donor", "Principal Investigator", "Award Amount", "Used Amount", "Balance"],
+      "Project Finance": ["Project", "Budget", "Actual Cost", "Variance", "Completion %", "Status"],
+      "Donations": ["Donor", "Campaign", "Amount", "Purpose", "Date", "Restriction"],
+      "Endowments": ["Fund Name", "Principal", "Returns", "Withdrawals", "Balance", "Purpose"],
+      "Investments": ["Investment Type", "Institution", "Principal", "Return Rate %", "Maturity Date", "Status"],
+      "Loans & Debts": ["Loan Provider", "Loan Amount", "Interest Rate %", "Outstanding Balance", "Repayment Date", "Status"],
+      "Hostel Finance": ["Student", "Hostel", "Charge Type", "Amount", "Status"],
+      "Library Finance": ["Student", "Fine Type", "Book/Item", "Amount", "Status"],
+      "Transport Finance": ["Item", "Cost Type", "Amount", "Vehicle/Route", "Status"],
+      "Asset Management": ["Asset Name", "Category", "Purchase Cost", "Current Value", "Location", "Status"],
+      "Inventory Finance": ["Item", "Category", "Quantity", "Unit Cost", "Stock Value", "Status"],
+      "Cash Management": ["Cash Account", "Transaction Type", "Amount", "Officer", "Status"],
+      "Refunds": ["Student", "Refund Type", "Amount", "Reason", "Approval Status", "Payment Status"],
+      "Penalties & Fines": ["Student", "Penalty Type", "Amount", "Due Date", "Status"],
+      "Fund Accounting": ["Fund Name", "Fund Type", "Opening Balance", "Income", "Expense", "Closing Balance"],
+      "Cost Centers": ["Cost Center", "Manager", "Budget", "Used Amount", "Remaining", "Status"],
+      "Tax Management": ["Tax Type", "Period", "Taxable Amount", "Tax Amount", "Submission Date", "Status"],
+      "Risk Management": ["Risk Name", "Category", "Likelihood", "Impact", "Mitigation", "Status"],
+      "Compliance": ["Requirement", "Authority", "Deadline", "Responsible Officer", "Status"],
+      "Internal Audit": ["Audit Area", "Finding", "Risk Level", "Recommendation", "Responsible Unit", "Status"],
+      "Forecasting": ["Forecast Type", "Period", "Projected Amount", "Confidence %", "Notes", "Status"],
+      "Document Management": ["Document Type", "Reference", "Uploaded By", "Date", "Status"],
+      "Workflow Approvals": ["Request Type", "Requester", "Amount", "Current Level", "Approval Status"],
+      "Security": ["User", "Role", "Permission", "Approval Limit", "2FA Status", "Status"],
+      "Settings": ["Setting Name", "Value", "Category", "Updated By", "Status"],
+      "Fiscal Years": ["Fiscal Year", "Start Date", "End Date", "Status", "Locked"],
+      "Bank Management": ["Bank Name", "Account Number", "Currency", "Opening Balance", "Current Balance", "Status"]
+    };
+
+    let state = loadState();
+    let currentModule = "Finance Dashboard";
+
+    function defaultState() {
+      return {
+        students: [
+          { id: "S001", name: "Amina Kato", regNo: "2024/BCS/001", programme: "BSc Computer Science", faculty: "Computing", department: "Computer Science", semester: "Semester 1", sponsor: "Self" },
+          { id: "S002", name: "Brian Okello", regNo: "2024/BBA/002", programme: "Bachelor of Business Administration", faculty: "Business", department: "Accounting", semester: "Semester 1", sponsor: "Government" },
+          { id: "S003", name: "Claire Namuli", regNo: "2024/BED/003", programme: "Bachelor of Education", faculty: "Education", department: "Education", semester: "Semester 2", sponsor: "NGO Sponsor" }
+        ],
+        feeStructures: [
+          { id: uid("FEE"), category: "Tuition Fees", amount: 1500000, academicYear: "2025/2026", semester: "Semester 1", programme: "BSc Computer Science", faculty: "Computing", department: "Computer Science" },
+          { id: uid("FEE"), category: "Functional Fees", amount: 450000, academicYear: "2025/2026", semester: "Semester 1", programme: "BSc Computer Science", faculty: "Computing", department: "Computer Science" },
+          { id: uid("FEE"), category: "Registration Fees", amount: 150000, academicYear: "2025/2026", semester: "Semester 1", programme: "All", faculty: "All", department: "All" }
+        ],
+        invoices: [
+          { id: uid("INV"), invoiceNo: "INV-2025-001", studentId: "S001", studentName: "Amina Kato", regNo: "2024/BCS/001", programme: "BSc Computer Science", semester: "Semester 1", items: "Tuition Fees, Functional Fees", amount: 1950000, paid: 700000, dueDate: "2025-08-30", status: "Partial" },
+          { id: uid("INV"), invoiceNo: "INV-2025-002", studentId: "S002", studentName: "Brian Okello", regNo: "2024/BBA/002", programme: "Bachelor of Business Administration", semester: "Semester 1", items: "Tuition Fees", amount: 1200000, paid: 0, dueDate: "2025-07-20", status: "Overdue" }
+        ],
+        payments: [
+          { id: uid("PAY"), paymentNo: "PAY-2025-001", invoiceNo: "INV-2025-001", studentId: "S001", studentName: "Amina Kato", amount: 700000, method: "Mobile Money", reference: "MTN12345", date: today(), status: "Completed" }
+        ],
+        receipts: [
+          { id: uid("RCT"), receiptNo: "RCT-2025-001", paymentNo: "PAY-2025-001", studentName: "Amina Kato", amount: 700000, method: "Mobile Money", reference: "MTN12345", date: today() }
+        ],
+        expenses: [
+          { id: uid("EXP"), "Expense Type": "Utility Bills", Department: "Administration", Amount: 2300000, "Requested By": "Estates Officer", "Approval Status": "Approved", "Payment Status": "Paid" }
+        ],
+        gl: [
+          { id: uid("GL"), date: today(), description: "Student tuition payment", debit: "Cash/Bank", credit: "Tuition Revenue", amount: 700000, reference: "PAY-2025-001" }
+        ],
+        journals: [],
+        budgets: [
+          { id: uid("BUD"), "Budget Name": "Computing Faculty Annual Budget", "Faculty/Department": "Computing", "Budget Amount": 100000000, "Used Amount": 65000000, "Fiscal Year": "2025/2026", Status: "Active" }
+        ],
+        notifications: [
+          { id: uid("ALT"), message: "Invoice INV-2025-002 is overdue.", type: "Overdue Fees", date: today(), status: "Unread" }
+        ],
+        auditLogs: [],
+        generic: {}
+      };
+    }
+
+    function loadState() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) return JSON.parse(saved);
+      const initial = defaultState();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(initial));
+      return initial;
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function uid(prefix) {
+      return `${prefix}-${Date.now()}-${Math.floor(Math.random() * 9999)}`;
+    }
+
+    function today() {
+      return new Date().toISOString().slice(0, 10);
+    }
+
+    function toast(message) {
+      const t = document.getElementById("toast");
+      t.innerText = message;
+      t.style.display = "block";
+      setTimeout(() => t.style.display = "none", 3000);
+    }
+
+    function audit(action, module, oldValue = "", newValue = "") {
+      state.auditLogs.unshift({
+        id: uid("AUD"),
+        who: document.getElementById("roleSelect")?.value || "Admin",
+        action,
+        module,
+        date: new Date().toLocaleString(),
+        oldValue: JSON.stringify(oldValue),
+        newValue: JSON.stringify(newValue),
+        ipAddress: "Browser Session"
+      });
+      saveState();
+    }
+
+    function hasWriteAccess() {
+      const role = document.getElementById("roleSelect").value;
+      return !["Auditor", "Vice Chancellor", "Student", "Sponsor"].includes(role);
+    }
+
+    function requireWriteAccess() {
+      if (!hasWriteAccess()) {
+        toast("Access denied: current role has read-only access.");
+        return false;
+      }
+      return true;
+    }
+
+    function renderSidebar(filter = "") {
+      const menu = document.getElementById("sidebarMenu");
+      menu.innerHTML = "";
+      modules
+        .filter(m => m.toLowerCase().includes(filter.toLowerCase()))
+        .forEach(m => {
+          const btn = document.createElement("button");
+          btn.className = "nav-btn" + (m === currentModule ? " active" : "");
+          btn.innerHTML = `<span>${moduleIcon(m)} ${m}</span><span>›</span>`;
+          btn.onclick = () => renderModule(m);
+          menu.appendChild(btn);
+        });
+    }
+
+    function moduleIcon(name) {
+      if (name.includes("Dashboard")) return "📊";
+      if (name.includes("Student")) return "🎓";
+      if (name.includes("Payment")) return "💳";
+      if (name.includes("Receipt")) return "🧾";
+      if (name.includes("Ledger") || name.includes("Journal")) return "📘";
+      if (name.includes("Payroll")) return "👥";
+      if (name.includes("Budget")) return "📌";
+      if (name.includes("Audit")) return "🔍";
+      if (name.includes("Report")) return "📄";
+      if (name.includes("Bank")) return "🏦";
+      if (name.includes("Security")) return "🔐";
+      return "💼";
+    }
+
+    function setHeader(title, subtitle) {
+      document.getElementById("pageTitle").innerText = title;
+      document.getElementById("pageSubtitle").innerText = subtitle || "University enterprise finance module.";
+    }
+
+    function renderModule(module) {
+      currentModule = module;
+      renderSidebar(document.getElementById("menuSearch").value || "");
+      setHeader(module, moduleDescription(module));
+
+      if (module === "Finance Dashboard") return renderDashboard();
+      if (module === "Student Portal") return renderStudentPortal();
+      if (module === "Parent/Sponsor Portal") return renderSponsorPortal();
+      if (module === "Student Fees") return renderStudentFees();
+      if (module === "Fee Structures") return renderFeeStructures();
+      if (module === "Invoices") return renderInvoices();
+      if (module === "Payments") return renderPayments();
+      if (module === "Receipts") return renderReceipts();
+      if (module === "Accounts Receivable") return renderAccountsReceivable();
+      if (module === "General Ledger") return renderGL();
+      if (module === "Journal Entries") return renderJournalEntries();
+      if (module === "Financial Reports") return renderReports();
+      if (module === "Analytics") return renderAnalytics();
+      if (module === "Notifications") return renderNotifications();
+      if (module === "Audit Trail") return renderAuditTrail();
+      if (module === "Backup & Recovery") return renderBackupRecovery();
+
+      return renderGenericModule(module);
+    }
+
+    function moduleDescription(module) {
+      const map = {
+        "Finance Dashboard": "Real-time revenue, expenses, cash flow, budgets, collections and alerts.",
+        "Student Portal": "Students view invoices, pay fees, download receipts and monitor balances.",
+        "Parent/Sponsor Portal": "Sponsors view sponsored students, invoices, balances and payments.",
+        "Student Fees": "Create student invoices, process payments, validate balances and issue receipts.",
+        "General Ledger": "Double-entry accounting backbone for institutional financial records.",
+        "Financial Reports": "Generate accounting, student, budget, payroll and grant reports.",
+        "Audit Trail": "Track every sensitive action performed in the system."
+      };
+      return map[module] || `Manage ${module.toLowerCase()} records, approvals, reporting and validations.`;
+    }
+
+    function getTotals() {
+      const revenue = state.payments.reduce((s, p) => s + Number(p.amount || 0), 0);
+      const expenses = [
+        ...(state.expenses || []),
+        ...(state.generic["Expense Management"] || [])
+      ].reduce((s, e) => s + Number(e.Amount || e.amount || 0), 0);
+
+      const invoiceTotal = state.invoices.reduce((s, i) => s + Number(i.amount || 0), 0);
+      const invoicePaid = state.invoices.reduce((s, i) => s + Number(i.paid || 0), 0);
+      const outstanding = invoiceTotal - invoicePaid;
+
+      const todayCollections = state.payments
+        .filter(p => p.date === today())
+        .reduce((s, p) => s + Number(p.amount || 0), 0);
+
+      const payroll = (state.generic["Payroll"] || [])
+        .reduce((s, p) => s + Number(p["Net Salary"] || 0), 0);
+
+      const budgetTotal = [
+        ...(state.budgets || []),
+        ...(state.generic["Budget Management"] || [])
+      ].reduce((s, b) => s + Number(b["Budget Amount"] || 0), 0);
+
+      const budgetUsed = [
+        ...(state.budgets || []),
+        ...(state.generic["Budget Management"] || [])
+      ].reduce((s, b) => s + Number(b["Used Amount"] || 0), 0);
+
+      return {
+        revenue,
+        expenses,
+        outstanding,
+        todayCollections,
+        payroll,
+        net: revenue - expenses,
+        budgetTotal,
+        budgetUsed,
+        budgetUtilization: budgetTotal ? Math.round((budgetUsed / budgetTotal) * 100) : 0,
+        overdue: state.invoices.filter(i => i.status === "Overdue").length
+      };
+    }
+
+    function renderDashboard() {
+      const t = getTotals();
+      document.getElementById("content").innerHTML = `
+        <div class="grid cards">
+          ${statCard("Total Revenue", money.format(t.revenue), "All confirmed collections")}
+          ${statCard("Total Expenses", money.format(t.expenses), "Approved and recorded expenses")}
+          ${statCard("Net Balance", money.format(t.net), "Revenue minus expenses")}
+          ${statCard("Outstanding Fees", money.format(t.outstanding), "Unpaid student invoices")}
+          ${statCard("Today's Collections", money.format(t.todayCollections), "Payments received today")}
+          ${statCard("Payroll Summary", money.format(t.payroll), "Net salary obligations")}
+          ${statCard("Budget Utilization", `${t.budgetUtilization}%`, `${money.format(t.budgetUsed)} used`)}
+          ${statCard("Overdue Invoices", t.overdue, "Invoices requiring follow-up")}
+        </div>
+
+        <div class="split section">
+          <div class="card">
+            <div class="section-title">
+              <h3>📈 Revenue & Expense Trends</h3>
+              <button class="btn btn-light" onclick="exportTableCSV('dashboard-summary.csv')">Export CSV</button>
+            </div>
+            <div class="chart">
+              ${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug"].map((m, i) => `<div class="bar" style="height:${60 + i * 18}px"><span>${m}</span></div>`).join("")}
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="section-title">
+              <h3>🔔 Financial Alerts</h3>
+              <button class="btn btn-primary" onclick="generateAlerts()">Refresh Alerts</button>
+            </div>
+            <div class="alert-list">
+              ${state.notifications.slice(0, 6).map(a => `<div class="alert-item"><strong>${a.type}</strong><br>${a.message}<br><small>${a.date}</small></div>`).join("") || "<p class='muted'>No alerts.</p>"}
+            </div>
+          </div>
+        </div>
+
+        <div class="section card">
+          <div class="section-title">
+            <h3>📌 Key Financial KPIs</h3>
+          </div>
+          <div class="mini-kpi">
+            ${smallKpi("Collection Rate", `${collectionRate()}%`)}
+            ${smallKpi("Expense Ratio", `${expenseRatio()}%`)}
+            ${smallKpi("Liquidity", t.net >= 0 ? "Positive" : "Negative")}
+          </div>
+        </div>
+      `;
+    }
+
+    function statCard(title, value, sub) {
+      return `
+        <div class="card">
+          <div class="stat-title">${title}</div>
+          <div class="stat-value">${value}</div>
+          <div class="stat-sub">${sub}</div>
+        </div>
+      `;
+    }
+
+    function smallKpi(title, value) {
+      return `
+        <div class="card" style="box-shadow:none;background:#f8fafc;">
+          <div class="stat-title">${title}</div>
+          <div class="stat-value">${value}</div>
+        </div>
+      `;
+    }
+
+    function collectionRate() {
+      const total = state.invoices.reduce((s, i) => s + Number(i.amount || 0), 0);
+      const paid = state.invoices.reduce((s, i) => s + Number(i.paid || 0), 0);
+      return total ? Math.round((paid / total) * 100) : 0;
+    }
+
+    function expenseRatio() {
+      const t = getTotals();
+      return t.revenue ? Math.round((t.expenses / t.revenue) * 100) : 0;
+    }
+
+    function renderStudentPortal() {
+      const options = state.students.map(s => `<option value="${s.id}">${s.name} - ${s.regNo}</option>`).join("");
+      document.getElementById("content").innerHTML = `
+        <div class="card">
+          <div class="section-title">
+            <h3>🎓 Student Finance Portal</h3>
+          </div>
+          <div class="form-grid">
+            <div>
+              <label>Select Student</label>
+              <select id="portalStudent" onchange="loadStudentPortal()">${options}</select>
+            </div>
+          </div>
+        </div>
+        <div id="studentPortalContent"></div>
+      `;
+      loadStudentPortal();
+    }
+
+    function loadStudentPortal() {
+      const studentId = document.getElementById("portalStudent").value;
+      const student = state.students.find(s => s.id === studentId);
+      const invoices = state.invoices.filter(i => i.studentId === studentId);
+      const receipts = state.receipts.filter(r => r.studentName === student.name);
+
+      document.getElementById("studentPortalContent").innerHTML = `
+        <div class="section split">
+          <div class="card">
+            <div class="section-title">
+              <h3>🧾 My Invoices</h3>
+            </div>
+            ${invoiceTable(invoices, true)}
+          </div>
+
+          <div class="card">
+            <div class="section-title">
+              <h3>💳 Pay Invoice</h3>
+            </div>
+            ${paymentForm(studentId)}
+          </div>
+        </div>
+
+        <div class="section card">
+          <div class="section-title">
+            <h3>📄 My Receipts</h3>
+          </div>
+          ${receiptTable(receipts)}
+        </div>
+      `;
+    }
+
+    function paymentForm(studentId = "") {
+      const invoices = state.invoices
+        .filter(i => !studentId || i.studentId === studentId)
+        .filter(i => Number(i.amount) > Number(i.paid));
+
+      return `
+        <form onsubmit="processPayment(event)">
+          <input type="hidden" id="payStudentId" value="${studentId}">
+          <div class="form-grid" style="grid-template-columns:1fr;">
+            <div>
+              <label>Invoice</label>
+              <select id="payInvoiceNo" required onchange="syncPaymentLimit()">
+                <option value="">Select invoice</option>
+                ${invoices.map(i => `<option value="${i.invoiceNo}">${i.invoiceNo} - ${i.studentName} - Balance ${money.format(i.amount - i.paid)}</option>`).join("")}
+              </select>
+            </div>
+            <div>
+              <label>Amount</label>
+              <input id="payAmount" type="number" min="1" required placeholder="Enter payment amount" />
+            </div>
+            <div>
+              <label>Payment Method</label>
+              <select id="payMethod" required>
+                <option value="">Select method</option>
+                <option>Cash</option>
+                <option>Bank Deposit</option>
+                <option>Mobile Money</option>
+                <option>Credit Card</option>
+                <option>Debit Card</option>
+                <option>Online Gateway</option>
+                <option>Scholarship Sponsorship</option>
+              </select>
+            </div>
+            <div>
+              <label>Reference Number</label>
+              <input id="payReference" required placeholder="Bank slip / MoMo / Gateway ref" />
+            </div>
+          </div>
+          <div class="actions">
+            <button class="btn btn-primary" type="submit">Process Payment</button>
+          </div>
+        </form>
+      `;
+    }
+
+    function syncPaymentLimit() {
+      const invoiceNo = document.getElementById("payInvoiceNo").value;
+      const inv = state.invoices.find(i => i.invoiceNo === invoiceNo);
+      if (!inv) return;
+      const balance = inv.amount - inv.paid;
+      const input = document.getElementById("payAmount");
+      input.max = balance;
+      input.placeholder = `Maximum ${money.format(balance)}`;
+    }
+
+    function processPayment(e) {
+      e.preventDefault();
+      if (!requireWriteAccess() && currentModule !== "Student Portal") return;
+
+      const invoiceNo = document.getElementById("payInvoiceNo").value;
+      const amount = Number(document.getElementById("payAmount").value);
+      const method = document.getElementById("payMethod").value;
+      const reference = document.getElementById("payReference").value.trim();
+
+      const inv = state.invoices.find(i => i.invoiceNo === invoiceNo);
+
+      if (!inv) return toast("Please select a valid invoice.");
+      if (amount <= 0) return toast("Payment amount must be greater than zero.");
+
+      const balance = Number(inv.amount) - Number(inv.paid);
+      if (amount > balance) return toast(`Payment cannot exceed invoice balance of ${money.format(balance)}.`);
+      if (!reference || reference.length < 3) return toast("Reference number is required and must be valid.");
+
+      const paymentNo = `PAY-${new Date().getFullYear()}-${String(state.payments.length + 1).padStart(3, "0")}`;
+      const receiptNo = `RCT-${new Date().getFullYear()}-${String(state.receipts.length + 1).padStart(3, "0")}`;
+
+      const payment = {
+        id: uid("PAY"),
+        paymentNo,
+        invoiceNo,
+        studentId: inv.studentId,
+        studentName: inv.studentName,
+        amount,
+        method,
+        reference,
+        date: today(),
+        status: "Completed"
+      };
+
+      inv.paid = Number(inv.paid) + amount;
+      inv.status = inv.paid >= inv.amount ? "Paid" : "Partial";
+
+      const receipt = {
+        id: uid("RCT"),
+        receiptNo,
+        paymentNo,
+        studentName: inv.studentName,
+        amount,
+        method,
+        reference,
+        date: today()
+      };
+
+      const glEntry = {
+        id: uid("GL"),
+        date: today(),
+        description: `Student payment for ${invoiceNo}`,
+        debit: method === "Cash" ? "Cash Account" : "Bank/Mobile Money Account",
+        credit: "Student Fee Revenue",
+        amount,
+        reference: paymentNo
+      };
+
+      state.payments.unshift(payment);
+      state.receipts.unshift(receipt);
+      state.gl.unshift(glEntry);
+
+      audit("Processed payment", "Payments", "", payment);
+      saveState();
+
+      toast("Payment processed successfully. Receipt generated.");
+      showReceipt(receipt);
+      renderModule(currentModule);
+    }
+
+    function renderSponsorPortal() {
+      const sponsored = state.students.filter(s => s.sponsor && s.sponsor !== "Self");
+      document.getElementById("content").innerHTML = `
+        <div class="card">
+          <div class="section-title">
+            <h3>🤝 Parent/Sponsor Finance Portal</h3>
+          </div>
+          <p class="muted">Sponsors can monitor balances and make payments for sponsored students.</p>
+        </div>
+
+        <div class="section card">
+          ${studentTable(sponsored)}
+        </div>
+      `;
+    }
+
+    function renderStudentFees() {
+      document.getElementById("content").innerHTML = `
+        <div class="split">
+          <div class="card">
+            <div class="section-title">
+              <h3>🧾 Generate Student Invoice</h3>
+            </div>
+            <form onsubmit="createInvoice(event)">
+              <div class="form-grid">
+                <div>
+                  <label>Student</label>
+                  <select id="invStudent" required>
+                    <option value="">Select student</option>
+                    ${state.students.map(s => `<option value="${s.id}">${s.name} - ${s.regNo}</option>`).join("")}
+                  </select>
+                </div>
+                <div>
+                  <label>Fee Items</label>
+                  <input id="invItems" required placeholder="Tuition, ICT, Registration" />
+                </div>
+                <div>
+                  <label>Amount</label>
+                  <input id="invAmount" type="number" min="1" required />
+                </div>
+                <div>
+                  <label>Due Date</label>
+                  <input id="invDueDate" type="date" required />
+                </div>
+              </div>
+              <div class="actions">
+                <button class="btn btn-primary" type="submit">Generate Invoice</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="card">
+            <div class="section-title">
+              <h3>💳 Payment Processing</h3>
+            </div>
+            ${paymentForm()}
+          </div>
+        </div>
+
+        <div class="section card">
+          <div class="section-title">
+            <h3>📋 Student Invoices</h3>
+          </div>
+          ${invoiceTable(state.invoices, true)}
+        </div>
+      `;
+    }
+
+    function createInvoice(e) {
+      e.preventDefault();
+      if (!requireWriteAccess()) return;
+
+      const studentId = document.getElementById("invStudent").value;
+      const student = state.students.find(s => s.id === studentId);
+      const amount = Number(document.getElementById("invAmount").value);
+      const dueDate = document.getElementById("invDueDate").value;
+      const items = document.getElementById("invItems").value.trim();
+
+      if (!student) return toast("Student is required.");
+      if (!items) return toast("Fee items are required.");
+      if (amount <= 0) return toast("Invoice amount must be greater than zero.");
+      if (!dueDate) return toast("Due date is required.");
+
+      const invoice = {
+        id: uid("INV"),
+        invoiceNo: `INV-${new Date().getFullYear()}-${String(state.invoices.length + 1).padStart(3, "0")}`,
+        studentId,
+        studentName: student.name,
+        regNo: student.regNo,
+        programme: student.programme,
+        semester: student.semester,
+        items,
+        amount,
+        paid: 0,
+        dueDate,
+        status: new Date(dueDate) < new Date(today()) ? "Overdue" : "Unpaid"
+      };
+
+      state.invoices.unshift(invoice);
+      audit("Created invoice", "Invoices", "", invoice);
+      saveState();
+      toast("Invoice generated successfully.");
+      renderStudentFees();
+    }
+
+    function renderFeeStructures() {
+      document.getElementById("content").innerHTML = `
+        <div class="card">
+          <div class="section-title">
+            <h3>🏗️ Fee Structure Setup</h3>
+          </div>
+          <form onsubmit="createFeeStructure(event)">
+            <div class="form-grid">
+              <div>
+                <label>Fee Category</label>
+                <select id="feeCategory" required>
+                  <option>Tuition Fees</option>
+                  <option>Functional Fees</option>
+                  <option>Registration Fees</option>
+                  <option>Examination Fees</option>
+                  <option>Library Fees</option>
+                  <option>ICT Fees</option>
+                  <option>Hostel Fees</option>
+                  <option>Graduation Fees</option>
+                  <option>Laboratory Fees</option>
+                  <option>Internship Fees</option>
+                  <option>Research Fees</option>
+                  <option>Field Attachment Fees</option>
+                </select>
+              </div>
+              <div>
+                <label>Amount</label>
+                <input id="feeAmount" type="number" min="1" required />
+              </div>
+              <div>
+                <label>Academic Year</label>
+                <input id="feeYear" value="2025/2026" required />
+              </div>
+              <div>
+                <label>Semester</label>
+                <select id="feeSemester" required>
+                  <option>Semester 1</option>
+                  <option>Semester 2</option>
+                  <option>Full Year</option>
+                </select>
+              </div>
+              <div>
+                <label>Programme</label>
+                <input id="feeProgramme" placeholder="All or specific programme" required />
+              </div>
+              <div>
+                <label>Faculty</label>
+                <input id="feeFaculty" placeholder="All or specific faculty" required />
+              </div>
+              <div>
+                <label>Department</label>
+                <input id="feeDepartment" placeholder="All or specific department" required />
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn btn-primary" type="submit">Save Fee Structure</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="section card">
+          ${feeStructureTable()}
+        </div>
+      `;
+    }
+
+    function createFeeStructure(e) {
+      e.preventDefault();
+      if (!requireWriteAccess()) return;
+
+      const fs = {
+        id: uid("FEE"),
+        category: document.getElementById("feeCategory").value,
+        amount: Number(document.getElementById("feeAmount").value),
+        academicYear: document.getElementById("feeYear").value.trim(),
+        semester: document.getElementById("feeSemester").value,
+        programme: document.getElementById("feeProgramme").value.trim(),
+        faculty: document.getElementById("feeFaculty").value.trim(),
+        department: document.getElementById("feeDepartment").value.trim()
+      };
+
+      if (fs.amount <= 0) return toast("Fee amount must be greater than zero.");
+
+      state.feeStructures.unshift(fs);
+      audit("Created fee structure", "Fee Structures", "", fs);
+      saveState();
+      toast("Fee structure saved.");
+      renderFeeStructures();
+    }
+
+    function renderInvoices() {
+      document.getElementById("content").innerHTML = `
+        <div class="card">
+          <div class="section-title">
+            <h3>🧾 Invoices</h3>
+            <button class="btn btn-primary" onclick="renderStudentFees()">Create Invoice</button>
+          </div>
+          ${invoiceTable(state.invoices, true)}
+        </div>
+      `;
+    }
+
+    function renderPayments() {
+      document.getElementById("content").innerHTML = `
+        <div class="split">
+          <div class="card">
+            <div class="section-title">
+              <h3>💳 Process Payment</h3>
+            </div>
+            ${paymentForm()}
+          </div>
+          <div class="card">
+            <div class="section-title">
+              <h3>✅ Payment Validations</h3>
+            </div>
+            <ul style="padding-left:18px;line-height:1.9;">
+              <li>Amount must be greater than zero.</li>
+              <li>Payment cannot exceed invoice balance.</li>
+              <li>Reference number is mandatory.</li>
+              <li>Receipt is generated automatically.</li>
+              <li>GL double-entry posting is automatic.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section card">
+          ${paymentTable(state.payments)}
+        </div>
+      `;
+    }
+
+    function renderReceipts() {
+      document.getElementById("content").innerHTML = `
+        <div class="card">
+          <div class="section-title">
+            <h3>🧾 Receipts</h3>
+            <button class="btn btn-light" onclick="window.print()">Print Current View</button>
+          </div>
+          ${receiptTable(state.receipts)}
+        </div>
+      `;
+    }
+
+    function renderAccountsReceivable() {
+      const receivables = state.invoices.filter(i => i.amount > i.paid).map(i => ({
+        Invoice: i.invoiceNo,
+        Student: i.studentName,
+        Programme: i.programme,
+        Amount: i.amount,
+        Paid: i.paid,
+        Balance: i.amount - i.paid,
+        "Due Date": i.dueDate,
+        Status: i.status
+      }));
+
+      document.getElementById("content").innerHTML = `
+        <div class="card">
+          <div class="section-title">
+            <h3>📥 Accounts Receivable</h3>
+          </div>
+          ${objectTable(receivables)}
+        </div>
+      `;
+    }
+
+    function renderGL() {
+      document.getElementById("content").innerHTML = `
+        <div class="card">
+          <div class="section-title">
+            <h3>📘 General Ledger</h3>
+            <button class="btn btn-secondary" onclick="openManualJournal()">Add Manual Journal</button>
+          </div>
+          ${objectTable(state.gl.map(g => ({
+            Date: g.date,
+            Description: g.description,
+            Debit: g.debit,
+            Credit: g.credit,
+            Amount: money.format(g.amount),
+            Reference: g.reference
+          })))}
+        </div>
+      `;
+    }
+
+    function renderJournalEntries() {
+      document.getElementById("content").innerHTML = `
+        <div class="card">
+          <div class="section-title">
+            <h3>📘 Journal Entries</h3>
+          </div>
+          <form onsubmit="createJournal(event)">
+            <div class="form-grid">
+              <div>
+                <label>Description</label>
+                <input id="journalDesc" required />
+              </div>
+              <div>
+                <label>Debit Account</label>
+                <input id="journalDebit" required />
+              </div>
+              <div>
+                <label>Credit Account</label>
+                <input id="journalCredit" required />
+              </div>
+              <div>
+                <label>Amount</label>
+                <input id="journalAmount" type="number" min="1" required />
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn btn-primary" type="submit">Post Journal</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="section card">
+          ${objectTable(state.journals)}
+        </div>
+      `;
+    }
+
+    function createJournal(e) {
+      e.preventDefault();
+      if (!requireWriteAccess()) return;
+
+      const amount = Number(document.getElementById("journalAmount").value);
+      if (amount <= 0) return toast("Journal amount must be greater than zero.");
+
+      const journal = {
+        id: uid("JRN"),
+        date: today(),
+        description: document.getElementById("journalDesc").value.trim(),
+        debit: document.getElementById("journalDebit").value.trim(),
+        credit: document.getElementById("journalCredit").value.trim(),
+        amount,
+        reference: `JRN-${state.journals.length + 1}`
+      };
+
+      state.journals.unshift(journal);
+      state.gl.unshift(journal);
+      audit("Posted manual journal", "Journal Entries", "", journal);
+      saveState();
+      toast("Journal posted to General Ledger.");
+      renderJournalEntries();
+    }
+
+    function openManualJournal() {
+      renderModule("Journal Entries");
+    }
+
+    function renderReports() {
+      const t = getTotals();
+      document.getElementById("content").innerHTML = `
+        <div class="grid cards">
+          ${statCard("Income Statement Revenue", money.format(t.revenue), "Payments and recognized collections")}
+          ${statCard("Income Statement Expenses", money.format(t.expenses), "Operating expenditure")}
+          ${statCard("Surplus / Deficit", money.format(t.net), "Revenue less expenses")}
+          ${statCard("Student Debt", money.format(t.outstanding), "Outstanding receivables")}
+        </div>
+
+        <div class="section card">
+          <div class="section-title">
+            <h3>📄 Reports Center</h3>
+            <div class="actions" style="margin-top:0;">
+              <button class="btn btn-light" onclick="window.print()">Print</button>
+              <button class="btn btn-secondary" onclick="exportTableCSV('finance-report.csv')">Export CSV</button>
+            </div>
+          </div>
+          <div id="printArea">
+            ${objectTable([
+              { Report: "Student Fee Statement", Status: "Available", Description: "Invoices, payments and balances per student" },
+              { Report: "Payment History", Status: "Available", Description: "All confirmed payments" },
+              { Report: "Income Statement", Status: "Available", Description: "Revenue, expenses and net surplus/deficit" },
+              { Report: "Balance Sheet", Status: "Template", Description: "Assets, liabilities and equity" },
+              { Report: "Trial Balance", Status: "Available", Description: "GL debit and credit summaries" },
+              { Report: "Cash Flow Statement", Status: "Available", Description: "Cash inflows and outflows" },
+              { Report: "Budget vs Actual", Status: "Available", Description: "Budget utilization and variance" },
+              { Report: "Grant Utilization", Status: "Available", Description: "Research grant spending and balances" },
+              { Report: "Payroll Register", Status: "Available", Description: "Staff salary processing reports" }
+            ])}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAnalytics() {
+      const t = getTotals();
+      document.getElementById("content").innerHTML = `
+        <div class="grid cards">
+          ${statCard("Collection Efficiency", `${collectionRate()}%`, "Paid invoices vs billed invoices")}
+          ${statCard("Budget Utilization", `${t.budgetUtilization}%`, "Actual budget consumption")}
+          ${statCard("Expense Ratio", `${expenseRatio()}%`, "Expenses as percentage of revenue")}
+          ${statCard("Outstanding Debt", money.format(t.outstanding), "Student receivables")}
+        </div>
+
+        <div class="section card">
+          <div class="section-title">
+            <h3>📊 Financial Analytics Chart</h3>
+          </div>
+          <div class="chart">
+            <div class="bar" style="height:${Math.max(40, collectionRate() * 2)}px"><span>Collection</span></div>
+            <div class="bar" style="height:${Math.max(40, t.budgetUtilization * 2)}px"><span>Budget</span></div>
+            <div class="bar" style="height:${Math.max(40, expenseRatio() * 2)}px"><span>Expense</span></div>
+            <div class="bar" style="height:${Math.max(40, t.overdue * 50)}px"><span>Overdue</span></div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderNotifications() {
+      document.getElementById("content").innerHTML = `
+        <div class="card">
+          <div class="section-title">
+            <h3>🔔 Notifications & Alerts</h3>
+            <button class="btn btn-primary" onclick="generateAlerts()">Generate Alerts</button>
+          </div>
+          ${objectTable(state.notifications)}
+        </div>
+      `;
+    }
+
+    function generateAlerts() {
+      const alerts = [];
+
+      state.invoices.forEach(i => {
+        if (i.amount > i.paid && new Date(i.dueDate) < new Date(today())) {
+          i.status = "Overdue";
+          alerts.push({
+            id: uid("ALT"),
+            message: `Invoice ${i.invoiceNo} for ${i.studentName} is overdue. Balance: ${money.format(i.amount - i.paid)}.`,
+            type: "Overdue Fees",
+            date: today(),
+            status: "Unread"
+          });
+        }
+      });
+
+      const t = getTotals();
+      if (t.budgetUtilization > 90) {
+        alerts.push({
+          id: uid("ALT"),
+          message: `Budget utilization is high at ${t.budgetUtilization}%.`,
+          type: "Budget Exceeded",
+          date: today(),
+          status: "Unread"
+        });
+      }
+
+      state.notifications = [...alerts, ...state.notifications].slice(0, 100);
+      audit("Generated alerts", "Notifications", "", alerts);
+      saveState();
+      toast(`${alerts.length} alert(s) generated.`);
+      renderModule(currentModule);
+    }
+
+    function renderAuditTrail() {
+      document.getElementById("content").innerHTML = `
+        <div class="card">
+          <div class="section-title">
+            <h3>🔍 Audit Trail</h3>
+          </div>
+          ${objectTable(state.auditLogs)}
+        </div>
+      `;
+    }
+
+    function renderBackupRecovery() {
+      document.getElementById("content").innerHTML = `
+        <div class="card">
+          <div class="section-title">
+            <h3>💾 Backup & Recovery</h3>
+          </div>
+          <p class="muted">Use these controls to export, restore, or reset system data.</p>
+          <div class="actions">
+            <button class="btn btn-primary" onclick="backupData()">Download Backup JSON</button>
+            <label class="btn btn-secondary">
+              Restore JSON
+              <input type="file" accept="application/json" style="display:none" onchange="restoreFromFile(event)">
+            </label>
+            <button class="btn btn-danger" onclick="restoreDemoData()">Reset Demo Data</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderGenericModule(module) {
+      const schema = genericSchemas[module] || ["Name", "Category", "Amount", "Date", "Status"];
+      if (!state.generic[module]) state.generic[module] = [];
+
+      const formFields = schema.map(field => `
+        <div>
+          <label>${field}</label>
+          ${field.toLowerCase().includes("status") || field.toLowerCase().includes("approval")
+            ? `<select id="field_${safeId(field)}" required>
+                <option>Pending</option>
+                <option>Approved</option>
+                <option>Rejected</option>
+                <option>Active</option>
+                <option>Completed</option>
+                <option>Paid</option>
+                <option>Unpaid</option>
+              </select>`
+            : field.toLowerCase().includes("date") || field.toLowerCase().includes("deadline") || field.toLowerCase().includes("maturity")
+              ? `<input id="field_${safeId(field)}" type="date" required />`
+              : field.toLowerCase().includes("amount") || field.toLowerCase().includes("cost") || field.toLowerCase().includes("balance") || field.toLowerCase().includes("salary") || field.toLowerCase().includes("value") || field.toLowerCase().includes("budget") || field.toLowerCase().includes("principal") || field.toLowerCase().includes("income") || field.toLowerCase().includes("expense")
+                ? `<input id="field_${safeId(field)}" type="number" min="0" required />`
+                : `<input id="field_${safeId(field)}" required />`
+          }
+        </div>
+      `).join("");
+
+      document.getElementById("content").innerHTML = `
+        <div class="card">
+          <div class="section-title">
+            <h3>${moduleIcon(module)} ${module}</h3>
+          </div>
+          <form onsubmit="createGenericRecord(event, '${module}')">
+            <div class="form-grid">
+              ${formFields}
+            </div>
+            <div class="actions">
+              <button class="btn btn-primary" type="submit">Save Record</button>
+              <button class="btn btn-light" type="button" onclick="exportTableCSV('${module.replaceAll(" ", "-").toLowerCase()}.csv')">Export CSV</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="section card">
+          <div class="section-title">
+            <h3>📋 ${module} Records</h3>
+          </div>
+          ${objectTable(state.generic[module])}
+        </div>
+      `;
+    }
+
+    function createGenericRecord(e, module) {
+      e.preventDefault();
+      if (!requireWriteAccess()) return;
+
+      const schema = genericSchemas[module] || ["Name", "Category", "Amount", "Date", "Status"];
+      const record = { id: uid("REC"), createdAt: new Date().toLocaleString() };
+
+      for (const field of schema) {
+        const el = document.getElementById(`field_${safeId(field)}`);
+        let value = el.value.trim();
+
+        if (el.type === "number") {
+          value = Number(value);
+          if (value < 0) return toast(`${field} cannot be negative.`);
+        }
+
+        if (!value && value !== 0) return toast(`${field} is required.`);
+        record[field] = value;
+      }
+
+      if (!state.generic[module]) state.generic[module] = [];
+      state.generic[module].unshift(record);
+
+      if (module === "Expense Management") {
+        state.expenses.unshift({
+          id: uid("EXP"),
+          "Expense Type": record["Expense Type"],
+          Department: record.Department,
+          Amount: record.Amount,
+          "Requested By": record["Requested By"],
+          "Approval Status": record["Approval Status"],
+          "Payment Status": record["Payment Status"]
+        });
+      }
+
+      audit("Created record", module, "", record);
+      saveState();
+      toast(`${module} record saved.`);
+      renderGenericModule(module);
+    }
+
+    function safeId(field) {
+      return field.replace(/[^a-zA-Z0-9]/g, "_");
+    }
+
+    function feeStructureTable() {
+      return objectTable(state.feeStructures.map(f => ({
+        Category: f.category,
+        Amount: money.format(f.amount),
+        "Academic Year": f.academicYear,
+        Semester: f.semester,
+        Programme: f.programme,
+        Faculty: f.faculty,
+        Department: f.department
+      })));
+    }
+
+    function invoiceTable(data, actions = false) {
+      const rows = data.map(i => ({
+        "Invoice No": i.invoiceNo,
+        Student: i.studentName,
+        "Reg No": i.regNo,
+        Programme: i.programme,
+        Semester: i.semester,
+        Items: i.items,
+        Amount: money.format(i.amount),
+        Paid: money.format(i.paid),
+        Balance: money.format(i.amount - i.paid),
+        "Due Date": i.dueDate,
+        Status: badge(i.status),
+        Actions: actions ? `<button class="btn btn-secondary" onclick="quickPay('${i.invoiceNo}')">Pay</button>` : ""
+      }));
+
+      return objectTable(rows, true);
+    }
+
+    function paymentTable(data) {
+      return objectTable(data.map(p => ({
+        "Payment No": p.paymentNo,
+        Invoice: p.invoiceNo,
+        Student: p.studentName,
+        Amount: money.format(p.amount),
+        Method: p.method,
+        Reference: p.reference,
+        Date: p.date,
+        Status: badge(p.status)
+      })), true);
+    }
+
+    function receiptTable(data) {
+      return objectTable(data.map(r => ({
+        "Receipt No": r.receiptNo,
+        "Payment No": r.paymentNo,
+        Student: r.studentName,
+        Amount: money.format(r.amount),
+        Method: r.method,
+        Reference: r.reference,
+        Date: r.date,
+        Actions: `<button class="btn btn-light" onclick='showReceipt(${JSON.stringify(r)})'>View</button>`
+      })), true);
+    }
+
+    function studentTable(data) {
+      return objectTable(data.map(s => ({
+        "Student ID": s.id,
+        Name: s.name,
+        "Reg No": s.regNo,
+        Programme: s.programme,
+        Faculty: s.faculty,
+        Department: s.department,
+        Semester: s.semester,
+        Sponsor: s.sponsor,
+        Balance: money.format(studentBalance(s.id))
+      })));
+    }
+
+    function studentBalance(studentId) {
+      return state.invoices
+        .filter(i => i.studentId === studentId)
+        .reduce((s, i) => s + (Number(i.amount) - Number(i.paid)), 0);
+    }
+
+    function badge(status) {
+      const s = String(status || "").toLowerCase();
+      let cls = "badge-info";
+      if (["paid", "approved", "active", "completed"].some(x => s.includes(x))) cls = "badge-paid";
+      if (["pending", "partial", "processing"].some(x => s.includes(x))) cls = "badge-partial";
+      if (["unpaid", "rejected", "overdue", "inactive"].some(x => s.includes(x))) cls = "badge-unpaid";
+      return `<span class="badge ${cls}">${status}</span>`;
+    }
+
+    function objectTable(data, html = false) {
+      const search = (document.getElementById("globalSearch")?.value || "").toLowerCase();
+
+      const filtered = (data || []).filter(row => JSON.stringify(row).toLowerCase().includes(search));
+
+      if (!filtered.length) {
+        return `<p class="muted">No records found.</p>`;
+      }
+
+      const keys = Object.keys(filtered[0]).filter(k => k !== "id");
+
+      return `
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>${keys.map(k => `<th>${k}</th>`).join("")}</tr>
+            </thead>
+            <tbody>
+              ${filtered.map(row => `
+                <tr>
+                  ${keys.map(k => `<td>${html ? row[k] : formatCell(row[k])}</td>`).join("")}
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    function formatCell(value) {
+      if (typeof value === "number" && value > 999) return money.format(value);
+      if (String(value).match(/^(Paid|Approved|Active|Completed|Pending|Partial|Processing|Unpaid|Rejected|Overdue|Inactive)$/i)) {
+        return badge(value);
+      }
+      return value ?? "";
+    }
+
+    function quickPay(invoiceNo) {
+      renderModule("Payments");
+      setTimeout(() => {
+        const el = document.getElementById("payInvoiceNo");
+        if (el) {
+          el.value = invoiceNo;
+          syncPaymentLimit();
+        }
+      }, 50);
+    }
+
+    function showReceipt(receipt) {
+      openModal("Receipt", `
+        <div id="printArea" class="receipt-box">
+          <h2>University Payment Receipt</h2>
+          <p><strong>Receipt No:</strong> ${receipt.receiptNo}</p>
+          <p><strong>Payment No:</strong> ${receipt.paymentNo}</p>
+          <p><strong>Student:</strong> ${receipt.studentName}</p>
+          <p><strong>Amount:</strong> ${money.format(receipt.amount)}</p>
+          <p><strong>Method:</strong> ${receipt.method}</p>
+          <p><strong>Reference:</strong> ${receipt.reference}</p>
+          <p><strong>Date:</strong> ${receipt.date}</p>
+          <hr style="margin:14px 0;border:none;border-top:1px solid #cbd5e1;">
+          <p class="muted">This receipt was generated electronically by the University Finance ERP.</p>
+        </div>
+        <div class="actions no-print">
+          <button class="btn btn-primary" onclick="window.print()">Print Receipt</button>
+          <button class="btn btn-secondary" onclick="toast('Email simulation: receipt sent successfully.')">Email Receipt</button>
+          <button class="btn btn-light" onclick="exportTableCSV('receipt.csv')">Download CSV</button>
+        </div>
+      `);
+    }
+
+    function openModal(title, content) {
+      document.getElementById("modalTitle").innerText = title;
+      document.getElementById("modalContent").innerHTML = content;
+      document.getElementById("modalBackdrop").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("modalBackdrop").style.display = "none";
+    }
+
+    function backupData() {
+      const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `university-finance-backup-${today()}.json`;
+      a.click();
+      audit("Downloaded backup", "Backup & Recovery");
+      toast("Backup downloaded.");
+    }
+
+    function restoreFromFile(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        try {
+          state = JSON.parse(evt.target.result);
+          saveState();
+          audit("Restored backup", "Backup & Recovery");
+          toast("Backup restored successfully.");
+          renderModule("Finance Dashboard");
+        } catch {
+          toast("Invalid backup file.");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function restoreDemoData() {
+      if (!confirm("Reset all data to demo records?")) return;
+      state = defaultState();
+      saveState();
+      toast("Demo data restored.");
+      renderModule("Finance Dashboard");
+    }
+
+    function exportTableCSV(filename) {
+      const rows = [...document.querySelectorAll("table tr")].map(tr =>
+        [...tr.children].map(td => `"${td.innerText.replaceAll('"', '""')}"`).join(",")
+      ).join("\n");
+
+      if (!rows) return toast("No table data to export.");
+
+      const blob = new Blob([rows], { type: "text/csv" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      a.click();
+      toast("CSV exported.");
+    }
+
+    document.getElementById("menuSearch").addEventListener("input", e => {
+      renderSidebar(e.target.value);
+    });
+
+    document.getElementById("globalSearch").addEventListener("input", () => {
+      renderModule(currentModule);
+    });
+
+    document.getElementById("roleSelect").addEventListener("change", () => {
+      toast(`Role changed to ${document.getElementById("roleSelect").value}`);
+      renderModule(currentModule);
+    });
+
+    renderSidebar();
+    renderModule("Finance Dashboard");
+  </script>
+</body>
+</html>

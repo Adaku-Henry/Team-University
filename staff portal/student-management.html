@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Management - Benchmark University ERP</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/* ===================== RESET & ROOT ===================== */
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --primary:#1e3a8a;--primary-light:#2563eb;--primary-lighter:#3b82f6;
+  --success:#10b981;--warning:#f59e0b;--danger:#ef4444;--info:#06b6d4;
+  --purple:#8b5cf6;--white:#fff;
+  --gray-50:#f8fafc;--gray-100:#f1f5f9;--gray-200:#e2e8f0;
+  --gray-300:#cbd5e1;--gray-400:#94a3b8;--gray-500:#64748b;
+  --gray-700:#334155;--gray-900:#0f172a;
+  --shadow:0 4px 20px rgba(0,0,0,.08);--shadow-lg:0 10px 40px rgba(0,0,0,.14);
+  --radius:12px;--transition:.25s ease;
+}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Segoe UI',system-ui,sans-serif;
+  background:var(--gray-50);color:var(--gray-700);
+  display:flex;min-height:100vh;overflow-x:hidden;
+}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-thumb{background:var(--primary-light);border-radius:10px;}
+button,input,select,textarea{font-family:inherit;}
+
+/* ===================== SIDEBAR ===================== */
+.sidebar{
+  position:fixed;left:0;top:0;
+  width:260px;height:100vh;
+  background:linear-gradient(180deg,#0f172a 0%,#1e293b 100%);
+  color:#fff;overflow-y:auto;z-index:1000;
+  transition:width var(--transition);
+  display:flex;flex-direction:column;
+}
+.sidebar.collapsed{width:72px;}
+.sidebar::-webkit-scrollbar{width:4px;}
+.sidebar-logo{
+  display:flex;align-items:center;gap:12px;
+  padding:22px 20px;border-bottom:1px solid rgba(255,255,255,.08);
+  min-height:70px;
+}
+.sidebar-logo i{font-size:28px;color:#60a5fa;flex-shrink:0;}
+.sidebar-logo h2{font-size:17px;font-weight:700;white-space:nowrap;transition:opacity .2s;}
+.sidebar.collapsed .sidebar-logo h2{opacity:0;width:0;overflow:hidden;}
+.sidebar-menu{list-style:none;padding:12px 0;flex:1;}
+.sidebar-menu li{margin:3px 10px;}
+.sidebar-menu li a{
+  display:flex;align-items:center;gap:14px;
+  text-decoration:none;color:#cbd5e1;
+  padding:12px 14px;border-radius:10px;
+  font-size:14px;font-weight:500;
+  transition:var(--transition);white-space:nowrap;overflow:hidden;
+}
+.sidebar-menu li a i{width:20px;text-align:center;font-size:15px;flex-shrink:0;}
+.sidebar-menu li a:hover{background:rgba(59,130,246,.2);color:#fff;}
+.sidebar-menu li.active a{background:var(--primary-light);color:#fff;box-shadow:0 4px 12px rgba(37,99,235,.4);}
+.sidebar.collapsed .sidebar-menu li a span{display:none;}
+.sidebar-footer{padding:16px;border-top:1px solid rgba(255,255,255,.08);}
+.sidebar-footer a{
+  display:flex;align-items:center;gap:12px;color:#94a3b8;
+  text-decoration:none;font-size:13px;padding:10px;
+  border-radius:8px;transition:var(--transition);
+}
+.sidebar-footer a:hover{background:rgba(255,255,255,.06);color:#fff;}
+.sidebar.collapsed .sidebar-footer a span{display:none;}
+
+/* ===================== MAIN CONTENT ===================== */
+.main-content{
+  margin-left:260px;width:calc(100% - 260px);
+  min-height:100vh;transition:margin-left var(--transition),width var(--transition);
+  display:flex;flex-direction:column;
+}
+.main-content.expanded{margin-left:72px;width:calc(100% - 72px);}
+
+/* ===================== TOPBAR ===================== */
+.topbar{
+  background:#fff;padding:14px 24px;
+  display:flex;align-items:center;gap:14px;
+  box-shadow:0 1px 0 var(--gray-200);
+  position:sticky;top:0;z-index:500;flex-wrap:wrap;
+}
+#menuToggle{
+  background:var(--gray-100);border:none;
+  width:40px;height:40px;border-radius:10px;
+  cursor:pointer;font-size:16px;color:var(--primary-light);
+  transition:var(--transition);flex-shrink:0;
+}
+#menuToggle:hover{background:var(--primary-light);color:#fff;}
+.breadcrumb{
+  display:flex;align-items:center;gap:6px;
+  font-size:13px;color:var(--gray-400);flex:1;
+}
+.breadcrumb a{color:var(--primary-light);text-decoration:none;font-weight:600;}
+.breadcrumb i{font-size:10px;}
+.topbar-right{display:flex;align-items:center;gap:12px;margin-left:auto;}
+.topbar-search{
+  position:relative;
+}
+.topbar-search input{
+  padding:9px 36px 9px 14px;border:1.5px solid var(--gray-200);
+  border-radius:10px;font-size:13px;width:220px;outline:none;
+  transition:var(--transition);background:var(--gray-50);
+}
+.topbar-search input:focus{border-color:var(--primary-light);background:#fff;width:280px;}
+.topbar-search i{
+  position:absolute;right:11px;top:50%;
+  transform:translateY(-50%);color:var(--gray-400);font-size:13px;
+}
+.topbar-btn{
+  background:var(--gray-100);border:none;
+  width:38px;height:38px;border-radius:10px;
+  cursor:pointer;font-size:14px;color:var(--gray-500);
+  transition:var(--transition);position:relative;
+}
+.topbar-btn:hover{background:var(--primary-light);color:#fff;}
+.badge-dot{
+  position:absolute;top:6px;right:6px;
+  width:8px;height:8px;background:var(--danger);
+  border-radius:50%;border:2px solid #fff;
+}
+.user-pill{
+  display:flex;align-items:center;gap:9px;
+  background:var(--gray-50);border:1.5px solid var(--gray-200);
+  padding:6px 12px 6px 6px;border-radius:50px;cursor:pointer;
+}
+.user-pill img{
+  width:30px;height:30px;border-radius:50%;
+  object-fit:cover;border:2px solid var(--gray-200);
+}
+.user-pill span{font-size:13px;font-weight:600;color:var(--gray-700);}
+.back-btn{
+  display:flex;align-items:center;gap:8px;
+  background:var(--primary);color:#fff;border:none;
+  padding:9px 16px;border-radius:10px;font-size:13px;
+  font-weight:600;cursor:pointer;text-decoration:none;
+  transition:var(--transition);
+}
+.back-btn:hover{background:var(--primary-light);}
+
+/* ===================== PAGE BODY ===================== */
+.page-body{padding:24px;flex:1;}
+
+/* ===================== PAGE HEADER ===================== */
+.page-header{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  margin-bottom:24px;flex-wrap:wrap;gap:14px;
+}
+.page-header-left h1{font-size:24px;font-weight:800;color:var(--primary);}
+.page-header-left p{font-size:14px;color:var(--gray-400);margin-top:4px;}
+.page-header-right{display:flex;gap:10px;flex-wrap:wrap;}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 18px;border-radius:10px;border:none;
+  font-size:13px;font-weight:600;cursor:pointer;
+  transition:var(--transition);text-decoration:none;
+}
+.btn-primary{background:var(--primary-light);color:#fff;}
+.btn-primary:hover{background:var(--primary);}
+.btn-success{background:var(--success);color:#fff;}
+.btn-success:hover{background:#059669;}
+.btn-warning{background:var(--warning);color:#fff;}
+.btn-warning:hover{background:#d97706;}
+.btn-danger{background:var(--danger);color:#fff;}
+.btn-danger:hover{background:#dc2626;}
+.btn-outline{background:#fff;color:var(--primary-light);border:1.5px solid var(--primary-light);}
+.btn-outline:hover{background:var(--primary-light);color:#fff;}
+.btn-ghost{background:var(--gray-100);color:var(--gray-700);}
+.btn-ghost:hover{background:var(--gray-200);}
+.btn-sm{padding:7px 12px;font-size:12px;}
+
+/* ===================== STATS STRIP ===================== */
+.stats-strip{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:16px;margin-bottom:24px;
+}
+.stat-box{
+  background:#fff;border-radius:var(--radius);
+  padding:18px 20px;box-shadow:var(--shadow);
+  display:flex;align-items:center;gap:14px;
+  transition:var(--transition);cursor:default;
+  border-left:4px solid transparent;
+}
+.stat-box:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);}
+.stat-box.blue{border-left-color:var(--primary-light);}
+.stat-box.green{border-left-color:var(--success);}
+.stat-box.amber{border-left-color:var(--warning);}
+.stat-box.red{border-left-color:var(--danger);}
+.stat-box.purple{border-left-color:var(--purple);}
+.stat-box.cyan{border-left-color:var(--info);}
+.stat-icon{
+  width:44px;height:44px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;
+}
+.stat-box.blue .stat-icon{background:#dbeafe;color:var(--primary-light);}
+.stat-box.green .stat-icon{background:#d1fae5;color:var(--success);}
+.stat-box.amber .stat-icon{background:#fef3c7;color:var(--warning);}
+.stat-box.red .stat-icon{background:#fee2e2;color:var(--danger);}
+.stat-box.purple .stat-icon{background:#ede9fe;color:var(--purple);}
+.stat-box.cyan .stat-icon{background:#cffafe;color:var(--info);}
+.stat-info h3{font-size:22px;font-weight:800;color:var(--gray-900);}
+.stat-info p{font-size:12px;color:var(--gray-400);margin-top:2px;}
+
+/* ===================== TOOLBAR ===================== */
+.toolbar{
+  background:#fff;border-radius:var(--radius);
+  padding:16px 20px;box-shadow:var(--shadow);
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:20px;flex-wrap:wrap;
+}
+.toolbar-search{
+  position:relative;flex:1;min-width:200px;
+}
+.toolbar-search input{
+  width:100%;padding:10px 38px 10px 14px;
+  border:1.5px solid var(--gray-200);border-radius:10px;
+  font-size:13px;outline:none;transition:var(--transition);
+}
+.toolbar-search input:focus{border-color:var(--primary-light);}
+.toolbar-search i{
+  position:absolute;right:12px;top:50%;
+  transform:translateY(-50%);color:var(--gray-400);
+}
+.toolbar select{
+  padding:10px 14px;border:1.5px solid var(--gray-200);
+  border-radius:10px;font-size:13px;outline:none;
+  background:#fff;cursor:pointer;transition:var(--transition);
+  color:var(--gray-700);
+}
+.toolbar select:focus{border-color:var(--primary-light);}
+.toolbar-divider{width:1px;height:28px;background:var(--gray-200);flex-shrink:0;}
+.view-toggle{display:flex;gap:4px;}
+.view-btn{
+  width:36px;height:36px;border:1.5px solid var(--gray-200);
+  border-radius:8px;background:#fff;cursor:pointer;
+  font-size:14px;color:var(--gray-400);transition:var(--transition);
+}
+.view-btn.active{background:var(--primary-light);border-color:var(--primary-light);color:#fff;}
+
+/* ===================== TABLE ===================== */
+.table-wrap{
+  background:#fff;border-radius:var(--radius);
+  box-shadow:var(--shadow);overflow:hidden;
+}
+.table-head-bar{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 20px;border-bottom:1px solid var(--gray-100);
+}
+.table-head-bar h3{font-size:15px;font-weight:700;color:var(--gray-900);}
+.table-head-bar span{font-size:12px;color:var(--gray-400);}
+table{width:100%;border-collapse:collapse;}
+thead{background:var(--gray-50);}
+thead th{
+  padding:13px 16px;text-align:left;
+  font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.6px;color:var(--gray-500);
+  border-bottom:1.5px solid var(--gray-200);white-space:nowrap;
+}
+thead th.sortable{cursor:pointer;user-select:none;}
+thead th.sortable:hover{color:var(--primary-light);}
+tbody td{
+  padding:14px 16px;font-size:13px;color:var(--gray-700);
+  border-bottom:1px solid var(--gray-100);vertical-align:middle;
+}
+tbody tr:hover{background:var(--gray-50);}
+tbody tr:last-child td{border-bottom:none;}
+.student-avatar{
+  width:36px;height:36px;border-radius:50%;
+  object-fit:cover;border:2px solid var(--gray-200);
+}
+.avatar-placeholder{
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,var(--primary-light),var(--primary));
+  display:inline-flex;align-items:center;justify-content:center;
+  color:#fff;font-weight:700;font-size:13px;flex-shrink:0;
+}
+.student-name-cell{display:flex;align-items:center;gap:10px;}
+.student-name-cell strong{font-size:13px;font-weight:600;color:var(--gray-900);}
+.student-name-cell small{font-size:11px;color:var(--gray-400);}
+.action-group{display:flex;gap:6px;flex-wrap:wrap;}
+
+/* ===================== BADGES ===================== */
+.badge{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:4px 10px;border-radius:20px;
+  font-size:11px;font-weight:700;
+}
+.badge-active{background:#d1fae5;color:#065f46;}
+.badge-suspended{background:#fee2e2;color:#991b1b;}
+.badge-graduated{background:#dbeafe;color:#1e40af;}
+.badge-deferred{background:#fef3c7;color:#92400e;}
+.badge-probation{background:#ede9fe;color:#5b21b6;}
+.badge-withdrawn{background:#f1f5f9;color:#475569;}
+
+/* ===================== GRID VIEW ===================== */
+.student-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:16px;
+}
+.student-card{
+  background:#fff;border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:20px;
+  transition:var(--transition);position:relative;overflow:hidden;
+}
+.student-card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--primary-light),var(--primary-lighter));
+}
+.student-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
+.card-top{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.card-avatar{
+  width:48px;height:48px;border-radius:50%;
+  background:linear-gradient(135deg,var(--primary-light),var(--primary));
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-weight:800;font-size:16px;flex-shrink:0;
+}
+.card-top h3{font-size:14px;font-weight:700;color:var(--gray-900);}
+.card-top p{font-size:11px;color:var(--gray-400);}
+.card-info{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+.card-info-row{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:12px;
+}
+.card-info-row span:first-child{color:var(--gray-400);}
+.card-info-row span:last-child{color:var(--gray-700);font-weight:600;}
+.card-actions{display:flex;gap:7px;flex-wrap:wrap;}
+
+/* ===================== PAGINATION ===================== */
+.pagination-bar{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 20px;border-top:1px solid var(--gray-100);
+  flex-wrap:wrap;gap:10px;
+}
+.pagination-info{font-size:13px;color:var(--gray-400);}
+.pagination-controls{display:flex;gap:5px;}
+.page-btn{
+  width:34px;height:34px;border-radius:8px;
+  border:1.5px solid var(--gray-200);background:#fff;
+  cursor:pointer;font-size:13px;font-weight:600;color:var(--gray-600);
+  transition:var(--transition);
+}
+.page-btn:hover,.page-btn.active{
+  background:var(--primary-light);border-color:var(--primary-light);color:#fff;
+}
+.page-btn:disabled{opacity:.4;cursor:not-allowed;}
+
+/* ===================== MODAL ===================== */
+.modal-backdrop{
+  position:fixed;inset:0;background:rgba(0,0,0,.5);
+  z-index:9000;display:none;justify-content:center;align-items:center;
+  backdrop-filter:blur(3px);
+}
+.modal-backdrop.open{display:flex;}
+.modal{
+  background:#fff;border-radius:16px;
+  width:90%;max-width:680px;max-height:90vh;
+  overflow-y:auto;box-shadow:var(--shadow-lg);
+  animation:modalIn .25s ease;
+}
+@keyframes modalIn{from{opacity:0;transform:translateY(-20px) scale(.97);}to{opacity:1;transform:translateY(0) scale(1);}}
+.modal-header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:20px 24px;border-bottom:1px solid var(--gray-100);
+  position:sticky;top:0;background:#fff;z-index:1;
+}
+.modal-header h3{font-size:17px;font-weight:800;color:var(--primary);}
+.modal-close{
+  width:34px;height:34px;border-radius:8px;border:none;
+  background:var(--gray-100);cursor:pointer;font-size:15px;
+  color:var(--gray-500);transition:var(--transition);
+}
+.modal-close:hover{background:var(--danger);color:#fff;}
+.modal-body{padding:24px;}
+.modal-footer{
+  padding:16px 24px;border-top:1px solid var(--gray-100);
+  display:flex;justify-content:flex-end;gap:10px;
+  position:sticky;bottom:0;background:#fff;
+}
+
+/* ===================== FORM ===================== */
+.form-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:18px;
+}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-group.full{grid-column:1/-1;}
+.form-group label{
+  font-size:12px;font-weight:700;color:var(--gray-700);
+  text-transform:uppercase;letter-spacing:.4px;
+}
+.form-group input,
+.form-group select,
+.form-group textarea{
+  padding:10px 14px;border:1.5px solid var(--gray-200);
+  border-radius:10px;font-size:13px;outline:none;
+  transition:var(--transition);background:#fff;
+  color:var(--gray-900);
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+  border-color:var(--primary-light);
+  box-shadow:0 0 0 3px rgba(37,99,235,.1);
+}
+.form-group textarea{resize:vertical;min-height:80px;}
+.form-section-title{
+  font-size:13px;font-weight:700;color:var(--primary);
+  text-transform:uppercase;letter-spacing:.5px;
+  margin:8px 0 4px;grid-column:1/-1;
+  padding-bottom:8px;border-bottom:1.5px solid var(--gray-100);
+}
+.required{color:var(--danger);}
+.field-error{font-size:11px;color:var(--danger);display:none;}
+
+/* ===================== PROFILE MODAL ===================== */
+.profile-hero{
+  background:linear-gradient(135deg,var(--primary) 0%,var(--primary-lighter) 100%);
+  padding:28px 24px;color:#fff;
+  display:flex;align-items:center;gap:20px;
+  border-radius:16px 16px 0 0;
+}
+.profile-hero-avatar{
+  width:72px;height:72px;border-radius:50%;
+  background:rgba(255,255,255,.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;font-weight:800;border:3px solid rgba(255,255,255,.4);
+  flex-shrink:0;
+}
+.profile-hero h2{font-size:20px;font-weight:800;}
+.profile-hero p{opacity:.85;font-size:13px;}
+.profile-tabs{
+  display:flex;border-bottom:1.5px solid var(--gray-200);
+  padding:0 24px;gap:0;
+}
+.profile-tab{
+  padding:13px 18px;font-size:13px;font-weight:600;
+  color:var(--gray-400);border-bottom:3px solid transparent;
+  cursor:pointer;transition:var(--transition);margin-bottom:-1.5px;
+  white-space:nowrap;
+}
+.profile-tab.active{color:var(--primary-light);border-bottom-color:var(--primary-light);}
+.profile-tab-content{padding:24px;}
+.profile-detail-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:14px;
+}
+.detail-item{display:flex;flex-direction:column;gap:4px;}
+.detail-item label{font-size:11px;color:var(--gray-400);font-weight:700;text-transform:uppercase;letter-spacing:.4px;}
+.detail-item span{font-size:13px;color:var(--gray-900);font-weight:600;}
+.detail-item.full{grid-column:1/-1;}
+
+/* ===================== CONFIRM DIALOG ===================== */
+.confirm-modal{max-width:420px;}
+.confirm-icon{
+  width:60px;height:60px;border-radius:50%;
+  background:#fee2e2;display:flex;align-items:center;
+  justify-content:center;margin:0 auto 16px;font-size:24px;color:var(--danger);
+}
+.confirm-body{text-align:center;padding:28px 24px 8px;}
+.confirm-body h3{font-size:17px;font-weight:800;color:var(--gray-900);margin-bottom:8px;}
+.confirm-body p{font-size:13px;color:var(--gray-500);}
+
+/* ===================== TOAST ===================== */
+.toast-container{
+  position:fixed;top:20px;right:20px;z-index:99999;
+  display:flex;flex-direction:column;gap:10px;pointer-events:none;
+}
+.toast{
+  background:#fff;border-radius:12px;box-shadow:var(--shadow-lg);
+  padding:14px 18px;display:flex;align-items:center;gap:12px;
+  min-width:280px;max-width:380px;pointer-events:all;
+  animation:toastIn .3s ease;border-left:4px solid var(--success);
+}
+.toast.error{border-left-color:var(--danger);}
+.toast.warning{border-left-color:var(--warning);}
+.toast.info{border-left-color:var(--info);}
+@keyframes toastIn{from{opacity:0;transform:translateX(30px);}to{opacity:1;transform:translateX(0);}}
+@keyframes toastOut{from{opacity:1;transform:translateX(0);}to{opacity:0;transform:translateX(30px);}}
+.toast-icon{font-size:18px;flex-shrink:0;}
+.toast.error .toast-icon{color:var(--danger);}
+.toast.warning .toast-icon{color:var(--warning);}
+.toast.info .toast-icon{color:var(--info);}
+.toast:not(.error):not(.warning):not(.info) .toast-icon{color:var(--success);}
+.toast-text strong{display:block;font-size:13px;color:var(--gray-900);}
+.toast-text small{font-size:12px;color:var(--gray-500);}
+
+/* ===================== EMPTY STATE ===================== */
+.empty-state{
+  text-align:center;padding:60px 20px;color:var(--gray-400);
+}
+.empty-state i{font-size:48px;margin-bottom:16px;color:var(--gray-300);}
+.empty-state h3{font-size:16px;font-weight:700;color:var(--gray-600);margin-bottom:6px;}
+.empty-state p{font-size:13px;}
+
+/* ===================== IMPORT PANEL ===================== */
+.import-drop{
+  border:2px dashed var(--gray-300);border-radius:12px;
+  padding:36px;text-align:center;cursor:pointer;
+  transition:var(--transition);
+}
+.import-drop:hover,.import-drop.dragover{
+  border-color:var(--primary-light);background:#eff6ff;
+}
+.import-drop i{font-size:36px;color:var(--gray-300);margin-bottom:12px;}
+.import-drop p{font-size:14px;color:var(--gray-500);}
+.import-drop small{font-size:12px;color:var(--gray-400);}
+
+/* ===================== FOOTER ===================== */
+.page-footer{
+  background:#fff;border-top:1px solid var(--gray-200);
+  padding:16px 24px;text-align:center;
+  font-size:12px;color:var(--gray-400);
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media(max-width:900px){
+  .sidebar{width:72px;}
+  .sidebar .sidebar-logo h2{opacity:0;width:0;overflow:hidden;}
+  .sidebar .sidebar-menu li a span{display:none;}
+  .sidebar .sidebar-footer a span{display:none;}
+  .main-content{margin-left:72px;width:calc(100% - 72px);}
+  .form-grid{grid-template-columns:1fr;}
+  .form-group.full{grid-column:1;}
+  .profile-detail-grid{grid-template-columns:1fr;}
+  .detail-item.full{grid-column:1;}
+}
+@media(max-width:600px){
+  .stats-strip{grid-template-columns:1fr 1fr;}
+  .topbar-search{display:none;}
+  .page-header{flex-direction:column;}
+  .toolbar{flex-direction:column;align-items:stretch;}
+  .toolbar-search{width:100%;}
+}
+@media print{
+  .sidebar,.topbar,.toolbar,.pagination-bar,.action-group,button{display:none!important;}
+  .main-content{margin:0;width:100%;}
+  body{background:#fff;}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== SIDEBAR ===================== -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <i class="fas fa-university"></i>
+    <h2>Staff Portal</h2>
+  </div>
+  <ul class="sidebar-menu">
+    <li><a href="admin-dashboard.html"><i class="fas fa-home"></i><span>Dashboard</span></a></li>
+    <li><a href="admin-dashboard.html"><i class="fas fa-users-cog"></i><span>User Management</span></a></li>
+    <li class="active"><a href="#"><i class="fas fa-user-graduate"></i><span>Student Management</span></a></li>
+    <li><a href="admin-dashboard.html"><i class="fas fa-book"></i><span>Course Management</span></a></li>
+    <li><a href="admin-dashboard.html"><i class="fas fa-chart-line"></i><span>Results Management</span></a></li>
+    <li><a href="admin-dashboard.html"><i class="fas fa-calendar-check"></i><span>Attendance</span></a></li>
+    <li><a href="admin-dashboard.html"><i class="fas fa-money-bill-wave"></i><span>Finance</span></a></li>
+    <li><a href="admin-dashboard.html"><i class="fas fa-flask"></i><span>Research</span></a></li>
+    <li><a href="admin-dashboard.html"><i class="fas fa-file-alt"></i><span>Reports</span></a></li>
+    <li><a href="admin-dashboard.html"><i class="fas fa-bullhorn"></i><span>Communication</span></a></li>
+    <li><a href="admin-dashboard.html"><i class="fas fa-cog"></i><span>Settings</span></a></li>
+  </ul>
+  <div class="sidebar-footer">
+    <a href="admin-dashboard.html"><i class="fas fa-sign-out-alt"></i><span>Back to Dashboard</span></a>
+  </div>
+</aside>
+
+<!-- ===================== MAIN CONTENT ===================== -->
+<div class="main-content" id="mainContent">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <button id="menuToggle"><i class="fas fa-bars"></i></button>
+    <div class="breadcrumb">
+      <a href="admin-dashboard.html">Dashboard</a>
+      <i class="fas fa-chevron-right"></i>
+      <span>Student Management</span>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-search">
+        <input type="text" placeholder="Quick search..." id="topbarSearch">
+        <i class="fas fa-search"></i>
+      </div>
+      <button class="topbar-btn" id="notifBtn" title="Notifications">
+        <i class="fas fa-bell"></i>
+        <span class="badge-dot"></span>
+      </button>
+      <div class="user-pill">
+        <img src="https://ui-avatars.com/api/?name=Admin&background=1e3a8a&color=fff&size=60" alt="Admin">
+        <span id="topbarUser">Administrator</span>
+      </div>
+      <a href="admin-dashboard.html" > Dashboard
+      </a>
+    </div>
+  </header>
+
+  <!-- PAGE BODY -->
+  <div class="page-body">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <div class="page-header-left">
+        <h1>Student Management</h1>
+        <p>Manage all student records, profiles, academic status and more.</p>
+      </div>
+      <div class="page-header-right">
+        <button class="btn btn-outline" onclick="openImportModal()">
+          <i class="fas fa-file-import"></i> Import CSV
+        </button>
+        <button class="btn btn-success" onclick="exportCSV()">
+          <i class="fas fa-file-export"></i> Export CSV
+        </button>
+        <button class="btn btn-primary" onclick="openAddModal()">
+          <i class="fas fa-user-plus"></i> Add Student
+        </button>
+      </div>
+    </div>
+
+    <!-- STATS STRIP -->
+    <div class="stats-strip" id="statsStrip">
+      <div class="stat-box blue">
+        <div class="stat-icon"><i class="fas fa-users"></i></div>
+        <div class="stat-info"><h3 id="statTotal">0</h3><p>Total Students</p></div>
+      </div>
+      <div class="stat-box green">
+        <div class="stat-icon"><i class="fas fa-user-check"></i></div>
+        <div class="stat-info"><h3 id="statActive">0</h3><p>Active</p></div>
+      </div>
+      <div class="stat-box red">
+        <div class="stat-icon"><i class="fas fa-user-times"></i></div>
+        <div class="stat-info"><h3 id="statSuspended">0</h3><p>Suspended</p></div>
+      </div>
+      <div class="stat-box cyan">
+        <div class="stat-icon"><i class="fas fa-graduation-cap"></i></div>
+        <div class="stat-info"><h3 id="statGraduated">0</h3><p>Graduated</p></div>
+      </div>
+      <div class="stat-box amber">
+        <div class="stat-icon"><i class="fas fa-user-clock"></i></div>
+        <div class="stat-info"><h3 id="statDeferred">0</h3><p>Deferred</p></div>
+      </div>
+      <div class="stat-box purple">
+        <div class="stat-icon"><i class="fas fa-exclamation-triangle"></i></div>
+        <div class="stat-info"><h3 id="statProbation">0</h3><p>Probation</p></div>
+      </div>
+    </div>
+
+    <!-- TOOLBAR -->
+    <div class="toolbar">
+      <div class="toolbar-search">
+        <input type="text" id="searchInput" placeholder="Search by name, reg no, email, course...">
+        <i class="fas fa-search"></i>
+      </div>
+      <select id="filterStatus">
+        <option value="">All Status</option>
+        <option value="Active">Active</option>
+        <option value="Suspended">Suspended</option>
+        <option value="Graduated">Graduated</option>
+        <option value="Deferred">Deferred</option>
+        <option value="Probation">Probation</option>
+        <option value="Withdrawn">Withdrawn</option>
+      </select>
+      <select id="filterFaculty">
+        <option value="">All Faculties</option>
+        <option value="Science">Science</option>
+        <option value="Arts">Arts</option>
+        <option value="Engineering">Engineering</option>
+        <option value="Business">Business</option>
+        <option value="Medicine">Medicine</option>
+        <option value="Law">Law</option>
+        <option value="Education">Education</option>
+        <option value="ICT">ICT</option>
+      </select>
+      <select id="filterYear">
+        <option value="">All Years</option>
+        <option value="1">Year 1</option>
+        <option value="2">Year 2</option>
+        <option value="3">Year 3</option>
+        <option value="4">Year 4</option>
+        <option value="5">Year 5</option>
+      </select>
+      <select id="filterGender">
+        <option value="">All Genders</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+      <div class="toolbar-divider"></div>
+      <select id="pageSizeSelect">
+        <option value="10">10 / page</option>
+        <option value="25">25 / page</option>
+        <option value="50">50 / page</option>
+        <option value="100">100 / page</option>
+      </select>
+      <div class="toolbar-divider"></div>
+      <div class="view-toggle">
+        <button class="view-btn active" id="viewTable" title="Table View"><i class="fas fa-list"></i></button>
+        <button class="view-btn" id="viewGrid" title="Grid View"><i class="fas fa-th-large"></i></button>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="clearFilters()">
+        <i class="fas fa-times"></i> Clear
+      </button>
+    </div>
+
+    <!-- TABLE VIEW -->
+    <div class="table-wrap" id="tableView">
+      <div class="table-head-bar">
+        <h3>Student Records</h3>
+        <span id="tableCount"></span>
+      </div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th><input type="checkbox" id="selectAll" style="cursor:pointer;width:16px;height:16px;"></th>
+              <th class="sortable" data-col="name">Student <i class="fas fa-sort" style="font-size:10px;opacity:.5;"></i></th>
+              <th class="sortable" data-col="regNo">Reg No <i class="fas fa-sort" style="font-size:10px;opacity:.5;"></i></th>
+              <th>Faculty</th>
+              <th>Course</th>
+              <th>Year</th>
+              <th>Gender</th>
+              <th>GPA</th>
+              <th class="sortable" data-col="status">Status <i class="fas fa-sort" style="font-size:10px;opacity:.5;"></i></th>
+              <th>Fee Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="studentTableBody"></tbody>
+        </table>
+      </div>
+      <div id="tableEmpty" class="empty-state" style="display:none;">
+        <i class="fas fa-user-slash"></i>
+        <h3>No students found</h3>
+        <p>Try adjusting your search or filters, or add a new student.</p>
+      </div>
+      <div class="pagination-bar">
+        <div class="pagination-info" id="paginationInfo"></div>
+        <div class="pagination-controls" id="paginationControls"></div>
+      </div>
+    </div>
+
+    <!-- GRID VIEW -->
+    <div id="gridView" style="display:none;">
+      <div class="student-grid" id="studentGridBody"></div>
+      <div id="gridEmpty" class="empty-state" style="display:none;">
+        <i class="fas fa-user-slash"></i>
+        <h3>No students found</h3>
+        <p>Try adjusting your search or filters.</p>
+      </div>
+    </div>
+
+  </div><!-- /page-body -->
+
+  <div class="page-footer">
+    &copy; 2026 Benchmark University ERP System. All Rights Reserved.
+  </div>
+</div><!-- /main-content -->
+
+<!-- ===================== TOAST CONTAINER ===================== -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ===================== ADD / EDIT MODAL ===================== -->
+<div class="modal-backdrop" id="studentModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modalTitle">Add New Student</h3>
+      <button class="modal-close" onclick="closeModal('studentModal')">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form id="studentForm" novalidate>
+        <input type="hidden" id="editId">
+        <div class="form-grid">
+          <div class="form-section-title">Personal Information</div>
+
+          <div class="form-group">
+            <label>First Name <span class="required">*</span></label>
+            <input type="text" id="firstName" placeholder="e.g. John">
+            <span class="field-error" id="err-firstName">First name is required.</span>
+          </div>
+          <div class="form-group">
+            <label>Last Name <span class="required">*</span></label>
+            <input type="text" id="lastName" placeholder="e.g. Doe">
+            <span class="field-error" id="err-lastName">Last name is required.</span>
+          </div>
+          <div class="form-group">
+            <label>Date of Birth</label>
+            <input type="date" id="dob">
+          </div>
+          <div class="form-group">
+            <label>Gender <span class="required">*</span></label>
+            <select id="gender">
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+            <span class="field-error" id="err-gender">Gender is required.</span>
+          </div>
+          <div class="form-group">
+            <label>Nationality</label>
+            <input type="text" id="nationality" placeholder="e.g. Nigerian">
+          </div>
+          <div class="form-group">
+            <label>State of Origin</label>
+            <input type="text" id="stateOfOrigin" placeholder="e.g. Lagos">
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" id="phone" placeholder="e.g. +234 800 000 0000">
+          </div>
+          <div class="form-group">
+            <label>Email Address <span class="required">*</span></label>
+            <input type="email" id="email" placeholder="e.g. john@university.edu">
+            <span class="field-error" id="err-email">Valid email is required.</span>
+          </div>
+          <div class="form-group full">
+            <label>Home Address</label>
+            <textarea id="address" placeholder="Full home address..."></textarea>
+          </div>
+
+          <div class="form-section-title">Academic Information</div>
+
+          <div class="form-group">
+            <label>Registration Number <span class="required">*</span></label>
+            <input type="text" id="regNo" placeholder="e.g. BU/2024/001">
+            <span class="field-error" id="err-regNo">Reg. number is required and must be unique.</span>
+          </div>
+          <div class="form-group">
+            <label>Matriculation Number</label>
+            <input type="text" id="matNo" placeholder="e.g. MAT/24/0001">
+          </div>
+          <div class="form-group">
+            <label>Faculty <span class="required">*</span></label>
+            <select id="faculty">
+              <option value="">Select Faculty</option>
+              <option>Science</option>
+              <option>Arts</option>
+              <option>Engineering</option>
+              <option>Business</option>
+              <option>Medicine</option>
+              <option>Law</option>
+              <option>Education</option>
+              <option>ICT</option>
+            </select>
+            <span class="field-error" id="err-faculty">Faculty is required.</span>
+          </div>
+          <div class="form-group">
+            <label>Department</label>
+            <input type="text" id="department" placeholder="e.g. Computer Science">
+          </div>
+          <div class="form-group">
+            <label>Course / Programme <span class="required">*</span></label>
+            <input type="text" id="course" placeholder="e.g. B.Sc. Computer Science">
+            <span class="field-error" id="err-course">Course is required.</span>
+          </div>
+          <div class="form-group">
+            <label>Year of Study</label>
+            <select id="year">
+              <option value="">Select Year</option>
+              <option value="1">Year 1</option>
+              <option value="2">Year 2</option>
+              <option value="3">Year 3</option>
+              <option value="4">Year 4</option>
+              <option value="5">Year 5</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Admission Date</label>
+            <input type="date" id="admissionDate">
+          </div>
+          <div class="form-group">
+            <label>Expected Graduation</label>
+            <input type="date" id="graduationDate">
+          </div>
+          <div class="form-group">
+            <label>Academic Status</label>
+            <select id="status">
+              <option value="Active">Active</option>
+              <option value="Suspended">Suspended</option>
+              <option value="Graduated">Graduated</option>
+              <option value="Deferred">Deferred</option>
+              <option value="Probation">Probation</option>
+              <option value="Withdrawn">Withdrawn</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>GPA / CGPA</label>
+            <input type="number" id="gpa" step="0.01" min="0" max="5" placeholder="e.g. 4.50">
+          </div>
+
+          <div class="form-section-title">Financial & Emergency</div>
+
+          <div class="form-group">
+            <label>Fee Payment Status</label>
+            <select id="feeStatus">
+              <option value="Paid">Paid</option>
+              <option value="Partial">Partial</option>
+              <option value="Unpaid">Unpaid</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Scholarship</label>
+            <select id="scholarship">
+              <option value="None">None</option>
+              <option value="Full">Full Scholarship</option>
+              <option value="Partial">Partial Scholarship</option>
+              <option value="Government">Government Bursary</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Emergency Contact Name</label>
+            <input type="text" id="emergencyName" placeholder="e.g. Mary Doe">
+          </div>
+          <div class="form-group">
+            <label>Emergency Contact Phone</label>
+            <input type="tel" id="emergencyPhone" placeholder="e.g. +234 800 000 0001">
+          </div>
+          <div class="form-group full">
+            <label>Notes / Remarks</label>
+            <textarea id="notes" placeholder="Any special notes about this student..."></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('studentModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveStudent()">
+        <i class="fas fa-save"></i> <span id="saveLabel">Save Student</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PROFILE MODAL ===================== -->
+<div class="modal-backdrop" id="profileModal">
+  <div class="modal" style="max-width:720px;">
+    <div class="profile-hero" id="profileHero">
+      <div class="profile-hero-avatar" id="profileAvatar"></div>
+      <div>
+        <h2 id="profileName"></h2>
+        <p id="profileSub"></p>
+      </div>
+    </div>
+    <div class="profile-tabs" id="profileTabsBar">
+      <div class="profile-tab active" data-tab="overview">Overview</div>
+      <div class="profile-tab" data-tab="academic">Academic</div>
+      <div class="profile-tab" data-tab="finance">Finance</div>
+      <div class="profile-tab" data-tab="emergency">Emergency</div>
+    </div>
+    <div class="profile-tab-content" id="profileTabContent"></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('profileModal')">Close</button>
+      <button class="btn btn-warning" id="profileEditBtn"><i class="fas fa-edit"></i> Edit Student</button>
+      <button class="btn btn-success" onclick="window.print()"><i class="fas fa-print"></i> Print</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== CONFIRM DELETE MODAL ===================== -->
+<div class="modal-backdrop" id="confirmModal">
+  <div class="modal confirm-modal">
+    <div class="modal-body confirm-body">
+      <div class="confirm-icon"><i class="fas fa-trash-alt"></i></div>
+      <h3>Delete Student?</h3>
+      <p>This action cannot be undone. The student record will be permanently removed from the system.</p>
+    </div>
+    <div class="modal-footer" style="justify-content:center;gap:12px;">
+      <button class="btn btn-ghost" onclick="closeModal('confirmModal')">Cancel</button>
+      <button class="btn btn-danger" id="confirmDeleteBtn"><i class="fas fa-trash-alt"></i> Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== IMPORT MODAL ===================== -->
+<div class="modal-backdrop" id="importModal">
+  <div class="modal" style="max-width:480px;">
+    <div class="modal-header">
+      <h3>Import Students (CSV)</h3>
+      <button class="modal-close" onclick="closeModal('importModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="import-drop" id="importDrop" onclick="document.getElementById('csvFileInput').click()">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <p>Click to upload or drag &amp; drop a CSV file</p>
+        <small>Expected columns: firstName, lastName, regNo, email, faculty, course, gender, status, year, gpa</small>
+      </div>
+      <input type="file" id="csvFileInput" accept=".csv" style="display:none;">
+      <div id="importPreview" style="margin-top:16px;font-size:13px;color:var(--gray-500);"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('importModal')">Cancel</button>
+      <button class="btn btn-primary" id="importConfirmBtn" style="display:none;" onclick="confirmImport()">
+        <i class="fas fa-file-import"></i> Import
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   BENCHMARK UNIVERSITY ERP — STUDENT MANAGEMENT SYSTEM
+   Full Enterprise CRUD with: Add, Edit, Delete, View Profile,
+   Search, Multi-filter, Sort, Pagination, Grid/Table View,
+   Export CSV, Import CSV, Status Badges, Fee Tracking,
+   Toast Notifications, Validation, LocalStorage Persistence
+============================================================ */
+
+/* ---- DATA STORE ---- */
+let students = JSON.parse(localStorage.getItem('bue_students') || '[]');
+let deletePendingId = null;
+let sortCol = 'name';
+let sortDir = 1;
+let currentPage = 1;
+let pageSize = 10;
+let activeView = 'table';
+let importData = [];
+let currentProfileId = null;
+
+/* ---- SEED DATA (first load only) ---- */
+const SEED = [
+  {id:1,firstName:'Amina',lastName:'Yusuf',dob:'2002-03-15',gender:'Female',nationality:'Nigerian',stateOfOrigin:'Kano',phone:'+234 801 000 0001',email:'amina.yusuf@bue.edu.ng',address:'12 Murtala Way, Kano',regNo:'BU/2024/001',matNo:'MAT/24/0001',faculty:'Science',department:'Chemistry',course:'B.Sc. Chemistry',year:'2',admissionDate:'2024-09-01',graduationDate:'2028-07-30',status:'Active',gpa:'4.20',feeStatus:'Paid',scholarship:'None',emergencyName:'Ibrahim Yusuf',emergencyPhone:'+234 802 000 0001',notes:''},
+  {id:2,firstName:'Chukwuemeka',lastName:'Obi',dob:'2001-07-22',gender:'Male',nationality:'Nigerian',stateOfOrigin:'Anambra',phone:'+234 803 000 0002',email:'c.obi@bue.edu.ng',address:'5 Awka Road, Onitsha',regNo:'BU/2023/015',matNo:'MAT/23/0015',faculty:'Engineering',department:'Mechanical Engineering',course:'B.Eng. Mechanical Engineering',year:'3',admissionDate:'2023-09-01',graduationDate:'2027-07-30',status:'Active',gpa:'3.85',feeStatus:'Partial',scholarship:'Partial',emergencyName:'Mrs. Obi',emergencyPhone:'+234 804 000 0002',notes:'Partial scholarship recipient'},
+  {id:3,firstName:'Fatima',lastName:'Aliyu',dob:'2003-01-10',gender:'Female',nationality:'Nigerian',stateOfOrigin:'Sokoto',phone:'+234 805 000 0003',email:'f.aliyu@bue.edu.ng',address:'8 Sultan Road, Sokoto',regNo:'BU/2025/003',matNo:'MAT/25/0003',faculty:'Medicine',department:'Medicine & Surgery',course:'MBBS',year:'1',admissionDate:'2025-09-01',graduationDate:'2031-07-30',status:'Active',gpa:'4.80',feeStatus:'Paid',scholarship:'Full',emergencyName:'Aliyu Musa',emergencyPhone:'+234 806 000 0003',notes:'Top-performing student'},
+  {id:4,firstName:'Babatunde',lastName:'Adeyemi',dob:'2000-05-30',gender:'Male',nationality:'Nigerian',stateOfOrigin:'Oyo',phone:'+234 807 000 0004',email:'b.adeyemi@bue.edu.ng',address:'20 Ring Road, Ibadan',regNo:'BU/2022/042',matNo:'MAT/22/0042',faculty:'Business',department:'Accounting',course:'B.Sc. Accounting',year:'4',admissionDate:'2022-09-01',graduationDate:'2026-07-30',status:'Suspended',gpa:'2.10',feeStatus:'Unpaid',scholarship:'None',emergencyName:'Mrs. Adeyemi',emergencyPhone:'+234 808 000 0004',notes:'Suspended for examination misconduct'},
+  {id:5,firstName:'Ngozi',lastName:'Nwosu',dob:'2001-11-05',gender:'Female',nationality:'Nigerian',stateOfOrigin:'Imo',phone:'+234 809 000 0005',email:'n.nwosu@bue.edu.ng',address:'3 Douglas Road, Owerri',regNo:'BU/2021/010',matNo:'MAT/21/0010',faculty:'Law',department:'Law',course:'LL.B Law',year:'5',admissionDate:'2021-09-01',graduationDate:'2026-07-30',status:'Graduated',gpa:'4.55',feeStatus:'Paid',scholarship:'None',emergencyName:'Mr. Nwosu',emergencyPhone:'+234 810 000 0005',notes:'Graduated with First Class'},
+  {id:6,firstName:'Suleiman',lastName:'Garba',dob:'2002-08-17',gender:'Male',nationality:'Nigerian',stateOfOrigin:'Zamfara',phone:'+234 811 000 0006',email:'s.garba@bue.edu.ng',address:'7 Gusau Bypass, Gusau',regNo:'BU/2024/022',matNo:'MAT/24/0022',faculty:'ICT',department:'Computer Science',course:'B.Sc. Computer Science',year:'2',admissionDate:'2024-09-01',graduationDate:'2028-07-30',status:'Probation',gpa:'1.95',feeStatus:'Partial',scholarship:'None',emergencyName:'Garba Musa',emergencyPhone:'+234 812 000 0006',notes:'On academic probation — GPA below threshold'},
+  {id:7,firstName:'Adaeze',lastName:'Eze',dob:'2003-04-25',gender:'Female',nationality:'Nigerian',stateOfOrigin:'Enugu',phone:'+234 813 000 0007',email:'a.eze@bue.edu.ng',address:'15 Independence Layout, Enugu',regNo:'BU/2025/008',matNo:'MAT/25/0008',faculty:'Arts',department:'English Language',course:'B.A. English Language',year:'1',admissionDate:'2025-09-01',graduationDate:'2029-07-30',status:'Active',gpa:'4.00',feeStatus:'Paid',scholarship:'Government',emergencyName:'Mr. Eze',emergencyPhone:'+234 814 000 0007',notes:''},
+  {id:8,firstName:'Musa',lastName:'Ibrahim',dob:'2000-12-12',gender:'Male',nationality:'Nigerian',stateOfOrigin:'Borno',phone:'+234 815 000 0008',email:'m.ibrahim@bue.edu.ng',address:'22 Shehu Laminu Way, Maiduguri',regNo:'BU/2022/071',matNo:'MAT/22/0071',faculty:'Education',department:'Education Mathematics',course:'B.Ed. Mathematics',year:'4',admissionDate:'2022-09-01',graduationDate:'2026-07-30',status:'Deferred',gpa:'3.10',feeStatus:'Unpaid',scholarship:'None',emergencyName:'Ibrahim Kolo',emergencyPhone:'+234 816 000 0008',notes:'Deferred one semester due to medical reasons'},
+];
+if(students.length === 0){students = SEED; save();}
+
+function save(){localStorage.setItem('bue_students',JSON.stringify(students));}
+
+/* ---- SIDEBAR TOGGLE ---- */
+const sidebar = document.getElementById('sidebar');
+const mainContent = document.getElementById('mainContent');
+document.getElementById('menuToggle').addEventListener('click',()=>{
+  sidebar.classList.toggle('collapsed');
+  mainContent.classList.toggle('expanded');
+});
+
+/* ---- VIEW TOGGLE ---- */
+document.getElementById('viewTable').addEventListener('click',()=>{
+  activeView='table';
+  document.getElementById('tableView').style.display='';
+  document.getElementById('gridView').style.display='none';
+  document.getElementById('viewTable').classList.add('active');
+  document.getElementById('viewGrid').classList.remove('active');
+  render();
+});
+document.getElementById('viewGrid').addEventListener('click',()=>{
+  activeView='grid';
+  document.getElementById('tableView').style.display='none';
+  document.getElementById('gridView').style.display='';
+  document.getElementById('viewTable').classList.remove('active');
+  document.getElementById('viewGrid').classList.add('active');
+  render();
+});
+
+/* ---- FILTERS & SEARCH ---- */
+const getFilteredSorted = ()=>{
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  const topQ = document.getElementById('topbarSearch').value.toLowerCase().trim();
+  const fStatus = document.getElementById('filterStatus').value;
+  const fFaculty = document.getElementById('filterFaculty').value;
+  const fYear = document.getElementById('filterYear').value;
+  const fGender = document.getElementById('filterGender').value;
+  const search = q || topQ;
+
+  let list = students.filter(s=>{
+    const fullName = (s.firstName+' '+s.lastName).toLowerCase();
+    const matchSearch = !search ||
+      fullName.includes(search) ||
+      (s.regNo||'').toLowerCase().includes(search) ||
+      (s.email||'').toLowerCase().includes(search) ||
+      (s.course||'').toLowerCase().includes(search) ||
+      (s.faculty||'').toLowerCase().includes(search) ||
+      (s.matNo||'').toLowerCase().includes(search) ||
+      (s.department||'').toLowerCase().includes(search);
+    const matchStatus = !fStatus || s.status === fStatus;
+    const matchFaculty = !fFaculty || s.faculty === fFaculty;
+    const matchYear = !fYear || String(s.year) === fYear;
+    const matchGender = !fGender || s.gender === fGender;
+    return matchSearch && matchStatus && matchFaculty && matchYear && matchGender;
+  });
+
+  list.sort((a,b)=>{
+    const va = (a[sortCol]||'').toString().toLowerCase();
+    const vb = (b[sortCol]||'').toString().toLowerCase();
+    if(va < vb) return -sortDir;
+    if(va > vb) return sortDir;
+    return 0;
+  });
+  return list;
+};
+
+['searchInput','topbarSearch','filterStatus','filterFaculty','filterYear','filterGender'].forEach(id=>{
+  document.getElementById(id).addEventListener('input',()=>{currentPage=1;render();});
+  document.getElementById(id).addEventListener('change',()=>{currentPage=1;render();});
+});
+
+document.getElementById('pageSizeSelect').addEventListener('change',e=>{
+  pageSize=parseInt(e.target.value);currentPage=1;render();
+});
+
+function clearFilters(){
+  ['searchInput','topbarSearch','filterStatus','filterFaculty','filterYear','filterGender'].forEach(id=>{
+    document.getElementById(id).value='';
+  });
+  currentPage=1;render();
+}
+
+/* ---- SORT ---- */
+document.querySelectorAll('thead th.sortable').forEach(th=>{
+  th.addEventListener('click',()=>{
+    const col = th.dataset.col;
+    if(sortCol===col) sortDir*=-1; else {sortCol=col;sortDir=1;}
+    render();
+  });
+});
+
+/* ---- SELECT ALL ---- */
+document.getElementById('selectAll').addEventListener('change',e=>{
+  document.querySelectorAll('.row-check').forEach(cb=>cb.checked=e.target.checked);
+});
+
+/* ---- STATS ---- */
+const updateStats = ()=>{
+  document.getElementById('statTotal').textContent = students.length;
+  document.getElementById('statActive').textContent = students.filter(s=>s.status==='Active').length;
+  document.getElementById('statSuspended').textContent = students.filter(s=>s.status==='Suspended').length;
+  document.getElementById('statGraduated').textContent = students.filter(s=>s.status==='Graduated').length;
+  document.getElementById('statDeferred').textContent = students.filter(s=>s.status==='Deferred').length;
+  document.getElementById('statProbation').textContent = students.filter(s=>s.status==='Probation').length;
+};
+
+/* ---- BADGE ---- */
+const statusBadge = s=>{
+  const map={
+    Active:'badge-active',Suspended:'badge-suspended',
+    Graduated:'badge-graduated',Deferred:'badge-deferred',
+    Probation:'badge-probation',Withdrawn:'badge-withdrawn'
+  };
+  return `<span class="badge ${map[s]||''}">${s}</span>`;
+};
+const feeBadge = f=>{
+  const map={Paid:'badge-active',Partial:'badge-deferred',Unpaid:'badge-suspended'};
+  return `<span class="badge ${map[f]||''}">${f}</span>`;
+};
+
+/* ---- AVATAR INITIALS ---- */
+const initials = s=>(s.firstName||'?')[0].toUpperCase()+(s.lastName||'?')[0].toUpperCase();
+
+/* ---- RENDER ---- */
+const render = ()=>{
+  updateStats();
+  const list = getFilteredSorted();
+  const total = list.length;
+  const totalPages = Math.max(1, Math.ceil(total/pageSize));
+  if(currentPage>totalPages) currentPage=totalPages;
+  const start=(currentPage-1)*pageSize;
+  const paginated=list.slice(start,start+pageSize);
+
+  document.getElementById('tableCount').textContent = `${total} record${total!==1?'s':''}`;
+  document.getElementById('paginationInfo').textContent =
+    total===0?'No records':
+    `Showing ${start+1}–${Math.min(start+pageSize,total)} of ${total}`;
+
+  if(activeView==='table') renderTable(paginated,total===0);
+  else renderGrid(paginated,total===0);
+
+  renderPagination(totalPages);
+};
+
+const renderTable = (list, empty)=>{
+  const tbody = document.getElementById('studentTableBody');
+  document.getElementById('tableEmpty').style.display = empty?'':'none';
+  if(empty){tbody.innerHTML='';return;}
+  tbody.innerHTML = list.map(s=>`
+    <tr>
+      <td><input type="checkbox" class="row-check" data-id="${s.id}" style="cursor:pointer;width:15px;height:15px;"></td>
+      <td>
+        <div class="student-name-cell">
+          <div class="avatar-placeholder">${initials(s)}</div>
+          <div>
+            <strong>${s.firstName} ${s.lastName}</strong><br>
+            <small>${s.email||''}</small>
+          </div>
+        </div>
+      </td>
+      <td><strong>${s.regNo}</strong></td>
+      <td>${s.faculty||'—'}</td>
+      <td>${s.course||'—'}</td>
+      <td>Year ${s.year||'—'}</td>
+      <td>${s.gender||'—'}</td>
+      <td><strong>${s.gpa?parseFloat(s.gpa).toFixed(2):'—'}</strong></td>
+      <td>${statusBadge(s.status)}</td>
+      <td>${feeBadge(s.feeStatus||'Unpaid')}</td>
+      <td>
+        <div class="action-group">
+          <button class="btn btn-ghost btn-sm" onclick="viewProfile(${s.id})" title="View Profile"><i class="fas fa-eye"></i></button>
+          <button class="btn btn-outline btn-sm" onclick="openEditModal(${s.id})" title="Edit"><i class="fas fa-edit"></i></button>
+          <button class="btn btn-danger btn-sm" onclick="confirmDelete(${s.id})" title="Delete"><i class="fas fa-trash-alt"></i></button>
+        </div>
+      </td>
+    </tr>`).join('');
+};
+
+const renderGrid = (list, empty)=>{
+  const grid = document.getElementById('studentGridBody');
+  document.getElementById('gridEmpty').style.display = empty?'flex':'none';
+  if(empty){grid.innerHTML='';return;}
+  grid.innerHTML = list.map(s=>`
+    <div class="student-card">
+      <div class="card-top">
+        <div class="card-avatar">${initials(s)}</div>
+        <div>
+          <h3>${s.firstName} ${s.lastName}</h3>
+          <p>${s.regNo}</p>
+        </div>
+      </div>
+      <div class="card-info">
+        <div class="card-info-row"><span>Faculty</span><span>${s.faculty||'—'}</span></div>
+        <div class="card-info-row"><span>Course</span><span>${(s.course||'—').substring(0,20)}</span></div>
+        <div class="card-info-row"><span>Year</span><span>Year ${s.year||'—'}</span></div>
+        <div class="card-info-row"><span>GPA</span><span>${s.gpa?parseFloat(s.gpa).toFixed(2):'—'}</span></div>
+        <div class="card-info-row"><span>Status</span>${statusBadge(s.status)}</div>
+        <div class="card-info-row"><span>Fees</span>${feeBadge(s.feeStatus||'Unpaid')}</div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-ghost btn-sm" onclick="viewProfile(${s.id})"><i class="fas fa-eye"></i> View</button>
+        <button class="btn btn-outline btn-sm" onclick="openEditModal(${s.id})"><i class="fas fa-edit"></i> Edit</button>
+        <button class="btn btn-danger btn-sm" onclick="confirmDelete(${s.id})"><i class="fas fa-trash-alt"></i></button>
+      </div>
+    </div>`).join('');
+};
+
+const renderPagination = (total)=>{
+  const ctrl = document.getElementById('paginationControls');
+  const pages = [];
+  pages.push(`<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}><i class="fas fa-chevron-left"></i></button>`);
+  for(let i=1;i<=total;i++){
+    if(total<=7 || i===1 || i===total || Math.abs(i-currentPage)<=1){
+      pages.push(`<button class="page-btn ${i===currentPage?'active':''}" onclick="goPage(${i})">${i}</button>`);
+    } else if(Math.abs(i-currentPage)===2){
+      pages.push(`<button class="page-btn" disabled>...</button>`);
+    }
+  }
+  pages.push(`<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===total?'disabled':''}><i class="fas fa-chevron-right"></i></button>`);
+  ctrl.innerHTML = pages.join('');
+};
+
+function goPage(p){
+  const list=getFilteredSorted();
+  const total=Math.max(1,Math.ceil(list.length/pageSize));
+  if(p<1||p>total) return;
+  currentPage=p;render();
+}
+
+/* ---- ADD MODAL ---- */
+function openAddModal(){
+  document.getElementById('modalTitle').textContent='Add New Student';
+  document.getElementById('saveLabel').textContent='Save Student';
+  document.getElementById('editId').value='';
+  document.getElementById('studentForm').reset();
+  clearErrors();
+  openModal('studentModal');
+}
+
+/* ---- EDIT MODAL ---- */
+function openEditModal(id){
+  const s = students.find(x=>x.id===id);
+  if(!s) return;
+  document.getElementById('modalTitle').textContent='Edit Student';
+  document.getElementById('saveLabel').textContent='Update Student';
+  document.getElementById('editId').value=id;
+  const fields=['firstName','lastName','dob','gender','nationality','stateOfOrigin','phone',
+    'email','address','regNo','matNo','faculty','department','course','year','admissionDate',
+    'graduationDate','status','gpa','feeStatus','scholarship','emergencyName','emergencyPhone','notes'];
+  fields.forEach(f=>{const el=document.getElementById(f);if(el&&s[f]!==undefined) el.value=s[f];});
+  clearErrors();
+  openModal('studentModal');
+  closeModal('profileModal');
+}
+
+/* ---- SAVE STUDENT ---- */
+function saveStudent(){
+  if(!validateForm()) return;
+
+  const id = document.getElementById('editId').value;
+  const fields=['firstName','lastName','dob','gender','nationality','stateOfOrigin','phone',
+    'email','address','regNo','matNo','faculty','department','course','year','admissionDate',
+    'graduationDate','status','gpa','feeStatus','scholarship','emergencyName','emergencyPhone','notes'];
+  const obj={};
+  fields.forEach(f=>obj[f]=(document.getElementById(f)||{}).value||'');
+
+  if(id){
+    const idx=students.findIndex(s=>s.id==id);
+    if(idx>-1){
+      students[idx]={...students[idx],...obj};
+      toast('Student updated successfully!','success');
+    }
+  } else {
+    obj.id=Date.now();
+    students.unshift(obj);
+    toast('Student added successfully!','success');
+  }
+  save();closeModal('studentModal');render();
+}
+
+/* ---- VALIDATION ---- */
+function validateForm(){
+  clearErrors();
+  let valid=true;
+  const req=[
+    {id:'firstName',errId:'err-firstName',msg:'First name is required.'},
+    {id:'lastName',errId:'err-lastName',msg:'Last name is required.'},
+    {id:'gender',errId:'err-gender',msg:'Gender is required.'},
+    {id:'email',errId:'err-email',msg:'Valid email is required.'},
+    {id:'faculty',errId:'err-faculty',msg:'Faculty is required.'},
+    {id:'course',errId:'err-course',msg:'Course is required.'},
+    {id:'regNo',errId:'err-regNo',msg:'Reg. number is required and must be unique.'},
+  ];
+  req.forEach(r=>{
+    const val=(document.getElementById(r.id)||{}).value||'';
+    if(!val.trim()){showError(r.errId,r.msg);valid=false;}
+  });
+  const emailVal=document.getElementById('email').value;
+  if(emailVal && !/^\S+@\S+\.\S+$/.test(emailVal)){showError('err-email','Enter a valid email.');valid=false;}
+  const regNoVal=document.getElementById('regNo').value.trim();
+  const editId=document.getElementById('editId').value;
+  const dup=students.find(s=>s.regNo===regNoVal && s.id!=editId);
+  if(dup){showError('err-regNo','This registration number already exists.');valid=false;}
+  return valid;
+}
+function showError(id,msg){
+  const el=document.getElementById(id);
+  if(el){el.style.display='block';el.textContent=msg;}
+}
+function clearErrors(){
+  document.querySelectorAll('.field-error').forEach(e=>{e.style.display='none';});
+}
+
+/* ---- DELETE ---- */
+function confirmDelete(id){
+  deletePendingId=id;
+  openModal('confirmModal');
+}
+document.getElementById('confirmDeleteBtn').addEventListener('click',()=>{
+  if(!deletePendingId) return;
+  students=students.filter(s=>s.id!==deletePendingId);
+  save();closeModal('confirmModal');
+  toast('Student deleted.','error');
+  render();deletePendingId=null;
+});
+
+/* ---- VIEW PROFILE ---- */
+function viewProfile(id){
+  const s=students.find(x=>x.id===id);
+  if(!s) return;
+  currentProfileId=id;
+  document.getElementById('profileAvatar').textContent=initials(s);
+  document.getElementById('profileName').textContent=`${s.firstName} ${s.lastName}`;
+  document.getElementById('profileSub').textContent=`${s.regNo} | ${s.course||'N/A'} | ${s.faculty||'N/A'}`;
+  document.getElementById('profileEditBtn').onclick=()=>openEditModal(id);
+  renderProfileTab('overview',s);
+  document.querySelectorAll('.profile-tab').forEach(t=>t.classList.toggle('active',t.dataset.tab==='overview'));
+  openModal('profileModal');
+}
+
+document.querySelectorAll('.profile-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.profile-tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    const s=students.find(x=>x.id===currentProfileId);
+    if(s) renderProfileTab(tab.dataset.tab,s);
+  });
+});
+
+function renderProfileTab(tab,s){
+  const c=document.getElementById('profileTabContent');
+  const row=(label,val)=>`
+    <div class="detail-item"><label>${label}</label><span>${val||'—'}</span></div>`;
+  if(tab==='overview'){
+    c.innerHTML=`<div class="profile-detail-grid">
+      ${row('First Name',s.firstName)}
+      ${row('Last Name',s.lastName)}
+      ${row('Date of Birth',s.dob)}
+      ${row('Gender',s.gender)}
+      ${row('Nationality',s.nationality)}
+      ${row('State of Origin',s.stateOfOrigin)}
+      ${row('Phone',s.phone)}
+      ${row('Email',s.email)}
+      <div class="detail-item full">${row('Address',s.address)}</div>
+      <div class="detail-item full"><label>Status</label>${statusBadge(s.status)}</div>
+    </div>`;
+  } else if(tab==='academic'){
+    c.innerHTML=`<div class="profile-detail-grid">
+      ${row('Reg. Number',s.regNo)}
+      ${row('Matric Number',s.matNo)}
+      ${row('Faculty',s.faculty)}
+      ${row('Department',s.department)}
+      ${row('Course / Programme',s.course)}
+      ${row('Year of Study',s.year?'Year '+s.year:'—')}
+      ${row('Admission Date',s.admissionDate)}
+      ${row('Expected Graduation',s.graduationDate)}
+      ${row('CGPA / GPA',s.gpa?parseFloat(s.gpa).toFixed(2):'—')}
+      <div class="detail-item full"><label>Notes</label><span>${s.notes||'None'}</span></div>
+    </div>`;
+  } else if(tab==='finance'){
+    c.innerHTML=`<div class="profile-detail-grid">
+      <div class="detail-item"><label>Fee Payment Status</label>${feeBadge(s.feeStatus||'Unpaid')}</div>
+      ${row('Scholarship',s.scholarship)}
+    </div>`;
+  } else if(tab==='emergency'){
+    c.innerHTML=`<div class="profile-detail-grid">
+      ${row('Emergency Contact',s.emergencyName)}
+      ${row('Emergency Phone',s.emergencyPhone)}
+    </div>`;
+  }
+}
+
+/* ---- EXPORT CSV ---- */
+function exportCSV(){
+  const list=getFilteredSorted();
+  if(!list.length){toast('No data to export.','warning');return;}
+  const cols=['firstName','lastName','regNo','matNo','faculty','department','course','year',
+    'gender','email','phone','dob','nationality','stateOfOrigin','status','gpa','feeStatus','scholarship',
+    'admissionDate','graduationDate','emergencyName','emergencyPhone','notes','address'];
+  const header=cols.join(',');
+  const rows=list.map(s=>cols.map(c=>`"${(s[c]||'').toString().replace(/"/g,'""')}"`).join(','));
+  const csv=[header,...rows].join('\n');
+  const blob=new Blob([csv],{type:'text/csv'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=`students_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();URL.revokeObjectURL(url);
+  toast('CSV exported successfully!','success');
+}
+
+/* ---- IMPORT CSV ---- */
+function openImportModal(){importData=[];document.getElementById('importPreview').textContent='';document.getElementById('importConfirmBtn').style.display='none';openModal('importModal');}
+const csvInput=document.getElementById('csvFileInput');
+csvInput.addEventListener('change',e=>{
+  const file=e.target.files[0];if(!file) return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    const lines=ev.target.result.split('\n').filter(Boolean);
+    const headers=lines[0].split(',').map(h=>h.trim().replace(/^"|"$/g,'').toLowerCase());
+    importData=lines.slice(1).map(line=>{
+      const vals=line.split(',').map(v=>v.trim().replace(/^"|"$/g,''));
+      const obj={id:Date.now()+Math.random()};
+      headers.forEach((h,i)=>obj[h]=vals[i]||'');
+      return obj;
+    });
+    document.getElementById('importPreview').innerHTML=
+      `<strong style="color:var(--success);">${importData.length} student(s) ready to import.</strong>`;
+    document.getElementById('importConfirmBtn').style.display='';
+  };
+  reader.readAsText(file);
+});
+function confirmImport(){
+  if(!importData.length) return;
+  let added=0,skipped=0;
+  importData.forEach(s=>{
+    if(!s.regno && !s.regNo){skipped++;return;}
+    const rn=s.regno||s.regNo||'';
+    if(students.find(x=>x.regNo===rn)){skipped++;return;}
+    students.unshift({...s,regNo:rn,id:Date.now()+Math.random(),status:s.status||'Active',feeStatus:s.feestatus||s.feeStatus||'Unpaid'});
+    added++;
+  });
+  save();closeModal('importModal');render();
+  toast(`Imported ${added} student(s). ${skipped} skipped (duplicate/invalid).`,'info');
+}
+const drop=document.getElementById('importDrop');
+drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('dragover');});
+drop.addEventListener('dragleave',()=>drop.classList.remove('dragover'));
+drop.addEventListener('drop',e=>{
+  e.preventDefault();drop.classList.remove('dragover');
+  const file=e.dataTransfer.files[0];if(!file) return;
+  csvInput.files=e.dataTransfer.files;
+  csvInput.dispatchEvent(new Event('change'));
+});
+
+/* ---- MODAL HELPERS ---- */
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.modal-backdrop').forEach(bd=>{
+  bd.addEventListener('click',e=>{if(e.target===bd) bd.classList.remove('open');});
+});
+
+/* ---- TOAST ---- */
+function toast(msg,type='success'){
+  const icons={success:'fa-check-circle',error:'fa-times-circle',warning:'fa-exclamation-triangle',info:'fa-info-circle'};
+  const titles={success:'Success',error:'Deleted',warning:'Warning',info:'Info'};
+  const t=document.createElement('div');
+  t.className=`toast ${type!=='success'?type:''}`;
+  t.innerHTML=`<i class="fas ${icons[type]||icons.success} toast-icon"></i>
+    <div class="toast-text"><strong>${titles[type]||'Done'}</strong><small>${msg}</small></div>`;
+  document.getElementById('toastContainer').appendChild(t);
+  setTimeout(()=>{t.style.animation='toastOut .3s ease forwards';setTimeout(()=>t.remove(),300);},3500);
+}
+
+/* ---- SESSION DISPLAY ---- */
+try{
+  const u=JSON.parse(localStorage.getItem('user')||'{}');
+  if(u.username) document.getElementById('topbarUser').textContent=u.username;
+}catch(e){}
+
+/* ---- PRINT ---- */
+window.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='p'){e.preventDefault();window.print();}});
+
+/* ---- INIT ---- */
+render();
+</script>
+</body>
+</html>

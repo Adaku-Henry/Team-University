@@ -1,0 +1,2125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>University Research Management System</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary: #0f172a;
+      --sidebar: #111827;
+      --sidebar-soft: #1f2937;
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --success: #16a34a;
+      --warning: #f59e0b;
+      --danger: #dc2626;
+      --info: #0891b2;
+      --purple: #7c3aed;
+      --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Inter, Segoe UI, Arial, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .app {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 292px;
+      background: var(--sidebar);
+      color: white;
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      overflow-y: auto;
+      z-index: 10;
+      transition: 0.25s;
+    }
+
+    .sidebar.collapsed {
+      transform: translateX(-292px);
+    }
+
+    .brand {
+      padding: 22px;
+      border-bottom: 1px solid rgba(255,255,255,0.09);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      background: var(--sidebar);
+      z-index: 2;
+    }
+
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+    }
+
+    .brand h1 {
+      font-size: 15px;
+      line-height: 1.25;
+    }
+
+    .brand span {
+      color: #9ca3af;
+      font-size: 12px;
+    }
+
+    .nav-group {
+      padding: 14px 14px 4px;
+    }
+
+    .nav-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9ca3af;
+      margin: 14px 8px 8px;
+    }
+
+    .nav-link {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      color: #d1d5db;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 14px;
+      text-align: left;
+      transition: 0.2s;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      background: var(--sidebar-soft);
+      color: #fff;
+    }
+
+    .nav-icon {
+      width: 24px;
+      text-align: center;
+    }
+
+    .main {
+      margin-left: 292px;
+      width: calc(100% - 292px);
+      min-height: 100vh;
+      transition: 0.25s;
+    }
+
+    .main.full {
+      margin-left: 0;
+      width: 100%;
+    }
+
+    .topbar {
+      height: 72px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 8;
+    }
+
+    .top-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .toggle-btn,
+    .btn {
+      border: 0;
+      cursor: pointer;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-weight: 700;
+      transition: 0.2s;
+    }
+
+    .toggle-btn {
+      background: var(--secondary);
+      color: white;
+      font-size: 18px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-light {
+      background: #eef2ff;
+      color: #1e40af;
+    }
+
+    .btn-danger {
+      background: #fee2e2;
+      color: var(--danger);
+    }
+
+    .btn-success {
+      background: #dcfce7;
+      color: var(--success);
+    }
+
+    .btn-warning {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .topbar h2 {
+      font-size: 20px;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    select,
+    input,
+    textarea {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 11px 12px;
+      outline: none;
+      background: white;
+      color: var(--text);
+      width: 100%;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .role-select {
+      min-width: 180px;
+    }
+
+    .content {
+      padding: 24px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #1d4ed8, #0f172a);
+      color: white;
+      border-radius: 24px;
+      padding: 26px;
+      box-shadow: var(--shadow);
+      margin-bottom: 22px;
+      display: grid;
+      grid-template-columns: 1.5fr 0.8fr;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .hero h3 {
+      font-size: 27px;
+      margin-bottom: 8px;
+    }
+
+    .hero p {
+      color: #dbeafe;
+      line-height: 1.6;
+    }
+
+    .hero-box {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 20px;
+      padding: 18px;
+    }
+
+    .hero-box strong {
+      display: block;
+      font-size: 30px;
+      margin-bottom: 4px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .kpi {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .kpi span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .kpi strong {
+      display: block;
+      font-size: 27px;
+      margin-top: 8px;
+    }
+
+    .kpi-icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: #eff6ff;
+      color: var(--primary);
+      font-size: 22px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .chart-row {
+      display: grid;
+      gap: 10px;
+    }
+
+    .bar-item {
+      display: grid;
+      grid-template-columns: 140px 1fr 46px;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .bar-track {
+      height: 11px;
+      background: #e5e7eb;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #2563eb, #7c3aed);
+      border-radius: 20px;
+    }
+
+    .toolbar {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 14px;
+      display: grid;
+      grid-template-columns: 1fr 180px auto auto;
+      gap: 12px;
+      align-items: center;
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+
+    .table-wrap {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 920px;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      font-size: 14px;
+    }
+
+    th {
+      background: #f8fafc;
+      font-size: 12px;
+      text-transform: uppercase;
+      color: #64748b;
+      letter-spacing: 0.04em;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    tr:hover td {
+      background: #f9fafb;
+    }
+
+    .badge {
+      display: inline-flex;
+      padding: 6px 10px;
+      border-radius: 99px;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .badge.approved,
+    .badge.completed,
+    .badge.active,
+    .badge.passed,
+    .badge.published,
+    .badge.awarded,
+    .badge.low,
+    .badge.open {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .badge.pending,
+    .badge.submitted,
+    .badge.under-review,
+    .badge.in-progress,
+    .badge.medium,
+    .badge.scheduled {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .badge.rejected,
+    .badge.failed,
+    .badge.high,
+    .badge.closed {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .badge.draft,
+    .badge.archived {
+      background: #e0e7ff;
+      color: #3730a3;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .icon-btn {
+      border: 0;
+      border-radius: 10px;
+      padding: 8px 10px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.62);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      padding: 20px;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .modal {
+      background: white;
+      width: min(920px, 100%);
+      max-height: 92vh;
+      overflow: auto;
+      border-radius: 24px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+    }
+
+    .modal-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background: white;
+      z-index: 2;
+    }
+
+    .modal-body {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .modal-footer {
+      padding: 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      position: sticky;
+      bottom: 0;
+      background: white;
+    }
+
+    .form-full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      text-transform: uppercase;
+      color: #64748b;
+      font-weight: 800;
+      margin-bottom: 7px;
+      letter-spacing: 0.04em;
+    }
+
+    .workflow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .step {
+      padding: 10px 13px;
+      border-radius: 999px;
+      background: #e5e7eb;
+      color: #374151;
+      font-weight: 800;
+      font-size: 12px;
+    }
+
+    .step.done {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .step.current {
+      background: #dbeafe;
+      color: #1d4ed8;
+      outline: 2px solid #93c5fd;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 12px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 10px;
+      align-items: start;
+    }
+
+    .dot {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      background: #dbeafe;
+      color: #1d4ed8;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+    }
+
+    .progress {
+      height: 12px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, #16a34a, #2563eb);
+    }
+
+    .canvas-box {
+      width: 100%;
+      height: 260px;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+    }
+
+    .matrix {
+      display: grid;
+      overflow: auto;
+    }
+
+    .matrix table {
+      min-width: 1000px;
+    }
+
+    .empty {
+      padding: 35px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background: #0f172a;
+      color: white;
+      padding: 14px 16px;
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      display: none;
+      z-index: 99;
+      max-width: 360px;
+    }
+
+    .toast.show {
+      display: block;
+      animation: pop 0.25s ease;
+    }
+
+    @keyframes pop {
+      from { transform: translateY(12px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @media (max-width: 1180px) {
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .grid-2,
+      .grid-3,
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .sidebar {
+        transform: translateX(-292px);
+      }
+
+      .sidebar.mobile-open {
+        transform: translateX(0);
+      }
+
+      .main {
+        margin-left: 0;
+        width: 100%;
+      }
+
+      .topbar {
+        padding: 0 14px;
+      }
+
+      .top-actions {
+        display: none;
+      }
+
+      .content {
+        padding: 14px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-body {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-logo">UR</div>
+        <div>
+          <h1>University Research<br />Management System</h1>
+          <span>ERP-Level Research Office</span>
+        </div>
+      </div>
+      <div id="nav"></div>
+    </aside>
+
+    <main class="main" id="main">
+      <header class="topbar">
+        <div class="top-left">
+          <button class="toggle-btn" id="toggleSidebar">☰</button>
+          <div>
+            <h2 id="pageTitle">Research Dashboard</h2>
+            <small id="pageSubtitle">Complete research lifecycle management</small>
+          </div>
+        </div>
+        <div class="top-actions">
+          <select class="role-select" id="roleSelect"></select>
+          <button class="btn btn-light" onclick="renderView('notifications')">🔔 Notifications</button>
+          <button class="btn btn-primary" onclick="quickSeed()">↻ Demo Data</button>
+        </div>
+      </header>
+
+      <section class="content" id="content"></section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modalTitle">Add Record</h3>
+        <button class="icon-btn btn-danger" onclick="closeModal()">✕</button>
+      </div>
+      <form id="recordForm">
+        <div class="modal-body" id="modalBody"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" onclick="closeModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Record</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const roles = [
+      "Admin",
+      "Research Director",
+      "Dean",
+      "HOD",
+      "Supervisor",
+      "Researcher",
+      "Student",
+      "Reviewer"
+    ];
+
+    let currentRole = localStorage.getItem("urmsRole") || "Admin";
+    let currentView = "dashboard";
+    let editing = { key: null, id: null };
+
+    const navGroups = [
+      {
+        title: "Dashboard",
+        links: [
+          ["dashboard", "📊", "Research Dashboard"]
+        ]
+      },
+      {
+        title: "Research Management",
+        links: [
+          ["projects", "🧪", "Research Projects"],
+          ["proposals", "📝", "Research Proposals"],
+          ["reviews", "✅", "Proposal Reviews"],
+          ["teams", "👥", "Research Teams"],
+          ["progress", "📈", "Progress Tracking"]
+        ]
+      },
+      {
+        title: "Student Research",
+        links: [
+          ["students", "🎓", "Research Students"],
+          ["supervision", "🧑‍🏫", "Supervision"],
+          ["theses", "📚", "Theses & Dissertations"],
+          ["viva", "🎤", "Viva / Defense"]
+        ]
+      },
+      {
+        title: "Funding",
+        links: [
+          ["grants", "💰", "Research Grants"],
+          ["budgets", "🧾", "Research Budgets"]
+        ]
+      },
+      {
+        title: "Outputs",
+        links: [
+          ["publications", "📖", "Publications"],
+          ["conferences", "🏛️", "Conferences"],
+          ["ip", "💡", "Intellectual Property"],
+          ["awards", "🏆", "Awards & Recognition"]
+        ]
+      },
+      {
+        title: "Compliance",
+        links: [
+          ["ethics", "⚖️", "Ethics Management"],
+          ["audit", "🕵️", "Audit Trail"]
+        ]
+      },
+      {
+        title: "Repository",
+        links: [
+          ["repository", "🗄️", "Research Repository"],
+          ["datasets", "💽", "Research Data"],
+          ["documents", "📎", "Documents"]
+        ]
+      },
+      {
+        title: "Collaboration",
+        links: [
+          ["collaborations", "🤝", "Collaborations"],
+          ["communication", "💬", "Communication"],
+          ["calendar", "📅", "Calendar"],
+          ["notifications", "🔔", "Notifications"]
+        ]
+      },
+      {
+        title: "Reports",
+        links: [
+          ["reports", "📑", "Research Reports"],
+          ["analytics", "📉", "Research Analytics"]
+        ]
+      },
+      {
+        title: "Administration",
+        links: [
+          ["roles", "🔐", "Role-Based Access"],
+          ["settings", "⚙️", "Settings"]
+        ]
+      }
+    ];
+
+    const schemas = {
+      projects: {
+        label: "Research Projects",
+        icon: "🧪",
+        workflow: ["Draft", "Submitted", "Under Review", "Approved", "In Progress", "Completed", "Archived"],
+        fields: [
+          ["title", "Project Title", "text"],
+          ["area", "Research Area", "text"],
+          ["type", "Research Type", "select", ["Basic", "Applied", "Clinical", "Innovation", "Community", "Interdisciplinary"]],
+          ["faculty", "Faculty", "text"],
+          ["department", "Department", "text"],
+          ["pi", "Principal Investigator", "text"],
+          ["team", "Research Team", "textarea"],
+          ["start", "Start Date", "date"],
+          ["end", "End Date", "date"],
+          ["budget", "Budget", "number"],
+          ["status", "Status", "select", ["Draft", "Submitted", "Under Review", "Approved", "In Progress", "Completed", "Archived", "Rejected"]]
+        ]
+      },
+      proposals: {
+        label: "Research Proposals",
+        icon: "📝",
+        workflow: ["Researcher", "Supervisor", "HOD", "Research Committee", "Dean", "Approved"],
+        fields: [
+          ["title", "Proposal Title", "text"],
+          ["abstract", "Abstract", "textarea"],
+          ["objectives", "Objectives", "textarea"],
+          ["methodology", "Methodology", "textarea"],
+          ["expected", "Expected Outcomes", "textarea"],
+          ["budget", "Budget", "number"],
+          ["timeline", "Timeline", "text"],
+          ["researcher", "Researcher", "text"],
+          ["attachment", "Attachment Name", "file"],
+          ["status", "Status", "select", ["Draft", "Submitted", "Supervisor", "HOD", "Research Committee", "Dean", "Approved", "Rejected", "Revision Required"]]
+        ]
+      },
+      reviews: {
+        label: "Proposal Reviews",
+        icon: "✅",
+        fields: [
+          ["proposal", "Proposal", "text"],
+          ["reviewer", "Reviewer", "text"],
+          ["stage", "Review Stage", "select", ["Supervisor", "HOD", "Research Committee", "Dean", "External Reviewer"]],
+          ["comments", "Comments", "textarea"],
+          ["decision", "Decision", "select", ["Pending", "Approved", "Rejected", "Revision Required"]],
+          ["reviewDate", "Review Date", "date"]
+        ]
+      },
+      teams: {
+        label: "Research Teams",
+        icon: "👥",
+        fields: [
+          ["project", "Project", "text"],
+          ["member", "Member Name", "text"],
+          ["role", "Team Role", "select", ["Principal Investigator", "Co-Investigator", "Research Assistant", "Student", "External Collaborator"]],
+          ["email", "Email", "email"],
+          ["tasks", "Assigned Tasks", "textarea"],
+          ["status", "Status", "select", ["Active", "Completed", "Inactive"]]
+        ]
+      },
+      students: {
+        label: "Research Students",
+        icon: "🎓",
+        fields: [
+          ["student", "Student Name", "text"],
+          ["level", "Level", "select", ["Undergraduate", "Masters", "PhD"]],
+          ["topic", "Research Topic", "text"],
+          ["supervisor", "Supervisor", "text"],
+          ["department", "Department", "text"],
+          ["progress", "Progress %", "number"],
+          ["defenseStatus", "Defense Status", "select", ["Not Scheduled", "Scheduled", "Passed", "Minor Corrections", "Major Corrections", "Failed"]],
+          ["status", "Status", "select", ["Active", "Completed", "Archived"]]
+        ]
+      },
+      supervision: {
+        label: "Supervision Records",
+        icon: "🧑‍🏫",
+        fields: [
+          ["student", "Student", "text"],
+          ["supervisor", "Supervisor", "text"],
+          ["meetingDate", "Meeting Date", "date"],
+          ["progress", "Progress Discussed", "textarea"],
+          ["feedback", "Feedback", "textarea"],
+          ["recommendation", "Recommendation", "textarea"],
+          ["approval", "Approval", "select", ["Pending", "Approved", "Revision Required"]]
+        ]
+      },
+      progress: {
+        label: "Research Progress Tracking",
+        icon: "📈",
+        fields: [
+          ["project", "Project", "text"],
+          ["milestone", "Milestone", "select", ["Proposal Approved", "Literature Review", "Data Collection", "Analysis", "Report Writing", "Submission", "Defense", "Publication"]],
+          ["owner", "Owner", "text"],
+          ["dueDate", "Due Date", "date"],
+          ["completion", "Completion %", "number"],
+          ["notes", "Notes", "textarea"],
+          ["status", "Status", "select", ["Pending", "In Progress", "Completed", "Delayed"]]
+        ]
+      },
+      grants: {
+        label: "Research Grants",
+        icon: "💰",
+        fields: [
+          ["grantNumber", "Grant Number", "text"],
+          ["project", "Linked Project", "text"],
+          ["agency", "Funding Agency", "text"],
+          ["amount", "Amount", "number"],
+          ["duration", "Duration", "text"],
+          ["applicationDate", "Application Date", "date"],
+          ["status", "Status", "select", ["Draft", "Submitted", "Under Review", "Awarded", "Rejected", "Closed"]]
+        ]
+      },
+      budgets: {
+        label: "Research Budgets",
+        icon: "🧾",
+        fields: [
+          ["project", "Project", "text"],
+          ["category", "Budget Category", "select", ["Personnel", "Equipment", "Travel", "Field Work", "Data Collection", "Publication Costs", "Software", "Other"]],
+          ["allocated", "Allocated", "number"],
+          ["spent", "Spent", "number"],
+          ["remaining", "Remaining", "number"],
+          ["status", "Status", "select", ["Open", "Pending", "Closed"]]
+        ]
+      },
+      publications: {
+        label: "Publications",
+        icon: "📖",
+        fields: [
+          ["title", "Publication Title", "text"],
+          ["authors", "Authors", "textarea"],
+          ["type", "Type", "select", ["Journal Article", "Conference Paper", "Book", "Book Chapter", "Patent", "Technical Report"]],
+          ["journal", "Journal / Publisher", "text"],
+          ["doi", "DOI", "text"],
+          ["date", "Publication Date", "date"],
+          ["citations", "Citations", "number"],
+          ["status", "Status", "select", ["Draft", "Submitted", "Published", "Archived"]]
+        ]
+      },
+      ethics: {
+        label: "Ethics Management",
+        icon: "⚖️",
+        workflow: ["Submit", "Review", "Revision", "Approve", "Monitor", "Close"],
+        fields: [
+          ["project", "Project", "text"],
+          ["applicant", "Applicant", "text"],
+          ["risk", "Risk Level", "select", ["Low", "Medium", "High"]],
+          ["participants", "Participants", "textarea"],
+          ["consent", "Consent Form", "file"],
+          ["attachments", "Attachments", "file"],
+          ["status", "Status", "select", ["Submitted", "Under Review", "Revision Required", "Approved", "Monitoring", "Closed", "Rejected"]]
+        ]
+      },
+      repository: {
+        label: "Research Repository",
+        icon: "🗄️",
+        fields: [
+          ["title", "Item Title", "text"],
+          ["type", "Repository Type", "select", ["Proposal", "Thesis", "Dissertation", "Publication", "Dataset", "Report", "Ethics Form"]],
+          ["author", "Author", "text"],
+          ["department", "Department", "text"],
+          ["keywords", "Keywords", "text"],
+          ["file", "Upload File", "file"],
+          ["visibility", "Visibility", "select", ["Private", "Department", "Faculty", "Public"]],
+          ["status", "Status", "select", ["Active", "Archived"]]
+        ]
+      },
+      conferences: {
+        label: "Conferences",
+        icon: "🏛️",
+        fields: [
+          ["name", "Conference Name", "text"],
+          ["venue", "Venue", "text"],
+          ["date", "Date", "date"],
+          ["presenter", "Presenter", "text"],
+          ["paper", "Paper Title", "text"],
+          ["status", "Status", "select", ["Submitted", "Accepted", "Presented", "Rejected"]]
+        ]
+      },
+      ip: {
+        label: "Intellectual Property",
+        icon: "💡",
+        fields: [
+          ["title", "IP Title", "text"],
+          ["type", "IP Type", "select", ["Patent", "Copyright", "Innovation", "Trademark", "Industrial Design"]],
+          ["owner", "Owner", "text"],
+          ["applicationDate", "Application Date", "date"],
+          ["registrationNumber", "Registration Number", "text"],
+          ["status", "Status", "select", ["Draft", "Filed", "Under Review", "Approved", "Rejected", "Commercialized"]]
+        ]
+      },
+      collaborations: {
+        label: "Research Collaborations",
+        icon: "🤝",
+        fields: [
+          ["partner", "Partner Institution", "text"],
+          ["type", "Collaboration Type", "select", ["University", "NGO", "Government", "Industry", "International Partner"]],
+          ["project", "Project", "text"],
+          ["duration", "Duration", "text"],
+          ["funding", "Funding", "number"],
+          ["status", "Status", "select", ["Active", "Completed", "Pending", "Closed"]]
+        ]
+      },
+      datasets: {
+        label: "Research Data Management",
+        icon: "💽",
+        fields: [
+          ["title", "Dataset Title", "text"],
+          ["project", "Project", "text"],
+          ["type", "Data Type", "select", ["Survey Data", "Experimental Results", "Interview Data", "Clinical Data", "Code", "Other"]],
+          ["version", "Version", "text"],
+          ["backup", "Backup Location", "text"],
+          ["file", "Dataset File", "file"],
+          ["status", "Status", "select", ["Active", "Archived", "Restricted"]]
+        ]
+      },
+      theses: {
+        label: "Theses & Dissertations",
+        icon: "📚",
+        workflow: ["Topic Approval", "Supervisor Assignment", "Proposal", "Progress", "Submission", "Defense", "Final Archive"],
+        fields: [
+          ["student", "Student", "text"],
+          ["level", "Level", "select", ["Masters", "PhD"]],
+          ["topic", "Topic", "text"],
+          ["supervisor", "Supervisor", "text"],
+          ["submissionStatus", "Submission Status", "select", ["Not Submitted", "Submitted", "Under Review", "Accepted", "Corrections Required"]],
+          ["defenseStatus", "Defense Status", "select", ["Not Scheduled", "Scheduled", "Passed", "Minor Corrections", "Major Corrections", "Failed"]],
+          ["archive", "Archive Record", "text"],
+          ["status", "Status", "select", ["Active", "Completed", "Archived"]]
+        ]
+      },
+      viva: {
+        label: "Viva / Defense",
+        icon: "🎤",
+        fields: [
+          ["candidate", "Candidate", "text"],
+          ["panel", "Panel Members", "textarea"],
+          ["date", "Date", "date"],
+          ["venue", "Venue", "text"],
+          ["decision", "Decision", "select", ["Scheduled", "Passed", "Minor Corrections", "Major Corrections", "Failed"]],
+          ["corrections", "Corrections", "textarea"],
+          ["status", "Status", "select", ["Scheduled", "Completed", "Closed"]]
+        ]
+      },
+      awards: {
+        label: "Awards & Recognition",
+        icon: "🏆",
+        fields: [
+          ["recipient", "Recipient", "text"],
+          ["award", "Award Name", "text"],
+          ["category", "Category", "select", ["Best Researcher", "Best Publication", "Research Excellence", "Innovation Award", "Student Research Award"]],
+          ["year", "Year", "number"],
+          ["notes", "Notes", "textarea"],
+          ["status", "Status", "select", ["Nominated", "Awarded", "Archived"]]
+        ]
+      },
+      documents: {
+        label: "Document Management",
+        icon: "📎",
+        fields: [
+          ["title", "Document Title", "text"],
+          ["module", "Module", "select", ["Proposal", "Ethics", "Grant", "Budget", "Publication", "Thesis", "Viva", "Repository", "Other"]],
+          ["type", "File Type", "select", ["PDF", "DOCX", "PPTX", "XLSX", "ZIP", "CSV", "Other"]],
+          ["uploader", "Uploader", "text"],
+          ["file", "File", "file"],
+          ["permission", "Access Permission", "select", ["Private", "Reviewer Only", "Department", "Faculty", "Public"]],
+          ["status", "Status", "select", ["Active", "Archived"]]
+        ]
+      },
+      calendar: {
+        label: "Research Calendar",
+        icon: "📅",
+        fields: [
+          ["title", "Event Title", "text"],
+          ["type", "Event Type", "select", ["Proposal Deadline", "Progress Report", "Ethics Meeting", "Defense Date", "Grant Deadline", "Conference", "Workshop"]],
+          ["date", "Date", "date"],
+          ["time", "Time", "time"],
+          ["venue", "Venue", "text"],
+          ["owner", "Owner", "text"],
+          ["status", "Status", "select", ["Scheduled", "Completed", "Cancelled"]]
+        ]
+      },
+      communication: {
+        label: "Communication",
+        icon: "💬",
+        fields: [
+          ["subject", "Subject", "text"],
+          ["from", "From", "text"],
+          ["to", "To", "text"],
+          ["channel", "Channel", "select", ["Announcement", "Message", "Discussion Board", "Committee Note"]],
+          ["message", "Message", "textarea"],
+          ["date", "Date", "date"],
+          ["status", "Status", "select", ["Open", "Closed"]]
+        ]
+      },
+      notifications: {
+        label: "Notifications",
+        icon: "🔔",
+        fields: [
+          ["title", "Notification Title", "text"],
+          ["type", "Type", "select", ["Proposal Deadline", "Grant Deadline", "Ethics Approval", "Progress Report", "Defense Schedule", "Budget Alert", "System"]],
+          ["user", "User / Role", "text"],
+          ["message", "Message", "textarea"],
+          ["dueDate", "Due Date", "date"],
+          ["status", "Status", "select", ["Unread", "Read", "Archived"]]
+        ]
+      },
+      audit: {
+        label: "Audit Trail",
+        icon: "🕵️",
+        readonly: true,
+        fields: [
+          ["user", "User", "text"],
+          ["role", "Role", "text"],
+          ["action", "Action", "text"],
+          ["module", "Module", "text"],
+          ["date", "Date", "text"],
+          ["changes", "Changes", "textarea"]
+        ]
+      }
+    };
+
+    const permissions = {
+      "Admin": ["create", "edit", "delete", "export", "approve", "settings"],
+      "Research Director": ["create", "edit", "export", "approve"],
+      "Dean": ["edit", "export", "approve"],
+      "HOD": ["edit", "export", "approve"],
+      "Supervisor": ["create", "edit", "export", "approve"],
+      "Researcher": ["create", "edit", "export"],
+      "Student": ["create", "edit"],
+      "Reviewer": ["edit", "export", "approve"]
+    };
+
+    const seed = {
+      projects: [
+        { id: uid(), title: "AI-Based Malaria Diagnosis", area: "Health Informatics", type: "Applied", faculty: "Health Sciences", department: "Biomedical Sciences", pi: "Dr. Amina Yusuf", team: "Dr. John, Mary PhD, External Lab", start: "2026-01-10", end: "2027-12-20", budget: 85000, status: "In Progress" },
+        { id: uid(), title: "Climate Smart Agriculture Model", area: "Agriculture", type: "Community", faculty: "Agriculture", department: "Crop Science", pi: "Prof. Mensah", team: "Agri Lab Team", start: "2025-09-01", end: "2026-11-30", budget: 42000, status: "Approved" }
+      ],
+      proposals: [
+        { id: uid(), title: "IoT Water Quality Monitoring", abstract: "A low-cost sensor network for monitoring campus water quality.", objectives: "Build prototype; test accuracy; publish results.", methodology: "Experimental design and field deployment.", expected: "Prototype and policy brief.", budget: 18000, timeline: "12 months", researcher: "Dr. Grace Okoro", attachment: "proposal-iot-water.pdf", status: "HOD" }
+      ],
+      reviews: [
+        { id: uid(), proposal: "IoT Water Quality Monitoring", reviewer: "Prof. Adewale", stage: "HOD", comments: "Improve budget justification.", decision: "Revision Required", reviewDate: "2026-02-12" }
+      ],
+      teams: [],
+      students: [
+        { id: uid(), student: "Samuel Kofi", level: "PhD", topic: "Deep Learning for Crop Disease Detection", supervisor: "Dr. Amina Yusuf", department: "Computer Science", progress: 72, defenseStatus: "Not Scheduled", status: "Active" }
+      ],
+      supervision: [],
+      progress: [
+        { id: uid(), project: "AI-Based Malaria Diagnosis", milestone: "Data Collection", owner: "Mary PhD", dueDate: "2026-05-15", completion: 75, notes: "Hospital dataset collection ongoing.", status: "In Progress" }
+      ],
+      grants: [
+        { id: uid(), grantNumber: "GRT-2026-001", project: "AI-Based Malaria Diagnosis", agency: "National Science Fund", amount: 85000, duration: "24 months", applicationDate: "2026-01-01", status: "Awarded" }
+      ],
+      budgets: [
+        { id: uid(), project: "AI-Based Malaria Diagnosis", category: "Equipment", allocated: 30000, spent: 18500, remaining: 11500, status: "Open" },
+        { id: uid(), project: "AI-Based Malaria Diagnosis", category: "Personnel", allocated: 40000, spent: 12000, remaining: 28000, status: "Open" }
+      ],
+      publications: [
+        { id: uid(), title: "Machine Learning in Tropical Disease Screening", authors: "A. Yusuf; M. Kofi", type: "Journal Article", journal: "Journal of Digital Health", doi: "10.1234/jdh.2026.001", date: "2026-03-02", citations: 18, status: "Published" }
+      ],
+      ethics: [
+        { id: uid(), project: "AI-Based Malaria Diagnosis", applicant: "Dr. Amina Yusuf", risk: "Medium", participants: "Hospital patients with anonymized data.", consent: "consent-form.pdf", attachments: "ethics-protocol.pdf", status: "Approved" }
+      ],
+      repository: [],
+      conferences: [],
+      ip: [],
+      collaborations: [],
+      datasets: [],
+      theses: [],
+      viva: [],
+      awards: [],
+      documents: [],
+      calendar: [
+        { id: uid(), title: "Research Committee Review", type: "Ethics Meeting", date: "2026-04-20", time: "10:00", venue: "Senate Room", owner: "Research Office", status: "Scheduled" }
+      ],
+      communication: [],
+      notifications: [
+        { id: uid(), title: "Grant report due", type: "Grant Deadline", user: "Researcher", message: "Submit grant utilization report before month end.", dueDate: "2026-04-30", status: "Unread" }
+      ],
+      audit: []
+    };
+
+    function uid() {
+      return "id-" + Math.random().toString(36).slice(2, 10) + "-" + Date.now().toString(36);
+    }
+
+    function init() {
+      if (!localStorage.getItem("urmsData")) {
+        localStorage.setItem("urmsData", JSON.stringify(seed));
+      }
+
+      document.getElementById("toggleSidebar").addEventListener("click", toggleSidebar);
+      document.getElementById("recordForm").addEventListener("submit", saveRecord);
+
+      renderRoleSelect();
+      renderNav();
+      renderView("dashboard");
+    }
+
+    function data() {
+      return JSON.parse(localStorage.getItem("urmsData") || "{}");
+    }
+
+    function setData(d) {
+      localStorage.setItem("urmsData", JSON.stringify(d));
+    }
+
+    function quickSeed() {
+      localStorage.setItem("urmsData", JSON.stringify(seed));
+      toast("Demo data restored.");
+      renderView(currentView);
+    }
+
+    function can(action) {
+      return permissions[currentRole]?.includes(action);
+    }
+
+    function renderRoleSelect() {
+      const select = document.getElementById("roleSelect");
+      select.innerHTML = roles.map(r => `<option ${r === currentRole ? "selected" : ""}>${r}</option>`).join("");
+      select.onchange = () => {
+        currentRole = select.value;
+        localStorage.setItem("urmsRole", currentRole);
+        toast("Role changed to " + currentRole);
+        renderView(currentView);
+      };
+    }
+
+    function renderNav() {
+      const nav = document.getElementById("nav");
+      nav.innerHTML = navGroups.map(group => `
+        <div class="nav-group">
+          <div class="nav-title">${group.title}</div>
+          ${group.links.map(link => `
+            <button class="nav-link ${currentView === link[0] ? "active" : ""}" onclick="renderView('${link[0]}')">
+              <span class="nav-icon">${link[1]}</span>
+              <span>${link[2]}</span>
+            </button>
+          `).join("")}
+        </div>
+      `).join("");
+    }
+
+    function renderView(view) {
+      currentView = view;
+      renderNav();
+
+      if (window.innerWidth <= 760) {
+        document.getElementById("sidebar").classList.remove("mobile-open");
+      }
+
+      const titleMap = Object.fromEntries(navGroups.flatMap(g => g.links.map(l => [l[0], l[2]])));
+      document.getElementById("pageTitle").textContent = titleMap[view] || "Research Dashboard";
+      document.getElementById("pageSubtitle").textContent = currentRole + " workspace";
+
+      if (view === "dashboard") return renderDashboard();
+      if (view === "reports") return renderReports();
+      if (view === "analytics") return renderAnalytics();
+      if (view === "roles") return renderRoles();
+      if (view === "settings") return renderSettings();
+
+      renderModule(view);
+    }
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      const main = document.getElementById("main");
+
+      if (window.innerWidth <= 760) {
+        sidebar.classList.toggle("mobile-open");
+      } else {
+        sidebar.classList.toggle("collapsed");
+        main.classList.toggle("full");
+      }
+    }
+
+    function renderDashboard() {
+      const d = data();
+      const totalProjects = d.projects.length;
+      const activeProjects = d.projects.filter(x => ["Approved", "In Progress", "Active"].includes(x.status)).length;
+      const completedProjects = d.projects.filter(x => x.status === "Completed").length;
+      const pendingApprovals = [
+        ...d.proposals.filter(x => !["Approved", "Rejected"].includes(x.status)),
+        ...d.ethics.filter(x => !["Approved", "Closed", "Rejected"].includes(x.status))
+      ].length;
+      const totalFunding = sum(d.grants, "amount");
+      const totalBudget = sum(d.budgets, "allocated");
+      const spentBudget = sum(d.budgets, "spent");
+      const pendingEthics = d.ethics.filter(x => ["Submitted", "Under Review", "Revision Required"].includes(x.status)).length;
+
+      document.getElementById("content").innerHTML = `
+        <div class="hero">
+          <div>
+            <h3>Complete University Research ERP Module</h3>
+            <p>
+              Manage proposals, approvals, ethics, grants, budgets, student research, theses, viva defense,
+              publications, repository files, collaboration, analytics, audit logs, and role-based access from one page.
+            </p>
+          </div>
+          <div class="hero-box">
+            <strong>${currentRole}</strong>
+            <span>Current active role with permission-aware actions.</span>
+          </div>
+        </div>
+
+        <div class="cards">
+          ${kpi("🧪", "Total Projects", totalProjects)}
+          ${kpi("🚀", "Active Projects", activeProjects)}
+          ${kpi("✅", "Completed Projects", completedProjects)}
+          ${kpi("⏳", "Pending Approvals", pendingApprovals)}
+          ${kpi("💰", "Grant Funding", money(totalFunding))}
+          ${kpi("📖", "Publications", d.publications.length)}
+          ${kpi("🎓", "Research Students", d.students.length)}
+          ${kpi("⚖️", "Pending Ethics", pendingEthics)}
+          ${kpi("🏛️", "Conferences", d.conferences.length)}
+          ${kpi("🧾", "Budget Allocated", money(totalBudget))}
+          ${kpi("💸", "Budget Spent", money(spentBudget))}
+          ${kpi("🔔", "Unread Alerts", d.notifications.filter(x => x.status === "Unread").length)}
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="section-title"><strong>Projects by Faculty</strong><button class="btn btn-light" onclick="renderView('projects')">View</button></div>
+            ${barChart(countBy(d.projects, "faculty"))}
+          </div>
+          <div class="card">
+            <div class="section-title"><strong>Publications per Year</strong><button class="btn btn-light" onclick="renderView('publications')">View</button></div>
+            ${barChart(countByYear(d.publications, "date"))}
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="section-title"><strong>Grant Funding by Agency</strong><button class="btn btn-light" onclick="renderView('grants')">View</button></div>
+            ${barChart(sumBy(d.grants, "agency", "amount"), true)}
+          </div>
+          <div class="card">
+            <div class="section-title"><strong>Budget Utilization</strong><button class="btn btn-light" onclick="renderView('budgets')">View</button></div>
+            <div class="timeline">
+              ${d.budgets.length ? d.budgets.map(b => {
+                const pct = b.allocated ? Math.round((Number(b.spent || 0) / Number(b.allocated || 1)) * 100) : 0;
+                return `<div>
+                  <strong>${safe(b.project)} - ${safe(b.category)}</strong>
+                  <div class="progress" style="margin:8px 0;"><span style="width:${Math.min(pct,100)}%"></span></div>
+                  <small>${pct}% used • ${money(b.spent)} spent of ${money(b.allocated)}</small>
+                </div>`;
+              }).join("") : `<div class="empty">No budget records yet.</div>`}
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="section-title"><strong>Proposal Approval Workflow</strong></div>
+            ${workflow(["Researcher", "Supervisor", "HOD", "Research Committee", "Dean", "Approved"], "HOD")}
+          </div>
+          <div class="card">
+            <div class="section-title"><strong>Ethics Workflow</strong></div>
+            ${workflow(["Submit", "Review", "Revision", "Approve", "Monitor", "Close"], "Approve")}
+          </div>
+          <div class="card">
+            <div class="section-title"><strong>Thesis Lifecycle</strong></div>
+            ${workflow(["Topic Approval", "Supervisor Assignment", "Proposal", "Progress", "Submission", "Defense", "Final Archive"], "Progress")}
+          </div>
+        </div>
+      `;
+    }
+
+    function kpi(icon, label, value) {
+      return `
+        <div class="card kpi">
+          <div>
+            <span>${label}</span>
+            <strong>${value}</strong>
+          </div>
+          <div class="kpi-icon">${icon}</div>
+        </div>
+      `;
+    }
+
+    function renderModule(key) {
+      const d = data();
+      const schema = schemas[key];
+
+      if (!schema) return;
+
+      const rows = d[key] || [];
+      const statusValues = [...new Set(rows.map(x => x.status || x.decision || x.risk).filter(Boolean))];
+
+      document.getElementById("content").innerHTML = `
+        ${schema.workflow ? `
+          <div class="card">
+            <div class="section-title">
+              <strong>${schema.icon} ${schema.label} Workflow</strong>
+              <small>Use statuses to move records through the lifecycle.</small>
+            </div>
+            ${workflow(schema.workflow, schema.workflow[Math.min(2, schema.workflow.length - 1)])}
+          </div>
+          <br>
+        ` : ""}
+
+        <div class="toolbar">
+          <input id="searchBox" placeholder="Search ${schema.label.toLowerCase()}..." oninput="drawTable('${key}')" />
+          <select id="statusFilter" onchange="drawTable('${key}')">
+            <option value="">All Statuses</option>
+            ${statusValues.map(s => `<option value="${safe(s)}">${safe(s)}</option>`).join("")}
+          </select>
+          <button class="btn btn-light" onclick="exportCSV('${key}')" ${!can("export") ? "disabled" : ""}>⬇ Export CSV</button>
+          <button class="btn btn-primary" onclick="openModal('${key}')" ${schema.readonly || !can("create") ? "disabled" : ""}>＋ Add Record</button>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead id="tableHead"></thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      `;
+
+      drawTable(key);
+    }
+
+    function drawTable(key) {
+      const d = data();
+      const schema = schemas[key];
+      let rows = d[key] || [];
+
+      const search = document.getElementById("searchBox")?.value?.toLowerCase() || "";
+      const status = document.getElementById("statusFilter")?.value || "";
+
+      rows = rows.filter(row => {
+        const hay = Object.values(row).join(" ").toLowerCase();
+        const statusMatch = !status || row.status === status || row.decision === status || row.risk === status;
+        return hay.includes(search) && statusMatch;
+      });
+
+      const visibleFields = schema.fields.slice(0, 6);
+
+      document.getElementById("tableHead").innerHTML = `
+        <tr>
+          ${visibleFields.map(f => `<th>${f[1]}</th>`).join("")}
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      `;
+
+      document.getElementById("tableBody").innerHTML = rows.length ? rows.map(row => `
+        <tr>
+          ${visibleFields.map(f => `<td>${formatCell(row[f[0]], f[2])}</td>`).join("")}
+          <td>${statusBadge(row.status || row.decision || row.risk || "Open")}</td>
+          <td>
+            <div class="actions">
+              <button class="icon-btn btn-light" onclick="viewRecord('${key}', '${row.id}')">View</button>
+              <button class="icon-btn btn-success" onclick="openModal('${key}', '${row.id}')" ${schemas[key].readonly || !can("edit") ? "disabled" : ""}>Edit</button>
+              <button class="icon-btn btn-warning" onclick="advanceStatus('${key}', '${row.id}')" ${schemas[key].readonly || !can("approve") ? "disabled" : ""}>Advance</button>
+              <button class="icon-btn btn-danger" onclick="deleteRecord('${key}', '${row.id}')" ${schemas[key].readonly || !can("delete") ? "disabled" : ""}>Delete</button>
+            </div>
+          </td>
+        </tr>
+      `).join("") : `<tr><td colspan="${visibleFields.length + 2}" class="empty">No records found. Add your first ${schema.label.toLowerCase()} record.</td></tr>`;
+    }
+
+    function openModal(key, id = null) {
+      const schema = schemas[key];
+      const d = data();
+      const row = id ? (d[key] || []).find(x => x.id === id) : null;
+
+      editing = { key, id };
+      document.getElementById("modalTitle").textContent = `${id ? "Edit" : "Add"} ${schema.label}`;
+
+      document.getElementById("modalBody").innerHTML = schema.fields.map(field => {
+        const [name, label, type, options] = field;
+        const val = row?.[name] || "";
+
+        if (type === "textarea") {
+          return `
+            <div class="form-full">
+              <label>${label}</label>
+              <textarea name="${name}" placeholder="${label}">${safe(val)}</textarea>
+            </div>
+          `;
+        }
+
+        if (type === "select") {
+          return `
+            <div>
+              <label>${label}</label>
+              <select name="${name}">
+                ${options.map(o => `<option value="${safe(o)}" ${o === val ? "selected" : ""}>${safe(o)}</option>`).join("")}
+              </select>
+            </div>
+          `;
+        }
+
+        if (type === "file") {
+          return `
+            <div>
+              <label>${label}</label>
+              <input type="file" name="${name}" />
+              ${val ? `<small>Current file: ${safe(val)}</small>` : `<small>File name is saved locally as metadata.</small>`}
+            </div>
+          `;
+        }
+
+        return `
+          <div>
+            <label>${label}</label>
+            <input type="${type}" name="${name}" value="${safe(val)}" placeholder="${label}" />
+          </div>
+        `;
+      }).join("");
+
+      document.getElementById("modalBackdrop").classList.add("show");
+    }
+
+    function closeModal() {
+      document.getElementById("modalBackdrop").classList.remove("show");
+      document.getElementById("recordForm").reset();
+      editing = { key: null, id: null };
+    }
+
+    function saveRecord(e) {
+      e.preventDefault();
+
+      const { key, id } = editing;
+      const schema = schemas[key];
+      const form = e.target;
+      const record = id ? { id } : { id: uid() };
+
+      schema.fields.forEach(field => {
+        const [name, label, type] = field;
+        const input = form.elements[name];
+
+        if (type === "file") {
+          const old = id ? (data()[key] || []).find(x => x.id === id)?.[name] : "";
+          record[name] = input.files && input.files[0] ? input.files[0].name : old || "";
+        } else {
+          record[name] = input.value;
+        }
+      });
+
+      const d = data();
+      d[key] = d[key] || [];
+
+      if (id) {
+        d[key] = d[key].map(x => x.id === id ? { ...x, ...record } : x);
+        addAudit(d, "Updated record", key, JSON.stringify(record));
+      } else {
+        d[key].push(record);
+        addAudit(d, "Created record", key, JSON.stringify(record));
+      }
+
+      if (key !== "notifications") {
+        d.notifications = d.notifications || [];
+        d.notifications.unshift({
+          id: uid(),
+          title: `${schema.label} updated`,
+          type: "System",
+          user: currentRole,
+          message: `${currentRole} ${id ? "updated" : "created"} a record in ${schema.label}.`,
+          dueDate: new Date().toISOString().slice(0, 10),
+          status: "Unread"
+        });
+      }
+
+      setData(d);
+      closeModal();
+      toast("Record saved successfully.");
+      renderView(key);
+    }
+
+    function viewRecord(key, id) {
+      const d = data();
+      const schema = schemas[key];
+      const row = (d[key] || []).find(x => x.id === id);
+
+      if (!row) return;
+
+      document.getElementById("modalTitle").textContent = `View ${schema.label}`;
+      document.getElementById("modalBody").innerHTML = schema.fields.map(f => `
+        <div class="${f[2] === "textarea" ? "form-full" : ""}">
+          <label>${f[1]}</label>
+          <div style="background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:12px;min-height:44px;">
+            ${formatCell(row[f[0]], f[2]) || "-"}
+          </div>
+        </div>
+      `).join("");
+
+      document.querySelector(".modal-footer").innerHTML = `
+        <button type="button" class="btn btn-light" onclick="closeModal(); resetModalFooter();">Close</button>
+      `;
+
+      document.getElementById("modalBackdrop").classList.add("show");
+    }
+
+    function resetModalFooter() {
+      document.querySelector(".modal-footer").innerHTML = `
+        <button type="button" class="btn btn-light" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Record</button>
+      `;
+    }
+
+    function deleteRecord(key, id) {
+      if (!confirm("Delete this record?")) return;
+
+      const d = data();
+      d[key] = (d[key] || []).filter(x => x.id !== id);
+      addAudit(d, "Deleted record", key, id);
+      setData(d);
+
+      toast("Record deleted.");
+      renderView(key);
+    }
+
+    function advanceStatus(key, id) {
+      const schema = schemas[key];
+      const d = data();
+      const row = (d[key] || []).find(x => x.id === id);
+
+      if (!row) return;
+
+      const field = row.status !== undefined ? "status" : row.decision !== undefined ? "decision" : null;
+      if (!field) return toast("No status field available.");
+
+      const statusField = schema.fields.find(f => f[0] === field);
+      const options = statusField?.[3] || schema.workflow || [];
+      const idx = options.indexOf(row[field]);
+
+      row[field] = options[Math.min(idx + 1, options.length - 1)] || row[field];
+      addAudit(d, "Advanced workflow status", key, `${id} moved to ${row[field]}`);
+      setData(d);
+
+      toast("Status advanced to " + row[field]);
+      renderView(key);
+    }
+
+    function renderReports() {
+      const d = data();
+
+      document.getElementById("content").innerHTML = `
+        <div class="grid-3">
+          <div class="card">
+            <div class="section-title"><strong>Project Report</strong></div>
+            <p>Total Projects: <strong>${d.projects.length}</strong></p><br>
+            <p>Active: <strong>${d.projects.filter(x => ["Approved", "In Progress"].includes(x.status)).length}</strong></p><br>
+            <p>Completed: <strong>${d.projects.filter(x => x.status === "Completed").length}</strong></p>
+          </div>
+          <div class="card">
+            <div class="section-title"><strong>Grant Report</strong></div>
+            <p>Total Funding: <strong>${money(sum(d.grants, "amount"))}</strong></p><br>
+            <p>Awarded Grants: <strong>${d.grants.filter(x => x.status === "Awarded").length}</strong></p><br>
+            <p>Budget Spent: <strong>${money(sum(d.budgets, "spent"))}</strong></p>
+          </div>
+          <div class="card">
+            <div class="section-title"><strong>Publication Report</strong></div>
+            <p>Publications: <strong>${d.publications.length}</strong></p><br>
+            <p>Total Citations: <strong>${sum(d.publications, "citations")}</strong></p><br>
+            <p>Published: <strong>${d.publications.filter(x => x.status === "Published").length}</strong></p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="section-title">
+              <strong>Research Output by Faculty</strong>
+              <button class="btn btn-light" onclick="print()">Print</button>
+            </div>
+            ${barChart(countBy(d.projects, "faculty"))}
+          </div>
+          <div class="card">
+            <div class="section-title">
+              <strong>Compliance Report</strong>
+              <button class="btn btn-light" onclick="exportAllSummary()">Export Summary CSV</button>
+            </div>
+            ${barChart(countBy(d.ethics, "status"))}
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-title"><strong>Implementation Coverage</strong></div>
+          <div class="timeline">
+            ${[
+              "Multi-stage proposal approval workflow",
+              "Ethics review, monitoring, and closure",
+              "Grant and budget tracking",
+              "Thesis/dissertation lifecycle",
+              "Viva/defense scheduling and decisions",
+              "Research repository and document metadata",
+              "Publication and citation tracking",
+              "Role-based permissions",
+              "Audit trail",
+              "Automated notifications",
+              "Reports and analytics"
+            ].map((x, i) => `
+              <div class="timeline-item">
+                <div class="dot">${i + 1}</div>
+                <div><strong>${x}</strong><br><small>Included in this single-page prototype.</small></div>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAnalytics() {
+      document.getElementById("content").innerHTML = `
+        <div class="grid-2">
+          <div class="card">
+            <div class="section-title"><strong>Projects by Status</strong></div>
+            <div class="canvas-box"><canvas id="chart1"></canvas></div>
+          </div>
+          <div class="card">
+            <div class="section-title"><strong>Budget Allocation vs Spending</strong></div>
+            <div class="canvas-box"><canvas id="chart2"></canvas></div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="section-title"><strong>Ethics Applications by Status</strong></div>
+            <div class="canvas-box"><canvas id="chart3"></canvas></div>
+          </div>
+          <div class="card">
+            <div class="section-title"><strong>Citation Analysis</strong></div>
+            <div class="canvas-box"><canvas id="chart4"></canvas></div>
+          </div>
+        </div>
+      `;
+
+      const d = data();
+      drawCanvasBar("chart1", countBy(d.projects, "status"));
+      drawCanvasBar("chart2", {
+        Allocated: sum(d.budgets, "allocated"),
+        Spent: sum(d.budgets, "spent"),
+        Remaining: sum(d.budgets, "remaining")
+      });
+      drawCanvasBar("chart3", countBy(d.ethics, "status"));
+      drawCanvasBar("chart4", Object.fromEntries(d.publications.map(x => [x.title.slice(0, 18), Number(x.citations || 0)])));
+    }
+
+    function renderRoles() {
+      const modules = Object.values(schemas).map(x => x.label);
+      const actions = ["create", "edit", "delete", "export", "approve", "settings"];
+
+      document.getElementById("content").innerHTML = `
+        <div class="card">
+          <div class="section-title">
+            <strong>Role-Based Access Matrix</strong>
+            <small>Current role: ${currentRole}</small>
+          </div>
+          <div class="matrix">
+            <table>
+              <thead>
+                <tr>
+                  <th>Role</th>
+                  ${actions.map(a => `<th>${a.toUpperCase()}</th>`).join("")}
+                  <th>Typical Scope</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${roles.map(role => `
+                  <tr>
+                    <td><strong>${role}</strong></td>
+                    ${actions.map(a => `<td>${permissions[role]?.includes(a) ? "✅ Allowed" : "—"}</td>`).join("")}
+                    <td>${scope(role)}</td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <br>
+
+        <div class="card">
+          <div class="section-title"><strong>Available System Modules</strong></div>
+          <div class="cards">
+            ${modules.map(m => `<div class="card"><strong>${m}</strong><br><small>Permission controlled</small></div>`).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderSettings() {
+      document.getElementById("content").innerHTML = `
+        <div class="grid-2">
+          <div class="card">
+            <div class="section-title"><strong>Research Settings</strong></div>
+            <label>Academic Year</label>
+            <input value="2026/2027">
+            <br><br>
+            <label>Default Proposal Workflow</label>
+            <input value="Researcher → Supervisor → HOD → Research Committee → Dean">
+            <br><br>
+            <label>Default Ethics Workflow</label>
+            <input value="Submit → Review → Approve → Monitor → Close">
+            <br><br>
+            <button class="btn btn-primary" onclick="toast('Settings saved locally for prototype use.')" ${!can("settings") ? "disabled" : ""}>Save Settings</button>
+          </div>
+
+          <div class="card">
+            <div class="section-title"><strong>System Configuration Ideas</strong></div>
+            <div class="timeline">
+              ${[
+                "Research categories and project types",
+                "Ethics risk rules",
+                "Grant types and funding agencies",
+                "Publication types and citation sources",
+                "Document access permissions",
+                "Approval workflow stages",
+                "Notification templates",
+                "Audit retention period"
+              ].map((x, i) => `
+                <div class="timeline-item">
+                  <div class="dot">${i + 1}</div>
+                  <div>${x}</div>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function workflow(steps, current) {
+      const idx = steps.indexOf(current);
+      return `
+        <div class="workflow">
+          ${steps.map((s, i) => `
+            <span class="step ${i < idx ? "done" : i === idx ? "current" : ""}">${safe(s)}</span>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function barChart(obj, currency = false) {
+      const entries = Object.entries(obj || {});
+      if (!entries.length) return `<div class="empty">No data available.</div>`;
+
+      const max = Math.max(...entries.map(e => Number(e[1]) || 0), 1);
+
+      return `
+        <div class="chart-row">
+          ${entries.map(([label, val]) => `
+            <div class="bar-item">
+              <span>${safe(label || "Unknown")}</span>
+              <div class="bar-track"><div class="bar-fill" style="width:${Math.round((Number(val) / max) * 100)}%"></div></div>
+              <strong>${currency ? money(val) : val}</strong>
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function drawCanvasBar(id, obj) {
+      const canvas = document.getElementById(id);
+      const ctx = canvas.getContext("2d");
+      const ratio = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+
+      canvas.width = rect.width * ratio;
+      canvas.height = rect.height * ratio;
+      ctx.scale(ratio, ratio);
+
+      const w = rect.width;
+      const h = rect.height;
+      const entries = Object.entries(obj || {}).filter(x => x[1] !== undefined);
+      const max = Math.max(...entries.map(e => Number(e[1]) || 0), 1);
+
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = "#64748b";
+      ctx.font = "12px Arial";
+
+      if (!entries.length) {
+        ctx.fillText("No data available", 20, 30);
+        return;
+      }
+
+      const gap = 16;
+      const barW = Math.max(24, (w - 50 - gap * entries.length) / entries.length);
+
+      entries.forEach(([label, val], i) => {
+        const x = 35 + i * (barW + gap);
+        const barH = (Number(val) / max) * (h - 70);
+        const y = h - 38 - barH;
+
+        const grad = ctx.createLinearGradient(0, y, 0, h);
+        grad.addColorStop(0, "#2563eb");
+        grad.addColorStop(1, "#7c3aed");
+
+        ctx.fillStyle = grad;
+        roundRect(ctx, x, y, barW, barH, 8);
+        ctx.fill();
+
+        ctx.fillStyle = "#0f172a";
+        ctx.font = "bold 12px Arial";
+        ctx.fillText(String(val), x, y - 6);
+
+        ctx.save();
+        ctx.translate(x + 5, h - 20);
+        ctx.rotate(-0.35);
+        ctx.fillStyle = "#64748b";
+        ctx.font = "11px Arial";
+        ctx.fillText(label, 0, 0);
+        ctx.restore();
+      });
+    }
+
+    function roundRect(ctx, x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + w, y, x + w, y + h, r);
+      ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r);
+      ctx.arcTo(x, y, x + w, y, r);
+      ctx.closePath();
+    }
+
+    function statusBadge(value) {
+      const cls = String(value || "").toLowerCase().replaceAll(" ", "-").replaceAll("/", "-");
+      return `<span class="badge ${cls}">${safe(value)}</span>`;
+    }
+
+    function formatCell(value, type) {
+      if (value === undefined || value === null || value === "") return "-";
+      if (type === "number" && String(value).length > 3) return money(value);
+      if (String(value).length > 90) return safe(String(value).slice(0, 90)) + "...";
+      return safe(value);
+    }
+
+    function addAudit(d, action, module, changes) {
+      d.audit = d.audit || [];
+      d.audit.unshift({
+        id: uid(),
+        user: "Current User",
+        role: currentRole,
+        action,
+        module,
+        date: new Date().toLocaleString(),
+        changes
+      });
+    }
+
+    function exportCSV(key) {
+      const d = data();
+      const rows = d[key] || [];
+      if (!rows.length) return toast("No records to export.");
+
+      const headers = Object.keys(rows[0]);
+      const csv = [
+        headers.join(","),
+        ...rows.map(row => headers.map(h => `"${String(row[h] ?? "").replaceAll('"', '""')}"`).join(","))
+      ].join("\n");
+
+      download(`${key}.csv`, csv);
+      toast("CSV exported.");
+    }
+
+    function exportAllSummary() {
+      const d = data();
+      const csv = [
+        "Metric,Value",
+        `Projects,${d.projects.length}`,
+        `Proposals,${d.proposals.length}`,
+        `Ethics Applications,${d.ethics.length}`,
+        `Grants,${d.grants.length}`,
+        `Total Funding,${sum(d.grants, "amount")}`,
+        `Publications,${d.publications.length}`,
+        `Students,${d.students.length}`,
+        `Documents,${d.documents.length}`
+      ].join("\n");
+
+      download("research-summary.csv", csv);
+      toast("Summary CSV exported.");
+    }
+
+    function download(filename, content) {
+      const blob = new Blob([content], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function sum(arr, key) {
+      return (arr || []).reduce((t, x) => t + Number(x[key] || 0), 0);
+    }
+
+    function countBy(arr, key) {
+      return (arr || []).reduce((acc, x) => {
+        const k = x[key] || "Unknown";
+        acc[k] = (acc[k] || 0) + 1;
+        return acc;
+      }, {});
+    }
+
+    function sumBy(arr, groupKey, valueKey) {
+      return (arr || []).reduce((acc, x) => {
+        const k = x[groupKey] || "Unknown";
+        acc[k] = (acc[k] || 0) + Number(x[valueKey] || 0);
+        return acc;
+      }, {});
+    }
+
+    function countByYear(arr, key) {
+      return (arr || []).reduce((acc, x) => {
+        const year = x[key] ? String(x[key]).slice(0, 4) : "Unknown";
+        acc[year] = (acc[year] || 0) + 1;
+        return acc;
+      }, {});
+    }
+
+    function money(value) {
+      return "$" + Number(value || 0).toLocaleString();
+    }
+
+    function safe(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function scope(role) {
+      const map = {
+        "Admin": "Full system access",
+        "Research Director": "University-wide research oversight",
+        "Dean": "Faculty-level approvals and reports",
+        "HOD": "Department-level approvals and supervision",
+        "Supervisor": "Student and project supervision",
+        "Researcher": "Own projects, proposals, grants, outputs",
+        "Student": "Own research records and submissions",
+        "Reviewer": "Proposal and ethics review tasks"
+      };
+
+      return map[role] || "Limited access";
+    }
+
+    function toast(message) {
+      const el = document.getElementById("toast");
+      el.textContent = message;
+      el.classList.add("show");
+      setTimeout(() => el.classList.remove("show"), 2600);
+    }
+
+    document.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>
