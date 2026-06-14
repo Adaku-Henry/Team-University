@@ -1,1195 +1,660 @@
-// MOBILE MENU TOGGLE
-
-const menuBtn = document.querySelector(".menu-btn");
-const navLinks = document.querySelector(".nav-links");
-
-menuBtn.addEventListener("click", () => {
-
-    navLinks.classList.toggle("active");
-
-});
-
-
-// CLOSE MENU AFTER CLICKING LINK
-
-document.querySelectorAll(".nav-links a")
-.forEach(link => {
-
-    link.addEventListener("click", () => {
-
-        navLinks.classList.remove("active");
-
-    });
-
-});
-
-
-// STICKY NAVBAR EFFECT
-
-window.addEventListener("scroll", () => {
-
-    const header = document.querySelector("header");
-
-    if(window.scrollY > 100){
-
-        header.style.boxShadow =
-        "0 4px 15px rgba(0,0,0,0.15)";
-
-    }
-    else{
-
-        header.style.boxShadow =
-        "0 2px 10px rgba(0,0,0,0.1)";
-    }
-
-});
-
-
-// SMOOTH SCROLLING
-
-document.querySelectorAll('a[href^="#"]')
-.forEach(anchor => {
-
-    anchor.addEventListener("click", function(e){
-
-        e.preventDefault();
-
-        const target =
-        document.querySelector(
-            this.getAttribute("href")
-        );
-
-        if(target){
-
-            target.scrollIntoView({
-
-                behavior:"smooth"
-
-            });
-
-        }
-
-    });
-
-});
-
-
-// ANIMATED COUNTERS
-
-const counters =
-document.querySelectorAll(".stat h2");
-
-const speed = 200;
-
-counters.forEach(counter => {
-
-    const updateCounter = () => {
-
-        const target =
-        +counter.innerText.replace("+","");
-
-        const current =
-        +counter.innerText.replace("+","");
-
-        const increment =
-        target / speed;
-
-        if(current < target){
-
-            counter.innerText =
-            Math.ceil(current + increment) + "+";
-
-            setTimeout(updateCounter,20);
-
-        }
-        else{
-
-            counter.innerText =
-            target + "+";
-
-        }
-
-    };
-
-    updateCounter();
-
-});
-
-
-// SCROLL REVEAL ANIMATION
-
-const revealElements =
-document.querySelectorAll(
-".program-card, .feature, .news-card, .testimonial"
-);
-
-function revealOnScroll(){
-
-    revealElements.forEach(item => {
-
-        const position =
-        item.getBoundingClientRect().top;
-
-        const windowHeight =
-        window.innerHeight;
-
-        if(position < windowHeight - 100){
-
-            item.style.opacity = "1";
-
-            item.style.transform =
-            "translateY(0px)";
-        }
-
-    });
-
-}
-
-revealElements.forEach(item => {
-
-    item.style.opacity = "0";
-
-    item.style.transform =
-    "translateY(60px)";
-
-    item.style.transition =
-    "all 0.8s ease";
-
-});
-
-window.addEventListener(
-"scroll",
-revealOnScroll
-);
-
-revealOnScroll();
-
-
-// SEARCH BOX FUNCTIONALITY
-
-const searchInput =
-document.querySelector(".search-box input");
-
-if(searchInput){
-
-searchInput.addEventListener(
-"keyup",
-function(){
-
-console.log(
-"Searching:",
-this.value
-);
-
-});
-
-}
-
-
-// BACK TO TOP BUTTON
-
-const topButton =
-document.createElement("button");
-
-topButton.innerHTML =
-'<i class="fa fa-arrow-up"></i>';
-
-topButton.classList.add(
-"back-to-top"
-);
-
-document.body.appendChild(
-topButton
-);
-
-window.addEventListener(
-"scroll",
-() => {
-
-if(window.scrollY > 400){
-
-topButton.style.display =
-"block";
-
-}
-else{
-
-topButton.style.display =
-"none";
-
-}
-
-});
-
-topButton.addEventListener(
-"click",
-() => {
-
-window.scrollTo({
-
-top:0,
-
-behavior:"smooth"
-
-});
-
-});
-
-
-// ACTIVE NAVIGATION LINKS
-
-const sections =
-document.querySelectorAll("section");
-
-const navItems =
-document.querySelectorAll(
-".nav-links a"
-);
-
-window.addEventListener(
-"scroll",
-() => {
-
-let current = "";
-
-sections.forEach(section => {
-
-const sectionTop =
-section.offsetTop;
-
-if(window.scrollY >=
-sectionTop - 200){
-
-current =
-section.getAttribute("id");
-
-}
-
-});
-
-navItems.forEach(link => {
-
-link.classList.remove(
-"active-link"
-);
-
-if(
-
-link.getAttribute("href")
-=== "#" + current
-
-){
-
-link.classList.add(
-"active-link"
-);
-
-}
-
-});
-
-});
-
-
-// LOADING EFFECT
-
-window.addEventListener(
-"load",
-() => {
-
-document.body.style.opacity =
-"1";
-
-});
-
-
-
-
-// =====================================
-// ABOUT SECTION INTERACTIONS
-// =====================================
-
-
-// REVEAL ABOUT ELEMENTS ON SCROLL
-
-const aboutElements = document.querySelectorAll(
-
-    ".about-intro, .history-section, .vision-box, .mission-box, .value-card, .leader-card, .achievement, .objectives, .about-cta"
-    
-    );
-    
-    function revealAboutSections(){
-    
-    aboutElements.forEach((element)=>{
-    
-    const position =
-    element.getBoundingClientRect().top;
-    
-    const screenPosition =
-    window.innerHeight - 120;
-    
-    if(position < screenPosition){
-    
-    element.style.opacity = "1";
-    
-    element.style.transform =
-    "translateY(0px)";
-    
-    }
-    
-    });
-    
-    }
-    
-    aboutElements.forEach((element)=>{
-    
-    element.style.opacity = "0";
-    
-    element.style.transform =
-    "translateY(60px)";
-    
-    element.style.transition =
-    "all 0.8s ease";
-    
-    });
-    
-    window.addEventListener(
-    
-    "scroll",
-    
-    revealAboutSections
-    
-    );
-    
-    revealAboutSections();
-    
-    
-    
-    // ACHIEVEMENT COUNTERS
-    
-    const achievementCounters =
-    
-    document.querySelectorAll(
-    
-    ".achievement h2"
-    
-    );
-    
-    const observer = new IntersectionObserver(
-    
-    (entries)=>{
-    
-    entries.forEach(entry=>{
-    
-    if(entry.isIntersecting){
-    
-    const counter =
-    
-    entry.target;
-    
-    const target = parseInt(
-    
-    counter.innerText.replace("+","")
-    
-    );
-    
-    let count = 0;
-    
-    const increment =
-    
-    target / 100;
-    
-    const updateCounter = ()=>{
-    
-    if(count < target){
-    
-    count += increment;
-    
-    counter.innerText =
-    
-    Math.ceil(count) + "+";
-    
-    requestAnimationFrame(
-    
-    updateCounter
-    
-    );
-    
-    }
-    else{
-    
-    counter.innerText =
-    
-    target + "+";
-    
-    }
-    
-    };
-    
-    updateCounter();
-    
-    observer.unobserve(counter);
-    
-    }
-    
-    });
-    
-    },
-    
-    {
-    
-    threshold:0.5
-    
-    }
-    
-    );
-    
-    achievementCounters.forEach(counter=>{
-    
-    observer.observe(counter);
-    
-    });
-    
-    
-    
-    // VALUE CARD HOVER EFFECT
-    
-    const valueCards =
-    
-    document.querySelectorAll(
-    
-    ".value-card"
-    
-    );
-    
-    valueCards.forEach(card=>{
-    
-    card.addEventListener(
-    
-    "mouseenter",
-    
-    ()=>{
-    
-    card.style.transform =
-    
-    "translateY(-12px) scale(1.03)";
-    
-    });
-    
-    card.addEventListener(
-    
-    "mouseleave",
-    
-    ()=>{
-    
-    card.style.transform =
-    
-    "translateY(0px) scale(1)";
-    
-    });
-    
-    });
-    
-    
-    
-    // LEADERSHIP IMAGE ZOOM
-    
-    const leaders =
-    
-    document.querySelectorAll(
-    
-    ".leader-card img"
-    
-    );
-    
-    leaders.forEach(img=>{
-    
-    img.addEventListener(
-    
-    "mouseenter",
-    
-    ()=>{
-    
-    img.style.transform =
-    
-    "scale(1.08)";
-    
-    img.style.transition =
-    
-    ".4s";
-    
-    });
-    
-    img.addEventListener(
-    
-    "mouseleave",
-    
-    ()=>{
-    
-    img.style.transform =
-    
-    "scale(1)";
-    
-    });
-    
-    });
-    
-    
-    
-    // CTA BUTTON ANIMATION
-    
-    const ctaButton =
-    
-    document.querySelector(
-    
-    ".about-cta a"
-    
-    );
-    
-    if(ctaButton){
-    
-    setInterval(()=>{
-    
-    ctaButton.classList.toggle(
-    
-    "pulse"
-    
-    );
-    
-    },1500);
-    
-    }
-    
-    
-    
-    // OBJECTIVES FADE EFFECT
-    
-    const objectiveItems =
-    
-    document.querySelectorAll(
-    
-    ".objectives li"
-    
-    );
-    
-    objectiveItems.forEach(
-    
-    (item,index)=>{
-    
-    item.style.opacity = "0";
-    
-    item.style.transition =
-    
-    ".6s";
-    
-    item.style.transitionDelay =
-    
-    `${index * 0.2}s`;
-    
-    });
-    
-    function showObjectives(){
-    
-    objectiveItems.forEach(item=>{
-    
-    const top =
-    
-    item.getBoundingClientRect().top;
-    
-    if(top < window.innerHeight - 80){
-    
-    item.style.opacity = "1";
-    
-    item.style.transform =
-    
-    "translateX(0px)";
-    
-    }
-    
-    });
-    
-    }
-    
-    objectiveItems.forEach(item=>{
-    
-    item.style.transform =
-    
-    "translateX(-40px)";
-    
-    });
-    
-    window.addEventListener(
-    
-    "scroll",
-    
-    showObjectives
-    
-    );
-    
-    showObjectives();
-    
-    
-    
-    // HISTORY SECTION HIGHLIGHT
-    
-    const historySection =
-    
-    document.querySelector(
-    
-    ".history-section"
-    
-    );
-    
-    if(historySection){
-    
-    window.addEventListener(
-    
-    "scroll",
-    
-    ()=>{
-    
-    const pos =
-    
-    historySection.getBoundingClientRect().top;
-    
-    if(pos < 300){
-    
-    historySection.style.borderLeft =
-    
-    "8px solid #ffb703";
-    
-    }
-    
-    });
-    
-    }
-    
-    
-    
-    // SIMPLE PARALLAX EFFECT
-    
-    window.addEventListener(
-    
-    "scroll",
-    
-    ()=>{
-    
-    const aboutImage =
-    
-    document.querySelector(
-    
-    ".about-image img"
-    
-    );
-    
-    if(aboutImage){
-    
-    const scrollValue =
-    
-    window.scrollY;
-    
-    aboutImage.style.transform =
-    
-    `translateY(${scrollValue * 0.05}px)`;
-    
-    }
-    
-    });
-    
-    
-    
-    // SECTION LOAD ANIMATION
-    
-    window.addEventListener(
-    
-    "load",
-    
-    ()=>{
-    
-    const aboutPage =
-    
-    document.querySelector(
-    
-    ".about-page"
-    
-    );
-    
-    if(aboutPage){
-    
-    aboutPage.style.opacity = "1";
-    
-    aboutPage.style.transition =
-    
-    "1s";
-    
-    }
-    
-    });
-    
-
-
-// ===========================
-// ACADEMICS PAGE SCROLL ANIMATION
-// ===========================
-
-const academicElements = document.querySelectorAll(
-
-    ".school-card, .program-item, .teach-card, .departments li, .elearning, .cta"
-    
-    );
-    
-
-    const admissionElements = document.querySelectorAll(
-        ".admission-intro, .req-card, .fee-row, .step"
-        );
-        
-        admissionElements.forEach(el => {
-            el.style.opacity = "0";
-            el.style.transform = "translateY(60px)";
-            el.style.transition = "all 0.8s ease";
-        });
-        
-        function revealAdmissions(){
-            admissionElements.forEach(el => {
-                const top = el.getBoundingClientRect().top;
-                if(top < window.innerHeight - 100){
-                    el.style.opacity = "1";
-                    el.style.transform = "translateY(0)";
-                }
-            });
-        }
-        
-        window.addEventListener("scroll", revealAdmissions);
-        revealAdmissions();
-
-    
-    // INITIAL STATE (hidden)
-    
-    academicElements.forEach(el => {
-    
-    el.style.opacity = "0";
-    
-    el.style.transform = "translateY(60px)";
-    
-    el.style.transition = "all 0.8s ease";
-    
-    });
-    
-    
-    // SCROLL FUNCTION
-    
-    function revealAcademics(){
-    
-    academicElements.forEach(el => {
-    
-    const elementTop = el.getBoundingClientRect().top;
-    
-    const windowHeight = window.innerHeight;
-    
-    if(elementTop < windowHeight - 100){
-    
-    el.style.opacity = "1";
-    
-    el.style.transform = "translateY(0)";
-    
-    }
-    
-    });
-    
-    }
-    
-    
-    // RUN ON SCROLL
-    
-    window.addEventListener("scroll", revealAcademics);
-    
-    
-    // RUN ON LOAD
-    
-    window.addEventListener("load", revealAcademics);
-
-    
-    // SIDEBAR NAVIGATION
-function showSection(sectionId){
-
-    document.querySelectorAll(".portal-section")
-    .forEach(sec => sec.classList.remove("active"));
-
-    document.getElementById(sectionId)
-    .classList.add("active");
-
-    document.querySelectorAll(".sidebar-menu li")
-    .forEach(li => li.classList.remove("active"));
-
-    event.target.classList.add("active");
-}
-
-// ENROLL COURSE SYSTEM
-function enroll(course){
-
-let enrolled = JSON.parse(localStorage.getItem("enrolledCourses")) || [];
-
-if(!enrolled.includes(course)){
-enrolled.push(course);
-localStorage.setItem("enrolledCourses", JSON.stringify(enrolled));
-alert("Enrolled in " + course);
-updateEnrolledList();
-}else{
-alert("Already enrolled in " + course);
-}
-
-}
-
-// VIEW MATERIALS
-function openCourse(course){
-alert("Opening materials for: " + course);
-window.location.href = "#";
-}
-
-// UPDATE ENROLLED LIST
-function updateEnrolledList(){
-
-let list = document.getElementById("enrolledList");
-let enrolled = JSON.parse(localStorage.getItem("enrolledCourses")) || [];
-
-list.innerHTML = "";
-
-if(enrolled.length === 0){
-list.innerHTML = "<li>No courses enrolled yet</li>";
-return;
-}
-
-enrolled.forEach(c => {
-let li = document.createElement("li");
-li.innerText = c;
-list.appendChild(li);
-});
-
-}
-
-// LOAD ON PAGE OPEN
-window.addEventListener("load", updateEnrolledList);
-
-// LOAD SUBMISSIONS
-function loadSubmissions(){
-
-let list = document.getElementById("submissionList");
-let submissions = JSON.parse(localStorage.getItem("submissions")) || [];
-
-list.innerHTML = "";
-
-if(submissions.length === 0){
-list.innerHTML = "<li>No submissions yet</li>";
-return;
-}
-
-submissions.forEach(sub => {
-
-let li = document.createElement("li");
-
-li.innerHTML = `
-<b>${sub.title}</b> - ${sub.status}
-`;
-
-list.appendChild(li);
-
-});
-
-}
-
-// SUBMIT ASSIGNMENT
-function submitAssignment(title,fileId){
-
-let fileInput = document.getElementById(fileId);
-
-if(fileInput.files.length === 0){
-alert("Please select a file before submitting");
-return;
-}
-
-let submissions = JSON.parse(localStorage.getItem("submissions")) || [];
-
-submissions.push({
-title:title,
-status:"Submitted",
-file:fileInput.files[0].name
-});
-
-localStorage.setItem("submissions", JSON.stringify(submissions));
-
-alert("Assignment submitted successfully!");
-
-loadSubmissions();
-
-}
-
-// VIEW FEEDBACK (SIMULATED)
-function viewFeedback(title){
-
-alert(
-"Feedback for " + title + ":\n\nGood work. Improve referencing and formatting."
-);
-
-}
-
-// LOAD ON START
-window.addEventListener("load", loadSubmissions);
-
-// ===========================
-// RESULTS PAGE LOGIC
-// ===========================
-
-// Load Results (simulate semester switching)
-function loadResults() {
-
-    const semester =
-        document.getElementById("semesterSelect").value;
-
-    const resultsBody =
-        document.getElementById("resultsBody");
-
-    console.log("Loading:", semester);
-
-    // Simple demo switch (you can later connect database)
-    if (semester === "Semester 2") {
-
-        resultsBody.innerHTML = `
-        <tr>
-            <td>BIT201</td>
-            <td>Advanced Programming</td>
-            <td>80</td>
-            <td>A</td>
-            <td>Excellent</td>
-        </tr>
-        <tr>
-            <td>BIT202</td>
-            <td>Database Systems</td>
-            <td>75</td>
-            <td>B+</td>
-            <td>Very Good</td>
-        </tr>
-        <tr>
-            <td>BIT203</td>
-            <td>Operating Systems</td>
-            <td>70</td>
-            <td>B</td>
-            <td>Good</td>
-        </tr>
-        `;
-
-        document.getElementById("gpaValue").innerText = "3.70";
-
-    } else {
-
-        location.reload(); // reset to semester 1 demo
-
-    }
-}
-
-
-// DOWNLOAD TRANSCRIPT (mock)
-function downloadTranscript() {
-
-    alert("Generating transcript... Download will start shortly.");
-
-    // later you can connect PDF generator (jsPDF or backend)
-}
-
-// ===========================
-// FEES MODULE
-// ===========================
-
-// Generate payment reference
-function generateRef() {
-
-    const amount =
-        document.getElementById("amount").value;
-
-    if (!amount) {
-        alert("Enter amount first");
-        return;
-    }
-
-    const ref =
-        "TU-" + Math.floor(Math.random() * 100000000);
-
-    document.getElementById("refCode").innerText =
-        ref + " (UGX " + amount + ")";
-
-}
-
-// Simulate payment
-function makePayment() {
-
-    const ref =
-        document.getElementById("refCode").innerText;
-
-    if (ref === "No reference generated") {
-        alert("Generate payment reference first");
-        return;
-    }
-
-    alert("Payment Successful via selected method!");
-
-    // update balance (demo logic)
-    const balance = document.getElementById("balance");
-
-    let current =
-        parseInt(balance.innerText.replace(/[^0-9]/g, ""));
-
-    let newBalance = current - 100000;
-
-    balance.innerText = "UGX " + newBalance;
-}
-
-// Download receipt
-function downloadReceipt() {
-
-    alert("Downloading receipt...");
-
-}
-
-// =========================
-// LMS SECTION SWITCHING
-// =========================
-
-function showSection(id){
-
-    const sections = document.querySelectorAll(".portal-section");
-
-    sections.forEach(sec => {
-        sec.classList.remove("active");
-    });
-
-    document.getElementById(id).classList.add("active");
-}
-
-// =========================
-// DEFAULT LOAD
-// =========================
+/* =========================================================
+   BENCHMARK BUSINESS AND TECHNICAL COLLEGE
+   Modern University Website - Main JavaScript
+========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-    showSection("dashboard");
+    initMobileMenu();
+    initStickyHeader();
+    initSmoothInternalScroll();
+    initRevealAnimations();
+    initCounters();
+    initSearch();
+    initBackToTop();
+    initActiveNavigation();
+    initYear();
 });
 
 /* =========================
-   GLOBAL LMS SCRIPT
+   MOBILE MENU
 ========================= */
 
-let enrolledCourses = JSON.parse(localStorage.getItem("enrolledCourses")) || [];
+function initMobileMenu() {
+    const menuBtn = document.querySelector(".menu-btn");
+    const navLinks = document.querySelector(".nav-links");
+    const navItems = document.querySelectorAll(".nav-links a");
 
-/* =========================
-   ENROLL COURSE SYSTEM
-========================= */
+    if (!menuBtn || !navLinks) return;
 
-function enrollCourse(code, name, credits, type) {
+    menuBtn.setAttribute("role", "button");
+    menuBtn.setAttribute("aria-label", "Open menu");
+    menuBtn.setAttribute("aria-expanded", "false");
 
-    enrolledCourses.push({
-        code,
-        name,
-        credits,
-        type
+    menuBtn.addEventListener("click", () => {
+        const isOpen = navLinks.classList.toggle("active");
+        menuBtn.setAttribute("aria-expanded", String(isOpen));
+
+        const icon = menuBtn.querySelector("i");
+        if (icon) {
+            icon.classList.toggle("fa-bars", !isOpen);
+            icon.classList.toggle("fa-xmark", isOpen);
+        }
     });
 
-    localStorage.setItem("enrolledCourses", JSON.stringify(enrolledCourses));
+    navItems.forEach(link => {
+        link.addEventListener("click", () => {
+            navLinks.classList.remove("active");
+            menuBtn.setAttribute("aria-expanded", "false");
 
-    alert(`${name} enrolled successfully as ${type}`);
-
-    renderEnrolledCourses();
-}
-
-/* =========================
-   RENDER ENROLLED COURSES
-========================= */
-
-function renderEnrolledCourses() {
-
-    const table = document.getElementById("enrolledTable");
-
-    if (!table) return;
-
-    table.innerHTML = "";
-
-    enrolledCourses.forEach((c, index) => {
-
-        table.innerHTML += `
-            <tr>
-                <td>${c.code}</td>
-                <td>${c.name}</td>
-                <td>${c.credits}</td>
-                <td>${c.type}</td>
-                <td>Lecturer TBD</td>
-                <td class="good">Active</td>
-                <td><button onclick="removeCourse(${index})">Remove</button></td>
-            </tr>
-        `;
+            const icon = menuBtn.querySelector("i");
+            if (icon) {
+                icon.classList.add("fa-bars");
+                icon.classList.remove("fa-xmark");
+            }
+        });
     });
 
-    updateSummary();
+    document.addEventListener("click", event => {
+        const clickedInsideMenu = navLinks.contains(event.target);
+        const clickedMenuButton = menuBtn.contains(event.target);
+
+        if (!clickedInsideMenu && !clickedMenuButton) {
+            navLinks.classList.remove("active");
+            menuBtn.setAttribute("aria-expanded", "false");
+
+            const icon = menuBtn.querySelector("i");
+            if (icon) {
+                icon.classList.add("fa-bars");
+                icon.classList.remove("fa-xmark");
+            }
+        }
+    });
 }
 
 /* =========================
-   REMOVE COURSE
+   STICKY HEADER SHADOW
 ========================= */
 
-function removeCourse(index) {
+function initStickyHeader() {
+    const header = document.querySelector("header");
+    if (!header) return;
 
-    enrolledCourses.splice(index, 1);
+    const updateHeader = () => {
+        if (window.scrollY > 80) {
+            header.classList.add("scrolled");
+        } else {
+            header.classList.remove("scrolled");
+        }
+    };
 
-    localStorage.setItem("enrolledCourses", JSON.stringify(enrolledCourses));
-
-    renderEnrolledCourses();
+    window.addEventListener("scroll", updateHeader);
+    updateHeader();
 }
 
 /* =========================
-   UPDATE SUMMARY
+   SMOOTH SCROLL FOR SAME-PAGE LINKS
 ========================= */
 
-function updateSummary() {
+function initSmoothInternalScroll() {
+    const links = document.querySelectorAll('a[href^="#"]');
 
-    let total = enrolledCourses.length;
+    links.forEach(link => {
+        link.addEventListener("click", event => {
+            const targetId = link.getAttribute("href");
 
-    let credits = enrolledCourses.reduce((sum, c) => sum + c.credits, 0);
+            if (!targetId || targetId === "#") return;
 
-    const totalCourses = document.getElementById("totalCourses");
-    const totalCredits = document.getElementById("totalCredits");
+            const target = document.querySelector(targetId);
 
-    if (totalCourses) totalCourses.innerText = total;
-    if (totalCredits) totalCredits.innerText = credits;
+            if (target) {
+                event.preventDefault();
+
+                const headerHeight = document.querySelector("header")?.offsetHeight || 0;
+                const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: "smooth"
+                });
+            }
+        });
+    });
 }
 
 /* =========================
-   INITIAL LOAD
+   SCROLL REVEAL ANIMATION
 ========================= */
 
-document.addEventListener("DOMContentLoaded", function () {
-    renderEnrolledCourses();
-});
+function initRevealAnimations() {
+    const revealSelectors = [
+        ".about-image",
+        ".about-text",
+        ".program-card",
+        ".feature",
+        ".stat",
+        ".news-card",
+        ".testimonial",
+        ".cta h2",
+        ".cta p",
+        ".cta a",
+        ".school-card",
+        ".program-item",
+        ".teach-card",
+        ".req-card",
+        ".fee-row",
+        ".step",
+        ".admission-intro"
+    ];
+
+    const elements = document.querySelectorAll(revealSelectors.join(","));
+
+    if (!elements.length) return;
+
+    elements.forEach(element => element.classList.add("reveal"));
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.12,
+        rootMargin: "0px 0px -70px 0px"
+    });
+
+    elements.forEach(element => observer.observe(element));
+}
 
 /* =========================
-   PLACEHOLDER FUNCTIONS
+   ANIMATED COUNTERS
 ========================= */
+
+function initCounters() {
+    const counters = document.querySelectorAll(".stat h2");
+
+    if (!counters.length) return;
+
+    counters.forEach(counter => {
+        const originalText = counter.textContent.trim();
+        const target = parseInt(originalText.replace(/\D/g, ""), 10);
+
+        if (Number.isNaN(target)) return;
+
+        counter.dataset.target = String(target);
+        counter.dataset.suffix = originalText.includes("+") ? "+" : "";
+        counter.textContent = "0" + counter.dataset.suffix;
+    });
+
+    const animateCounter = counter => {
+        const target = parseInt(counter.dataset.target, 10);
+        const suffix = counter.dataset.suffix || "";
+        const duration = 1600;
+        const startTime = performance.now();
+
+        const update = currentTime => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easedProgress = 1 - Math.pow(1 - progress, 3);
+            const currentValue = Math.floor(easedProgress * target);
+
+            counter.textContent = currentValue + suffix;
+
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            } else {
+                counter.textContent = target + suffix;
+            }
+        };
+
+        requestAnimationFrame(update);
+    };
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounter(entry.target);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.45
+    });
+
+    counters.forEach(counter => observer.observe(counter));
+}
+
+/* =========================
+   SEARCH FUNCTIONALITY
+========================= */
+
+function initSearch() {
+    const searchInput = document.querySelector(".search-box input");
+    if (!searchInput) return;
+
+    const searchableItems = document.querySelectorAll(
+        ".program-card, .news-card, .feature, .testimonial"
+    );
+
+    const containers = [
+        document.querySelector(".program-container"),
+        document.querySelector(".news-container"),
+        document.querySelector(".features"),
+        document.querySelector(".testimonial-container")
+    ].filter(Boolean);
+
+    searchInput.addEventListener("input", () => {
+        const query = searchInput.value.trim().toLowerCase();
+
+        searchableItems.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            const matches = text.includes(query);
+
+            item.classList.toggle("is-hidden", query !== "" && !matches);
+        });
+
+        containers.forEach(container => updateNoResultsMessage(container, query));
+    });
+}
+
+function updateNoResultsMessage(container, query) {
+    const existingMessage = container.querySelector(".no-results");
+    if (existingMessage) existingMessage.remove();
+
+    if (!query) return;
+
+    const visibleItems = Array.from(container.children).filter(child => {
+        return !child.classList.contains("is-hidden") && !child.classList.contains("no-results");
+    });
+
+    if (visibleItems.length === 0) {
+        const message = document.createElement("div");
+        message.className = "no-results";
+        message.innerHTML = `<strong>No results found.</strong><br>Try another keyword.`;
+        container.appendChild(message);
+    }
+}
+
+/* =========================
+   BACK TO TOP BUTTON
+========================= */
+
+function initBackToTop() {
+    let topButton = document.querySelector(".back-to-top");
+
+    if (!topButton) {
+        topButton = document.createElement("button");
+        topButton.className = "back-to-top";
+        topButton.innerHTML = `<i class="fa fa-arrow-up"></i>`;
+        topButton.setAttribute("aria-label", "Back to top");
+        document.body.appendChild(topButton);
+    }
+
+    const toggleButton = () => {
+        if (window.scrollY > 450) {
+            topButton.classList.add("show");
+        } else {
+            topButton.classList.remove("show");
+        }
+    };
+
+    window.addEventListener("scroll", toggleButton);
+    toggleButton();
+
+    topButton.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+}
+
+/* =========================
+   ACTIVE NAVIGATION
+========================= */
+
+function initActiveNavigation() {
+    const navLinks = document.querySelectorAll(".nav-links a");
+    if (!navLinks.length) return;
+
+    const currentPage = normalizePath(window.location.pathname);
+
+    navLinks.forEach(link => {
+        const linkPath = normalizePath(new URL(link.href, window.location.origin).pathname);
+
+        if (linkPath === currentPage) {
+            link.classList.add("active-link");
+        }
+    });
+
+    const sections = document.querySelectorAll("section[id]");
+    if (!sections.length) return;
+
+    const onScroll = () => {
+        let currentSectionId = "";
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 180;
+            if (window.scrollY >= sectionTop) {
+                currentSectionId = section.getAttribute("id");
+            }
+        });
+
+        navLinks.forEach(link => {
+            const href = link.getAttribute("href");
+            if (href && href === "#" + currentSectionId) {
+                link.classList.add("active-link");
+            }
+        });
+    };
+
+    window.addEventListener("scroll", onScroll);
+}
+
+function normalizePath(path) {
+    let cleanPath = path.replace(/\/+$/, "");
+    if (cleanPath === "") cleanPath = "/";
+
+    return cleanPath;
+}
+
+/* =========================
+   AUTO YEAR IN FOOTER
+========================= */
+
+function initYear() {
+    const footerBottom = document.querySelector(".footer-bottom p");
+    if (!footerBottom) return;
+
+    const currentYear = new Date().getFullYear();
+
+    footerBottom.innerHTML = footerBottom.innerHTML.replace(/\d{4}/, currentYear);
+}
+
+/* =========================
+   OPTIONAL PROGRAM FILTERS
+   Works if you add:
+   - input#searchProgram
+   - buttons with .filter-btn and data-filter
+   - cards with .program-item and data-category
+========================= */
+
+const programSearch = document.getElementById("searchProgram");
+const filterButtons = document.querySelectorAll(".filter-btn");
+const programItems = document.querySelectorAll(".program-item");
+
+if (programSearch && programItems.length) {
+    programSearch.addEventListener("input", filterPrograms);
+}
+
+if (filterButtons.length && programItems.length) {
+    filterButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            filterButtons.forEach(btn => btn.classList.remove("active"));
+            button.classList.add("active");
+            filterPrograms();
+        });
+    });
+}
+
+function filterPrograms() {
+    const query = programSearch ? programSearch.value.toLowerCase().trim() : "";
+    const activeButton = document.querySelector(".filter-btn.active");
+    const category = activeButton ? activeButton.dataset.filter : "all";
+
+    programItems.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        const itemCategory = item.dataset.category || "all";
+
+        const matchesSearch = text.includes(query);
+        const matchesCategory = category === "all" || itemCategory === category;
+
+        item.classList.toggle("hidden", !(matchesSearch && matchesCategory));
+    });
+}
+
+/* =========================
+   STUDENT / LMS SAFE HELPERS
+   These only run when matching elements exist.
+========================= */
+
+function showSection(sectionId) {
+    const sections = document.querySelectorAll(".portal-section");
+    const target = document.getElementById(sectionId);
+
+    if (!sections.length || !target) return;
+
+    sections.forEach(section => section.classList.remove("active"));
+    target.classList.add("active");
+}
+
+window.showSection = showSection;
+
+function enroll(course) {
+    if (!course) return;
+
+    const enrolled = JSON.parse(localStorage.getItem("enrolledCoursesSimple")) || [];
+
+    if (!enrolled.includes(course)) {
+        enrolled.push(course);
+        localStorage.setItem("enrolledCoursesSimple", JSON.stringify(enrolled));
+        alert("Enrolled in " + course);
+        updateEnrolledList();
+    } else {
+        alert("Already enrolled in " + course);
+    }
+}
+
+window.enroll = enroll;
+
+function updateEnrolledList() {
+    const list = document.getElementById("enrolledList");
+    if (!list) return;
+
+    const enrolled = JSON.parse(localStorage.getItem("enrolledCoursesSimple")) || [];
+
+    list.innerHTML = "";
+
+    if (enrolled.length === 0) {
+        list.innerHTML = "<li>No courses enrolled yet</li>";
+        return;
+    }
+
+    enrolled.forEach(course => {
+        const li = document.createElement("li");
+        li.textContent = course;
+        list.appendChild(li);
+    });
+}
+
+window.updateEnrolledList = updateEnrolledList;
+
+function submitAssignment(title, fileId) {
+    const fileInput = document.getElementById(fileId);
+
+    if (!fileInput || fileInput.files.length === 0) {
+        alert("Please select a file before submitting.");
+        return;
+    }
+
+    const submissions = JSON.parse(localStorage.getItem("submissions")) || [];
+
+    submissions.push({
+        title,
+        status: "Submitted",
+        file: fileInput.files[0].name,
+        date: new Date().toLocaleString()
+    });
+
+    localStorage.setItem("submissions", JSON.stringify(submissions));
+
+    alert("Assignment submitted successfully!");
+    loadSubmissions();
+}
+
+window.submitAssignment = submitAssignment;
+
+function loadSubmissions() {
+    const list = document.getElementById("submissionList");
+    if (!list) return;
+
+    const submissions = JSON.parse(localStorage.getItem("submissions")) || [];
+
+    list.innerHTML = "";
+
+    if (submissions.length === 0) {
+        list.innerHTML = "<li>No submissions yet</li>";
+        return;
+    }
+
+    submissions.forEach(submission => {
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>${submission.title}</strong> - ${submission.status} <small>(${submission.file})</small>`;
+        list.appendChild(li);
+    });
+}
+
+window.loadSubmissions = loadSubmissions;
+
+function viewFeedback(title) {
+    alert("Feedback for " + title + ":\n\nGood work. Improve referencing and formatting.");
+}
+
+window.viewFeedback = viewFeedback;
+
+function loadResults() {
+    const semesterSelect = document.getElementById("semesterSelect");
+    const resultsBody = document.getElementById("resultsBody");
+    const gpaValue = document.getElementById("gpaValue");
+
+    if (!semesterSelect || !resultsBody) return;
+
+    const semester = semesterSelect.value;
+
+    const semesterOne = [
+        ["BIT101", "Introduction to ICT", "82", "A", "Excellent"],
+        ["BUS101", "Business Communication", "76", "B+", "Very Good"],
+        ["ACC101", "Financial Accounting", "71", "B", "Good"]
+    ];
+
+    const semesterTwo = [
+        ["BIT201", "Advanced Programming", "80", "A", "Excellent"],
+        ["BIT202", "Database Systems", "75", "B+", "Very Good"],
+        ["BIT203", "Operating Systems", "70", "B", "Good"]
+    ];
+
+    const data = semester === "Semester 2" ? semesterTwo : semesterOne;
+
+    resultsBody.innerHTML = data.map(row => `
+        <tr>
+            <td>${row[0]}</td>
+            <td>${row[1]}</td>
+            <td>${row[2]}</td>
+            <td>${row[3]}</td>
+            <td>${row[4]}</td>
+        </tr>
+    `).join("");
+
+    if (gpaValue) {
+        gpaValue.textContent = semester === "Semester 2" ? "3.70" : "3.62";
+    }
+}
+
+window.loadResults = loadResults;
+
+function generateRef() {
+    const amount = document.getElementById("amount");
+    const refCode = document.getElementById("refCode");
+
+    if (!amount || !refCode) return;
+
+    if (!amount.value || Number(amount.value) <= 0) {
+        alert("Enter a valid amount first.");
+        return;
+    }
+
+    const ref = "BBC-" + Math.floor(10000000 + Math.random() * 90000000);
+    refCode.textContent = `${ref} (UGX ${Number(amount.value).toLocaleString()})`;
+}
+
+window.generateRef = generateRef;
+
+function makePayment() {
+    const refCode = document.getElementById("refCode");
+    const balance = document.getElementById("balance");
+    const amount = document.getElementById("amount");
+
+    if (!refCode || !amount) return;
+
+    if (refCode.textContent.includes("No reference")) {
+        alert("Generate payment reference first.");
+        return;
+    }
+
+    alert("Payment successful via selected method!");
+
+    if (balance) {
+        const currentBalance = parseInt(balance.textContent.replace(/\D/g, ""), 10) || 0;
+        const paidAmount = parseInt(amount.value, 10) || 0;
+        const newBalance = Math.max(currentBalance - paidAmount, 0);
+
+        balance.textContent = "UGX " + newBalance.toLocaleString();
+    }
+}
+
+window.makePayment = makePayment;
+
+function downloadTranscript() {
+    alert("Generating transcript... Download will start shortly.");
+}
+
+window.downloadTranscript = downloadTranscript;
+
+function downloadReceipt(id = "") {
+    alert(id ? `Downloading receipt ${id}` : "Downloading receipt...");
+}
+
+window.downloadReceipt = downloadReceipt;
 
 function submitRegistration() {
     alert("Registration submitted successfully!");
 }
 
+window.submitRegistration = submitRegistration;
+
 function saveDraft() {
-    alert("Draft saved!");
+    alert("Draft saved successfully!");
 }
+
+window.saveDraft = saveDraft;
 
 function printSlip() {
     window.print();
 }
 
-function downloadTranscript() {
-    alert("Transcript downloading...");
-}
+window.printSlip = printSlip;
 
 function pay(method) {
     alert(`Payment initiated via ${method}`);
 }
 
-function downloadReceipt(id) {
-    alert(`Downloading receipt ${id}`);
-}
+window.pay = pay;
+
+/* =========================
+   SAFE LOAD FOR OPTIONAL LMS
+========================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+    updateEnrolledList();
+    loadSubmissions();
+
+    const dashboardSection = document.getElementById("dashboard");
+    if (dashboardSection && document.querySelector(".portal-section")) {
+        showSection("dashboard");
+    }
+
+    if (document.getElementById("resultsBody")) {
+        loadResults();
+    }
+});

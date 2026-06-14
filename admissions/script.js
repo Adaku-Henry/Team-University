@@ -1,1380 +1,1271 @@
-// js/application.js
-
-let currentStep = 1;
-const totalSteps = 8; // update if more steps added
-
-function showStep(step){
-
-document.querySelectorAll(".form-step")
-.forEach(s => s.classList.remove("active"));
-
-document.getElementById("step" + step)
-.classList.add("active");
-
-currentStep = step;
-
-updateProgress();
-}
-
-function nextStep(){
-
-if(currentStep === 1){
-
-if(!validateStep1()) return;
-
-}
-
-if(currentStep === 2){
-
-if(!validateStep2()) return;
-
-}
-
-if(currentStep === 3){
-
-if(!validateStep3()) return;
-
-}
-
-if(currentStep === 4){
-
-if(!validateStep4()) return;
-
-}
-
-if(currentStep === 5){
-
-if(!validateStep5()) return;
-
-}
-
-if(currentStep === 6){
-
-if(!validateStep6()) return;
-
-}
-
-if(currentStep === 7){
-
-if(!validateStep7()) return;
-
-}
-function updateProgress(){
-
-let percent = (currentStep / totalSteps) * 100;
-
-document.getElementById("progressBar")
-.style.width = percent + "%";
-
-document.getElementById("currentStep")
-.innerText = currentStep;
-
-}
-// MOVE FORWARD
-if(currentStep < totalSteps){
-currentStep++;
-showStep(currentStep);
-}
-}
-
-
-    window.onload = function(){
-
-    // Load Personal Information
-    let personalInfo = JSON.parse(
-        localStorage.getItem("personalInfo")
-    );
-
-    if(personalInfo){
-
-        document.getElementById("surname").value =
-        personalInfo.surname || "";
-
-        document.getElementById("firstname").value =
-        personalInfo.firstname || "";
-
-        document.getElementById("othernames").value =
-        personalInfo.othernames || "";
-
-        document.getElementById("gender").value =
-        personalInfo.gender || "";
-
-        document.getElementById("dob").value =
-        personalInfo.dob || "";
-
-        document.getElementById("nationality").value =
-        personalInfo.nationality || "";
-
-        document.getElementById("nin").value =
-        personalInfo.nin || "";
-    }
-
-
-    // Load Contact Information
-    let contactInfo = JSON.parse(
-        localStorage.getItem("contactInformation")
-    );
-
-    if(contactInfo){
-
-        document.getElementById("email").value =
-        contactInfo.email || "";
-
-        document.getElementById("phone").value =
-        contactInfo.phone || "";
-
-        document.getElementById("altPhone").value =
-        contactInfo.altPhone || "";
-
-        document.getElementById("country").value =
-        contactInfo.country || "";
-
-        document.getElementById("address").value =
-        contactInfo.address || "";
-
-        document.getElementById("district").value =
-        contactInfo.district || "";
-
-        document.getElementById("kinName").value =
-        contactInfo.kinName || "";
-
-        document.getElementById("relationship").value =
-        contactInfo.relationship || "";
-
-        document.getElementById("kinPhone").value =
-        contactInfo.kinPhone || "";
-
-        document.getElementById("kinEmail").value =
-        contactInfo.kinEmail || "";
-    }
-    loadProgrammes();
-populateProgrammeOptions();
-
+const STORAGE = {
+    accounts: "bbtc_accounts",
+    applications: "bbtc_applications",
+    currentUser: "bbtc_current_user",
+    seeded: "bbtc_seeded"
 };
-
-function nextStep(){
-
-const applicationType =
-document.getElementById("applicationType");
-
-const intake =
-document.getElementById("intake");
-
-const studyMode =
-document.getElementById("studyMode");
-
-if(applicationType.value === ""){
-alert("Select Application Type");
-return;
-}
-
-if(intake.value === ""){
-alert("Select Intake");
-return;
-}
-
-if(studyMode.value === ""){
-alert("Select Study Mode");
-return;
-}
-
-alert(
-"Step 1 Completed Successfully"
-);
-}
-function showStep(step){
-
-document
-.querySelectorAll(".form-step")
-.forEach(section => {
-
-section.classList.remove("active");
-
-});
-
-document
-.getElementById("step"+step)
-.classList.add("active");
-
-document
-.getElementById("currentStep")
-.innerText = step;
-
-updateProgress();
-}
-function updateProgress(){
-
-let percentage =
-(stepPercentage());
-
-document
-.getElementById("progressBar")
-.style.width = percentage + "%";
-}
-
-function stepPercentage(){
-
-return (currentStep/totalSteps)*100;
-}
-function previousStep(){
-
-if(currentStep > 1){
-
-currentStep--;
-
-showStep(currentStep);
-
-}
-}
-function nextStep(){
-
-let applicationType =
-document.getElementById("applicationType");
-
-let intake =
-document.getElementById("intake");
-
-let studyMode =
-document.getElementById("studyMode");
-
-if(applicationType.value === ""){
-
-alert("Select Application Type");
-
-return;
-}
-
-if(intake.value === ""){
-
-alert("Select Intake");
-
-return;
-}
-
-if(studyMode.value === ""){
-
-alert("Select Study Mode");
-
-return;
-}
-
-currentStep = 2;
-
-showStep(currentStep);
-}
-function validateStep2(){
-
-clearErrors();
-
-let valid = true;
-
-let surname =
-document.getElementById("surname");
-
-let firstname =
-document.getElementById("firstname");
-
-let gender =
-document.getElementById("gender");
-
-let dob =
-document.getElementById("dob");
-
-let nationality =
-document.getElementById("nationality");
-
-let nin =
-document.getElementById("nin");
-
-let photo =
-document.getElementById("passportPhoto");
-
-if(surname.value.trim() === ""){
-
-showError(
-"surnameError",
-"Enter surname"
-);
-
-valid = false;
-}
-
-if(firstname.value.trim() === ""){
-
-showError(
-"firstnameError",
-"Enter first name"
-);
-
-valid = false;
-}
-
-if(gender.value === ""){
-
-showError(
-"genderError",
-"Select gender"
-);
-
-valid = false;
-}
-
-if(dob.value === ""){
-
-showError(
-"dobError",
-"Select date of birth"
-);
-
-valid = false;
-}
-
-if(nationality.value === ""){
-
-showError(
-"nationalityError",
-"Select nationality"
-);
-
-valid = false;
-}
-
-if(nin.value.trim() === ""){
-
-showError(
-"ninError",
-"Enter NIN or Passport Number"
-);
-
-valid = false;
-}
-
-if(photo.files.length === 0){
-
-showError(
-"photoError",
-"Upload passport photo"
-);
-
-valid = false;
-}
-
-if(!valid) return;
-
-currentStep = 3;
-
-showStep(currentStep);
-}
-function showError(id,message){
-
-document.getElementById(id)
-.innerText = message;
-}
-
-function clearErrors(){
-
-document
-.querySelectorAll(".error")
-.forEach(error => {
-
-error.innerText = "";
-
-});
-}
-document
-.getElementById("passportPhoto")
-.addEventListener("change",function(){
-
-let file = this.files[0];
-
-if(!file) return;
-
-let maxSize =
-2 * 1024 * 1024;
-
-if(file.size > maxSize){
-
-alert(
-"Passport photo must be less than 2MB"
-);
-
-this.value = "";
-}
-
-});
-
-setInterval(() => {
-
-let personalData = {
-
-surname:
-document.getElementById("surname")?.value,
-
-firstname:
-document.getElementById("firstname")?.value,
-
-othernames:
-document.getElementById("othernames")?.value,
-
-gender:
-document.getElementById("gender")?.value,
-
-dob:
-document.getElementById("dob")?.value,
-
-nationality:
-document.getElementById("nationality")?.value,
-
-nin:
-document.getElementById("nin")?.value
-
-};
-
-localStorage.setItem(
-"personalInfo",
-JSON.stringify(personalData)
-);
-
-},3000);
-
-function validateStep3(){
-
-clearErrors();
-
-let valid = true;
-
-const email =
-document.getElementById("email");
-
-const phone =
-document.getElementById("phone");
-
-const country =
-document.getElementById("country");
-
-const address =
-document.getElementById("address");
-
-const district =
-document.getElementById("district");
-
-const kinName =
-document.getElementById("kinName");
-
-const relationship =
-document.getElementById("relationship");
-
-const kinPhone =
-document.getElementById("kinPhone");
-
-
-// EMAIL VALIDATION
-
-let emailPattern =
-/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-if(email.value.trim() === ""){
-
-showError(
-"emailError",
-"Email address is required"
-);
-
-valid = false;
-
-}
-else if(!emailPattern.test(email.value)){
-
-showError(
-"emailError",
-"Invalid email address"
-);
-
-valid = false;
-}
-
-
-// PHONE VALIDATION
-
-let phonePattern =
-/^[0-9]{10,15}$/;
-
-if(phone.value.trim() === ""){
-
-showError(
-"phoneError",
-"Phone number required"
-);
-
-valid = false;
-
-}
-else if(!phonePattern.test(phone.value)){
-
-showError(
-"phoneError",
-"Invalid phone number"
-);
-
-valid = false;
-}
-
-
-// COUNTRY
-
-if(country.value === ""){
-
-showError(
-"countryError",
-"Select country"
-);
-
-valid = false;
-}
-
-
-// ADDRESS
-
-if(address.value.trim() === ""){
-
-showError(
-"addressError",
-"Address required"
-);
-
-valid = false;
-}
-
-
-// DISTRICT
-
-if(district.value.trim() === ""){
-
-showError(
-"districtError",
-"District required"
-);
-
-valid = false;
-}
-
-
-// NEXT OF KIN NAME
-
-if(kinName.value.trim() === ""){
-
-showError(
-"kinNameError",
-"Next of kin required"
-);
-
-valid = false;
-}
-
-
-// RELATIONSHIP
-
-if(relationship.value === ""){
-
-showError(
-"relationshipError",
-"Relationship required"
-);
-
-valid = false;
-}
-
-
-// NEXT OF KIN PHONE
-
-if(kinPhone.value.trim() === ""){
-
-showError(
-"kinPhoneError",
-"Phone number required"
-);
-
-valid = false;
-
-}
-else if(!phonePattern.test(kinPhone.value)){
-
-showError(
-"kinPhoneError",
-"Invalid phone number"
-);
-
-valid = false;
-}
-
-if(!valid) return;
-
-currentStep = 4;
-
-showStep(currentStep);
-
-}
-
-setInterval(() => {
-
-let contactData = {
-
-email:
-document.getElementById("email")?.value,
-
-phone:
-document.getElementById("phone")?.value,
-
-altPhone:
-document.getElementById("altPhone")?.value,
-
-country:
-document.getElementById("country")?.value,
-
-address:
-document.getElementById("address")?.value,
-
-district:
-document.getElementById("district")?.value,
-
-kinName:
-document.getElementById("kinName")?.value,
-
-relationship:
-document.getElementById("relationship")?.value,
-
-kinPhone:
-document.getElementById("kinPhone")?.value,
-
-kinEmail:
-document.getElementById("kinEmail")?.value
-
-};
-
-localStorage.setItem(
-"contactInformation",
-JSON.stringify(contactData)
-);
-
-},3000);
 
 const programmes = [
-
-{
-name:"Bachelor of Information Technology",
-faculty:"computing",
-duration:"3 Years"
-},
-
-{
-name:"Bachelor of Computer Science",
-faculty:"computing",
-duration:"3 Years"
-},
-
-{
-name:"Bachelor of Software Engineering",
-faculty:"computing",
-duration:"4 Years"
-},
-
-{
-name:"Bachelor of Cyber Security",
-faculty:"computing",
-duration:"3 Years"
-},
-
-{
-name:"Bachelor of Business Administration",
-faculty:"business",
-duration:"3 Years"
-},
-
-{
-name:"Bachelor of Accounting and Finance",
-faculty:"business",
-duration:"3 Years"
-},
-
-{
-name:"Bachelor of Public Administration",
-faculty:"business",
-duration:"3 Years"
-},
-
-{
-name:"Bachelor of Education Arts",
-faculty:"education",
-duration:"3 Years"
-},
-
-{
-name:"Bachelor of Nursing Science",
-faculty:"health",
-duration:"4 Years"
-},
-
-{
-name:"Master of Public Administration and Management",
-faculty:"graduate",
-duration:"2 Years"
-}
-
+    { name: "Diploma in Business Administration", school: "business", level: "Diploma" },
+    { name: "Certificate in Business Administration", school: "business", level: "Certificate" },
+    { name: "Diploma in Accounting and Finance", school: "business", level: "Diploma" },
+    { name: "Certificate in Procurement and Logistics", school: "business", level: "Certificate" },
+    { name: "Diploma in Information Technology", school: "computing", level: "Diploma" },
+    { name: "Certificate in Computer Applications", school: "computing", level: "Certificate" },
+    { name: "Diploma in Cyber Security", school: "computing", level: "Diploma" },
+    { name: "Certificate in Web Design", school: "computing", level: "Certificate" },
+    { name: "Diploma in Electrical Installation", school: "technical", level: "Diploma" },
+    { name: "Certificate in Plumbing", school: "technical", level: "Certificate" },
+    { name: "Certificate in Fashion and Design", school: "technical", level: "Certificate" },
+    { name: "Diploma in Hotel and Institutional Catering", school: "hospitality", level: "Diploma" },
+    { name: "Certificate in Catering and Hospitality", school: "hospitality", level: "Certificate" },
+    { name: "Diploma in Human Resource Management", school: "management", level: "Diploma" },
+    { name: "Diploma in Project Planning and Management", school: "management", level: "Diploma" }
 ];
 
-function loadProgrammes(){
+let currentStep = 1;
+const totalSteps = 7;
+let activeDashboardAppId = null;
+let lastSubmittedApplication = null;
 
-let container =
-document.getElementById(
-"programmeContainer"
-);
-
-container.innerHTML="";
-
-programmes.forEach(programme => {
-
-container.innerHTML += `
-
-<div class="programme-card">
-
-<h3>${programme.name}</h3>
-
-<p>
-Duration:
-${programme.duration}
-</p>
-
-<p>
-Faculty:
-${programme.faculty}
-</p>
-
-</div>
-
-`;
-
+document.addEventListener("DOMContentLoaded", () => {
+    seedDemoApplications();
+    initNavigation();
+    initRegistration();
+    initApplicationWizard();
+    initDashboard();
+    initAdmin();
+    initModal();
+    initRevealAnimations();
+    populateProgrammeSelects();
+    renderProgrammes();
+    updateLoggedUserBanner();
+    routeFromHash();
+    renderAdmin();
 });
 
+function qs(selector) {
+    return document.querySelector(selector);
 }
 
-function populateProgrammeOptions(){
-
-let first =
-document.getElementById(
-"firstChoice"
-);
-
-let second =
-document.getElementById(
-"secondChoice"
-);
-
-programmes.forEach(programme => {
-
-first.innerHTML +=
-`<option>${programme.name}</option>`;
-
-second.innerHTML +=
-`<option>${programme.name}</option>`;
-
-});
-
-}
-function validateStep4(){
-
-clearErrors();
-
-let first =
-document.getElementById(
-"firstChoice"
-);
-
-let second =
-document.getElementById(
-"secondChoice"
-);
-
-let valid=true;
-
-if(first.value===""){
-
-showError(
-"firstChoiceError",
-"Select first choice"
-);
-
-valid=false;
+function qsa(selector) {
+    return Array.from(document.querySelectorAll(selector));
 }
 
-if(second.value===""){
-
-showError(
-"secondChoiceError",
-"Select second choice"
-);
-
-valid=false;
+function getStorage(key, fallback = []) {
+    try {
+        return JSON.parse(localStorage.getItem(key)) || fallback;
+    } catch {
+        return fallback;
+    }
 }
 
-if(first.value===second.value){
-
-showError(
-"secondChoiceError",
-"Second choice must be different"
-);
-
-valid=false;
+function setStorage(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
 }
 
-if(!valid) return;
-
-currentStep=5;
-
-showStep(currentStep);
-}
-setInterval(()=>{
-
-localStorage.setItem(
-
-"programmeSelection",
-
-JSON.stringify({
-
-firstChoice:
-document.getElementById(
-"firstChoice"
-)?.value,
-
-secondChoice:
-document.getElementById(
-"secondChoice"
-)?.value
-
-})
-
-);
-
-},3000);
-
-function addSubject(){
-
-let container =
-document.getElementById(
-"subjectContainer"
-);
-
-let row =
-document.createElement("div");
-
-row.classList.add("subject-row");
-
-row.innerHTML = `
-
-<input
-type="text"
-placeholder="Subject Name">
-
-<select>
-
-<option value="">
-Grade
-</option>
-
-<option>D1</option>
-<option>D2</option>
-<option>C3</option>
-<option>C4</option>
-<option>C5</option>
-<option>C6</option>
-<option>P7</option>
-<option>P8</option>
-<option>F9</option>
-
-</select>
-
-`;
-
-container.appendChild(row);
+function escapeHTML(value) {
+    return String(value || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 }
 
-function validateStep5(){
-
-clearErrors();
-
-let valid = true;
-
-if(
-document.getElementById("uceSchool")
-.value.trim() === ""
-){
-
-showError(
-"uceSchoolError",
-"School required"
-);
-
-valid = false;
+function statusClass(status) {
+    return "status-" + String(status || "under-review").toLowerCase().replaceAll(" ", "-");
 }
 
-if(
-document.getElementById("uceIndex")
-.value.trim() === ""
-){
-
-showError(
-"uceIndexError",
-"Index number required"
-);
-
-valid = false;
+function makeStatusBadge(status) {
+    return `<span class="status-badge ${statusClass(status)}">${escapeHTML(status)}</span>`;
 }
 
-if(
-document.getElementById("uceCertificate")
-.files.length === 0
-){
-
-showError(
-"uceCertificateError",
-"Upload certificate"
-);
-
-valid = false;
+function generateApplicationId() {
+    const year = new Date().getFullYear();
+    const random = Math.floor(10000 + Math.random() * 90000);
+    return `BBTC-${year}-${random}`;
 }
 
-if(!valid) return;
-
-currentStep = 6;
-
-showStep(currentStep);
+function getCurrentUser() {
+    return getStorage(STORAGE.currentUser, null);
 }
 
-setInterval(() => {
-
-let academicData = {
-
-uceSchool:
-document.getElementById("uceSchool")?.value,
-
-uceIndex:
-document.getElementById("uceIndex")?.value,
-
-uceYear:
-document.getElementById("uceYear")?.value,
-
-uaceSchool:
-document.getElementById("uaceSchool")?.value,
-
-uaceIndex:
-document.getElementById("uaceIndex")?.value
-
-};
-
-localStorage.setItem(
-"academicQualifications",
-JSON.stringify(academicData)
-);
-
-},3000);
-
-function validateFile(file){
-
-if(!file) return false;
-
-const maxSize = 5 * 1024 * 1024; // 5MB
-
-if(file.size > maxSize){
-alert("File must be less than 5MB");
-return false;
+function saveCurrentUser(user) {
+    localStorage.setItem(STORAGE.currentUser, JSON.stringify(user));
 }
 
-return true;
-}
-function validateStep6(){
+function seedDemoApplications() {
+    if (localStorage.getItem(STORAGE.seeded)) return;
 
-clearErrors();
+    const demoApps = [
+        {
+            id: "BBTC-2026-10001",
+            createdAt: new Date().toISOString(),
+            status: "Under Review",
+            applicationType: "Diploma Programme",
+            intake: "January Intake",
+            studyMode: "Day",
+            sponsorship: "Private Sponsored",
+            surname: "Okello",
+            firstName: "John",
+            otherNames: "Mark",
+            fullName: "Okello John Mark",
+            gender: "Male",
+            dob: "2003-05-12",
+            nationality: "Ugandan",
+            nin: "CM123456789",
+            disability: "No Disability",
+            email: "john@example.com",
+            phone: "+256700000000",
+            country: "Uganda",
+            district: "Kampala",
+            address: "Kampala Central",
+            kinName: "Mary Okello",
+            relationship: "Mother",
+            kinPhone: "+256701111111",
+            firstChoice: "Diploma in Information Technology",
+            secondChoice: "Diploma in Business Administration",
+            uceSchool: "Benchmark High School",
+            uceIndex: "U1234/001",
+            uceYear: "2021",
+            uceBody: "UNEB",
+            englishGrade: "C3",
+            mathGrade: "C4",
+            documents: [
+                { label: "Passport Photo", name: "passport.jpg", status: "Uploaded" },
+                { label: "National ID / Passport Copy", name: "nin.pdf", status: "Uploaded" },
+                { label: "O-Level Result Slip / Certificate", name: "uce.pdf", status: "Uploaded" }
+            ],
+            notifications: ["Application received successfully.", "Document verification is in progress."]
+        },
+        {
+            id: "BBTC-2026-10002",
+            createdAt: new Date().toISOString(),
+            status: "Approved",
+            applicationType: "Certificate Programme",
+            intake: "May Intake",
+            studyMode: "Weekend",
+            sponsorship: "Private Sponsored",
+            surname: "Auma",
+            firstName: "Grace",
+            otherNames: "",
+            fullName: "Auma Grace",
+            gender: "Female",
+            dob: "2002-08-20",
+            nationality: "Ugandan",
+            nin: "CF987654321",
+            disability: "No Disability",
+            email: "grace@example.com",
+            phone: "+256755000000",
+            country: "Uganda",
+            district: "Gulu",
+            address: "Gulu Municipality",
+            kinName: "Peter Auma",
+            relationship: "Father",
+            kinPhone: "+256755111111",
+            firstChoice: "Certificate in Procurement and Logistics",
+            secondChoice: "Certificate in Business Administration",
+            uceSchool: "Gulu Secondary School",
+            uceIndex: "U5678/010",
+            uceYear: "2020",
+            uceBody: "UNEB",
+            englishGrade: "C4",
+            mathGrade: "C5",
+            documents: [
+                { label: "Passport Photo", name: "photo.png", status: "Verified" },
+                { label: "National ID / Passport Copy", name: "id.pdf", status: "Verified" },
+                { label: "O-Level Result Slip / Certificate", name: "results.pdf", status: "Verified" }
+            ],
+            notifications: ["Application approved. Admission letter is available."]
+        }
+    ];
 
-let valid = true;
-
-// REQUIRED FILES
-
-let passport = document.getElementById("docPassport").files[0];
-let nin = document.getElementById("docNIN").files[0];
-let birth = document.getElementById("docBirth").files[0];
-let olevel = document.getElementById("docOlevel").files[0];
-
-// VALIDATION CHECKS
-
-if(!passport){
-showError("docPassportError","Passport photo required");
-valid = false;
-} else if(!validateFile(passport)){
-valid = false;
-}
-
-if(!nin){
-showError("docNINError","National ID required");
-valid = false;
-} else if(!validateFile(nin)){
-valid = false;
-}
-
-if(!birth){
-showError("docBirthError","Birth certificate required");
-valid = false;
-} else if(!validateFile(birth)){
-valid = false;
-}
-
-if(!olevel){
-showError("docOlevelError","O-Level certificate required");
-valid = false;
-} else if(!validateFile(olevel)){
-valid = false;
-}
-
-if(!valid) return;
-
-currentStep = 7;
-showStep(currentStep);
-}
-
-setInterval(() => {
-
-let docs = {
-
-passport: document.getElementById("docPassport")?.value,
-nin: document.getElementById("docNIN")?.value,
-birth: document.getElementById("docBirth")?.value,
-olevel: document.getElementById("docOlevel")?.value,
-alevel: document.getElementById("docAlevel")?.value,
-diploma: document.getElementById("docDiploma")?.value,
-degree: document.getElementById("docDegree")?.value
-
-};
-
-localStorage.setItem("supportingDocs", JSON.stringify(docs));
-
-},3000);
-
-function countWords(){
-
-let text = document.getElementById("sop").value.trim();
-
-let words = text.length ? text.split(/\s+/).length : 0;
-
-document.getElementById("wordCounter").innerText =
-words + " words";
-
-}
-function validateStep7(){
-
-clearErrors();
-
-let valid = true;
-
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const phonePattern = /^[0-9]{10,15}$/;
-
-// REFEREE 1
-
-let ref1Name = document.getElementById("ref1Name");
-let ref1Email = document.getElementById("ref1Email");
-let ref1Phone = document.getElementById("ref1Phone");
-
-// REFEREE 2
-
-let ref2Name = document.getElementById("ref2Name");
-let ref2Email = document.getElementById("ref2Email");
-let ref2Phone = document.getElementById("ref2Phone");
-
-// SOP
-
-let sop = document.getElementById("sop");
-
-// VALIDATION
-
-if(ref1Name.value.trim() === ""){
-showError("ref1NameError","Required");
-valid = false;
+    setStorage(STORAGE.applications, demoApps);
+    localStorage.setItem(STORAGE.seeded, "true");
 }
 
-if(!emailPattern.test(ref1Email.value)){
-showError("ref1EmailError","Valid email required");
-valid = false;
+function initNavigation() {
+    qsa("[data-view-target]").forEach(item => {
+        item.addEventListener("click", event => {
+            event.preventDefault();
+            const target = item.getAttribute("data-view-target");
+            showView(target);
+            history.replaceState(null, "", `#${target}`);
+        });
+    });
+
+    const menuBtn = qs("#menuBtn");
+    const navLinks = qs("#navLinks");
+
+    menuBtn.addEventListener("click", () => {
+        navLinks.classList.toggle("open");
+    });
+
+    window.addEventListener("hashchange", routeFromHash);
 }
 
-if(!phonePattern.test(ref1Phone.value)){
-showError("ref1PhoneError","Valid phone required");
-valid = false;
+function routeFromHash() {
+    const hash = location.hash.replace("#", "");
+    const valid = ["portal", "apply", "dashboard", "admin"];
+    showView(valid.includes(hash) ? hash : "portal");
 }
 
-if(ref2Name.value.trim() === ""){
-showError("ref2NameError","Required");
-valid = false;
+function showView(viewId) {
+    qsa(".view").forEach(view => view.classList.remove("active"));
+    qs(`#${viewId}`).classList.add("active");
+
+    qsa(".nav-links a").forEach(link => {
+        link.classList.toggle("active", link.getAttribute("data-view-target") === viewId);
+    });
+
+    if (viewId === "admin") renderAdmin();
+    if (viewId === "apply") updateLoggedUserBanner();
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-if(!emailPattern.test(ref2Email.value)){
-showError("ref2EmailError","Valid email required");
-valid = false;
+function initRegistration() {
+    qs("#registerForm").addEventListener("submit", event => {
+        event.preventDefault();
+
+        const valid = [
+            requireValue("regName", "Full name is required."),
+            validateEmail("regEmail"),
+            validatePhone("regPhone"),
+            validatePassword("regPassword"),
+            validateConfirmPassword("regPassword", "regConfirmPassword")
+        ].every(Boolean);
+
+        const message = qs("#registerMessage");
+
+        if (!valid) {
+            setMessage(message, "Please fix the highlighted registration errors.", false);
+            return;
+        }
+
+        const accounts = getStorage(STORAGE.accounts);
+        const email = val("regEmail").toLowerCase();
+
+        if (accounts.some(acc => acc.email.toLowerCase() === email)) {
+            setMessage(message, "This email is already registered. Please login instead.", false);
+            return;
+        }
+
+        const user = {
+            name: val("regName"),
+            email,
+            phone: val("regPhone"),
+            password: val("regPassword"),
+            createdAt: new Date().toISOString()
+        };
+
+        accounts.push(user);
+        setStorage(STORAGE.accounts, accounts);
+        saveCurrentUser({ name: user.name, email: user.email, phone: user.phone });
+
+        setMessage(message, "Account created successfully. You can now apply online.", true);
+        qs("#registerForm").reset();
+        updateLoggedUserBanner();
+        prefillFromCurrentUser();
+
+        setTimeout(() => {
+            showView("apply");
+            history.replaceState(null, "", "#apply");
+        }, 800);
+    });
+
+    qs("#loginForm").addEventListener("submit", event => {
+        event.preventDefault();
+
+        const valid = [
+            validateEmail("loginEmail"),
+            requireValue("loginPassword", "Password is required.")
+        ].every(Boolean);
+
+        const message = qs("#loginMessage");
+
+        if (!valid) {
+            setMessage(message, "Please enter valid login details.", false);
+            return;
+        }
+
+        const accounts = getStorage(STORAGE.accounts);
+        const user = accounts.find(acc =>
+            acc.email.toLowerCase() === val("loginEmail").toLowerCase() &&
+            acc.password === val("loginPassword")
+        );
+
+        if (!user) {
+            setMessage(message, "Invalid email or password.", false);
+            return;
+        }
+
+        saveCurrentUser({ name: user.name, email: user.email, phone: user.phone });
+        setMessage(message, `Welcome back, ${user.name}.`, true);
+        updateLoggedUserBanner();
+        prefillFromCurrentUser();
+
+        setTimeout(() => {
+            showView("apply");
+            history.replaceState(null, "", "#apply");
+        }, 700);
+    });
+
+    qs("#quickStatusBtn").addEventListener("click", () => {
+        const input = val("quickStatusInput");
+        const result = qs("#quickStatusResult");
+
+        if (!input) {
+            result.textContent = "Please enter Application ID or Email.";
+            result.style.color = "var(--red)";
+            return;
+        }
+
+        const app = findApplication(input);
+
+        if (!app) {
+            result.textContent = "No application found.";
+            result.style.color = "var(--red)";
+            return;
+        }
+
+        result.innerHTML = `Application ${escapeHTML(app.id)} is ${makeStatusBadge(app.status)}`;
+        result.style.color = "var(--navy)";
+    });
 }
 
-if(!phonePattern.test(ref2Phone.value)){
-showError("ref2PhoneError","Valid phone required");
-valid = false;
+function setMessage(element, text, success = true) {
+    element.textContent = text;
+    element.className = success ? "message success" : "message error-msg";
 }
 
-// SOP RULES
+function updateLoggedUserBanner() {
+    const banner = qs("#loggedUserBanner");
+    const user = getCurrentUser();
 
-let wordCount = sop.value.trim().split(/\s+/).length;
+    if (!user) {
+        banner.innerHTML = "You are applying as a guest. You may register or login from the portal before applying.";
+        return;
+    }
 
-if(wordCount < 200){
-showError("sopError","Minimum 200 words required");
-valid = false;
+    banner.innerHTML = `Logged in as <strong>${escapeHTML(user.name)}</strong> (${escapeHTML(user.email)}). Your details will be pre-filled where possible.`;
 }
 
-if(wordCount > 1000){
-showError("sopError","Maximum 1000 words allowed");
-valid = false;
+function prefillFromCurrentUser() {
+    const user = getCurrentUser();
+    if (!user) return;
+
+    if (!val("email")) qs("#email").value = user.email;
+    if (!val("phone")) qs("#phone").value = user.phone;
+
+    const nameParts = user.name.split(" ");
+    if (!val("surname") && nameParts[0]) qs("#surname").value = nameParts[0];
+    if (!val("firstName") && nameParts[1]) qs("#firstName").value = nameParts.slice(1).join(" ");
 }
 
-if(!valid) return;
+function initApplicationWizard() {
+    qs("#totalStepsText").textContent = totalSteps;
 
-currentStep = 8;
-showStep(currentStep);
+    qsa(".next-step").forEach(button => {
+        button.addEventListener("click", () => {
+            if (validateStep(currentStep)) {
+                if (currentStep < totalSteps) {
+                    currentStep++;
+                    showStep(currentStep);
+                }
+            }
+        });
+    });
+
+    qsa(".prev-step").forEach(button => {
+        button.addEventListener("click", () => {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        });
+    });
+
+    qs("#programmeSearch").addEventListener("input", renderProgrammes);
+    qs("#facultyFilter").addEventListener("change", renderProgrammes);
+    qs("#statement").addEventListener("input", updateWordCounter);
+    qs("#submitApplicationBtn").addEventListener("click", submitApplication);
+    qs("#printSlipBtn").addEventListener("click", () => window.print());
+    qs("#downloadSlipBtn").addEventListener("click", downloadSlip);
+
+    prefillFromCurrentUser();
+    showStep(1);
 }
 
-setInterval(() => {
+function showStep(step) {
+    currentStep = step;
 
-let refereeData = {
+    qsa(".form-step").forEach(section => {
+        section.classList.toggle("active", Number(section.dataset.step) === step);
+    });
 
-ref1Name: document.getElementById("ref1Name")?.value,
-ref1Email: document.getElementById("ref1Email")?.value,
-ref1Phone: document.getElementById("ref1Phone")?.value,
-ref1Org: document.getElementById("ref1Org")?.value,
+    qs("#currentStepText").textContent = step;
+    qs("#progressBar").style.width = `${(step / totalSteps) * 100}%`;
 
-ref2Name: document.getElementById("ref2Name")?.value,
-ref2Email: document.getElementById("ref2Email")?.value,
-ref2Phone: document.getElementById("ref2Phone")?.value,
-ref2Org: document.getElementById("ref2Org")?.value,
+    if (step === 3) {
+        populateProgrammeSelects();
+        renderProgrammes();
+    }
 
-sop: document.getElementById("sop")?.value
+    if (step === 7) {
+        buildReview();
+    }
 
-};
-
-localStorage.setItem(
-"refereeData",
-JSON.stringify(refereeData)
-);
-
-},3000);
-
-function buildReview(){
-
-// PERSONAL
-
-document.getElementById("reviewPersonal").innerHTML = `
-<p><b>Name:</b> ${document.getElementById("surname").value}
-${document.getElementById("firstname").value}</p>
-
-<p><b>Gender:</b> ${document.getElementById("gender").value}</p>
-<p><b>DOB:</b> ${document.getElementById("dob").value}</p>
-<p><b>Nationality:</b> ${document.getElementById("nationality").value}</p>
-`;
-
-// CONTACT
-
-document.getElementById("reviewContact").innerHTML = `
-<p><b>Email:</b> ${document.getElementById("email").value}</p>
-<p><b>Phone:</b> ${document.getElementById("phone").value}</p>
-<p><b>Country:</b> ${document.getElementById("country").value}</p>
-`;
-
-// PROGRAMME
-
-document.getElementById("reviewProgramme").innerHTML = `
-<p><b>First Choice:</b> ${document.getElementById("firstChoice").value}</p>
-<p><b>Second Choice:</b> ${document.getElementById("secondChoice").value}</p>
-`;
-
-// SOP
-
-document.getElementById("reviewReferees").innerHTML = `
-<p><b>Referee 1:</b> ${document.getElementById("ref1Name").value}</p>
-<p><b>Referee 2:</b> ${document.getElementById("ref2Name").value}</p>
-<p><b>Statement:</b> Submitted ✔</p>
-`;
-
+    window.scrollTo({ top: qs("#apply").offsetTop, behavior: "smooth" });
 }
 
-function validateStep8(){
+function validateStep(step) {
+    clearCurrentStepErrors();
 
-clearErrors();
+    if (step === 1) {
+        return [
+            requireValue("applicationType", "Application type is required."),
+            requireValue("intake", "Intake is required."),
+            requireValue("studyMode", "Study mode is required."),
+            requireValue("sponsorship", "Sponsorship is required.")
+        ].every(Boolean);
+    }
 
-let valid = true;
+    if (step === 2) {
+        return [
+            requireValue("surname", "Surname is required."),
+            requireValue("firstName", "First name is required."),
+            requireValue("gender", "Gender is required."),
+            validateDateOfBirth("dob"),
+            requireValue("nationality", "Nationality is required."),
+            requireValue("nin", "National ID or passport number is required."),
+            requireValue("disability", "Disability status is required."),
+            validateEmail("email"),
+            validatePhone("phone"),
+            requireValue("country", "Country is required."),
+            requireValue("district", "District or city is required."),
+            requireValue("address", "Physical address is required."),
+            requireValue("kinName", "Next of kin name is required."),
+            requireValue("relationship", "Relationship is required."),
+            validatePhone("kinPhone")
+        ].every(Boolean);
+    }
 
-// CHECK DECLARATION
+    if (step === 3) {
+        const first = requireValue("firstChoice", "First choice programme is required.");
+        const second = requireValue("secondChoice", "Second choice programme is required.");
 
-if(!document.getElementById("declaration").checked){
+        if (first && second && val("firstChoice") === val("secondChoice")) {
+            setError("secondChoice", "Second choice must be different from first choice.");
+            return false;
+        }
 
-showError("declarationError",
-"You must accept declaration");
+        return first && second;
+    }
 
-valid = false;
+    if (step === 4) {
+        return [
+            requireValue("uceSchool", "O-Level school name is required."),
+            requireValue("uceIndex", "O-Level index number is required."),
+            validateYear("uceYear", "Enter a valid O-Level completion year."),
+            requireValue("uceBody", "Examination body is required."),
+            requireValue("englishGrade", "English grade is required."),
+            requireValue("mathGrade", "Mathematics grade is required.")
+        ].every(Boolean);
+    }
+
+    if (step === 5) {
+        return [
+            validateFile("docPassport", true, ["jpg", "jpeg", "png"], 5),
+            validateFile("docNIN", true, ["pdf", "jpg", "jpeg", "png"], 5),
+            validateFile("docOlevel", true, ["pdf", "jpg", "jpeg", "png"], 5),
+            validateFile("docHigher", false, ["pdf", "jpg", "jpeg", "png"], 5),
+            validateFile("docRecommendation", false, ["pdf", "jpg", "jpeg", "png"], 5),
+            validateFile("docBirth", false, ["pdf", "jpg", "jpeg", "png"], 5)
+        ].every(Boolean);
+    }
+
+    if (step === 6) {
+        const words = countWords(val("statement"));
+
+        const baseValid = [
+            requireValue("ref1Name", "Referee 1 name is required."),
+            validatePhone("ref1Phone"),
+            requireValue("ref2Name", "Referee 2 name is required."),
+            validatePhone("ref2Phone"),
+            requireValue("paymentMethod", "Payment method is required."),
+            requireValue("paymentReference", "Payment phone or transaction reference is required.")
+        ].every(Boolean);
+
+        let statementValid = true;
+        if (words < 40) {
+            setError("statement", "Statement of purpose must have at least 40 words.");
+            statementValid = false;
+        }
+
+        let declarationValid = true;
+        if (!qs("#declaration").checked) {
+            setError("declaration", "You must confirm the declaration before submitting.");
+            declarationValid = false;
+        }
+
+        return baseValid && statementValid && declarationValid;
+    }
+
+    return true;
 }
 
-// PAYMENT METHOD
+function clearCurrentStepErrors() {
+    const activeStep = qs(".form-step.active");
+    if (!activeStep) return;
 
-if(document.getElementById("paymentMethod").value === ""){
-
-showError("paymentError",
-"Select payment method");
-
-valid = false;
+    activeStep.querySelectorAll(".invalid").forEach(el => el.classList.remove("invalid"));
+    activeStep.querySelectorAll(".error").forEach(el => el.textContent = "");
 }
 
-// PHONE
-
-if(document.getElementById("paymentPhone").value === ""){
-
-alert("Enter payment phone number");
-valid = false;
+function val(id) {
+    const element = qs(`#${id}`);
+    if (!element) return "";
+    return element.value.trim();
 }
 
-if(!valid) return;
+function setError(id, message) {
+    const element = qs(`#${id}`);
+    if (!element) return false;
 
-// GENERATE APPLICATION ID
+    element.classList.add("invalid");
 
-let appId =
-"ADM-" + Math.floor(100000 + Math.random()*900000);
+    const group = element.closest(".form-group") || element.parentElement;
+    let error = group.querySelector(".error");
 
-// STORE
+    if (!error) {
+        error = document.createElement("small");
+        error.className = "error";
+        group.appendChild(error);
+    }
 
-localStorage.setItem("applicationId", appId);
-
-// SHOW SUCCESS
-
-alert(
-"Application Submitted Successfully!\nYour ID: " + appId
-);
-
-// LOCK FORM
-
-document.querySelectorAll("input, select, textarea")
-.forEach(el => el.disabled = true);
-
+    error.textContent = message;
+    return false;
 }
 
-setInterval(() => {
+function clearError(id) {
+    const element = qs(`#${id}`);
+    if (!element) return;
 
-let finalData = {
+    element.classList.remove("invalid");
 
-declaration:
-document.getElementById("declaration")?.checked,
+    const group = element.closest(".form-group") || element.parentElement;
+    const error = group.querySelector(".error");
 
-paymentMethod:
-document.getElementById("paymentMethod")?.value,
-
-paymentPhone:
-document.getElementById("paymentPhone")?.value
-
-};
-
-localStorage.setItem(
-"finalApplication",
-JSON.stringify(finalData)
-);
-
-},3000);
-
-function loadStep8(){
-
-buildReview();
-
-let saved =
-JSON.parse(localStorage.getItem("finalApplication"));
-
-if(saved){
-
-document.getElementById("paymentMethod").value =
-saved.paymentMethod || "";
-
-document.getElementById("paymentPhone").value =
-saved.paymentPhone || "";
-
-document.getElementById("declaration").checked =
-saved.declaration || false;
-
+    if (error) error.textContent = "";
 }
 
-}
-function showStep(step){
-
-document.querySelectorAll(".form-step")
-.forEach(s => s.classList.remove("active"));
-
-document.getElementById("step"+step)
-.classList.add("active");
-
-currentStep = step;
-
-// WHEN STEP 8 OPENS
-if(step === 8){
-loadStep8();
+function requireValue(id, message) {
+    if (!val(id)) return setError(id, message);
+    clearError(id);
+    return true;
 }
 
-updateProgress();
+function validateEmail(id) {
+    const email = val(id);
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!email) return setError(id, "Email address is required.");
+    if (!regex.test(email)) return setError(id, "Enter a valid email address.");
+
+    clearError(id);
+    return true;
+}
+
+function validatePhone(id) {
+    const phone = val(id);
+    const regex = /^\+?[0-9\s-]{9,16}$/;
+
+    if (!phone) return setError(id, "Phone number is required.");
+    if (!regex.test(phone)) return setError(id, "Enter a valid phone number.");
+
+    clearError(id);
+    return true;
+}
+
+function validatePassword(id) {
+    const password = val(id);
+
+    if (!password) return setError(id, "Password is required.");
+    if (password.length < 6) return setError(id, "Password must be at least 6 characters.");
+
+    clearError(id);
+    return true;
+}
+
+function validateConfirmPassword(passwordId, confirmId) {
+    const password = val(passwordId);
+    const confirm = val(confirmId);
+
+    if (!confirm) return setError(confirmId, "Confirm your password.");
+    if (password !== confirm) return setError(confirmId, "Passwords do not match.");
+
+    clearError(confirmId);
+    return true;
+}
+
+function validateDateOfBirth(id) {
+    const date = val(id);
+
+    if (!date) return setError(id, "Date of birth is required.");
+
+    const dob = new Date(date);
+    const today = new Date();
+    let age = today.getFullYear() - dob.getFullYear();
+    const monthDiff = today.getMonth() - dob.getMonth();
+
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+        age--;
+    }
+
+    if (age < 15) return setError(id, "Applicant must be at least 15 years old.");
+    if (age > 100) return setError(id, "Enter a valid date of birth.");
+
+    clearError(id);
+    return true;
+}
+
+function validateYear(id, message) {
+    const year = Number(val(id));
+    const currentYear = new Date().getFullYear();
+
+    if (!year) return setError(id, message);
+    if (year < 1970 || year > currentYear) return setError(id, message);
+
+    clearError(id);
+    return true;
+}
+
+function validateFile(id, required, allowedExtensions, maxMb) {
+    const input = qs(`#${id}`);
+    const file = input.files[0];
+
+    if (!file) {
+        if (required) return setError(id, "This document is required.");
+        clearError(id);
+        return true;
+    }
+
+    const extension = file.name.split(".").pop().toLowerCase();
+    const sizeMb = file.size / (1024 * 1024);
+
+    if (!allowedExtensions.includes(extension)) {
+        return setError(id, `Allowed file types: ${allowedExtensions.join(", ").toUpperCase()}.`);
+    }
+
+    if (sizeMb > maxMb) {
+        return setError(id, `File must not exceed ${maxMb}MB.`);
+    }
+
+    clearError(id);
+    return true;
+}
+
+function countWords(text) {
+    return text.trim().split(/\s+/).filter(Boolean).length;
+}
+
+function updateWordCounter() {
+    const words = countWords(val("statement"));
+    qs("#wordCounter").textContent = `${words} words`;
+    qs("#wordCounter").style.color = words >= 40 ? "var(--green)" : "var(--red)";
+}
+
+function populateProgrammeSelects() {
+    const first = qs("#firstChoice");
+    const second = qs("#secondChoice");
+    const adminFilter = qs("#adminProgramFilter");
+
+    const options = programmes
+        .map(programme => `<option value="${escapeHTML(programme.name)}">${escapeHTML(programme.name)}</option>`)
+        .join("");
+
+    const currentFirst = first.value;
+    const currentSecond = second.value;
+
+    first.innerHTML = `<option value="">Select First Choice</option>${options}`;
+    second.innerHTML = `<option value="">Select Second Choice</option>${options}`;
+
+    first.value = currentFirst;
+    second.value = currentSecond;
+
+    if (adminFilter) {
+        const currentAdmin = adminFilter.value;
+        adminFilter.innerHTML = `<option value="all">All Programmes</option>${options}`;
+        adminFilter.value = currentAdmin || "all";
+    }
+}
+
+function renderProgrammes() {
+    const container = qs("#programmeContainer");
+    const search = val("programmeSearch").toLowerCase();
+    const faculty = qs("#facultyFilter").value;
+
+    const filtered = programmes.filter(programme => {
+        const matchesSearch = programme.name.toLowerCase().includes(search);
+        const matchesFaculty = faculty === "all" || programme.school === faculty;
+        return matchesSearch && matchesFaculty;
+    });
+
+    if (!filtered.length) {
+        container.innerHTML = `<p class="muted">No programme found. Try another search.</p>`;
+        return;
+    }
+
+    container.innerHTML = filtered.map(programme => `
+        <div class="programme-card">
+            <h4>${escapeHTML(programme.name)}</h4>
+            <p><strong>School:</strong> ${escapeHTML(capitalize(programme.school))}</p>
+            <p><strong>Level:</strong> ${escapeHTML(programme.level)}</p>
+            <button type="button" data-programme="${escapeHTML(programme.name)}">Choose Programme</button>
+        </div>
+    `).join("");
+
+    container.querySelectorAll("button").forEach(button => {
+        button.addEventListener("click", () => {
+            const selected = button.dataset.programme;
+
+            if (!qs("#firstChoice").value) {
+                qs("#firstChoice").value = selected;
+            } else if (!qs("#secondChoice").value && qs("#firstChoice").value !== selected) {
+                qs("#secondChoice").value = selected;
+            } else {
+                qs("#firstChoice").value = selected;
+            }
+        });
+    });
+}
+
+function capitalize(text) {
+    return String(text).charAt(0).toUpperCase() + String(text).slice(1);
+}
+
+function collectApplicationData() {
+    const fullName = `${val("surname")} ${val("firstName")} ${val("otherNames")}`.replace(/\s+/g, " ").trim();
+
+    return {
+        id: generateApplicationId(),
+        createdAt: new Date().toISOString(),
+        status: "Under Review",
+        applicationType: val("applicationType"),
+        intake: val("intake"),
+        studyMode: val("studyMode"),
+        sponsorship: val("sponsorship"),
+        surname: val("surname"),
+        firstName: val("firstName"),
+        otherNames: val("otherNames"),
+        fullName,
+        gender: val("gender"),
+        dob: val("dob"),
+        nationality: val("nationality"),
+        nin: val("nin"),
+        disability: val("disability"),
+        email: val("email").toLowerCase(),
+        phone: val("phone"),
+        country: val("country"),
+        district: val("district"),
+        address: val("address"),
+        kinName: val("kinName"),
+        relationship: val("relationship"),
+        kinPhone: val("kinPhone"),
+        kinEmail: val("kinEmail"),
+        firstChoice: val("firstChoice"),
+        secondChoice: val("secondChoice"),
+        uceSchool: val("uceSchool"),
+        uceIndex: val("uceIndex"),
+        uceYear: val("uceYear"),
+        uceBody: val("uceBody"),
+        englishGrade: val("englishGrade"),
+        mathGrade: val("mathGrade"),
+        biologyGrade: val("biologyGrade"),
+        entrepreneurshipGrade: val("entrepreneurshipGrade"),
+        higherInstitution: val("higherInstitution"),
+        higherQualification: val("higherQualification"),
+        higherProgramme: val("higherProgramme"),
+        higherYear: val("higherYear"),
+        ref1Name: val("ref1Name"),
+        ref1Phone: val("ref1Phone"),
+        ref2Name: val("ref2Name"),
+        ref2Phone: val("ref2Phone"),
+        statement: val("statement"),
+        paymentMethod: val("paymentMethod"),
+        paymentReference: val("paymentReference"),
+        documents: collectDocuments(),
+        notifications: [
+            "Application submitted successfully.",
+            "Your documents are pending verification.",
+            "Please check your dashboard regularly for updates."
+        ]
+    };
+}
+
+function collectDocuments() {
+    const docs = [
+        ["docPassport", "Passport Photo"],
+        ["docNIN", "National ID / Passport Copy"],
+        ["docOlevel", "O-Level Result Slip / Certificate"],
+        ["docHigher", "A-Level / Diploma / Transcript"],
+        ["docRecommendation", "Recommendation Letter"],
+        ["docBirth", "Birth Certificate"]
+    ];
+
+    return docs.map(([id, label]) => {
+        const input = qs(`#${id}`);
+        const file = input.files[0];
+
+        return {
+            label,
+            name: file ? file.name : "Not Uploaded",
+            size: file ? `${(file.size / (1024 * 1024)).toFixed(2)}MB` : "",
+            status: file ? "Uploaded" : "Not Uploaded"
+        };
+    });
+}
+
+function buildReview() {
+    const data = collectApplicationData();
+    data.id = "Generated after submission";
+
+    qs("#reviewSection").innerHTML = applicationDetailsHTML(data, false);
 }
 
 function submitApplication() {
+    if (!validateStep(6)) {
+        currentStep = 6;
+        showStep(6);
+        return;
+    }
 
-    // Generate Application ID
-    let appId = "ADM-" + Math.floor(100000 + Math.random() * 900000);
+    const application = collectApplicationData();
+    const applications = getStorage(STORAGE.applications);
 
-    document.getElementById("applicationID").innerText = appId;
+    while (applications.some(app => app.id === application.id)) {
+        application.id = generateApplicationId();
+    }
 
-    // Build summary (you can expand this)
-    let summary = `
-        <p><b>Name:</b> ${document.getElementById("surname").value || ''} ${document.getElementById("firstname").value || ''}</p>
-        <p><b>Email:</b> ${document.getElementById("email").value || ''}</p>
-        <p><b>Phone:</b> ${document.getElementById("phone").value || ''}</p>
-        <p><b>Program:</b> ${document.getElementById("firstChoice")?.value || ''}</p>
+    applications.unshift(application);
+    setStorage(STORAGE.applications, applications);
+
+    lastSubmittedApplication = application;
+    activeDashboardAppId = application.id;
+
+    qs("#applicationForm").classList.add("hidden");
+    qs("#successScreen").classList.remove("hidden");
+    qs("#applicationSlip").innerHTML = applicationSlipHTML(application);
+
+    renderAdmin();
+}
+
+function applicationDetailsHTML(app, showStatus = true) {
+    return `
+        <table class="review-table">
+            <tbody>
+                ${showStatus ? `<tr><th>Status</th><td>${makeStatusBadge(app.status)}</td></tr>` : ""}
+                <tr><th>Application ID</th><td>${escapeHTML(app.id)}</td></tr>
+                <tr><th>Applicant Name</th><td>${escapeHTML(app.fullName)}</td></tr>
+                <tr><th>Email</th><td>${escapeHTML(app.email)}</td></tr>
+                <tr><th>Phone</th><td>${escapeHTML(app.phone)}</td></tr>
+                <tr><th>Application Type</th><td>${escapeHTML(app.applicationType)}</td></tr>
+                <tr><th>Intake</th><td>${escapeHTML(app.intake)}</td></tr>
+                <tr><th>Study Mode</th><td>${escapeHTML(app.studyMode)}</td></tr>
+                <tr><th>First Choice</th><td>${escapeHTML(app.firstChoice)}</td></tr>
+                <tr><th>Second Choice</th><td>${escapeHTML(app.secondChoice)}</td></tr>
+                <tr><th>O-Level School</th><td>${escapeHTML(app.uceSchool)}</td></tr>
+                <tr><th>O-Level Index</th><td>${escapeHTML(app.uceIndex)}</td></tr>
+                <tr><th>English / Math Grades</th><td>${escapeHTML(app.englishGrade)} / ${escapeHTML(app.mathGrade)}</td></tr>
+                <tr><th>Payment Method</th><td>${escapeHTML(app.paymentMethod)}</td></tr>
+                <tr><th>Payment Reference</th><td>${escapeHTML(app.paymentReference)}</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Uploaded Documents</h3>
+        <ul class="doc-list">
+            ${(app.documents || []).map(doc => `
+                <li><strong>${escapeHTML(doc.label)}:</strong> ${escapeHTML(doc.name)} - ${escapeHTML(doc.status)}</li>
+            `).join("")}
+        </ul>
+    `;
+}
+
+function applicationSlipHTML(app) {
+    return `
+        <h2 style="color:#002147;">Benchmark Business College</h2>
+        <h3>Application Submission Slip</h3>
+        <p><strong>Application ID:</strong> ${escapeHTML(app.id)}</p>
+        <p><strong>Applicant Name:</strong> ${escapeHTML(app.fullName)}</p>
+        <p><strong>Email:</strong> ${escapeHTML(app.email)}</p>
+        <p><strong>Phone:</strong> ${escapeHTML(app.phone)}</p>
+        <p><strong>Programme:</strong> ${escapeHTML(app.firstChoice)}</p>
+        <p><strong>Intake:</strong> ${escapeHTML(app.intake)}</p>
+        <p><strong>Status:</strong> ${escapeHTML(app.status)}</p>
+        <p><strong>Submitted:</strong> ${new Date(app.createdAt).toLocaleString()}</p>
+        <hr>
+        <p>Please keep this slip safely. Use your Application ID to check your admission status.</p>
+    `;
+}
+
+function downloadSlip() {
+    if (!lastSubmittedApplication) return;
+
+    const content = `
+        <!DOCTYPE html>
+        <html>
+        <head><meta charset="UTF-8"><title>Application Slip</title></head>
+        <body>${applicationSlipHTML(lastSubmittedApplication)}</body>
+        </html>
     `;
 
-    document.getElementById("finalSummary").innerHTML = summary;
-
-    // Move to step 9
-    showStep(9);
+    const blob = new Blob([content], { type: "text/html" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `${lastSubmittedApplication.id}-application-slip.html`;
+    link.click();
+    URL.revokeObjectURL(link.href);
 }
 
-function printApplication() {
-    window.print();
+function findApplication(input) {
+    const search = String(input || "").trim().toLowerCase();
+    const applications = getStorage(STORAGE.applications);
+
+    return applications.find(app =>
+        app.id.toLowerCase() === search ||
+        app.email.toLowerCase() === search
+    );
 }
 
-function downloadPDF() {
+function initDashboard() {
+    qs("#loadDashboardBtn").addEventListener("click", () => {
+        const input = val("dashboardSearch");
+        const app = findApplication(input);
+        const message = qs("#dashboardMessage");
 
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+        if (!input) {
+            setMessage(message, "Please enter Application ID or Email.", false);
+            return;
+        }
 
-    let name = document.getElementById("surname").value + " " +
-               document.getElementById("firstname").value;
+        if (!app) {
+            qs("#studentPanels").classList.add("hidden");
+            setMessage(message, "No application found.", false);
+            return;
+        }
 
-    let email = document.getElementById("email").value;
-    let phone = document.getElementById("phone").value;
-    let program = document.getElementById("firstChoice").value;
-    let appId = document.getElementById("applicationID").innerText;
+        activeDashboardAppId = app.id;
+        renderStudentDashboard(app);
+        setMessage(message, "Application loaded successfully.", true);
+    });
 
-    doc.setFont("helvetica", "bold");
-    doc.text("UNIVERSITY APPLICATION FORM", 20, 20);
+    qs("#refreshStatusBtn").addEventListener("click", () => {
+        if (!activeDashboardAppId) return;
 
-    doc.setFont("helvetica", "normal");
-    doc.text("Application ID: " + appId, 20, 40);
-    doc.text("Name: " + name, 20, 50);
-    doc.text("Email: " + email, 20, 60);
-    doc.text("Phone: " + phone, 20, 70);
-    doc.text("Program: " + program, 20, 80);
+        const app = getStorage(STORAGE.applications).find(item => item.id === activeDashboardAppId);
 
-    doc.text("Status: SUBMITTED", 20, 100);
+        if (app) {
+            renderStudentDashboard(app);
+            setMessage(qs("#dashboardMessage"), "Status refreshed.", true);
+        }
+    });
 
-    doc.save("University_Application.pdf");
+    qs("#updateProfileBtn").addEventListener("click", updateStudentProfile);
+}
+
+function renderStudentDashboard(app) {
+    qs("#studentPanels").classList.remove("hidden");
+
+    qs("#studentOverview").innerHTML = `
+        <p><strong>Applicant Name:</strong> ${escapeHTML(app.fullName)}</p>
+        <p><strong>Application ID:</strong> ${escapeHTML(app.id)}</p>
+        <p><strong>Programme:</strong> ${escapeHTML(app.firstChoice)}</p>
+        <p><strong>Intake:</strong> ${escapeHTML(app.intake)}</p>
+        <p><strong>Current Status:</strong> ${makeStatusBadge(app.status)}</p>
+    `;
+
+    qs("#studentProgress").innerHTML = progressHTML(app.status);
+
+    qs("#studentDocuments").innerHTML = `
+        <ul class="doc-list">
+            ${(app.documents || []).map(doc => `
+                <li>📄 <strong>${escapeHTML(doc.label)}:</strong> ${escapeHTML(doc.status)} ${doc.name !== "Not Uploaded" ? `(${escapeHTML(doc.name)})` : ""}</li>
+            `).join("")}
+        </ul>
+    `;
+
+    qs("#studentNotifications").innerHTML = (app.notifications || [])
+        .map(note => `<li>📢 ${escapeHTML(note)}</li>`)
+        .join("");
+
+    qs("#profileName").value = app.fullName || "";
+    qs("#profileEmail").value = app.email || "";
+    qs("#profilePhone").value = app.phone || "";
+}
+
+function progressHTML(status) {
+    const stages = ["Submitted", "Document Verification", "Department Review", "Final Decision"];
+    let currentIndex = 0;
+
+    if (status === "Document Verification") currentIndex = 1;
+    if (status === "Department Review") currentIndex = 2;
+    if (["Approved", "Rejected"].includes(status)) currentIndex = 3;
+
+    return `
+        <div class="timeline">
+            ${stages.map((stage, index) => {
+                const className = index < currentIndex ? "done" : index === currentIndex ? "current" : "";
+                const symbol = index < currentIndex ? "🟢" : index === currentIndex ? "🟡" : "⚪";
+                const label = index === 3 && status === "Approved" ? "Final Decision: Approved" :
+                              index === 3 && status === "Rejected" ? "Final Decision: Rejected" : stage;
+
+                return `<div class="timeline-item ${className}">${symbol} ${escapeHTML(label)}</div>`;
+            }).join("")}
+        </div>
+    `;
+}
+
+function updateStudentProfile() {
+    if (!activeDashboardAppId) return;
+
+    const applications = getStorage(STORAGE.applications);
+    const app = applications.find(item => item.id === activeDashboardAppId);
+
+    if (!app) return;
+
+    app.fullName = val("profileName");
+    app.email = val("profileEmail").toLowerCase();
+    app.phone = val("profilePhone");
+    app.notifications = app.notifications || [];
+    app.notifications.unshift("Profile information updated successfully.");
+
+    setStorage(STORAGE.applications, applications);
+    renderStudentDashboard(app);
+    renderAdmin();
+    setMessage(qs("#profileMessage"), "Profile updated successfully.", true);
+}
+
+function initAdmin() {
+    qs("#applyAdminFilterBtn").addEventListener("click", renderAdmin);
+    qs("#adminSearch").addEventListener("input", renderAdmin);
+    qs("#adminProgramFilter").addEventListener("change", renderAdmin);
+    qs("#adminStatusFilter").addEventListener("change", renderAdmin);
+    qs("#exportCsvBtn").addEventListener("click", exportCSV);
+
+    qs("#clearDemoBtn").addEventListener("click", () => {
+        const confirmed = confirm("Are you sure you want to clear all applications from this browser?");
+        if (!confirmed) return;
+
+        setStorage(STORAGE.applications, []);
+        renderAdmin();
+    });
+
+    qs("#applicationsTableBody").addEventListener("click", event => {
+        const button = event.target.closest("button");
+        if (!button) return;
+
+        const id = button.dataset.id;
+        const action = button.dataset.action;
+
+        if (action === "view") viewApplication(id);
+        if (action === "approve") updateApplicationStatus(id, "Approved");
+        if (action === "reject") updateApplicationStatus(id, "Rejected");
+        if (action === "verify") updateApplicationStatus(id, "Document Verification");
+        if (action === "review") updateApplicationStatus(id, "Department Review");
+    });
+}
+
+function renderAdmin() {
+    populateProgrammeSelects();
+
+    const applications = getFilteredApplications();
+    const all = getStorage(STORAGE.applications);
+    const tbody = qs("#applicationsTableBody");
+
+    qs("#totalApps").textContent = all.length;
+    qs("#pendingApps").textContent = all.filter(app => ["Under Review", "Document Verification", "Department Review"].includes(app.status)).length;
+    qs("#approvedApps").textContent = all.filter(app => app.status === "Approved").length;
+    qs("#rejectedApps").textContent = all.filter(app => app.status === "Rejected").length;
+
+    if (!applications.length) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="6">No applications found.</td>
+            </tr>
+        `;
+    } else {
+        tbody.innerHTML = applications.map(app => `
+            <tr>
+                <td>${escapeHTML(app.id)}</td>
+                <td>
+                    <strong>${escapeHTML(app.fullName)}</strong><br>
+                    <small>${escapeHTML(app.email)}</small>
+                </td>
+                <td>${escapeHTML(app.firstChoice)}</td>
+                <td>${escapeHTML(app.intake)}</td>
+                <td>${makeStatusBadge(app.status)}</td>
+                <td>
+                    <button class="view-btn" data-action="view" data-id="${escapeHTML(app.id)}">View</button>
+                    <button class="verify-btn" data-action="verify" data-id="${escapeHTML(app.id)}">Verify</button>
+                    <button class="verify-btn" data-action="review" data-id="${escapeHTML(app.id)}">Review</button>
+                    <button class="approve-btn" data-action="approve" data-id="${escapeHTML(app.id)}">Approve</button>
+                    <button class="reject-btn" data-action="reject" data-id="${escapeHTML(app.id)}">Reject</button>
+                </td>
+            </tr>
+        `).join("");
+    }
+
+    renderAnalytics(all);
+}
+
+function getFilteredApplications() {
+    const applications = getStorage(STORAGE.applications);
+    const search = val("adminSearch").toLowerCase();
+    const programme = qs("#adminProgramFilter") ? qs("#adminProgramFilter").value : "all";
+    const status = qs("#adminStatusFilter") ? qs("#adminStatusFilter").value : "all";
+
+    return applications.filter(app => {
+        const matchesSearch =
+            !search ||
+            app.id.toLowerCase().includes(search) ||
+            app.fullName.toLowerCase().includes(search) ||
+            app.email.toLowerCase().includes(search);
+
+        const matchesProgramme = programme === "all" || app.firstChoice === programme;
+        const matchesStatus = status === "all" || app.status === status;
+
+        return matchesSearch && matchesProgramme && matchesStatus;
+    });
+}
+
+function viewApplication(id) {
+    const app = getStorage(STORAGE.applications).find(item => item.id === id);
+    if (!app) return;
+
+    qs("#modalBody").innerHTML = `
+        <h2 style="color:#002147;">Application Details</h2>
+        ${applicationDetailsHTML(app, true)}
+        <h3>Statement of Purpose</h3>
+        <p>${escapeHTML(app.statement || "No statement submitted.")}</p>
+    `;
+
+    qs("#applicationModal").classList.remove("hidden");
+}
+
+function updateApplicationStatus(id, status) {
+    const applications = getStorage(STORAGE.applications);
+    const app = applications.find(item => item.id === id);
+
+    if (!app) return;
+
+    app.status = status;
+    app.notifications = app.notifications || [];
+
+    if (status === "Approved") {
+        app.notifications.unshift("Congratulations! Your application has been approved.");
+        app.documents = (app.documents || []).map(doc => ({ ...doc, status: doc.status === "Uploaded" ? "Verified" : doc.status }));
+    } else if (status === "Rejected") {
+        app.notifications.unshift("Your application has been rejected. Please contact admissions for more information.");
+    } else if (status === "Document Verification") {
+        app.notifications.unshift("Your documents are being verified by the admissions office.");
+    } else if (status === "Department Review") {
+        app.notifications.unshift("Your application has moved to department review.");
+    }
+
+    setStorage(STORAGE.applications, applications);
+    renderAdmin();
+
+    if (activeDashboardAppId === id) {
+        renderStudentDashboard(app);
+    }
+}
+
+function renderAnalytics(applications) {
+    const total = applications.length;
+    const approved = applications.filter(app => app.status === "Approved").length;
+    const rejected = applications.filter(app => app.status === "Rejected").length;
+    const underReview = applications.filter(app => ["Under Review", "Document Verification", "Department Review"].includes(app.status)).length;
+
+    const programmeCounts = applications.reduce((acc, app) => {
+        acc[app.firstChoice] = (acc[app.firstChoice] || 0) + 1;
+        return acc;
+    }, {});
+
+    const mostApplied = Object.entries(programmeCounts).sort((a, b) => b[1] - a[1])[0];
+
+    qs("#analyticsBox").innerHTML = `
+        <p><strong>Total Applications:</strong> ${total}</p>
+        <p><strong>Under Review:</strong> ${underReview}</p>
+        <p><strong>Approved:</strong> ${approved}</p>
+        <p><strong>Rejected:</strong> ${rejected}</p>
+        <p><strong>Approval Rate:</strong> ${total ? Math.round((approved / total) * 100) : 0}%</p>
+        <p><strong>Most Applied Programme:</strong> ${mostApplied ? escapeHTML(mostApplied[0]) : "No data yet"}</p>
+    `;
+}
+
+function exportCSV() {
+    const applications = getFilteredApplications();
+
+    const headers = [
+        "Application ID",
+        "Applicant Name",
+        "Email",
+        "Phone",
+        "Programme",
+        "Intake",
+        "Study Mode",
+        "Status",
+        "Submitted"
+    ];
+
+    const rows = applications.map(app => [
+        app.id,
+        app.fullName,
+        app.email,
+        app.phone,
+        app.firstChoice,
+        app.intake,
+        app.studyMode,
+        app.status,
+        new Date(app.createdAt).toLocaleString()
+    ]);
+
+    const csv = [headers, ...rows]
+        .map(row => row.map(cell => `"${String(cell || "").replaceAll('"', '""')}"`).join(","))
+        .join("\n");
+
+    const blob = new Blob([csv], { type: "text/csv" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "benchmark-admissions-report.csv";
+    link.click();
+    URL.revokeObjectURL(link.href);
+}
+
+function initModal() {
+    qs("#modalCloseBtn").addEventListener("click", closeModal);
+
+    qs("#applicationModal").addEventListener("click", event => {
+        if (event.target.id === "applicationModal") closeModal();
+    });
+}
+
+function closeModal() {
+    qs("#applicationModal").classList.add("hidden");
+}
+
+function initRevealAnimations() {
+    const reveals = qsa(".reveal");
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+            }
+        });
+    }, { threshold: 0.15 });
+
+    reveals.forEach(item => observer.observe(item));
 }

@@ -1,382 +1,454 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>Benchmark Business and Technical College</title>
+    <title>Benchmark Business and Technical College</title>
 
-<link rel="stylesheet" href="style.css">
+    <meta name="description" content="Benchmark Business and Technical College - Empowering future generations through quality education, innovation, research and leadership." />
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css" />
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </head>
 
 <body>
 
-<!-- TOP HEADER -->
-<div class="top-bar">
+    <!-- ================= TOP BAR ================= -->
+    <div class="top-bar">
+        <div class="top-left">
+            <span><i class="fa fa-phone"></i> +256 782 900 765</span>
+            <span><i class="fa fa-envelope"></i> info@benchmarkbusinesscollege.ac.ug</span>
+            <span><i class="fa fa-location-dot"></i> Arua City, Uganda</span>
+        </div>
 
-    <div class="top-left">
-        <i class="fa fa-phone"></i> +256 782 900 765
-        <i class="fa fa-envelope"></i> info@teamuniversity.ac.ug
+        <div class="top-right">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="admissions/dashboard.html" class="apply-btn">Apply Now</a>
+        </div>
     </div>
 
-    <div class="top-right">
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="admissions/dashboard.html" class="apply-btn">Apply Now</a>
-    </div>
+    <!-- ================= HEADER / NAVIGATION ================= -->
+    <header class="site-header">
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <img src="images/logo.jpg" alt="Benchmark Business College Logo" />
+                <div>
+                    <h2>Benchmark</h2>
+                    <p>Business & Technical College</p>
+                </div>
+            </a>
 
-</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="nav-link active-link">Home</a></li>
+                <li><a href="about/about.html" class="nav-link">About</a></li>
+                <li><a href="academics/academics.html" class="nav-link">Academics</a></li>
+                <li><a href="admissions/admissions.html" class="nav-link">Admissions</a></li>
+                <li><a href="students_portal/login.html" class="nav-link">Students</a></li>
+                <li><a href="staff portal/staff-login.html" class="nav-link">Staff</a></li>
+                <li><a href="research/research.html" class="nav-link">Research</a></li>
+                <li><a href="contact/contact.html" class="nav-link">Contact</a></li>
+            </ul>
 
-<!-- NAVIGATION -->
-<header>
+            <div class="search-box">
+                <input type="text" id="siteSearch" placeholder="Search site..." aria-label="Search website" />
+                <i class="fa fa-search"></i>
+            </div>
 
-    <nav class="navbar">
-    <div class="logo">
+            <button class="menu-btn" id="menuBtn" aria-label="Open navigation menu">
+                <i class="fa fa-bars"></i>
+            </button>
+        </nav>
+    </header>
 
-        <img src="images/logo.jpg" alt="Benchmark Business College Logo">
-
-        <h2>Benchmark Business College</h2>
-
-    </div>
-
-    <ul class="nav-links">
-
-        <li><a href="index.html">Home</a></li>
-
-        <li><a href="about/about.html">About</a></li>
-
-        <li><a href="academics/academics.html">Academics</a></li>
-
-        <li><a href="admissions/admissions.html">Admissions</a></li>
-
-        <li><a href="students_portal/login.html">Students</a></li>
-        <li><a href="staff portal/staff-login.html">Staff</a></li>
-
-        <li><a href="research/research.html">Research</a></li>
-
-        <li><a href="contact/contact.html">Contact</a></li>
-
-    </ul>
-    
-
-    <div class="search-box">
-        <input type="text" placeholder="Search...">
-        <i class="fa fa-search"></i>
-    </div>
-
-    <div class="menu-btn">
-        <i class="fa fa-bars"></i>
-    </div>
-    
-
-</nav>
-</header>
-<!-- ANNOUNCEMENT BAR -->
-<section class="announcement">
-
-    <marquee>
-        Admissions for 2026/2027 Intake are now open | Scholarships available |
-        Online applications ongoing | Visit our campus in Arua City
-    </marquee>
-
-</section>
-
-<section class="hero">
-
-    <div class="hero-overlay"></div>
-
-    <div class="hero-content">
-
-        <h1>Benchmark Business and Technical College</h1>
-
-        <p>
-            Empowering Future Generations Through Quality Education,
-            Innovation, Research and Leadership.
-        </p>
-
-        <div class="hero-buttons">
-            <a href="admissions.html" class="btn-primary">Apply Now</a>
-            <a href="programs/programs.html" class="btn-secondary">Explore Programs</a>
+    <!-- ================= ANNOUNCEMENT BAR ================= -->
+    <section class="announcement">
+        <div class="announcement-label">
+            <i class="fa fa-bullhorn"></i> Notice
         </div>
 
-    </div>
-
-</section>
-
-
-<!-- ABOUT SECTION -->
-<section class="about">
-
-    <div class="about-image">
-        <img src="images/news2.png" alt="Campus Image">
-    </div>
-
-    <div class="about-text">
-
-        <h2>About Benchmark Business College</h2>
-
-        <p>
-           Benchmark Business College is dedicated to quality education, research,
-            entrepreneurship, innovation, and community transformation through
-            practical and industry-based learning.
-        </p>
-
-        <a href="about/about.html" class="read-more">
-            Read More
-        </a>
-
-    </div>
-
-</section>
-
-<!-- PROGRAMS SECTION -->
-<section class="programs">
-
-    <h2>Our Academic Programs</h2>
-
-    <div class="program-container">
-
-        <div class="program-card">
-            <i class="fa fa-briefcase"></i>
-            <h3>Business School</h3>
-            <p>Accounting, Procurement, HRM, Banking and Finance.</p>
-        </div>
-
-        <div class="program-card">
-            <i class="fa fa-laptop"></i>
-            <h3>ICT School</h3>
-            <p>Software, Networking, Database and Cybersecurity.</p>
-        </div>
-
-        <div class="program-card">
-            <i class="fa fa-gears"></i>
-            <h3>Technical School</h3>
-            <p>Electrical, Mechanical and Vocational Training.</p>
-        </div>
-
-    </div>
-
-</section>
-
-<!-- WHY CHOOSE US -->
-<section class="why-us">
-
-    <h2>Why Choose Benchmark Business College?</h2>
-
-    <div class="features">
-
-        <div class="feature">
-            <i class="fa fa-user-graduate"></i>
-            <h3>Qualified Lecturers</h3>
-        </div>
-
-        <div class="feature">
-            <i class="fa fa-building"></i>
-            <h3>Modern Facilities</h3>
-        </div>
-
-        <div class="feature">
-            <i class="fa fa-globe"></i>
-            <h3>Digital Learning</h3>
-        </div>
-
-        <div class="feature">
-            <i class="fa fa-award"></i>
-            <h3>Quality Education</h3>
-        </div>
-
-    </div>
-
-</section>
-
-<!-- STATISTICS -->
-<section class="stats">
-
-    <div class="stat">
-        <h2>500+</h2>
-        <p>Students</p>
-    </div>
-
-    <div class="stat">
-        <h2>20+</h2>
-        <p>Programs</p>
-    </div>
-
-    <div class="stat">
-        <h2>50+</h2>
-        <p>Lecturers</p>
-    </div>
-
-    <div class="stat">
-        <h2>10+</h2>
-        <p>Departments</p>
-    </div>
-
-</section>
-
-<!-- NEWS SECTION -->
-<section class="news">
-
-    <h2>Latest News & Events</h2>
-
-    <div class="news-container">
-
-        <div class="news-card">
-            <img src="images/news1.png" alt="">
-            <h3>2026 Admissions Open</h3>
-            <p>Applications for new students are now ongoing.</p>
-        </div>
-
-        <div class="news-card">
-            <img src="images/news2.png" alt="">
-            <h3>ICT Innovation Week</h3>
-            <p>Students showcase projects and research innovations.</p>
-        </div>
-
-        <div class="news-card">
-            <img src="images/news3.png" alt="">
-            <h3>Career Guidance Seminar</h3>
-            <p>Industry experts mentor and guide students.</p>
-        </div>
-        <div class="news-card">
-            <img src="images/news1.png" alt="">
-            <h3>2026 Admissions Open</h3>
-            <p>Applications for new students are now ongoing.</p>
-        </div>
-
-        <div class="news-card">
-            <img src="images/news.7.jpg" alt="">
-            <h3>College background</h3>
-            <p>Students showcase projects and research innovations.</p>
-        </div>
-
-        <div class="news-card">
-            <img src="images/news3.png" alt="">
-            <h3>Career Guidance Seminar</h3>
-            <p>Industry experts mentor and guide students.</p>
-        </div>
-        <div class="news-card">
-            <img src="images/news1.png" alt="">
-            <h3>2026 Admissions Open</h3>
-            <p>Applications for new students are now ongoing.</p>
-        </div>
-
-        <div class="news-card">
-            <img src="images/news2.png" alt="">
-            <h3>ICT Innovation Week</h3>
-            <p>Students showcase projects and research innovations.</p>
-        </div>
-
-        <div class="news-card">
-            <img src="images/news3.png" alt="">
-            <h3>Career Guidance Seminar</h3>
-            <p>Industry experts mentor and guide students.</p>
-        </div>
-        <div class="news-card">
-            <img src="images/news1.png" alt="">
-            <h3>2026 Admissions Open</h3>
-            <p>Applications for new students are now ongoing.</p>
-        </div>
-
-        <div class="news-card">
-            <img src="images/news6.jpg" alt="">
-            <h3>ICT Innovation Week</h3>
-            <p>Students showcase projects and research innovations.</p>
-        </div>
-
-        <div class="news-card">
-            <img src="images/news5.jpg" alt="">
-            <h3>Career Guidance Seminar</h3>
-            <p>Industry experts mentor and guide students.</p>
-        </div>
-
-    </div>
-
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="testimonials">
-
-    <h2>What Students Say</h2>
-
-    <div class="testimonial-container">
-
-        <div class="testimonial">
+        <div class="announcement-track">
             <p>
-                "Benchmark Business Technical College transformed my career through practical learning."
+                Admissions for 2026/2027 Intake are now open • Scholarships available • Online applications ongoing • Visit our campus in Arua City
             </p>
-            <h4>- Student</h4>
         </div>
+    </section>
 
-        <div class="testimonial">
+    <!-- ================= HERO SECTION ================= -->
+    <section class="hero" id="home">
+        <div class="hero-overlay"></div>
+
+        <div class="floating-shape shape-one"></div>
+        <div class="floating-shape shape-two"></div>
+        <div class="floating-shape shape-three"></div>
+
+        <div class="hero-content reveal">
+            <span class="hero-badge">
+                <i class="fa fa-graduation-cap"></i> Excellence Has No Boundary
+            </span>
+
+            <h1>Benchmark Business and Technical College</h1>
+
             <p>
-                "The ICT programs are modern and industry-oriented."
+                Empowering future generations through quality education, innovation, research,
+                leadership, entrepreneurship, and practical skills training.
             </p>
-            <h4>- Graduate</h4>
+
+            <div class="hero-buttons">
+                <a href="admissions/admissions.html" class="btn btn-primary">Apply Now</a>
+                <a href="programs/programs.html" class="btn btn-secondary">Explore Programs</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= QUICK INFO CARDS ================= -->
+    <section class="quick-info">
+        <div class="quick-card reveal">
+            <i class="fa fa-user-plus"></i>
+            <h3>Admissions Open</h3>
+            <p>Apply online for certificate, diploma, and short professional courses.</p>
         </div>
 
-    </div>
-
-</section>
-
-<!-- CALL TO ACTION -->
-<section class="cta">
-
-    <h2>Join Benchmark Business College Today</h2>
-
-    <p>
-        Build your future with quality education and practical skills training.
-    </p>
-
-    <a href="admissions/admissions.html" class="btn-primary">
-        Apply Now
-    </a>
-
-</section>
-
-<!-- FOOTER -->
-<footer>
-
-    <div class="footer-content">
-
-        <div class="footer-section">
-            <h3>Benchmark Business College</h3>
-            <p>Arua City, Uganda</p>
-            <p>Excellence Has No Boundary</p>
+        <div class="quick-card reveal">
+            <i class="fa fa-book-open-reader"></i>
+            <h3>Practical Learning</h3>
+            <p>Gain hands-on skills through industry-based training and mentorship.</p>
         </div>
 
-        <div class="footer-section">
-            <h3>Quick Links</h3>
-            <p>Admissions</p>
+        <div class="quick-card reveal">
+            <i class="fa fa-laptop-code"></i>
+            <h3>Digital Education</h3>
+            <p>Access modern ICT resources, e-learning support, and digital tools.</p>
+        </div>
+    </section>
+
+    <!-- ================= ABOUT SECTION ================= -->
+    <section class="about section-padding" id="about">
+        <div class="about-image reveal">
+            <img src="images/news2.png" alt="Benchmark Business College campus" />
+        </div>
+
+        <div class="about-text reveal">
+            <span class="section-tag">About Us</span>
+            <h2>Building Skilled, Ethical and Innovative Professionals</h2>
+
+            <p>
+                Benchmark Business and Technical College is committed to delivering quality education
+                that prepares students for employment, entrepreneurship, leadership, and community transformation.
+            </p>
+
+            <p>
+                Our programs combine theory with practical learning to ensure every student graduates with
+                marketable skills and confidence.
+            </p>
+
+            <div class="about-points">
+                <div>
+                    <i class="fa fa-check-circle"></i>
+                    Industry-focused programs
+                </div>
+
+                <div>
+                    <i class="fa fa-check-circle"></i>
+                    Qualified and committed lecturers
+                </div>
+
+                <div>
+                    <i class="fa fa-check-circle"></i>
+                    Supportive learning environment
+                </div>
+            </div>
+
+            <a href="about/about.html" class="btn btn-dark">Read More</a>
+        </div>
+    </section>
+
+    <!-- ================= PROGRAMS SECTION ================= -->
+    <section class="programs section-padding" id="academics">
+        <div class="section-heading reveal">
+            <span class="section-tag">Academics</span>
+            <h2>Our Academic Programs</h2>
+            <p>Choose from business, ICT, technical, and professional skills programs designed for today’s job market.</p>
+        </div>
+
+        <div class="program-container">
+            <div class="program-card searchable reveal">
+                <i class="fa fa-briefcase"></i>
+                <h3>Business School</h3>
+                <p>Accounting, Procurement, Human Resource Management, Banking, Finance and Entrepreneurship.</p>
+                <a href="academics/academics.html">View Programs <i class="fa fa-arrow-right"></i></a>
+            </div>
+
+            <div class="program-card searchable reveal">
+                <i class="fa fa-laptop"></i>
+                <h3>ICT School</h3>
+                <p>Software Development, Networking, Database Management, Graphics, Cybersecurity and Computer Applications.</p>
+                <a href="academics/academics.html">View Programs <i class="fa fa-arrow-right"></i></a>
+            </div>
+
+            <div class="program-card searchable reveal">
+                <i class="fa fa-gears"></i>
+                <h3>Technical School</h3>
+                <p>Electrical, Mechanical, Vocational Training, Practical Engineering and Technical Skills Development.</p>
+                <a href="academics/academics.html">View Programs <i class="fa fa-arrow-right"></i></a>
+            </div>
+
+            <div class="program-card searchable reveal">
+                <i class="fa fa-chalkboard-user"></i>
+                <h3>Professional Short Courses</h3>
+                <p>Computer packages, entrepreneurship, records management, office administration and career skills.</p>
+                <a href="academics/academics.html">View Programs <i class="fa fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= WHY CHOOSE US ================= -->
+    <section class="why-us section-padding">
+        <div class="section-heading light reveal">
+            <span class="section-tag gold">Why Choose Us</span>
+            <h2>Education Designed for Real-World Success</h2>
+            <p>We provide a student-centered environment focused on skills, discipline, innovation, and excellence.</p>
+        </div>
+
+        <div class="features">
+            <div class="feature reveal">
+                <i class="fa fa-user-graduate"></i>
+                <h3>Qualified Lecturers</h3>
+                <p>Experienced trainers committed to student growth and career readiness.</p>
+            </div>
+
+            <div class="feature reveal">
+                <i class="fa fa-building-columns"></i>
+                <h3>Modern Facilities</h3>
+                <p>Learning spaces designed to support practical and digital education.</p>
+            </div>
+
+            <div class="feature reveal">
+                <i class="fa fa-globe"></i>
+                <h3>Digital Learning</h3>
+                <p>E-learning support, ICT resources, and technology-driven training.</p>
+            </div>
+
+            <div class="feature reveal">
+                <i class="fa fa-award"></i>
+                <h3>Quality Education</h3>
+                <p>Programs aligned with professional standards and community needs.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= STATS SECTION ================= -->
+    <section class="stats">
+        <div class="stat reveal">
+            <h2 data-target="500">0</h2>
+            <p>Students</p>
+        </div>
+
+        <div class="stat reveal">
+            <h2 data-target="20">0</h2>
             <p>Programs</p>
-            <p>Library</p>
-            <p>Student Portal</p>
         </div>
 
-        <div class="footer-section">
-            <h3>Contact Us</h3>
-            <p>+256 782 900 765</p>
-            <p>info@Benchmarkbusinesscollege.ac.ug</p>
+        <div class="stat reveal">
+            <h2 data-target="50">0</h2>
+            <p>Lecturers</p>
         </div>
 
-    </div>
+        <div class="stat reveal">
+            <h2 data-target="10">0</h2>
+            <p>Departments</p>
+        </div>
+    </section>
 
-    <div class="footer-bottom">
-        <p>© 2026 Benchmark Business College. All Rights Reserved.</p>
-    </div>
+    <!-- ================= ADMISSIONS SECTION ================= -->
+    <section class="admissions-preview section-padding" id="admissions">
+        <div class="admissions-content reveal">
+            <span class="section-tag">Admissions</span>
+            <h2>Start Your Academic Journey Today</h2>
+            <p>
+                Applications are open for the 2026/2027 intake. Submit your application online
+                or visit our admissions office in Arua City for guidance.
+            </p>
 
-</footer>
+            <ul>
+                <li><i class="fa fa-circle-check"></i> Certificate programs</li>
+                <li><i class="fa fa-circle-check"></i> Diploma programs</li>
+                <li><i class="fa fa-circle-check"></i> Short professional courses</li>
+                <li><i class="fa fa-circle-check"></i> Flexible learning options</li>
+            </ul>
 
-<script src="script.js"></script>
-<div class="floating-shape shape1"></div>
-<div class="floating-shape shape2"></div>
-<div class="floating-shape shape3"></div>
+            <a href="admissions/admissions.html" class="btn btn-primary">Apply for Admission</a>
+        </div>
 
+        <div class="admissions-steps reveal">
+            <div class="step-card">
+                <span>01</span>
+                <h3>Choose Program</h3>
+                <p>Select the course that matches your career goals.</p>
+            </div>
+
+            <div class="step-card">
+                <span>02</span>
+                <h3>Submit Application</h3>
+                <p>Complete your application online or at campus.</p>
+            </div>
+
+            <div class="step-card">
+                <span>03</span>
+                <h3>Get Admission</h3>
+                <p>Receive admission feedback and begin registration.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= NEWS SECTION ================= -->
+    <section class="news section-padding" id="news">
+        <div class="section-heading reveal">
+            <span class="section-tag">Campus Updates</span>
+            <h2>Latest News & Events</h2>
+            <p>Stay informed about admissions, events, innovation activities, and student opportunities.</p>
+        </div>
+
+        <div class="news-container">
+            <article class="news-card searchable reveal">
+                <img src="images/news1.png" alt="Admissions open" />
+                <div class="news-body">
+                    <span>Admissions</span>
+                    <h3>2026 Admissions Open</h3>
+                    <p>Applications for new students are now ongoing for the 2026/2027 academic year.</p>
+                    <a href="admissions/admissions.html">Read More</a>
+                </div>
+            </article>
+
+            <article class="news-card searchable reveal">
+                <img src="images/news2.png" alt="ICT Innovation Week" />
+                <div class="news-body">
+                    <span>Innovation</span>
+                    <h3>ICT Innovation Week</h3>
+                    <p>Students showcase technology projects, research ideas, and digital solutions.</p>
+                    <a href="research/research.html">Read More</a>
+                </div>
+            </article>
+
+            <article class="news-card searchable reveal">
+                <img src="images/news3.png" alt="Career guidance seminar" />
+                <div class="news-body">
+                    <span>Career</span>
+                    <h3>Career Guidance Seminar</h3>
+                    <p>Industry experts mentor students on career growth, discipline, and employability.</p>
+                    <a href="contact/contact.html">Read More</a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- ================= TESTIMONIALS ================= -->
+    <section class="testimonials section-padding">
+        <div class="section-heading reveal">
+            <span class="section-tag">Testimonials</span>
+            <h2>What Students Say</h2>
+            <p>Our students and graduates value practical training, supportive lecturers, and career-focused programs.</p>
+        </div>
+
+        <div class="testimonial-container">
+            <div class="testimonial reveal">
+                <i class="fa fa-quote-left"></i>
+                <p>
+                    “Benchmark Business and Technical College transformed my career through practical learning
+                    and professional guidance.”
+                </p>
+                <h4>- Current Student</h4>
+            </div>
+
+            <div class="testimonial reveal">
+                <i class="fa fa-quote-left"></i>
+                <p>
+                    “The ICT programs are modern, practical, and industry-oriented. I gained confidence and real skills.”
+                </p>
+                <h4>- Graduate</h4>
+            </div>
+
+            <div class="testimonial reveal">
+                <i class="fa fa-quote-left"></i>
+                <p>
+                    “The college creates an environment where students learn discipline, leadership, and entrepreneurship.”
+                </p>
+                <h4>- Alumni</h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= PARTNERS / CTA ================= -->
+    <section class="cta">
+        <div class="cta-content reveal">
+            <h2>Join Benchmark Business and Technical College Today</h2>
+            <p>Build your future with quality education, practical skills, innovation, and professional training.</p>
+
+            <div class="cta-buttons">
+                <a href="admissions/admissions.html" class="btn btn-primary">Apply Now</a>
+                <a href="contact/contact.html" class="btn btn-secondary">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Benchmark Business College</h3>
+                <p>
+                    Benchmark Business and Technical College is committed to excellence,
+                    innovation, practical skills training, and community transformation.
+                </p>
+
+                <div class="footer-socials">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="about/about.html">About Us</a>
+                <a href="academics/academics.html">Academic Programs</a>
+                <a href="admissions/admissions.html">Admissions</a>
+                <a href="students_portal/login.html">Student Portal</a>
+                <a href="contact/contact.html">Contact Us</a>
+            </div>
+
+            <div class="footer-section">
+                <h3>Student Resources</h3>
+                <a href="students_portal/login.html">Student Login</a>
+                <a href="#">Library</a>
+                <a href="#">E-Learning</a>
+                <a href="#">Fees & Payments</a>
+                <a href="#">Academic Calendar</a>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fa fa-location-dot"></i> Arua City, Uganda</p>
+                <p><i class="fa fa-phone"></i> +256 782 900 765</p>
+                <p><i class="fa fa-envelope"></i> info@benchmarkbusinesscollege.ac.ug</p>
+                <p><i class="fa fa-clock"></i> Mon - Fri: 8:00 AM - 5:00 PM</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 Benchmark Business and Technical College. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ================= BACK TO TOP ================= -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fa fa-arrow-up"></i>
+    </button>
+
+    <script src="script.js"></script>
 </body>
 </html>
- 

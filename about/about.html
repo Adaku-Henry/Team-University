@@ -1,296 +1,554 @@
-<!-- =========================
-     ABOUT PAGE - REDESIGNED
-========================= -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us | Benchmark Business and Technical College</title>
 
-<section class="about-page" id="about">
+    <link rel="stylesheet" href="about.css" />
 
-<link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body>
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<header class="site-header">
+    <nav class="navbar">
+        <a href="../index.html" class="logo">
+            <span>Benchmark</span> College
+        </a>
 
-<!-- HERO SECTION -->
-<div class="about-hero">
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
 
-    <div class="hero-overlay">
+        <ul class="nav-links" id="navLinks">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="about.html" class="active">About</a></li>
+            <li><a href="../programs/programs.html">Programs</a></li>
+            <li><a href="../admissions/apply.html">Admissions</a></li>
+            <li><a href="../contact/contact.html">Contact</a></li>
+        </ul>
+    </nav>
+</header>
 
-        <h1>About Benchmark Business and Technical College</h1>
+<main class="about-page" id="about">
 
-        <p>
-            Empowering future generations through quality education,
-            innovation, leadership, and practical learning.
-        </p>
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
 
-        <div class="hero-buttons">
+        <div class="hero-content reveal">
+            <span class="section-badge">About Our College</span>
 
-            <a href="admissions/admissions.html" class="btn-primary">
-                Apply Now
-            </a>
+            <h1>About Benchmark Business and Technical College</h1>
 
-            <a href="#history" class="btn-secondary">
-                Explore More
-            </a>
+            <p>
+                Empowering learners through quality business and technical education,
+                practical skills, innovation, leadership, and career-focused training.
+            </p>
 
+            <div class="hero-buttons">
+                <a href="../admissions/admissions.html" class="btn btn-primary">
+                    Apply Now
+                </a>
+
+                <a href="#history" class="btn btn-secondary">
+                    Explore More
+                </a>
+            </div>
         </div>
+    </section>
 
+    <section class="intro-section section-padding">
+        <div class="container two-column">
+            <div class="intro-image reveal">
+                <img src="../images/news5.jpg" alt="Benchmark College students learning" />
+
+                <div class="experience-card">
+                    <h3>10+</h3>
+                    <p>Departments</p>
+                </div>
+            </div>
+
+            <div class="intro-content reveal">
+                <span class="section-badge">Who We Are</span>
+
+                <h2>Building Skilled, Ethical, and Employable Graduates</h2>
+
+                <p>
+                    Benchmark Business and Technical College is a higher learning institution
+                    committed to providing accessible, practical, and quality education that
+                    prepares learners for employment, leadership, innovation, and entrepreneurship.
+                </p>
+
+                <p>
+                    The college focuses on academic excellence, hands-on training, skills development,
+                    community engagement, and industry-relevant learning that enables graduates to
+                    meet modern labor market needs.
+                </p>
+
+                <div class="intro-list">
+                    <div>
+                        <i class="fa-solid fa-circle-check"></i>
+                        Practical technical training
+                    </div>
+
+                    <div>
+                        <i class="fa-solid fa-circle-check"></i>
+                        Business and entrepreneurship focus
+                    </div>
+
+                    <div>
+                        <i class="fa-solid fa-circle-check"></i>
+                        Inclusive learning opportunities
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="container stats-grid">
+            <div class="stat-box reveal">
+                <h2><span class="counter" data-target="500">0</span>+</h2>
+                <p>Students</p>
+            </div>
+
+            <div class="stat-box reveal">
+                <h2><span class="counter" data-target="20">0</span>+</h2>
+                <p>Programs</p>
+            </div>
+
+            <div class="stat-box reveal">
+                <h2><span class="counter" data-target="50">0</span>+</h2>
+                <p>Staff Members</p>
+            </div>
+
+            <div class="stat-box reveal">
+                <h2><span class="counter" data-target="10">0</span>+</h2>
+                <p>Departments</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="video-section section-padding">
+        <div class="container two-column">
+            <div class="video-content reveal">
+                <span class="section-badge">Campus Experience</span>
+
+                <h2>Watch Our College Story</h2>
+
+                <p>
+                    Take a quick look at our learning environment, practical training approach,
+                    student life, and commitment to producing competent graduates.
+                </p>
+
+                <button class="btn btn-primary" id="openVideo">
+                    <i class="fa-solid fa-play"></i>
+                    Watch Video
+                </button>
+            </div>
+
+            <div class="video-card reveal">
+                <img src="../images/news6.jpg" alt="Benchmark College campus video preview" />
+
+                <button class="play-button" id="openVideoTwo" aria-label="Play video">
+                    <i class="fa-solid fa-play"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="history-section section-padding" id="history">
+        <div class="container">
+            <div class="section-heading reveal">
+                <span class="section-badge">Our Journey</span>
+
+                <h2>Our History</h2>
+
+                <p>
+                    Benchmark Business and Technical College was established to bridge gaps
+                    in business, vocational, and technical education through practical learning,
+                    technological advancement, and industry-oriented training.
+                </p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+
+                    <div class="timeline-content">
+                        <h3>Foundation</h3>
+                        <p>
+                            The institution was founded with a mission to provide affordable,
+                            practical, and career-focused education.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+
+                    <div class="timeline-content">
+                        <h3>Program Growth</h3>
+                        <p>
+                            The college expanded its academic and technical programs to meet
+                            growing market and community needs.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+
+                    <div class="timeline-content">
+                        <h3>Skills Development</h3>
+                        <p>
+                            Stronger emphasis was placed on practical training, entrepreneurship,
+                            innovation, and employability.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+
+                    <div class="timeline-content">
+                        <h3>Community Impact</h3>
+                        <p>
+                            The college continues to support youth, women, and communities through
+                            inclusive education and capacity-building programs.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="vision-mission section-padding">
+        <div class="container vm-grid">
+            <div class="vm-card reveal">
+                <div class="icon-box">
+                    <i class="fa-solid fa-eye"></i>
+                </div>
+
+                <h3>Our Vision</h3>
+
+                <p>
+                    To become a leading center of excellence in business and technical education,
+                    innovation, research, and ethical professional training that contributes to
+                    sustainable development.
+                </p>
+            </div>
+
+            <div class="vm-card reveal">
+                <div class="icon-box">
+                    <i class="fa-solid fa-bullseye"></i>
+                </div>
+
+                <h3>Our Mission</h3>
+
+                <p>
+                    To provide high-quality, practical, and affordable business and technical
+                    education that empowers learners with knowledge, skills, and entrepreneurial
+                    capabilities to succeed in the modern workforce and contribute positively to society.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="values-section section-padding">
+        <div class="container">
+            <div class="section-heading reveal">
+                <span class="section-badge">What Guides Us</span>
+
+                <h2>Core Values</h2>
+
+                <p>
+                    Our values shape how we teach, serve, lead, and support learners.
+                </p>
+            </div>
+
+            <div class="value-grid">
+                <div class="value-card reveal">
+                    <i class="fa-solid fa-award"></i>
+                    <h3>Excellence</h3>
+                    <p>
+                        Commitment to high standards in teaching, training, assessment,
+                        and service delivery.
+                    </p>
+                </div>
+
+                <div class="value-card reveal">
+                    <i class="fa-solid fa-handshake"></i>
+                    <h3>Integrity</h3>
+                    <p>
+                        Promoting honesty, transparency, accountability, and ethical conduct
+                        in all institutional activities.
+                    </p>
+                </div>
+
+                <div class="value-card reveal">
+                    <i class="fa-solid fa-lightbulb"></i>
+                    <h3>Innovation</h3>
+                    <p>
+                        Encouraging creativity, practical problem-solving, and modern learning
+                        approaches.
+                    </p>
+                </div>
+
+                <div class="value-card reveal">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <h3>Professionalism</h3>
+                    <p>
+                        Upholding competence, responsibility, discipline, and ethical professional
+                        behavior.
+                    </p>
+                </div>
+
+                <div class="value-card reveal">
+                    <i class="fa-solid fa-users"></i>
+                    <h3>Inclusiveness</h3>
+                    <p>
+                        Ensuring equal learning opportunities for learners regardless of gender,
+                        background, or socio-economic status.
+                    </p>
+                </div>
+
+                <div class="value-card reveal">
+                    <i class="fa-solid fa-seedling"></i>
+                    <h3>Community Impact</h3>
+                    <p>
+                        Supporting communities through skills training, capacity building,
+                        and development-focused education.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="objectives-section section-padding">
+        <div class="container objectives-wrapper">
+            <div class="objectives-content reveal">
+                <span class="section-badge">Our Goals</span>
+
+                <h2>Institutional Objectives</h2>
+
+                <p>
+                    The objectives of Benchmark Business and Technical College are to:
+                </p>
+            </div>
+
+            <div class="objectives-list reveal">
+                <ul>
+                    <li>Provide quality education and training in business, vocational, and technical fields.</li>
+                    <li>Promote skills development and entrepreneurship among youths and adults.</li>
+                    <li>Enhance employment opportunities and self-reliance among graduates.</li>
+                    <li>Develop practical competencies aligned with labor market demands.</li>
+                    <li>Foster innovation, professionalism, and ethical leadership among students.</li>
+                    <li>Support community development through capacity building and skills training.</li>
+                    <li>Build partnerships with government, private sector, and development organizations.</li>
+                    <li>Ensure inclusive education opportunities for marginalized groups, including women and youth.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="programs-section section-padding">
+        <div class="container">
+            <div class="section-heading reveal">
+                <span class="section-badge">Academic Strength</span>
+
+                <h2>Areas of Training</h2>
+
+                <p>
+                    We offer practical training designed to prepare learners for work,
+                    business, and lifelong career growth.
+                </p>
+            </div>
+
+            <div class="program-grid">
+                <div class="program-card reveal">
+                    <i class="fa-solid fa-briefcase"></i>
+                    <h3>Business Studies</h3>
+                    <p>Accounting, management, procurement, entrepreneurship, and office administration.</p>
+                </div>
+
+                <div class="program-card reveal">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                    <h3>Technical Skills</h3>
+                    <p>Hands-on vocational and technical training aligned with industry needs.</p>
+                </div>
+
+                <div class="program-card reveal">
+                    <i class="fa-solid fa-computer"></i>
+                    <h3>ICT Training</h3>
+                    <p>Computer applications, digital literacy, systems support, and technology skills.</p>
+                </div>
+
+                <div class="program-card reveal">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <h3>Career Development</h3>
+                    <p>Employability, leadership, workplace readiness, and professional growth.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="staff-section section-padding">
+        <div class="container">
+            <div class="section-heading reveal">
+                <span class="section-badge">Our Team</span>
+
+                <h2>Staff Directory</h2>
+
+                <p>
+                    Meet some of the dedicated professionals supporting academic,
+                    administrative, and technical excellence.
+                </p>
+            </div>
+
+            <div class="staff-controls reveal">
+                <select id="deptFilter">
+                    <option value="all">All Departments</option>
+                    <option value="administration">Administration</option>
+                    <option value="finance">Finance</option>
+                    <option value="academic">Academic</option>
+                    <option value="ict">ICT</option>
+                </select>
+
+                <input type="text" id="staffSearch" placeholder="Search staff name..." />
+            </div>
+
+            <div class="staff-grid" id="staffGrid">
+                <div class="staff-card reveal" data-dept="administration" data-name="Dr. John Mwanga">
+                    <img src="../images/principal.jpg" alt="Dr. John Mwanga" />
+                    <h3>Dr. John Mwanga</h3>
+                    <p>Director of Administration</p>
+                    <span class="tag admin">Administration</span>
+                </div>
+
+                <div class="staff-card reveal" data-dept="academic" data-name="Ms. Grace Auma">
+                    <img src="../images/registrar.jpg" alt="Ms. Grace Auma" />
+                    <h3>Ms. Grace Auma</h3>
+                    <p>Academic Registrar</p>
+                    <span class="tag academic">Academic</span>
+                </div>
+
+                <div class="staff-card reveal" data-dept="finance" data-name="Mr. Peter Okello">
+                    <img src="../images/finance.jpg" alt="Mr. Peter Okello" />
+                    <h3>Mr. Peter Okello</h3>
+                    <p>Finance Officer</p>
+                    <span class="tag finance">Finance</span>
+                </div>
+
+                <div class="staff-card reveal" data-dept="ict" data-name="Eng. Samuel Kato">
+                    <img src="../images/ict.jpg" alt="Eng. Samuel Kato" />
+                    <h3>Eng. Samuel Kato</h3>
+                    <p>ICT Manager</p>
+                    <span class="tag ict">ICT</span>
+                </div>
+            </div>
+
+            <p class="no-results" id="noResults">No staff member found.</p>
+        </div>
+    </section>
+
+    <section class="faq-section section-padding">
+        <div class="container">
+            <div class="section-heading reveal">
+                <span class="section-badge">Need to Know</span>
+
+                <h2>Frequently Asked Questions</h2>
+
+                <p>
+                    Quick answers about Benchmark Business and Technical College.
+                </p>
+            </div>
+
+            <div class="faq-wrapper reveal">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What type of institution is Benchmark Business and Technical College?
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+
+                    <div class="faq-answer">
+                        <p>
+                            It is a business and technical training institution focused on practical,
+                            affordable, and career-oriented education.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Does the college focus on practical skills?
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+
+                    <div class="faq-answer">
+                        <p>
+                            Yes. The college emphasizes hands-on training, employability,
+                            entrepreneurship, and real-world competencies.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Can I apply online?
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+
+                    <div class="faq-answer">
+                        <p>
+                            Yes. You can visit the admissions page and follow the application steps.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container cta-content reveal">
+            <span class="section-badge light">Start Your Journey</span>
+
+            <h2>Become Part of Benchmark Business and Technical College</h2>
+
+            <p>
+                Join a learning community committed to academic excellence,
+                technical competence, innovation, entrepreneurship, and leadership.
+            </p>
+
+            <a href="../admissions/apply.html" class="btn btn-white">
+                Apply Today
+            </a>
+        </div>
+    </section>
+
+</main>
+
+<div class="video-modal" id="videoModal">
+    <div class="video-modal-content">
+        <button class="close-video" id="closeVideo" aria-label="Close video">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <video id="collegeVideo" controls>
+            <source src="../videos/campus-tour.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+        </video>
     </div>
-
 </div>
-<!-- =========================
-     INTRO SECTION
-========================= -->
 
-<section class="about-page premium-about">
-
-    <div class="about-image">
-        <img src="../images/news5.jpg">
-
-    </div>
-
-    <div class="about-content">
-
-        <h2>Who We Are</h2>
-
-        <p>
-            Team University is a higher institution committed to providing
-            accessible, practical, and quality education that prepares
-            learners for leadership, employment, innovation, and entrepreneurship.
-        </p>
-
-        <p>
-            The institution focuses on academic excellence, skills development,
-            research, and community engagement to create graduates capable of
-            addressing modern societal challenges.
-        </p>
-
-    </div>
-
-</section>
-
-<!-- =========================
-     QUICK STATS (NEW UI UPGRADE)
-========================= -->
-
-<section class="about-stats">
-
-    <div class="stat-box">
-        <h2>500+</h2>
-        <p>Students</p>
-    </div>
-
-    <div class="stat-box">
-        <h2>20+</h2>
-        <p>Programs</p>
-    </div>
-
-    <div class="stat-box">
-        <h2>50+</h2>
-        <p>Staff Members</p>
-    </div>
-
-    <div class="stat-box">
-        <h2>10+</h2>
-        <p>Departments</p>
-    </div>
-
-</section>
-
-<!-- =========================
-     HISTORY SECTION
-========================= -->
-
-<section class="history-section">
-
-    <h2>Our History</h2>
-
+<footer class="footer">
     <p>
-        Team University was established to bridge gaps in higher education
-        through practical learning approaches, technological advancement,
-        and industry-oriented training.
+        &copy; <span id="year"></span> Benchmark Business and Technical College. All Rights Reserved.
     </p>
+</footer>
 
-    <p>
-        Since its establishment, the university has continuously expanded
-        programs, infrastructure, and partnerships to improve educational
-        accessibility and quality.
-    </p>
-
-</section>
-
-<!-- =========================
-     VISION & MISSION
-========================= -->
-
-<section class="vision-mission">
-
-    <div class="vision-box">
-
-        <i class="fa fa-eye"></i>
-
-        <h3>Our Vision</h3>
-
-        <p>
-            To become a leading center of excellence in business and technical education, higher education,
-            innovation, research, and ethical professional who contribute to sustainable development.
-        </p>
-
-    </div>
-
-    <div class="mission-box">
-
-        <i class="fa fa-bullseye"></i>
-
-        <h3>Our Mission</h3>
-
-        <p>
-            To provide high-quality, practical and affordable business and technical education 
-            that empowers learners with knowlege,skills and enterpreneurial capabilities to
-             succeed int he modern workforce and contribute positively to society,
-            research opportunities, and community-centered learning.
-        </p>
-
-    </div>
-
-</section>
-
-<!-- =========================
-     CORE VALUES (REDESIGNED GRID)
-========================= -->
-
-<section class="values-section">
-
-    <h2>Core Values</h2>
-
-    <div class="value-grid">
-
-        <div class="value-card">
-            <i class="fa fa-award"></i>
-            <h3>Excellence</h3>
-            <p>Commitment to high standards in teaching, training, and service delivery.</p>
-        </div>
-
-        <div class="value-card">
-            <i class="fa fa-handshake"></i>
-            <h3>Integrity</h3>
-            <p> Promoting Honesty, Transperancy and accountability in all the institutional Activities.</p>
-        </div>
-
-        <div class="value-card">
-            <i class="fa fa-lightbulb"></i>
-            <h3>Innovation</h3>
-            <p>Encouraging creativity practical problem-solving and Modern learning approaches.</p>
-        </div>
-        <div class="value-card">
-            <i class="fa fa-lightbulb"></i>
-            <h3>Professonalism</h3>
-            <p>Upholding Ethical conduct, competence, and responsibility.</p>
-        </div>
-
-        <div class="value-card">
-            <i class="fa fa-users"></i>
-            <h3>Inclusiveness</h3>
-            <p>Ensureing Equal learning opportunities for learners Regardless of gender, background, or Socio-economic status.</p>
-        </div>
-
-    </div>
-
-</section>
-
-<!-- =========================
-     OBJECTIVES
-========================= -->
-
-<section class="objectives">
-
-    <h2>Institutional Objectives</h2>
-    <p>The objectives of Bechmark Business and Technical College are to:</p>
-
-    <ul>
-        <li>Provide quality education and training in business, Vocational and technical fields.</li>
-        <li>Promote Skill development and enterpreneurship among youths and adults.</li>
-        <li>Enhance employment opportunity and self-reliance among graduates.</li>
-        <li>Develop practical competencies align with labor market demands.</li>
-        <li>Foster innovations and professional ethical leadership among students.</li>
-        <li>support community development through capacity building and skills training.</li>
-        <li>Build partnership with the government, private sector, and development organizations for institutional growth.</li>
-        <li>Ensure inclusive Education opportunities for marginalized groups, including women and youth.</li>
-    </ul>
-
-</section>
-
-<!-- =========================
-     STAFF DIRECTORY (UPGRADED)
-========================= -->
-
-<section class="staff-directory">
-
-    <h2>University Staff Directory</h2>
-
-    <!-- SEARCH + FILTER -->
-    <div class="staff-controls">
-
-        <select id="deptFilter" onchange="filterStaff()">
-            <option value="all">All Departments</option>
-            <option value="administration">Administration</option>
-            <option value="finance">Finance</option>
-            <option value="academic">Academic</option>
-            <option value="ict">ICT</option>
-        </select>
-
-    </div>
-
-    <!-- STAFF GRID -->
-    <div class="staff-grid" id="staffGrid">
-
-        <div class="staff-card" data-dept="administration">
-            <img src="images/principal.jpg">
-            <h3>Dr. John Mwanga</h3>
-            <p>Director of Administration</p>
-            <span class="tag admin">Administration</span>
-        </div>
-
-        <div class="staff-card" data-dept="academic">
-            <img src="images/registrar.jpg">
-            <h3>Ms. Grace Auma</h3>
-            <p>Academic Registrar</p>
-            <span class="tag academic">Academic</span>
-        </div>
-
-        <div class="staff-card" data-dept="finance">
-            <img src="images/finance.jpg">
-            <h3>Mr. Peter Okello</h3>
-            <p>Finance Officer</p>
-            <span class="tag finance">Finance</span>
-        </div>
-
-        <div class="staff-card" data-dept="ict">
-            <img src="images/ict.jpg">
-            <h3>Eng. Samuel Kato</h3>
-            <p>ICT Manager</p>
-            <span class="tag ict">ICT</span>
-        </div>
-
-    </div>
-
-</section>
-<!-- =========================
-     CTA SECTION (IMPROVED)
-========================= -->
-
-<section class="about-cta">
-
-    <h2>Become Part of Team University</h2>
-
-    <p>
-        Join a community committed to academic excellence,
-        innovation, and leadership.
-    </p>
-
-    <a href="../admissions/admissions.html" class="btn-primary">
-        Apply Today
-    </a>
-
-</section>
-
-</section>
-
+<script src="about.js"></script>
+</body>
+</html>
