@@ -75,6 +75,10 @@ button {
     align-items: center;
     gap: 14px;
 }
+ .brand img {
+        width: 48px;
+        height: 48px;
+    }
 
 .logo-mark {
     width: 58px;

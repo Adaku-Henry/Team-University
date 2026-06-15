@@ -1,778 +1,1064 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Academics | Benchmark Business College</title>
-
-<link rel="stylesheet" href="../style.css">
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-<style>
-
-/* PAGE HEADER */
-
-.page-header{
-background:linear-gradient(rgba(0,33,71,.88),rgba(0,33,71,.88)),
-url("../images/academics.jpg");
-background-size:cover;
-background-position:center;
-padding:120px 8%;
-text-align:center;
-color:white;
-}
-
-.page-header h1{
-font-size:55px;
-margin-bottom:15px;
-}
-
-.page-header p{
-font-size:18px;
-max-width:700px;
-margin:auto;
-}
-
-/* QUICK STATS */
-
-.academic-stats{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:25px;
-padding:70px 8%;
-background:white;
-}
-
-.stat-card{
-background:white;
-padding:35px;
-text-align:center;
-border-radius:12px;
-box-shadow:0 5px 20px rgba(0,0,0,.08);
-}
-
-.stat-card h2{
-color:#002147;
-font-size:40px;
-}
-
-.stat-card i{
-font-size:45px;
-color:#ffb703;
-margin-bottom:15px;
-}
-
-/* SEARCH */
-
-.search-programs{
-padding:40px 8%;
-text-align:center;
-background:#f8fafc;
-}
-
-.search-programs input{
-width:100%;
-max-width:600px;
-padding:15px;
-border:1px solid #ddd;
-border-radius:40px;
-font-size:16px;
-}
-
-/* FILTER */
-
-.academic-filters{
-padding:20px 8%;
-display:flex;
-justify-content:center;
-gap:15px;
-flex-wrap:wrap;
-}
-
-.filter-btn{
-padding:12px 25px;
-border:none;
-cursor:pointer;
-border-radius:30px;
-background:#ddd;
-font-weight:600;
-}
-
-.filter-btn.active{
-background:#002147;
-color:white;
-}
-
-/* SCHOOL CARDS */
-
-.school-container,
-.program-list,
-.teaching-grid{
-
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:30px;
-
-}
-
-.school-card,
-.program-item,
-.teach-card{
-
-background:white;
-padding:30px;
-border-radius:12px;
-box-shadow:0 5px 15px rgba(0,0,0,.08);
-transition:.3s;
-
-}
-
-.school-card:hover,
-.program-item:hover,
-.teach-card:hover{
-
-transform:translateY(-8px);
-
-}
-
-.program-item{
-
-border-left:5px solid #ffb703;
-
-}
-
-.program-actions{
-
-margin-top:20px;
-
-}
-
-.program-actions button{
-
-padding:10px 15px;
-border:none;
-background:#002147;
-color:white;
-border-radius:6px;
-cursor:pointer;
-
-}
-
-/* ACCORDION */
-
-.accordion{
-
-max-width:900px;
-margin:auto;
-
-}
-
-.accordion-item{
-
-background:white;
-margin-bottom:15px;
-border-radius:8px;
-overflow:hidden;
-
-}
-
-.accordion-header{
-
-padding:20px;
-cursor:pointer;
-background:#002147;
-color:white;
-
-}
-
-.accordion-content{
-
-display:none;
-padding:20px;
-
-}
-
-/* RESPONSIVE */
-
-@media(max-width:768px){
-
-.page-header h1{
-
-font-size:35px;
-
-}
-
-}
-
-</style>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Academics | Benchmark Business College</title>
+  <link rel="stylesheet" href="academics.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 </head>
-
 <body>
 
-<header class="page-header">
-
-<h1>Academic Programs</h1>
-
-<p>
-Explore faculties, departments, diploma programs,
-learning resources, and career pathways.
-</p>
-
-</header>
-
-
-<!-- STATS -->
-
-<section class="academic-stats">
-
-<div class="stat-card">
-<i class="fa fa-users"></i>
-<h2>5,000+</h2>
-<p>Students</p>
-</div>
-
-<div class="stat-card">
-<i class="fa fa-book"></i>
-<h2>50+</h2>
-<p>Programs</p>
-</div>
-
-<div class="stat-card">
-<i class="fa fa-building-columns"></i>
-<h2>10+</h2>
-<p>Departments</p>
-</div>
-
-<div class="stat-card">
-<i class="fa fa-graduation-cap"></i>
-<h2>92%</h2>
-<p>Completion Rate</p>
-</div>
-
-</section>
-
-
-<!-- SEARCH -->
-
-<section class="search-programs">
-
-<input
-type="text"
-id="programSearch"
-placeholder="Search programs...">
-
-</section>
-
-
-
-<!-- SCHOOLS -->
-
-<section class="schools">
-
-<h2>Schools / Faculties</h2>
-
-<div class="school-container">
-
-<div class="school-card">
-
-<i class="fa fa-briefcase"></i>
-
-<h3>Business School</h3>
-
-<p>
-Accounting, HRM,
-Procurement,
-Finance
-</p>
-
-</div>
-
-<div class="school-card">
-
-<i class="fa fa-laptop"></i>
-
-<h3>School of ICT</h3>
-
-<p>
-Software,
-Cybersecurity,
-Networking
-</p>
-
-</div>
-
-<div class="school-card">
-
-<i class="fa fa-gears"></i>
-
-<h3>Technical Studies</h3>
-
-<p>
-Electrical,
-Mechanical,
-Automotive
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- ===========================
-ACADEMIC SEARCH + FILTER AREA
-=========================== -->
-
-<section class="programs-page">
-
-<h2>Explore Academic Programmes</h2>
-
-<div class="academic-controls">
-
-<input
-type="text"
-id="searchProgram"
-placeholder="Search programme..."
->
-
-<div class="academic-filters">
-
-<button class="filter-btn active"
-onclick="filterPrograms('all')">
-
-All Programmes
-
-</button>
-
-<button class="filter-btn"
-onclick="filterPrograms('graduate')">
-
-Graduate Studies
-
-</button>
-
-<button class="filter-btn"
-onclick="filterPrograms('management')">
-
-Management & Social Sciences
-
-</button>
-
-<button class="filter-btn"
-onclick="filterPrograms('education')">
-
-Education
-
-</button>
-
-<button class="filter-btn"
-onclick="filterPrograms('science')">
-
-Applied Science & Technology
-
-</button>
-
-<button class="filter-btn"
-onclick="filterPrograms('health')">
-
-Health Sciences
-
-</button>
-
-<button class="filter-btn"
-onclick="filterPrograms('tvet')">
-
-TVET
-
-</button>
-
-</div>
-
-</div>
-
-<div class="program-list" id="programContainer">
-
-<!-- Graduate -->
-
-<div class="program-item graduate">
-<h3>Master of Information Technology (MIT)</h3>
-<p>Graduate Studies</p>
-</div>
-
-<div class="program-item graduate">
-<h3>Master of Business Administration (MBA)</h3>
-<p>Graduate Studies</p>
-</div>
-
-<div class="program-item graduate">
-<h3>Master of Public Health (MSPH)</h3>
-<p>Graduate Studies</p>
-</div>
-
-<div class="program-item graduate">
-<h3>Master of Computer Networks & Cyber Security</h3>
-<p>Graduate Studies</p>
-</div>
-
-<div class="program-item graduate">
-<h3>Master of Monitoring & Evaluation</h3>
-<p>Graduate Studies</p>
-</div>
-
-<div class="program-item graduate">
-<h3>Post Graduate Diploma in Business Administration</h3>
-<p>Graduate Studies</p>
-</div>
-
-<!-- MANAGEMENT -->
-
-<div class="program-item management">
-<h3>Bachelor of Business Administration</h3>
-<p>Faculty of Management</p>
-</div>
-
-<div class="program-item management">
-<h3>Bachelor of Human Resource Management</h3>
-<p>Faculty of Management</p>
-</div>
-
-<div class="program-item management">
-<h3>Bachelor of Procurement & Logistics Management</h3>
-<p>Faculty of Management</p>
-</div>
-
-<div class="program-item management">
-<h3>Bachelor of Development Studies</h3>
-<p>Faculty of Management</p>
-</div>
-
-<div class="program-item management">
-<h3>Diploma in Accounting & Finance</h3>
-<p>Faculty of Management</p>
-</div>
-
-<div class="program-item management">
-<h3>Diploma in Journalism</h3>
-<p>Faculty of Management</p>
-</div>
-
-<!-- EDUCATION -->
-
-<div class="program-item education">
-<h3>Bachelor of Arts with Education</h3>
-<p>Faculty of Education</p>
-</div>
-
-<div class="program-item education">
-<h3>Bachelor of Early Childhood Care & Education</h3>
-<p>Faculty of Education</p>
-</div>
-
-<div class="program-item education">
-<h3>Diploma in Education Primary</h3>
-<p>Faculty of Education</p>
-</div>
-
-<div class="program-item education">
-<h3>Certificate in Early Childhood Education</h3>
-<p>Faculty of Education</p>
-</div>
-
-<!-- SCIENCE -->
-
-<div class="program-item science">
-<h3>Bachelor of Information Technology</h3>
-<p>Applied Science</p>
-</div>
-
-<div class="program-item science">
-<h3>Bachelor of Computer Science</h3>
-<p>Applied Science</p>
-</div>
-
-<div class="program-item science">
-<h3>Bachelor of Software Engineering</h3>
-<p>Applied Science</p>
-</div>
-
-<div class="program-item science">
-<h3>Diploma in Information Technology</h3>
-<p>Applied Science</p>
-</div>
-
-<div class="program-item science">
-<h3>Diploma in Environmental Science</h3>
-<p>Applied Science</p>
-</div>
-
-<!-- HEALTH -->
-
-<div class="program-item health">
-<h3>Bachelor of Nursing Science</h3>
-<p>Health Sciences</p>
-</div>
-
-<div class="program-item health">
-<h3>Bachelor of Midwifery</h3>
-<p>Health Sciences</p>
-</div>
-
-<div class="program-item health">
-<h3>Diploma in Public Health</h3>
-<p>Health Sciences</p>
-</div>
-
-<div class="program-item health">
-<h3>Certificate in Medical Records</h3>
-<p>Health Sciences</p>
-</div>
-
-<!-- TVET -->
-
-<div class="program-item tvet">
-<h3>Diploma in Civil Engineering</h3>
-<p>TVET</p>
-</div>
-
-<div class="program-item tvet">
-<h3>Diploma in Mechanical Engineering</h3>
-<p>TVET</p>
-</div>
-
-<div class="program-item tvet">
-<h3>Certificate in Building & Construction</h3>
-<p>TVET</p>
-</div>
-
-<div class="program-item tvet">
-<h3>Certificate in Electrical Installation</h3>
-<p>TVET</p>
-</div>
-
-</div>
-
-</section>
-
-
-<!-- FAQ -->
-
-<section style="padding:80px 8%;background:#f8fafc;">
-
-<h2>Academic FAQs</h2>
-
-<div class="accordion">
-
-<div class="accordion-item">
-
-<div class="accordion-header">
-
-What are the entry requirements?
-
-</div>
-
-<div class="accordion-content">
-
-Minimum academic qualifications
-depend on program requirements.
-
-</div>
-
-</div>
-
-<div class="accordion-item">
-
-<div class="accordion-header">
-
-Do you offer online learning?
-
-</div>
-
-<div class="accordion-content">
-
-Yes. Students access resources
-through the portal.
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="cta">
-
-<h2>Start Your Journey Today</h2>
-
-<a href="../admissions/admissions.html">
-
-Apply Now
-
-</a>
-
-</section>
-
-
-<script>
-
-/* FILTERS */
-
-const filterBtns =
-document.querySelectorAll(".filter-btn");
-
-const programs =
-document.querySelectorAll(".program-item");
-
-filterBtns.forEach(btn=>{
-
-btn.addEventListener("click",()=>{
-
-document
-.querySelector(".active")
-.classList.remove("active");
-
-btn.classList.add("active");
-
-const value=
-btn.dataset.filter;
-
-programs.forEach(card=>{
-
-if(value==="all" ||
-card.classList.contains(value)){
-
-card.style.display="block";
-
-}else{
-
-card.style.display="none";
-
-}
-
-});
-
-});
-
-});
-
-
-/* SEARCH */
-
-document
-.getElementById("programSearch")
-
-.addEventListener("keyup",function(){
-
-let value =
-this.value.toLowerCase();
-
-programs.forEach(item=>{
-
-item.style.display =
-item.innerText
-.toLowerCase()
-.includes(value)
-
-? "block"
-: "none";
-
-});
-
-});
-
-
-/* FAQ */
-
-document
-.querySelectorAll(".accordion-header")
-
-.forEach(item=>{
-
-item.onclick=()=>{
-
-const content=
-item.nextElementSibling;
-
-content.style.display=
-
-content.style.display==="block"
-
-? "none"
-
-: "block";
-
-};
-
-});
-
-</script>
-<script>
-
-function filterPrograms(category){
-
-const cards =
-document.querySelectorAll(".program-item");
-
-cards.forEach(card=>{
-
-if(category==="all"){
-
-card.style.display="block";
-
-}
-
-else if(card.classList.contains(category)){
-
-card.style.display="block";
-
-}
-
-else{
-
-card.style.display="none";
-
-}
-
-});
-
-}
-
-document
-.getElementById("searchProgram")
-
-.addEventListener("keyup",function(){
-
-let value =
-this.value.toLowerCase();
-
-document
-.querySelectorAll(".program-item")
-
-.forEach(item=>{
-
-let text =
-item.innerText.toLowerCase();
-
-item.style.display =
-text.includes(value)
-
-? "block"
-
-: "none";
-
-});
-
-});
-
-</script>
-
+  <!-- ===================== TOP BAR ===================== -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <span><i class="fa fa-phone"></i> +260 211 123 456</span>
+      <span><i class="fa fa-envelope"></i> academics@benchmarkbc.ac.zm</span>
+      <span><i class="fa fa-clock"></i> Mon - Fri: 08:00 - 17:00</span>
+    </div>
+  </div>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand">
+      <div class="nav-logo">
+        <img src="../images/logo.jpg" alt="Benchmark Logo" id="siteLogo">
+      </div>
+      <div class="nav-text">
+        <strong>Benchmark Business College</strong>
+        <span>Academic Portal</span>
+      </div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="#schools">Faculties</a></li>
+      <li><a href="../academics/programs.html">Programs</a></li>
+      <li><a href="#calendar">Calendar</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#faq">FAQs</a></li>
+      <li><a href="../admissions/apply.html" class="nav-apply">Apply Now</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Home</a>
+    <a href="#schools">Faculties</a>
+    <a href="#programs">Programs</a>
+    <a href="#calendar">Calendar</a>
+    <a href="#research">Research</a>
+    <a href="#faq">FAQs</a>
+    <a href="../admissions/apply.html" class="mobile-apply">Apply Now</a>
+  </div>
+
+  <!-- ===================== HERO SECTION ===================== -->
+  <header class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-badge">Excellence in Higher Education</span>
+      <h1 class="hero-title">Shape Your Future<br /><em>Through Knowledge</em></h1>
+      <p class="hero-sub">Explore 50+ world-class programs across 6 faculties. Your academic journey begins here at Benchmark Business College.</p>
+      <div class="hero-btns">
+        <a href="../programs/programs.html" class="btn-primary">Explore Programs</a>
+        <a href="../resources/prospectus.pdf" class="btn-outline" target="_blank">Download Prospectus</a>
+      </div>
+      <div class="hero-stats-row">
+        <div class="hs"><strong id="c1">0</strong><span>Students</span></div>
+        <div class="hs-div"></div>
+        <div class="hs"><strong id="c2">0</strong><span>Programs</span></div>
+        <div class="hs-div"></div>
+        <div class="hs"><strong id="c3">0</strong><span>Departments</span></div>
+        <div class="hs-div"></div>
+        <div class="hs"><strong id="c4">0</strong><span>Completion Rate</span></div>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <i class="fa fa-chevron-down"></i>
+    </div>
+  </header>
+
+  <!-- ===================== EVENTS TICKER (TOP) ===================== -->
+  <div class="events-ticker">
+    <div class="ticker-label"><i class="fa fa-bullhorn"></i> LIVE EVENTS</div>
+    <div class="ticker-track-wrapper">
+      <div class="ticker-track" id="tickerTop">
+        <span>Graduation Ceremony - 20 July 2025</span>
+        <span class="dot">&#9679;</span>
+        <span>Orientation Week - 5 Aug 2025</span>
+        <span class="dot">&#9679;</span>
+        <span>MBA Applications Closing - 30 June 2025</span>
+        <span class="dot">&#9679;</span>
+        <span>Annual Research Symposium - 12 Sept 2025</span>
+        <span class="dot">&#9679;</span>
+        <span>Career Expo - 25 Oct 2025</span>
+        <span class="dot">&#9679;</span>
+        <span>Semester 2 Exams - 15 Nov 2025</span>
+        <span class="dot">&#9679;</span>
+        <span>International Students Registration Open</span>
+        <span class="dot">&#9679;</span>
+        <span>Open Day - 10 Aug 2025</span>
+        <span class="dot">&#9679;</span>
+        <span>Student Awards Night - 5 Dec 2025</span>
+        <span class="dot">&#9679;</span>
+        <span>New Nursing Cohort Starts - Sept 2025</span>
+        <span class="dot">&#9679;</span>
+        <span>Graduation Ceremony - 20 July 2025</span>
+        <span class="dot">&#9679;</span>
+        <span>Orientation Week - 5 Aug 2025</span>
+        <span class="dot">&#9679;</span>
+        <span>MBA Applications Closing - 30 June 2025</span>
+        <span class="dot">&#9679;</span>
+        <span>Annual Research Symposium - 12 Sept 2025</span>
+        <span class="dot">&#9679;</span>
+        <span>Career Expo - 25 Oct 2025</span>
+        <span class="dot">&#9679;</span>
+        <span>Semester 2 Exams - 15 Nov 2025</span>
+        <span class="dot">&#9679;</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== IMAGE CAROUSEL ===================== -->
+  <section class="campus-gallery">
+    <div class="gallery-header">
+      <h2>Life at <span>Benchmark</span></h2>
+      <p>Experience a vibrant campus where learning meets opportunity</p>
+    </div>
+    <div class="carousel-wrapper">
+      <div class="carousel-track" id="carouselTrack">
+        <!-- 6 images x2 for seamless loop -->
+        <div class="carousel-slide">
+          <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=700&q=80" alt="Lecture Hall" />
+          <div class="slide-caption">Modern Lecture Halls</div>
+        </div>
+        <div class="carousel-slide">
+          <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=700&q=80" alt="Campus Grounds" />
+          <div class="slide-caption">Beautiful Campus Grounds</div>
+        </div>
+        <div class="carousel-slide">
+          <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=700&q=80" alt="Library" />
+          <div class="slide-caption">State-of-the-Art Library</div>
+        </div>
+        <div class="carousel-slide">
+          <img src="https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=700&q=80" alt="Science Lab" />
+          <div class="slide-caption">Advanced Science Laboratories</div>
+        </div>
+        <div class="carousel-slide">
+          <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=700&q=80" alt="Students" />
+          <div class="slide-caption">Thriving Student Community</div>
+        </div>
+        <div class="carousel-slide">
+          <img src="https://images.unsplash.com/photo-1592280771190-3e2e4d571952?w=700&q=80" alt="Graduation" />
+          <div class="slide-caption">Celebrated Graduations</div>
+        </div>
+        <!-- Duplicate for seamless loop -->
+        <div class="carousel-slide">
+          <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=700&q=80" alt="Lecture Hall" />
+          <div class="slide-caption">Modern Lecture Halls</div>
+        </div>
+        <div class="carousel-slide">
+          <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=700&q=80" alt="Campus Grounds" />
+          <div class="slide-caption">Beautiful Campus Grounds</div>
+        </div>
+        <div class="carousel-slide">
+          <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=700&q=80" alt="Library" />
+          <div class="slide-caption">State-of-the-Art Library</div>
+        </div>
+        <div class="carousel-slide">
+          <img src="https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=700&q=80" alt="Science Lab" />
+          <div class="slide-caption">Advanced Science Laboratories</div>
+        </div>
+        <div class="carousel-slide">
+          <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=700&q=80" alt="Students" />
+          <div class="slide-caption">Thriving Student Community</div>
+        </div>
+        <div class="carousel-slide">
+          <img src="https://images.unsplash.com/photo-1592280771190-3e2e4d571952?w=700&q=80" alt="Graduation" />
+          <div class="slide-caption">Celebrated Graduations</div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-dots" id="carouselDots">
+      <button class="cdot active" data-index="0"></button>
+      <button class="cdot" data-index="1"></button>
+      <button class="cdot" data-index="2"></button>
+      <button class="cdot" data-index="3"></button>
+      <button class="cdot" data-index="4"></button>
+      <button class="cdot" data-index="5"></button>
+    </div>
+  </section>
+
+  <!-- ===================== SCHOOLS / FACULTIES ===================== -->
+  <section class="schools-section" id="schools">
+    <div class="section-label">Our Faculties</div>
+    <h2 class="section-title">Schools &amp; Academic Units</h2>
+    <p class="section-sub">Six distinct faculties delivering cutting-edge education and professional training</p>
+    <div class="schools-grid">
+
+      <div class="school-card" data-color="#002147">
+        <div class="school-icon"><i class="fa fa-briefcase"></i></div>
+        <h3>Business School</h3>
+        <p>Accounting, HRM, Procurement, Finance, Marketing, Entrepreneurship</p>
+        <div class="school-badge">12 Programs</div>
+        <a href="../programs/programs.html" class="school-link">View Programs <i class="fa fa-arrow-right"></i></a>
+      </div>
+
+      <div class="school-card" data-color="#f97316">
+        <div class="school-icon"><i class="fa fa-laptop-code"></i></div>
+        <h3>School of ICT</h3>
+        <p>Software Engineering, Cybersecurity, Networking, Data Science, AI</p>
+        <div class="school-badge">9 Programs</div>
+        <a href="../programs/programs.html" class="school-link">View Programs <i class="fa fa-arrow-right"></i></a>
+      </div>
+
+      <div class="school-card" data-color="#002147">
+        <div class="school-icon"><i class="fa fa-heartbeat"></i></div>
+        <h3>Health Sciences</h3>
+        <p>Nursing, Midwifery, Public Health, Medical Records, Pharmacy</p>
+        <div class="school-badge">8 Programs</div>
+        <a href="../programs/programs.html" class="school-link">View Programs <i class="fa fa-arrow-right"></i></a>
+      </div>
+
+      <div class="school-card" data-color="#f97316">
+        <div class="school-icon"><i class="fa fa-chalkboard-teacher"></i></div>
+        <h3>Faculty of Education</h3>
+        <p>Primary Education, Early Childhood, Arts Education, Special Needs</p>
+        <div class="school-badge">7 Programs</div>
+        <a href="../programs/programs.html" class="school-link">View Programs <i class="fa fa-arrow-right"></i></a>
+      </div>
+
+      <div class="school-card" data-color="#002147">
+        <div class="school-icon"><i class="fa fa-gears"></i></div>
+        <h3>Technical Studies (TVET)</h3>
+        <p>Civil, Mechanical, Electrical, Automotive, Construction Technology</p>
+        <div class="school-badge">8 Programs</div>
+        <a href="../programs/programs.html" class="school-link">View Programs <i class="fa fa-arrow-right"></i></a>
+      </div>
+
+      <div class="school-card" data-color="#f97316">
+        <div class="school-icon"><i class="fa fa-flask"></i></div>
+        <h3>Applied Science</h3>
+        <p>Environmental Science, Agriculture, Food Science, Natural Resources</p>
+        <div class="school-badge">6 Programs</div>
+        <a href="../programs/programs.html" class="school-link">View Programs <i class="fa fa-arrow-right"></i></a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== EVENTS STRIP (MID) ===================== -->
+  <div class="events-strip">
+    <div class="strip-inner">
+      <div class="strip-label">UPCOMING EVENTS</div>
+      <div class="strip-events-wrapper">
+        <div class="strip-events" id="stripEvents">
+          <div class="strip-event-card">
+            <span class="se-date">20 JUL</span>
+            <span class="se-text">Graduation Ceremony 2025</span>
+          </div>
+          <div class="strip-event-card">
+            <span class="se-date">05 AUG</span>
+            <span class="se-text">Student Orientation Week</span>
+          </div>
+          <div class="strip-event-card">
+            <span class="se-date">10 AUG</span>
+            <span class="se-text">Open Day - All Welcome</span>
+          </div>
+          <div class="strip-event-card">
+            <span class="se-date">12 SEP</span>
+            <span class="se-text">Annual Research Symposium</span>
+          </div>
+          <div class="strip-event-card">
+            <span class="se-date">25 OCT</span>
+            <span class="se-text">National Career Expo</span>
+          </div>
+          <div class="strip-event-card">
+            <span class="se-date">15 NOV</span>
+            <span class="se-text">Semester 2 Examinations Begin</span>
+          </div>
+          <div class="strip-event-card">
+            <span class="se-date">05 DEC</span>
+            <span class="se-text">Student Awards & Excellence Night</span>
+          </div>
+          <div class="strip-event-card">
+            <span class="se-date">10 JAN</span>
+            <span class="se-text">Semester 1 Registration 2026</span>
+          </div>
+          <!-- duplicates for loop -->
+          <div class="strip-event-card">
+            <span class="se-date">20 JUL</span>
+            <span class="se-text">Graduation Ceremony 2025</span>
+          </div>
+          <div class="strip-event-card">
+            <span class="se-date">05 AUG</span>
+            <span class="se-text">Student Orientation Week</span>
+          </div>
+          <div class="strip-event-card">
+            <span class="se-date">10 AUG</span>
+            <span class="se-text">Open Day - All Welcome</span>
+          </div>
+          <div class="strip-event-card">
+            <span class="se-date">12 SEP</span>
+            <span class="se-text">Annual Research Symposium</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== PROGRAMS SECTION ===================== -->
+  <section class="programs-section" id="programs">
+    <div class="section-label">Academic Programs</div>
+    <h2 class="section-title">Explore All Programmes</h2>
+    <p class="section-sub">From certificates to master's degrees — find the program that fits your ambition</p>
+
+    <div class="programs-controls">
+      <div class="search-wrap">
+        <i class="fa fa-search"></i>
+        <input type="text" id="searchProgram" placeholder="Search programmes..." />
+      </div>
+      <div class="filter-wrap">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="graduate">Graduate</button>
+        <button class="filter-btn" data-filter="management">Management</button>
+        <button class="filter-btn" data-filter="education">Education</button>
+        <button class="filter-btn" data-filter="science">Applied Science</button>
+        <button class="filter-btn" data-filter="health">Health</button>
+        <button class="filter-btn" data-filter="tvet">TVET</button>
+      </div>
+    </div>
+
+    <div class="program-list" id="programContainer">
+
+      <!-- GRADUATE -->
+      <div class="program-item graduate">
+        <div class="pi-top">
+          <span class="pi-badge graduate-badge">Graduate</span>
+          <i class="fa fa-graduation-cap pi-icon"></i>
+        </div>
+        <h3>Master of Information Technology (MIT)</h3>
+        <p>Advanced IT leadership, research methodologies, and emerging technologies.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 2 Years</span><span><i class="fa fa-calendar"></i> Full-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <div class="program-item graduate">
+        <div class="pi-top">
+          <span class="pi-badge graduate-badge">Graduate</span>
+          <i class="fa fa-graduation-cap pi-icon"></i>
+        </div>
+        <h3>Master of Business Administration (MBA)</h3>
+        <p>Strategic management, leadership, and global business competencies.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 2 Years</span><span><i class="fa fa-calendar"></i> Full / Part-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <div class="program-item graduate">
+        <div class="pi-top">
+          <span class="pi-badge graduate-badge">Graduate</span>
+          <i class="fa fa-graduation-cap pi-icon"></i>
+        </div>
+        <h3>Master of Public Health (MSPH)</h3>
+        <p>Epidemiology, health policy, and community health research specialisation.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 2 Years</span><span><i class="fa fa-calendar"></i> Full-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <div class="program-item graduate">
+        <div class="pi-top">
+          <span class="pi-badge graduate-badge">Graduate</span>
+          <i class="fa fa-graduation-cap pi-icon"></i>
+        </div>
+        <h3>Master of Computer Networks &amp; Cyber Security</h3>
+        <p>Network architecture, ethical hacking, and digital defence systems.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 2 Years</span><span><i class="fa fa-calendar"></i> Full-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <div class="program-item graduate">
+        <div class="pi-top">
+          <span class="pi-badge graduate-badge">Graduate</span>
+          <i class="fa fa-graduation-cap pi-icon"></i>
+        </div>
+        <h3>Master of Monitoring &amp; Evaluation</h3>
+        <p>Program evaluation frameworks, data analysis, and development metrics.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 18 Months</span><span><i class="fa fa-calendar"></i> Part-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <div class="program-item graduate">
+        <div class="pi-top">
+          <span class="pi-badge graduate-badge">Graduate</span>
+          <i class="fa fa-graduation-cap pi-icon"></i>
+        </div>
+        <h3>PGD in Business Administration</h3>
+        <p>Postgraduate diploma bridging business theory and practical management.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 1 Year</span><span><i class="fa fa-calendar"></i> Full / Part-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <!-- MANAGEMENT -->
+      <div class="program-item management">
+        <div class="pi-top">
+          <span class="pi-badge management-badge">Management</span>
+          <i class="fa fa-briefcase pi-icon"></i>
+        </div>
+        <h3>Bachelor of Business Administration</h3>
+        <p>Comprehensive foundation in management, strategy, and business operations.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 3 Years</span><span><i class="fa fa-calendar"></i> Full-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <div class="program-item management">
+        <div class="pi-top">
+          <span class="pi-badge management-badge">Management</span>
+          <i class="fa fa-briefcase pi-icon"></i>
+        </div>
+        <h3>Bachelor of Human Resource Management</h3>
+        <p>People management, organisational behaviour, labour relations, and HR strategy.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 3 Years</span><span><i class="fa fa-calendar"></i> Full-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <div class="program-item management">
+        <div class="pi-top">
+          <span class="pi-badge management-badge">Management</span>
+          <i class="fa fa-briefcase pi-icon"></i>
+        </div>
+        <h3>Bachelor of Procurement &amp; Logistics Management</h3>
+        <p>Supply chain management, procurement law, and logistics operations.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 3 Years</span><span><i class="fa fa-calendar"></i> Full-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <div class="program-item management">
+        <div class="pi-top">
+          <span class="pi-badge management-badge">Management</span>
+          <i class="fa fa-briefcase pi-icon"></i>
+        </div>
+        <h3>Bachelor of Development Studies</h3>
+        <p>International development, policy analysis, and community development projects.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 3 Years</span><span><i class="fa fa-calendar"></i> Full-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <div class="program-item management">
+        <div class="pi-top">
+          <span class="pi-badge management-badge">Management</span>
+          <i class="fa fa-briefcase pi-icon"></i>
+        </div>
+        <h3>Diploma in Accounting &amp; Finance</h3>
+        <p>Financial reporting, tax compliance, and managerial accounting fundamentals.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 2 Years</span><span><i class="fa fa-calendar"></i> Full-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <div class="program-item management">
+        <div class="pi-top">
+          <span class="pi-badge management-badge">Management</span>
+          <i class="fa fa-briefcase pi-icon"></i>
+        </div>
+        <h3>Diploma in Journalism &amp; Mass Communication</h3>
+        <p>Media writing, broadcasting, digital journalism, and ethical reporting.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 2 Years</span><span><i class="fa fa-calendar"></i> Full-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <!-- EDUCATION -->
+      <div class="program-item education">
+        <div class="pi-top">
+          <span class="pi-badge education-badge">Education</span>
+          <i class="fa fa-chalkboard-teacher pi-icon"></i>
+        </div>
+        <h3>Bachelor of Arts with Education</h3>
+        <p>Combined arts disciplines with full teaching methodology training.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 4 Years</span><span><i class="fa fa-calendar"></i> Full-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <div class="program-item education">
+        <div class="pi-top">
+          <span class="pi-badge education-badge">Education</span>
+          <i class="fa fa-chalkboard-teacher pi-icon"></i>
+        </div>
+        <h3>Bachelor of Early Childhood Care &amp; Education</h3>
+        <p>Child development, curriculum design, and inclusive early years teaching.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 3 Years</span><span><i class="fa fa-calendar"></i> Full-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <div class="program-item education">
+        <div class="pi-top">
+          <span class="pi-badge education-badge">Education</span>
+          <i class="fa fa-chalkboard-teacher pi-icon"></i>
+        </div>
+        <h3>Diploma in Education (Primary)</h3>
+        <p>Practical and theoretical training for primary-level classroom educators.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 2 Years</span><span><i class="fa fa-calendar"></i> Full-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <div class="program-item education">
+        <div class="pi-top">
+          <span class="pi-badge education-badge">Education</span>
+          <i class="fa fa-chalkboard-teacher pi-icon"></i>
+        </div>
+        <h3>Certificate in Early Childhood Education</h3>
+        <p>Entry-level qualification in early childhood development and care.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 1 Year</span><span><i class="fa fa-calendar"></i> Full-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <!-- SCIENCE -->
+      <div class="program-item science">
+        <div class="pi-top">
+          <span class="pi-badge science-badge">Applied Science</span>
+          <i class="fa fa-laptop-code pi-icon"></i>
+        </div>
+        <h3>Bachelor of Information Technology</h3>
+        <p>Systems analysis, database management, cloud computing, and IT infrastructure.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 3 Years</span><span><i class="fa fa-calendar"></i> Full-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <div class="program-item science">
+        <div class="pi-top">
+          <span class="pi-badge science-badge">Applied Science</span>
+          <i class="fa fa-laptop-code pi-icon"></i>
+        </div>
+        <h3>Bachelor of Computer Science</h3>
+        <p>Algorithms, computational theory, machine learning, and software systems.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 3 Years</span><span><i class="fa fa-calendar"></i> Full-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <div class="program-item science">
+        <div class="pi-top">
+          <span class="pi-badge science-badge">Applied Science</span>
+          <i class="fa fa-laptop-code pi-icon"></i>
+        </div>
+        <h3>Bachelor of Software Engineering</h3>
+        <p>Software design, agile development, testing, and project lifecycle management.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 3 Years</span><span><i class="fa fa-calendar"></i> Full-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <div class="program-item science">
+        <div class="pi-top">
+          <span class="pi-badge science-badge">Applied Science</span>
+          <i class="fa fa-laptop-code pi-icon"></i>
+        </div>
+        <h3>Diploma in Information Technology</h3>
+        <p>Practical IT skills in networking, web development, and systems support.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 2 Years</span><span><i class="fa fa-calendar"></i> Full-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <div class="program-item science">
+        <div class="pi-top">
+          <span class="pi-badge science-badge">Applied Science</span>
+          <i class="fa fa-flask pi-icon"></i>
+        </div>
+        <h3>Diploma in Environmental Science</h3>
+        <p>Ecology, environmental law, climate change, and sustainability management.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 2 Years</span><span><i class="fa fa-calendar"></i> Full-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <!-- HEALTH -->
+      <div class="program-item health">
+        <div class="pi-top">
+          <span class="pi-badge health-badge">Health</span>
+          <i class="fa fa-heartbeat pi-icon"></i>
+        </div>
+        <h3>Bachelor of Nursing Science</h3>
+        <p>Clinical nursing practice, patient care, and advanced medical procedures.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 4 Years</span><span><i class="fa fa-calendar"></i> Full-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <div class="program-item health">
+        <div class="pi-top">
+          <span class="pi-badge health-badge">Health</span>
+          <i class="fa fa-heartbeat pi-icon"></i>
+        </div>
+        <h3>Bachelor of Midwifery</h3>
+        <p>Maternal and newborn care, obstetric emergencies, and reproductive health.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 3 Years</span><span><i class="fa fa-calendar"></i> Full-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <div class="program-item health">
+        <div class="pi-top">
+          <span class="pi-badge health-badge">Health</span>
+          <i class="fa fa-heartbeat pi-icon"></i>
+        </div>
+        <h3>Diploma in Public Health</h3>
+        <p>Community health, disease prevention, health promotion, and epidemiology.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 2 Years</span><span><i class="fa fa-calendar"></i> Full-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <div class="program-item health">
+        <div class="pi-top">
+          <span class="pi-badge health-badge">Health</span>
+          <i class="fa fa-heartbeat pi-icon"></i>
+        </div>
+        <h3>Certificate in Medical Records Management</h3>
+        <p>Health information systems, coding, record keeping, and data privacy.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 1 Year</span><span><i class="fa fa-calendar"></i> Full-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <!-- TVET -->
+      <div class="program-item tvet">
+        <div class="pi-top">
+          <span class="pi-badge tvet-badge">TVET</span>
+          <i class="fa fa-gears pi-icon"></i>
+        </div>
+        <h3>Diploma in Civil Engineering</h3>
+        <p>Structural design, construction management, surveying, and materials science.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 2 Years</span><span><i class="fa fa-calendar"></i> Full-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <div class="program-item tvet">
+        <div class="pi-top">
+          <span class="pi-badge tvet-badge">TVET</span>
+          <i class="fa fa-gears pi-icon"></i>
+        </div>
+        <h3>Diploma in Mechanical Engineering</h3>
+        <p>Thermodynamics, machine design, fluid mechanics, and industrial systems.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 2 Years</span><span><i class="fa fa-calendar"></i> Full-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <div class="program-item tvet">
+        <div class="pi-top">
+          <span class="pi-badge tvet-badge">TVET</span>
+          <i class="fa fa-gears pi-icon"></i>
+        </div>
+        <h3>Certificate in Building &amp; Construction</h3>
+        <p>Practical construction techniques, site safety, and building regulations.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 1 Year</span><span><i class="fa fa-calendar"></i> Full-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+      <div class="program-item tvet">
+        <div class="pi-top">
+          <span class="pi-badge tvet-badge">TVET</span>
+          <i class="fa fa-gears pi-icon"></i>
+        </div>
+        <h3>Certificate in Electrical Installation</h3>
+        <p>Domestic and industrial electrical installation, wiring standards, and safety.</p>
+        <div class="pi-meta"><span><i class="fa fa-clock"></i> 1 Year</span><span><i class="fa fa-calendar"></i> Full-Time</span></div>
+        <a href="#" class="pi-btn">Learn More</a>
+      </div>
+
+    </div>
+
+    <div class="no-results" id="noResults" style="display:none;">
+      <i class="fa fa-search"></i>
+      <p>No programmes match your search. Try different keywords.</p>
+    </div>
+  </section>
+
+  <!-- ===================== ACADEMIC CALENDAR ===================== -->
+  <section class="calendar-section" id="calendar">
+    <div class="section-label">Important Dates</div>
+    <h2 class="section-title">Academic Calendar 2025</h2>
+    <div class="calendar-grid">
+      <div class="cal-item">
+        <div class="cal-month">JAN</div>
+        <div class="cal-events">
+          <div class="cal-event"><span class="ce-dot"></span>Semester 1 Begins — 13 Jan</div>
+          <div class="cal-event"><span class="ce-dot"></span>Registration Deadline — 17 Jan</div>
+        </div>
+      </div>
+      <div class="cal-item">
+        <div class="cal-month">FEB</div>
+        <div class="cal-events">
+          <div class="cal-event"><span class="ce-dot"></span>Late Registration Closes — 7 Feb</div>
+          <div class="cal-event"><span class="ce-dot"></span>MBA Intake Applications — 28 Feb</div>
+        </div>
+      </div>
+      <div class="cal-item">
+        <div class="cal-month">MAR</div>
+        <div class="cal-events">
+          <div class="cal-event"><span class="ce-dot"></span>Mid-Semester Assessments — 3-7 Mar</div>
+          <div class="cal-event"><span class="ce-dot"></span>Health Sciences Practicals — 15 Mar</div>
+        </div>
+      </div>
+      <div class="cal-item">
+        <div class="cal-month">APR</div>
+        <div class="cal-events">
+          <div class="cal-event"><span class="ce-dot"></span>Easter Recess — 18-22 Apr</div>
+          <div class="cal-event"><span class="ce-dot"></span>Research Proposal Submission — 30 Apr</div>
+        </div>
+      </div>
+      <div class="cal-item">
+        <div class="cal-month">MAY</div>
+        <div class="cal-events">
+          <div class="cal-event"><span class="ce-dot"></span>Final Exams Semester 1 — 12-23 May</div>
+          <div class="cal-event"><span class="ce-dot"></span>Results Release — 30 May</div>
+        </div>
+      </div>
+      <div class="cal-item">
+        <div class="cal-month">JUN</div>
+        <div class="cal-events">
+          <div class="cal-event"><span class="ce-dot"></span>Semester Break — 1-27 Jun</div>
+          <div class="cal-event"><span class="ce-dot"></span>Supplementary Exams — 16-20 Jun</div>
+        </div>
+      </div>
+      <div class="cal-item">
+        <div class="cal-month">JUL</div>
+        <div class="cal-events">
+          <div class="cal-event"><span class="ce-dot orange"></span>Graduation Ceremony — 20 Jul</div>
+          <div class="cal-event"><span class="ce-dot"></span>Semester 2 Registration — 28 Jul</div>
+        </div>
+      </div>
+      <div class="cal-item">
+        <div class="cal-month">AUG</div>
+        <div class="cal-events">
+          <div class="cal-event"><span class="ce-dot orange"></span>Orientation Week — 4-8 Aug</div>
+          <div class="cal-event"><span class="ce-dot orange"></span>Open Day — 10 Aug</div>
+        </div>
+      </div>
+      <div class="cal-item">
+        <div class="cal-month">SEP</div>
+        <div class="cal-events">
+          <div class="cal-event"><span class="ce-dot"></span>Semester 2 Begins — 1 Sep</div>
+          <div class="cal-event"><span class="ce-dot orange"></span>Research Symposium — 12 Sep</div>
+        </div>
+      </div>
+      <div class="cal-item">
+        <div class="cal-month">OCT</div>
+        <div class="cal-events">
+          <div class="cal-event"><span class="ce-dot"></span>Mid-Semester 2 Tests — 6-10 Oct</div>
+          <div class="cal-event"><span class="ce-dot orange"></span>Career Expo — 25 Oct</div>
+        </div>
+      </div>
+      <div class="cal-item">
+        <div class="cal-month">NOV</div>
+        <div class="cal-events">
+          <div class="cal-event"><span class="ce-dot"></span>Final Exams Begin — 15 Nov</div>
+          <div class="cal-event"><span class="ce-dot"></span>Exam Period Ends — 28 Nov</div>
+        </div>
+      </div>
+      <div class="cal-item">
+        <div class="cal-month">DEC</div>
+        <div class="cal-events">
+          <div class="cal-event"><span class="ce-dot orange"></span>Student Awards Night — 5 Dec</div>
+          <div class="cal-event"><span class="ce-dot"></span>Christmas Recess — 15 Dec</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EVENTS TICKER (BOTTOM) ===================== -->
+  <div class="events-ticker events-ticker-alt">
+    <div class="ticker-label"><i class="fa fa-star"></i> HIGHLIGHTS</div>
+    <div class="ticker-track-wrapper">
+      <div class="ticker-track ticker-rtl" id="tickerBottom">
+        <span>92% Graduate Employment Rate</span>
+        <span class="dot">&#9679;</span>
+        <span>Accredited by ZAQA &amp; HEA</span>
+        <span class="dot">&#9679;</span>
+        <span>5,000+ Active Students</span>
+        <span class="dot">&#9679;</span>
+        <span>50+ Academic Programmes</span>
+        <span class="dot">&#9679;</span>
+        <span>10+ Industry Partnerships</span>
+        <span class="dot">&#9679;</span>
+        <span>International Exchange Programs Available</span>
+        <span class="dot">&#9679;</span>
+        <span>Scholarship Opportunities Open</span>
+        <span class="dot">&#9679;</span>
+        <span>92% Graduate Employment Rate</span>
+        <span class="dot">&#9679;</span>
+        <span>Accredited by ZAQA &amp; HEA</span>
+        <span class="dot">&#9679;</span>
+        <span>5,000+ Active Students</span>
+        <span class="dot">&#9679;</span>
+        <span>50+ Academic Programmes</span>
+        <span class="dot">&#9679;</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== RESEARCH SECTION ===================== -->
+  <section class="research-section" id="research">
+    <div class="section-label">Research &amp; Innovation</div>
+    <h2 class="section-title">Research Highlights</h2>
+    <p class="section-sub">Our academic community drives meaningful research that transforms communities</p>
+    <div class="research-grid">
+      <div class="research-card">
+        <div class="rc-icon"><i class="fa fa-microscope"></i></div>
+        <h3>Community Health Research Unit</h3>
+        <p>Investigating malaria prevention, maternal health outcomes, and rural healthcare access across Zambia.</p>
+        <a href="#" class="rc-link">Read More <i class="fa fa-arrow-right"></i></a>
+      </div>
+      <div class="research-card">
+        <div class="rc-icon"><i class="fa fa-shield-halved"></i></div>
+        <h3>Cybersecurity Centre of Excellence</h3>
+        <p>Developing frameworks for national digital security, cyber threat intelligence, and data protection law.</p>
+        <a href="#" class="rc-link">Read More <i class="fa fa-arrow-right"></i></a>
+      </div>
+      <div class="research-card">
+        <div class="rc-icon"><i class="fa fa-leaf"></i></div>
+        <h3>Sustainable Development Lab</h3>
+        <p>Actionable research in renewable energy, environmental conservation, and climate adaptation for Africa.</p>
+        <a href="#" class="rc-link">Read More <i class="fa fa-arrow-right"></i></a>
+      </div>
+      <div class="research-card">
+        <div class="rc-icon"><i class="fa fa-chart-bar"></i></div>
+        <h3>Business Intelligence &amp; Economics</h3>
+        <p>SME growth models, financial inclusion, and economic policy analysis for sub-Saharan Africa contexts.</p>
+        <a href="#" class="rc-link">Read More <i class="fa fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== LEARNING RESOURCES ===================== -->
+  <section class="resources-section">
+    <div class="section-label">Student Support</div>
+    <h2 class="section-title">Learning Resources &amp; Support</h2>
+    <div class="resources-grid">
+      <div class="resource-card">
+        <i class="fa fa-book-open-reader"></i>
+        <h3>Digital Library</h3>
+        <p>Access 100,000+ journals, eBooks, research papers, and databases 24/7 from anywhere.</p>
+      </div>
+      <div class="resource-card">
+        <i class="fa fa-computer"></i>
+        <h3>ICT Computer Labs</h3>
+        <p>Modern computing facilities with licensed software suites, high-speed internet, and printing services.</p>
+      </div>
+      <div class="resource-card">
+        <i class="fa fa-person-chalkboard"></i>
+        <h3>Tutoring Centre</h3>
+        <p>One-on-one academic support, writing assistance, and peer mentoring programs for all students.</p>
+      </div>
+      <div class="resource-card">
+        <i class="fa fa-globe"></i>
+        <h3>Online Learning Portal</h3>
+        <p>Blended and full online course delivery, lecture recordings, assignments, and assessments portal.</p>
+      </div>
+      <div class="resource-card">
+        <i class="fa fa-briefcase-medical"></i>
+        <h3>Student Wellness Centre</h3>
+        <p>Counselling, mental health support, health services, and student welfare programs on campus.</p>
+      </div>
+      <div class="resource-card">
+        <i class="fa fa-handshake"></i>
+        <h3>Career Services</h3>
+        <p>Job placement assistance, CV workshops, interview coaching, and employer networking events.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIALS ===================== -->
+  <section class="testimonials-section">
+    <div class="section-label">Student Voices</div>
+    <h2 class="section-title">What Our Students Say</h2>
+    <div class="testimonials-wrapper">
+      <div class="test-track" id="testTrack">
+        <div class="test-card">
+          <div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"The MBA program transformed my career completely. The lecturers are world-class and the network I built here is priceless."</p>
+          <div class="test-author">
+            <div class="test-avatar">TM</div>
+            <div><strong>Thandeka Mwale</strong><span>MBA Graduate, 2024</span></div>
+          </div>
+        </div>
+        <div class="test-card">
+          <div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Studying Nursing Science here gave me hands-on clinical experience that prepared me completely for my career in healthcare."</p>
+          <div class="test-author">
+            <div class="test-avatar">JC</div>
+            <div><strong>Joseph Chanda</strong><span>Nursing Graduate, 2023</span></div>
+          </div>
+        </div>
+        <div class="test-card">
+          <div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"The ICT department equipped me with real industry skills. I landed my software engineering job before even graduating!"</p>
+          <div class="test-author">
+            <div class="test-avatar">NL</div>
+            <div><strong>Natasha Lungu</strong><span>BSc Software Engineering, 2024</span></div>
+          </div>
+        </div>
+        <div class="test-card">
+          <div class="test-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Benchmark's education faculty is exceptional. The teaching methodology courses were practical and deeply insightful."</p>
+          <div class="test-author">
+            <div class="test-avatar">PB</div>
+            <div><strong>Patrick Banda</strong><span>BA Education, 2023</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="test-controls">
+      <button id="testPrev" class="test-btn"><i class="fa fa-chevron-left"></i></button>
+      <div class="test-dots" id="testDots">
+        <button class="tdot active" data-idx="0"></button>
+        <button class="tdot" data-idx="1"></button>
+        <button class="tdot" data-idx="2"></button>
+        <button class="tdot" data-idx="3"></button>
+      </div>
+      <button id="testNext" class="test-btn"><i class="fa fa-chevron-right"></i></button>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="faq-section" id="faq">
+    <div class="section-label">Common Questions</div>
+    <h2 class="section-title">Academic FAQs</h2>
+    <div class="accordion">
+
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <span>What are the minimum entry requirements?</span>
+          <i class="fa fa-plus acc-icon"></i>
+        </div>
+        <div class="accordion-content">
+          <p>Entry requirements vary by program level. Undergraduate programs require a minimum of 5 O-Level credits including English and Mathematics. Diploma programs require at least 3 O-Level credits. Graduate programs require a relevant first degree with a minimum classification of 2:2 (Second Class Lower). Specific faculty requirements may apply — contact the Admissions Office for full details.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <span>Do you offer online and distance learning?</span>
+          <i class="fa fa-plus acc-icon"></i>
+        </div>
+        <div class="accordion-content">
+          <p>Yes. Benchmark Business College offers a robust blended learning model through our Online Learning Portal. Several programs are available in full-online and weekend modes to accommodate working professionals. Students access lecture materials, submit assignments, and interact with lecturers through our e-learning platform.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <span>Are your programs accredited?</span>
+          <i class="fa fa-plus acc-icon"></i>
+        </div>
+        <div class="accordion-content">
+          <p>Yes. All our academic programs are fully accredited by the Zambia Qualifications Authority (ZAQA) and the Higher Education Authority (HEA). Our Health Sciences programs additionally hold professional registration with the Health Professions Council of Zambia (HPCZ). We are also affiliated with several international academic bodies.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <span>What scholarship opportunities are available?</span>
+          <i class="fa fa-plus acc-icon"></i>
+        </div>
+        <div class="accordion-content">
+          <p>We offer merit-based scholarships, need-based bursaries, and partial fee waivers. Students with distinction-level results at entry are eligible for academic merit scholarships covering up to 30% of tuition fees. Corporate bursaries through partner organisations are also available. Contact the Student Finance Office for applications.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <span>How do I register for a new semester?</span>
+          <i class="fa fa-plus acc-icon"></i>
+        </div>
+        <div class="accordion-content">
+          <p>Students register through the Student Information Portal (SIP) using their student ID and password. Registration opens 2 weeks before the semester begins and closes at the end of the first week of classes. Late registration attracts an additional fee. Ensure fees are cleared or a payment plan is agreed upon before registering.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <span>Does Benchmark offer international student programs?</span>
+          <i class="fa fa-plus acc-icon"></i>
+        </div>
+        <div class="accordion-content">
+          <p>Yes. We welcome international students from across Africa and beyond. We assist with student visa applications, offer orientation programs, and have dedicated international student support services. Some programs offer English proficiency test waivers for SADC nationals. Contact our International Admissions desk for guidance.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <span>What student accommodation is available?</span>
+          <i class="fa fa-plus acc-icon"></i>
+        </div>
+        <div class="accordion-content">
+          <p>On-campus student accommodation is available for both male and female students on a first-come, first-served basis. Rooms include Wi-Fi, study desks, and communal kitchen facilities. Off-campus accommodation assistance is available through our Student Housing Registry with a list of approved, affordable properties near campus.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== CTA SECTION ===================== -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <h2>Ready to Begin Your Academic Journey?</h2>
+      <p>Join thousands of students shaping their future at Benchmark Business College.</p>
+      <div class="cta-btns">
+        <a href="../admissions/apply.html" class="cta-btn-primary">Apply Now</a>
+        <a href="#" class="cta-btn-sec">Download Prospectus</a>
+        <a href="#" class="cta-btn-sec">Contact Admissions</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col footer-brand">
+        <div class="footer-logo"><i class="fa fa-building-columns"></i></div>
+        <h3>Benchmark Business College</h3>
+        <p>Empowering minds, building futures. Accredited, quality education for the modern world.</p>
+        <div class="footer-socials">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Academic Programs</h4>
+        <ul>
+          <li><a href="#">Graduate Studies</a></li>
+          <li><a href="#">Business &amp; Management</a></li>
+          <li><a href="#">Health Sciences</a></li>
+          <li><a href="#">ICT &amp; Technology</a></li>
+          <li><a href="#">Education Faculty</a></li>
+          <li><a href="#">TVET Programs</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#">Admissions</a></li>
+          <li><a href="#">Academic Calendar</a></li>
+          <li><a href="#">Student Portal</a></li>
+          <li><a href="#">Research</a></li>
+          <li><a href="#">Library</a></li>
+          <li><a href="#">Career Services</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="footer-contact">
+          <p><i class="fa fa-location-dot"></i> Plot 123, Independence Avenue, Lusaka, Zambia</p>
+          <p><i class="fa fa-phone"></i> +260 211 123 456</p>
+          <p><i class="fa fa-envelope"></i> info@benchmarkbc.ac.zm</p>
+          <p><i class="fa fa-globe"></i> www.benchmarkbc.ac.zm</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Benchmark Business College. All rights reserved. | Accredited by ZAQA &amp; HEA</p>
+    </div>
+  </footer>
+
+  <a href="#" class="back-to-top" id="backToTop"><i class="fa fa-chevron-up"></i></a>
+
+  <script src="academics.js"></script>
 </body>
 </html>
