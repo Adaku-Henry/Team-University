@@ -3,10 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Benchmark Business and Technical College Admissions Portal</title>
+<title>Benchmark BTC Admissions Portal</title>
 
 <style>
+
+/* =========================
+GLOBAL RESET
+========================= */
 
 *{
 margin:0;
@@ -16,74 +19,108 @@ font-family:'Segoe UI',sans-serif;
 }
 
 body{
-background:#f5f7fb;
-color:#333;
+background:#f4f7fb;
+color:#222;
+overflow-x:hidden;
 }
 
-/* HEADER */
+/* =========================
+HEADER
+========================= */
 
 header{
+position:sticky;
+top:0;
+z-index:1000;
 background:#003366;
 color:white;
-padding:15px 50px;
 display:flex;
 justify-content:space-between;
 align-items:center;
+padding:15px 40px;
+flex-wrap:wrap;
 }
 
 .logo{
-font-size:24px;
+font-size:22px;
 font-weight:bold;
+letter-spacing:1px;
+}
+
+nav{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+align-items:center;
 }
 
 nav a{
 color:white;
 text-decoration:none;
-margin-left:20px;
 font-weight:500;
+padding:8px 12px;
+border-radius:5px;
+transition:0.3s;
+}
+
+nav a:hover{
+background:rgba(255,255,255,0.15);
 }
 
 .btn-login{
 background:#ff9800;
-padding:10px 20px;
-border-radius:5px;
+color:black;
+font-weight:bold;
 }
 
-/* HERO */
+/* =========================
+HERO SECTION
+========================= */
 
 .hero{
-height:80vh;
-background:linear-gradient(
-rgba(0,0,0,.6),
-rgba(0,0,0,.6)
-),
-url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1');
-background-size:cover;
-background-position:center;
+height:90vh;
 display:flex;
 justify-content:center;
 align-items:center;
 text-align:center;
 color:white;
 padding:20px;
+
+background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7)),
+url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1');
+background-size:cover;
+background-position:center;
 }
 
-.hero-content h1{
+.hero-content{
+max-width:800px;
+animation:fadeIn 1.5s ease-in-out;
+}
+
+.hero h1{
 font-size:55px;
-margin-bottom:20px;
+margin-bottom:15px;
 }
 
-.hero-content p{
+.hero p{
 font-size:20px;
-margin-bottom:30px;
+opacity:0.9;
+margin-bottom:25px;
+}
+
+.hero-buttons{
+display:flex;
+justify-content:center;
+gap:15px;
+flex-wrap:wrap;
 }
 
 .hero-buttons a{
+padding:14px 25px;
 text-decoration:none;
-padding:15px 30px;
-margin:10px;
-border-radius:5px;
+border-radius:6px;
 font-weight:bold;
+transition:0.3s;
 }
 
 .apply-btn{
@@ -96,74 +133,140 @@ background:#ffc107;
 color:black;
 }
 
-/* NOTICE */
-
-.notice{
-padding:60px;
-background:white;
+.hero-buttons a:hover{
+transform:scale(1.05);
 }
 
-.notice h2{
+/* =========================
+ANNOUNCEMENT TICKER
+========================= */
+
+.ticker{
+background:#ffcc00;
+padding:10px;
+overflow:hidden;
+white-space:nowrap;
+}
+
+.ticker span{
+display:inline-block;
+padding-left:100%;
+animation:scroll 20s linear infinite;
+font-weight:bold;
+}
+
+/* =========================
+SECTION GENERAL
+========================= */
+
+section{
+padding:60px 20px;
+}
+
+.section-title{
 text-align:center;
-margin-bottom:30px;
+margin-bottom:40px;
+font-size:28px;
+}
+
+/* =========================
+NOTICES
+========================= */
+
+.notice-container{
+max-width:1100px;
+margin:auto;
 }
 
 .notice-card{
-background:#eef4ff;
+background:white;
 padding:20px;
 margin-bottom:15px;
 border-left:5px solid #003366;
+border-radius:5px;
+box-shadow:0 5px 10px rgba(0,0,0,0.05);
 }
 
-/* PROGRAMS */
-
-.programs{
-padding:60px;
-background:#f0f4f8;
-}
-
-.programs h2{
-text-align:center;
-margin-bottom:40px;
-}
+/* =========================
+PROGRAMS
+========================= */
 
 .program-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:20px;
+max-width:1100px;
+margin:auto;
 }
 
 .program-card{
 background:white;
-padding:25px;
+padding:20px;
 border-radius:10px;
-box-shadow:0 5px 10px rgba(0,0,0,.1);
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+transition:0.3s;
 }
 
-.program-card h3{
-margin-bottom:10px;
+.program-card:hover{
+transform:translateY(-5px);
 }
 
-/* STATS */
+/* =========================
+STATS
+========================= */
 
 .stats{
-padding:60px;
 background:#003366;
 color:white;
+text-align:center;
 }
 
 .stats-grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
 gap:20px;
-text-align:center;
+max-width:1000px;
+margin:auto;
 }
 
 .stat h1{
 font-size:40px;
 }
 
-/* FOOTER */
+/* =========================
+QUICK ACTIONS
+========================= */
+
+.actions{
+background:#f0f4ff;
+}
+
+.action-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+max-width:1000px;
+margin:auto;
+}
+
+.action-card{
+background:white;
+padding:20px;
+text-align:center;
+border-radius:10px;
+box-shadow:0 5px 10px rgba(0,0,0,0.05);
+cursor:pointer;
+transition:0.3s;
+}
+
+.action-card:hover{
+background:#003366;
+color:white;
+}
+
+/* =========================
+FOOTER
+========================= */
 
 footer{
 background:#001a33;
@@ -172,20 +275,57 @@ text-align:center;
 padding:20px;
 }
 
+/* =========================
+FLOAT BUTTON
+========================= */
+
+.float-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#28a745;
+color:white;
+padding:15px 18px;
+border-radius:50%;
+font-size:20px;
+cursor:pointer;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* =========================
+RESPONSIVE
+========================= */
+
 @media(max-width:768px){
 
-.hero-content h1{
-font-size:35px;
+.hero h1{
+font-size:32px;
 }
 
 header{
 flex-direction:column;
+text-align:center;
 }
 
 nav{
+justify-content:center;
 margin-top:10px;
 }
 
+}
+
+/* =========================
+ANIMATIONS
+========================= */
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+@keyframes scroll{
+from{transform:translateX(0);}
+to{transform:translateX(-100%);}
 }
 
 </style>
@@ -193,182 +333,124 @@ margin-top:10px;
 
 <body>
 
+<!-- HEADER -->
 <header>
-
-<div class="logo">
-Benchmark BTC Admissions
-</div>
+<div class="logo">Benchmark BTC Admissions</div>
 
 <nav>
-<a href="index1.html">Home</a>
-<a href="../programs/programs.html">Programmes</a>
+<a href="#">Home</a>
+<a href="programs.html">Programmes</a>
 <a href="apply.html">Admissions</a>
-<a href="../contact/contact.html">Contact</a>
-<a href="login1.html" class="btn-login">
-Login
-</a>
+<a href="contact.html">Contact</a>
+<a class="btn-login" href="login.html">Login</a>
 </nav>
-
 </header>
 
+<!-- TICKER -->
+<div class="ticker">
+<span>
+📢 Admissions Open 2026/2027 | Deadline: 31st August 2026 | Apply Early | Limited Government Slots Available | Benchmark BTC Excellence in Skills Training |
+</span>
+</div>
+
+<!-- HERO -->
 <section class="hero">
-
 <div class="hero-content">
-
-<h1>
-Welcome to Benchmark Business and Technical College
-</h1>
-
-<p>
-Online Admissions Management System
-</p>
+<h1>Welcome to Benchmark Business & Technical College</h1>
+<p>Modern Online Admissions & Student Management System</p>
 
 <div class="hero-buttons">
-
-<a href="register1.html" class="apply-btn">
-Apply Now
-</a>
-
-<a href="login1.html" class="login-btn">
-Applicant Login
-</a>
-
+<a class="apply-btn" href="register.html">Apply Now</a>
+<a class="login-btn" href="login.html">Applicant Login</a>
 </div>
-
 </div>
-
 </section>
 
-<section class="notice">
+<!-- NOTICES -->
+<section>
+<h2 class="section-title">Admission Notices</h2>
 
-<h2>Admission Announcements</h2>
-
-<div class="notice-card">
-Admissions for Academic Year 2026/2027 are now open.
+<div class="notice-container">
+<div class="notice-card">Admissions for 2026/2027 are now OPEN.</div>
+<div class="notice-card">Deadline: 31st August 2026.</div>
+<div class="notice-card">Government sponsorship applications ongoing.</div>
 </div>
-
-<div class="notice-card">
-Application deadline is 31st August 2026.
-</div>
-
-<div class="notice-card">
-Government-sponsored students should apply before deadline.
-</div>
-
 </section>
 
-<section class="programs">
-
-<h2>Available Programmes</h2>
+<!-- PROGRAMS -->
+<section>
+<h2 class="section-title">Available Programmes</h2>
 
 <div class="program-grid">
 
-<div class="program-card">
-<h3>Diploma in Information Technology</h3>
-<p>Duration: 2 Years</p>
-</div>
-
-<div class="program-card">
-<h3>Certificate in Computer Applications</h3>
-<p>Duration: 1 Year</p>
-</div>
-
-<div class="program-card">
-<h3>Diploma in Business Administration</h3>
-<p>Duration: 2 Years</p>
-</div>
-
-<div class="program-card">
-<h3>Certificate in Accounting</h3>
-<p>Duration: 1 Year</p>
-</div>
-
-<div class="program-card">
-<h3>Diploma in Electrical Installation</h3>
-<p>Duration: 2 Years</p>
-</div>
-
-<div class="program-card">
-<h3>Certificate in Building Construction</h3>
-<p>Duration: 1 Year</p>
-</div>
+<div class="program-card">Diploma in IT</div>
+<div class="program-card">Business Administration</div>
+<div class="program-card">Accounting & Finance</div>
+<div class="program-card">Electrical Installation</div>
+<div class="program-card">Building Construction</div>
+<div class="program-card">Computer Applications</div>
 
 </div>
-
 </section>
 
+<!-- QUICK ACTIONS -->
+<section class="actions">
+<h2 class="section-title">Quick Actions</h2>
+
+<div class="action-grid">
+
+<div class="action-card">Apply Online</div>
+<div class="action-card">Check Status</div>
+<div class="action-card">Download Prospectus</div>
+<div class="action-card">Contact Admissions</div>
+
+</div>
+</section>
+
+<!-- STATS -->
 <section class="stats">
+
+<h2 class="section-title">Institution Statistics</h2>
 
 <div class="stats-grid">
 
-<div class="stat">
-<h1 id="students">0</h1>
-<p>Students</p>
-</div>
-
-<div class="stat">
-<h1 id="courses">0</h1>
-<p>Programmes</p>
-</div>
-
-<div class="stat">
-<h1 id="graduates">0</h1>
-<p>Graduates</p>
-</div>
-
-<div class="stat">
-<h1 id="staff">0</h1>
-<p>Staff</p>
-</div>
+<div class="stat"><h1 id="students">0</h1><p>Students</p></div>
+<div class="stat"><h1 id="programs">0</h1><p>Programs</p></div>
+<div class="stat"><h1 id="graduates">0</h1><p>Graduates</p></div>
+<div class="stat"><h1 id="staff">0</h1><p>Staff</p></div>
 
 </div>
-
 </section>
 
+<!-- FOOTER -->
 <footer>
-
-<p>
-© 2026 Benchmark Business and Technical College Admissions Portal
-</p>
-
+© 2026 Benchmark Business & Technical College Admissions Portal
 </footer>
+
+<!-- FLOAT BUTTON -->
+<div class="float-btn" onclick="alert('Chat support coming soon!')">
+💬
+</div>
 
 <script>
 
-function animateValue(id,start,end,duration){
+/* COUNTER ANIMATION */
 
-let range=end-start;
+function animate(id, end, speed){
+let el = document.getElementById(id);
+let start = 0;
 
-let current=start;
-
-let increment=end>start?1:-1;
-
-let stepTime=Math.abs(
-Math.floor(duration/range)
-);
-
-let obj=document.getElementById(id);
-
-let timer=setInterval(function(){
-
-current+=increment;
-
-obj.textContent=current;
-
-if(current==end){
-
-clearInterval(timer);
-
+let interval = setInterval(()=>{
+start++;
+el.innerText = start;
+if(start >= end) clearInterval(interval);
+}, speed);
 }
 
-},stepTime);
-
-}
-
-animateValue("students",0,3500,2000);
-animateValue("courses",0,35,2000);
-animateValue("graduates",0,5200,2000);
-animateValue("staff",0,180,2000);
+animate("students", 3500, 1);
+animate("programs", 35, 50);
+animate("graduates", 5200, 1);
+animate("staff", 180, 10);
 
 </script>
 
