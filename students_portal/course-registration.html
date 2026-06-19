@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Course Registration</title>
+
+<link rel="stylesheet" href="course-registration.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<!-- MAIN -->
+<main class="main">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+
+        <button id="paymentBtn" class="payment-btn">
+            Get a Payment REF
+        </button>
+
+        <h1>Muni University</h1>
+
+        <div class="top-actions">
+
+            <button id="whatsappBtn" class="whatsapp-btn">
+                <i class="fab fa-whatsapp"></i> ACTIVATE WHATSAPP
+            </button>
+
+            <div class="account-wrapper">
+                <button id="accountBtn" class="account-btn">
+                    <i class="fa fa-user"></i> Account
+                    <i class="fa fa-caret-down"></i>
+                </button>
+
+                <div id="accountMenu" class="account-menu hidden">
+                    <button>Profile</button>
+                    <button>Settings</button>
+                    <button>Logout</button>
+                </div>
+            </div>
+
+            <button class="icon-btn"><i class="fa fa-power-off"></i></button>
+            <button class="icon-btn"><i class="fa fa-question-circle"></i></button>
+
+        </div>
+    </header>
+
+    <!-- STATUS -->
+    <section class="status-bar">
+        <div>
+            <strong id="academicStatus">Year 1, Semester 2</strong>
+            <span id="registrationStatus">REGISTERED</span>
+        </div>
+
+        <p>A/C BALANCE: <strong id="accountBalance">0 /=</strong></p>
+    </section>
+
+    <!-- FILTERS -->
+    <section class="filters">
+        <input type="text" id="searchCourse" placeholder="Search course...">
+
+        <select id="departmentFilter">
+            <option value="all">All Departments</option>
+        </select>
+
+        <select id="semesterFilter">
+            <option value="all">All Semesters</option>
+        </select>
+
+        <button id="resetFilters">Reset</button>
+        <button id="refreshCourses"><i class="fa fa-refresh"></i> Refresh</button>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats-grid">
+        <div class="stat-card">
+            <h4>Available Courses</h4>
+            <h2 id="totalAvailable">0</h2>
+        </div>
+
+        <div class="stat-card">
+            <h4>Registered Courses</h4>
+            <h2 id="totalRegistered">0</h2>
+        </div>
+
+        <div class="stat-card">
+            <h4>Total Credits</h4>
+            <h2 id="totalCredits">0</h2>
+        </div>
+
+        <div class="stat-card">
+            <h4>Status</h4>
+            <h2 class="registered-text">ACTIVE</h2>
+        </div>
+    </section>
+
+    <!-- PANELS -->
+    <section class="registration-template">
+
+        <!-- AVAILABLE -->
+        <div class="panel">
+            <div class="panel-header">
+                <h2>Available Courses</h2>
+                <button id="registerSelectedBtn">Register</button>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th><th>#</th><th>Code</th><th>Title</th><th>CU</th><th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="availableCoursesBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- REGISTERED -->
+        <div class="panel">
+            <div class="panel-header">
+                <h2>Registered Courses</h2>
+                <button id="deregisterSelectedBtn" class="danger-btn">Remove</button>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th><th>#</th><th>Code</th><th>Title</th><th>CU</th>
+                        </tr>
+                    </thead>
+                    <tbody id="registeredCoursesBody"></tbody>
+                </table>
+            </div>
+
+            <div class="credit-summary">
+                Total Credits: <strong id="registeredCreditsText">0</strong>
+            </div>
+        </div>
+
+    </section>
+
+</main>
+
+<!-- MODAL -->
+<div class="modal hidden" id="courseModal">
+    <div class="modal-box">
+        <button class="close-modal" id="closeModal">&times;</button>
+
+        <h2 id="modalTitle">Course Details</h2>
+
+        <p><strong>Code:</strong> <span id="modalCode"></span></p>
+        <p><strong>Title:</strong> <span id="modalCourseTitle"></span></p>
+        <p><strong>CU:</strong> <span id="modalCU"></span></p>
+
+        <div class="modal-actions">
+            <button id="modalRegisterBtn">Register</button>
+            <button class="danger-btn" id="modalCloseBtn">Close</button>
+        </div>
+    </div>
+</div>
+
+<script src="course-registration.js"></script>
+</body>
+</html>

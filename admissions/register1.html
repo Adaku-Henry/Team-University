@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Applicant Registration | Benchmark BTC</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:#f4f7fc;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:20px;
+}
+
+.container{
+background:white;
+width:100%;
+max-width:900px;
+padding:40px;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,.1);
+}
+
+.logo{
+text-align:center;
+margin-bottom:30px;
+}
+
+.logo h1{
+color:#003366;
+}
+
+.logo p{
+color:#666;
+}
+
+form{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+.full-width{
+grid-column:1 / span 2;
+}
+
+input,
+select{
+width:100%;
+padding:12px;
+border:1px solid #ccc;
+border-radius:6px;
+font-size:15px;
+}
+
+label{
+font-weight:600;
+display:block;
+margin-bottom:6px;
+}
+
+.checkbox{
+display:flex;
+align-items:center;
+gap:10px;
+margin-top:10px;
+}
+
+button{
+width:100%;
+padding:15px;
+background:#003366;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+font-size:16px;
+font-weight:bold;
+}
+
+button:hover{
+background:#0055aa;
+}
+
+.login-link{
+text-align:center;
+margin-top:20px;
+}
+
+.login-link a{
+color:#003366;
+text-decoration:none;
+font-weight:bold;
+}
+
+.error{
+color:red;
+font-size:13px;
+display:none;
+}
+
+.success{
+background:#d4edda;
+padding:15px;
+color:#155724;
+margin-bottom:20px;
+display:none;
+border-radius:6px;
+}
+
+@media(max-width:768px){
+
+form{
+grid-template-columns:1fr;
+}
+
+.full-width{
+grid-column:auto;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="logo">
+<h1>Benchmark Business & Technical College</h1>
+<p>Admissions Portal Registration</p>
+</div>
+
+<div class="success" id="successBox">
+Registration successful. Redirecting to OTP Verification...
+</div>
+
+<form id="registerForm">
+
+<div>
+<label>First Name</label>
+<input type="text" id="firstName" required>
+</div>
+
+<div>
+<label>Middle Name</label>
+<input type="text" id="middleName">
+</div>
+
+<div>
+<label>Last Name</label>
+<input type="text" id="lastName" required>
+</div>
+
+<div>
+<label>Gender</label>
+<select id="gender" required>
+<option value="">Select Gender</option>
+<option>Male</option>
+<option>Female</option>
+</select>
+</div>
+
+<div>
+<label>Date of Birth</label>
+<input type="date" id="dob" required>
+</div>
+
+<div>
+<label>Nationality</label>
+<input type="text" id="nationality" required>
+</div>
+
+<div>
+<label>National ID / Passport</label>
+<input type="text" id="nid" required>
+</div>
+
+<div>
+<label>Phone Number</label>
+<input type="tel" id="phone" required>
+</div>
+
+<div class="full-width">
+<label>Email Address</label>
+<input type="email" id="email" required>
+</div>
+
+<div>
+<label>Password</label>
+<input type="password" id="password" required>
+</div>
+
+<div>
+<label>Confirm Password</label>
+<input type="password" id="confirmPassword" required>
+</div>
+
+<div class="full-width">
+<span class="error" id="passwordError">
+Passwords do not match
+</span>
+</div>
+
+<div class="full-width checkbox">
+<input type="checkbox" id="terms" required>
+<label for="terms">
+I agree to the Terms and Conditions
+</label>
+</div>
+
+<div class="full-width">
+<button type="submit">
+Create Account
+</button>
+</div>
+
+</form>
+
+<div class="login-link">
+Already have an account?
+<a href="login1.html">Login Here</a>
+</div>
+
+</div>
+
+<script>
+
+const form = document.getElementById("registerForm");
+
+form.addEventListener("submit", function(e){
+
+e.preventDefault();
+
+const password =
+document.getElementById("password").value;
+
+const confirm =
+document.getElementById("confirmPassword").value;
+
+const error =
+document.getElementById("passwordError");
+
+if(password !== confirm){
+
+error.style.display = "block";
+return;
+
+}
+
+error.style.display = "none";
+
+const applicant = {
+
+firstName:
+document.getElementById("firstName").value,
+
+middleName:
+document.getElementById("middleName").value,
+
+lastName:
+document.getElementById("lastName").value,
+
+gender:
+document.getElementById("gender").value,
+
+dob:
+document.getElementById("dob").value,
+
+nationality:
+document.getElementById("nationality").value,
+
+nid:
+document.getElementById("nid").value,
+
+phone:
+document.getElementById("phone").value,
+
+email:
+document.getElementById("email").value,
+
+password:
+password
+
+};
+
+localStorage.setItem(
+"pendingApplicant",
+JSON.stringify(applicant)
+);
+
+document.getElementById(
+"successBox"
+).style.display = "block";
+
+setTimeout(() => {
+
+window.location.href =
+"verify-account.html";
+
+},2000);
+
+});
+
+</script>
+
+</body>
+</html>

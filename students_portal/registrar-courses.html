@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Academic Registrar - Course Management</title>
+
+<link rel="stylesheet" href="course-registration.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<div class="layout">
+
+    <aside class="sidebar">
+
+        <div class="student-profile">
+            <img src="https://via.placeholder.com/90" alt="Registrar">
+            <h3>ACADEMIC REGISTRAR</h3>
+            <p>ADMIN PANEL</p>
+        </div>
+
+        <nav class="menu">
+
+            <div class="menu-title">
+                <i class="fa fa-cog"></i>
+                ADMINISTRATION
+            </div>
+
+            <a href="registrar-courses.html" class="active">
+                <i class="fa fa-book"></i>
+                Manage Courses
+            </a>
+
+            <a href="course-registration.html">
+                <i class="fa fa-eye"></i>
+                View Student Portal
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+            <button class="payment-btn">
+                Registrar Panel
+            </button>
+
+            <h1>Muni University</h1>
+
+            <div class="top-actions">
+                <button class="account-btn">
+                    <i class="fa fa-user"></i>
+                    Registrar
+                </button>
+            </div>
+        </header>
+
+        <section class="status-bar">
+            <div>
+                <strong>Academic Registrar</strong>
+                <span>COURSE MANAGEMENT</span>
+            </div>
+            <p>System Status: <strong>ACTIVE</strong></p>
+        </section>
+
+        <section class="panel" style="margin-top:18px; min-height:auto;">
+
+            <div class="panel-header">
+                <h2>Add / Update Course</h2>
+            </div>
+
+            <form id="courseForm" style="padding:15px;">
+
+                <input type="hidden" id="courseId">
+
+                <div class="filters" style="grid-template-columns: repeat(3, 1fr); margin-top:0; border:none; padding:0;">
+
+                    <input id="courseCode" placeholder="Course Code e.g. ERM1201" required>
+
+                    <input id="courseTitle" placeholder="Course Title" required>
+
+                    <input id="department" placeholder="Department" required>
+
+                    <input id="lecturer" placeholder="Lecturer Name" required>
+
+                    <input id="level" placeholder="Level e.g. core/elective" required>
+
+                    <input id="cu" type="number" placeholder="Credit Units" required>
+
+                    <input id="semester" placeholder="Semester e.g. Year 1 Semester 2" required>
+
+                    <input id="status" placeholder="Status e.g. normal/retake" required>
+
+                    <input id="timetable" placeholder="Timetable" required>
+
+                    <input id="prerequisite" placeholder="Prerequisite">
+
+                    <input id="description" placeholder="Description">
+
+                    <button type="submit">
+                        Save Course
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+        <section class="panel" style="margin-top:18px;">
+
+            <div class="panel-header">
+
+                <h2>Courses Added by Academic Registrar</h2>
+
+                <button id="clearAllCourses" class="danger-btn">
+                    Clear All
+                </button>
+
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Code</th>
+                            <th>Courseunit/Title</th>
+                            <th>Department</th>
+                            <th>Level</th>
+                            <th>Semester</th>
+                            <th>CU</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="registrarCoursesBody">
+                        <!-- Rendered by JavaScript -->
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="registrar-courses.js"></script>
+
+</body>
+</html>

@@ -355,7 +355,7 @@ header.scrolled{
     inset:0;
     background:
         linear-gradient(rgba(0,33,71,.45), rgba(0,21,45,.80)),
-        url("images/logo.jpg") center/cover no-repeat;
+        url("images/news5.jpg") center/cover no-repeat;
     z-index:-3;
     animation:heroZoom 18s ease-in-out infinite alternate;
 }

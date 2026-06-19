@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Applicant Login | Benchmark BTC Admissions</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:#f4f7fc;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+padding:20px;
+}
+
+.login-container{
+width:100%;
+max-width:450px;
+background:white;
+padding:40px;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,.1);
+}
+
+.logo{
+text-align:center;
+margin-bottom:30px;
+}
+
+.logo h1{
+color:#003366;
+font-size:28px;
+}
+
+.logo p{
+color:#666;
+margin-top:5px;
+}
+
+.form-group{
+margin-bottom:20px;
+}
+
+label{
+display:block;
+margin-bottom:8px;
+font-weight:600;
+}
+
+input{
+width:100%;
+padding:12px;
+border:1px solid #ccc;
+border-radius:6px;
+font-size:15px;
+}
+
+.password-box{
+position:relative;
+}
+
+.toggle-password{
+position:absolute;
+right:15px;
+top:14px;
+cursor:pointer;
+color:#666;
+}
+
+.remember{
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:14px;
+margin-bottom:20px;
+}
+
+.remember a{
+text-decoration:none;
+color:#003366;
+font-weight:bold;
+}
+
+button{
+width:100%;
+padding:14px;
+background:#003366;
+color:white;
+border:none;
+border-radius:6px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover{
+background:#0055aa;
+}
+
+.message{
+margin-top:20px;
+padding:12px;
+border-radius:6px;
+display:none;
+}
+
+.success{
+background:#d4edda;
+color:#155724;
+}
+
+.error{
+background:#f8d7da;
+color:#721c24;
+}
+
+.register-link{
+text-align:center;
+margin-top:20px;
+}
+
+.register-link a{
+color:#003366;
+font-weight:bold;
+text-decoration:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="login-container">
+
+<div class="logo">
+<h1>Benchmark BTC</h1>
+<p>Admissions Portal Login</p>
+</div>
+
+<form id="loginForm">
+
+<div class="form-group">
+<label>Email Address or Phone Number</label>
+<input type="text" id="username" required>
+</div>
+
+<div class="form-group">
+
+<label>Password</label>
+
+<div class="password-box">
+<input type="password" id="password" required>
+
+<span class="toggle-password" onclick="togglePassword()">👁</span>
+</div>
+
+</div>
+
+<div class="remember">
+
+<label>
+<input type="checkbox" id="remember">
+ Remember Me
+</label>
+
+<a href="forgot-password.html">
+Forgot Password?
+</a>
+
+</div>
+
+<button type="submit">Login</button>
+
+</form>
+
+<div id="successMessage" class="message success">
+Login successful. Redirecting...
+</div>
+
+<div id="errorMessage" class="message error"></div>
+
+<div class="register-link">
+No account?
+<a href="register1.html">Create One</a>
+</div>
+
+</div>
+
+<script>
+
+function togglePassword(){
+const password = document.getElementById("password");
+password.type = (password.type === "password") ? "text" : "password";
+}
+
+document.getElementById("loginForm").addEventListener("submit", function(e){
+e.preventDefault();
+
+const username = document.getElementById("username").value;
+const password = document.getElementById("password").value;
+
+const success = document.getElementById("successMessage");
+const error = document.getElementById("errorMessage");
+
+const user = JSON.parse(localStorage.getItem("applicant"));
+
+// ✅ FIX 1: check if user exists FIRST
+if(!user){
+error.innerText = "No account found. Please register first.";
+error.style.display = "block";
+return;
+}
+
+// ✅ FIX 2: check verification safely
+if(user.verified !== true){
+error.innerText = "Account not verified. Please verify first.";
+error.style.display = "block";
+return;
+}
+
+// ✅ LOGIN CHECK
+if(
+(username === user.email || username === user.phone)
+&& password === user.password
+){
+
+localStorage.setItem("loggedIn", "true");
+
+success.style.display = "block";
+error.style.display = "none";
+
+setTimeout(function(){
+window.location.href = "apply.html";
+}, 2000);
+
+}else{
+
+success.style.display = "none";
+error.innerText = "Invalid credentials";
+error.style.display = "block";
+
+}
+
+});
+
+</script>
+
+</body>
+</html>

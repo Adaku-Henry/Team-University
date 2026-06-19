@@ -3,939 +3,1368 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Benchmark Business College Admissions System</title>
-<link rel="stylesheet" href="style.css">
+<title>Benchmark Business College - Enterprise Admissions System</title>
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+<link rel="stylesheet" href="../admissions/styles.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
 
-<header class="site-header">
-    <div class="top-bar">
-        <div>
-            <span>☎ +256 782 900 765</span>
-            <span>✉ admissions@benchmark.ac.ug</span>
-        </div>
-        <div>
-            <a href="#portal" data-view-target="portal">Portal</a>
-            <a href="#apply" data-view-target="apply">Apply</a>
-            <a href="#dashboard" data-view-target="dashboard">Dashboard</a>
-            <a href="#admin" data-view-target="admin">Admin</a>
-        </div>
+<!-- ============= TOP UTILITY BAR ============= -->
+<div class="utility-bar">
+  <div class="container utility-inner">
+    <div class="utility-left">
+      <span><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.24.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z"/></svg> +256 782 900 765</span>
+      <span><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> admissions@benchmark.ac.ug</span>
+      <span><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg> Plot 24, Kampala Road, Kampala, Uganda</span>
     </div>
+    <div class="utility-right">
+      <a href="#portal" data-view-target="portal">Portal</a>
+      <a href="#apply" data-view-target="apply">Apply</a>
+      <a href="#dashboard" data-view-target="dashboard">Dashboard</a>
+      <a href="#admin" data-view-target="admin">Admin</a>
+    </div>
+  </div>
+</div>
 
-    <nav class="navbar">
-        <div class="brand">
-            <img src="../images/logo.jpg" alt="Benchmark Logo" id="siteLogo">
-            <div>
-                <h1>BENCHMARK BUSINESS COLLEGE</h1>
-                <p>Business, Technical & Professional Education</p>
-            </div>
-        </div>
+<!-- ============= MAIN HEADER ============= -->
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="brand">
+      <img src="../images/logo.jpg" alt="Benchmark Business College" class="brand-logo">
+      <div class="brand-text">
+        <h1>BENCHMARK BUSINESS COLLEGE</h1>
+        <p>Business, Technical &amp; Professional Education</p>
+        <span class="motto">"Excellence Through Innovation"</span>
+      </div>
+    </div>
+    <div class="header-meta">
+      <div class="accreditation">
+        <div class="accred-badge">UNES</div>
+        <div class="accred-badge">NCHE</div>
+        <div class="accred-badge">ISO 9001</div>
+      </div>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">☰</button>
+  </div>
 
-        <button class="menu-btn" id="menuBtn">☰</button>
-
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#portal" data-view-target="portal">Admissions Portal</a></li>
-            <li><a href="#apply" data-view-target="apply">Online Apply</a></li>
-            <li><a href="#dashboard" data-view-target="dashboard">Student Dashboard</a></li>
-            <li><a href="#admin" data-view-target="admin">Admin Panel</a></li>
-        </ul>
-    </nav>
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#portal" data-view-target="portal" class="active">Home</a></li>
+        <li><a href="#apply" data-view-target="apply">Apply Online</a></li>
+        <li><a href="#dashboard" data-view-target="dashboard">Student Dashboard</a></li>
+        <li><a href="#admin" data-view-target="admin">Admin Panel</a></li>
+        <li class="nav-cta"><a href="#apply" data-view-target="apply" class="btn-apply">Apply Now →</a></li>
+      </ul>
+    </div>
+  </nav>
 </header>
 
 <main>
 
+<!-- ============= PORTAL VIEW ============= -->
 <section class="view active" id="portal">
-    <div class="hero">
-        <div class="hero-content reveal">
-            <span class="pill">Online Admissions Open</span>
-            <h2>Welcome to Benchmark Business College Admissions System</h2>
-            <p>
-                Register, apply online, upload documents, track your application,
-                and receive admission decisions through one simple portal.
-            </p>
-            <div class="hero-actions">
-                <button class="btn-primary" data-view-target="apply">Start Application</button>
-                <button class="btn-secondary" data-view-target="dashboard">Check Status</button>
-            </div>
-        </div>
+  <div class="hero">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content reveal">
+      <span class="pill"><span class="dot"></span> Online Admissions Open - 2026/2027 Intake</span>
+      <h2>Shape Your Future at Benchmark Business College</h2>
+      <p>Register, apply online, upload documents, track progress, and receive admission decisions — all through one secure, enterprise-grade portal.</p>
+      <div class="hero-actions">
+        <button class="btn-primary btn-lg" data-view-target="apply">Start Application →</button>
+        <button class="btn-outline btn-lg" data-view-target="dashboard">Check Status</button>
+      </div>
+      <div class="hero-stats">
+        <div><strong>14,500+</strong><span>Alumni Network</span></div>
+        <div><strong>25+</strong><span>Programmes</span></div>
+        <div><strong>3</strong><span>Intakes Per Year</span></div>
+        <div><strong>24/7</strong><span>Online Portal</span></div>
+      </div>
     </div>
+  </div>
 
-    <section class="section">
-        <div class="section-title reveal">
-            <h2>Admissions Portal Services</h2>
-            <p>Everything applicants need from registration to final admission decision.</p>
+  <section class="section">
+    <div class="container">
+      <div class="section-title reveal">
+        <span class="eyebrow">Portal Services</span>
+        <h2>Everything You Need From Application to Admission</h2>
+        <p>Our enterprise system guides you through every stage of the admission lifecycle.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card reveal">
+          <div class="icon-circle">📝</div>
+          <h3>Multi-Stage Application</h3>
+          <p>7 guided steps with smart validation, auto-save, and progress tracking.</p>
         </div>
-
-        <div class="feature-grid">
-            <div class="feature-card reveal">
-                <div class="icon">📝</div>
-                <h3>Online Application</h3>
-                <p>Complete your application form with guided steps and smart validation.</p>
-            </div>
-
-            <div class="feature-card reveal">
-                <div class="icon">📂</div>
-                <h3>Document Upload</h3>
-                <p>Upload passport photo, national ID, academic documents, and supporting files.</p>
-            </div>
-
-            <div class="feature-card reveal">
-                <div class="icon">📊</div>
-                <h3>Student Dashboard</h3>
-                <p>Track progress, view notifications, and check admission status anytime.</p>
-            </div>
-
-            <div class="feature-card reveal">
-                <div class="icon">🛡️</div>
-                <h3>Admin Review</h3>
-                <p>Admissions officers can review, approve, reject, filter, and export applications.</p>
-            </div>
+        <div class="feature-card reveal">
+          <div class="icon-circle">📂</div>
+          <h3>Secure Document Upload</h3>
+          <p>Upload passport, ID, certificates, transcripts with verification status.</p>
         </div>
-    </section>
+        <div class="feature-card reveal">
+          <div class="icon-circle">📊</div>
+          <h3>Real-Time Dashboard</h3>
+          <p>Track your application status, notifications, and admission progress.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="icon-circle">📄</div>
+          <h3>PDF Application Slip</h3>
+          <p>Download a multi-page PDF with university branding and your full details.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="icon-circle">🔐</div>
+          <h3>SMS-Verified Security</h3>
+          <p>Auth codes sent via SMS for password reset and account verification.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="icon-circle">🛡️</div>
+          <h3>Admin Review Panel</h3>
+          <p>Admissions officers review, approve, reject, and export with full audit trail.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <section class="section split">
-        <div class="card reveal">
+  <section class="section section-alt">
+    <div class="container">
+      <div class="auth-grid">
+        <div class="card auth-card reveal">
+          <div class="auth-header">
             <h2>Create Applicant Account</h2>
-            <p class="muted">Register first to keep your applicant profile active on this device.</p>
-
-            <form id="registerForm" novalidate>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Full Name *</label>
-                        <input type="text" id="regName" placeholder="Enter full name">
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Email Address *</label>
-                        <input type="email" id="regEmail" placeholder="example@email.com">
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Phone Number *</label>
-                        <input type="tel" id="regPhone" placeholder="+256700000000">
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Password *</label>
-                        <input type="password" id="regPassword" placeholder="Minimum 6 characters">
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Confirm Password *</label>
-                        <input type="password" id="regConfirmPassword" placeholder="Repeat password">
-                        <small class="error"></small>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn-primary full-btn">Create Account</button>
-                <p id="registerMessage" class="message"></p>
-            </form>
+            <p class="muted">Step 1: Register to start your application. You'll receive an SMS verification code.</p>
+          </div>
+          <form id="registerForm" novalidate>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Full Name <span class="req">*</span></label>
+                <input type="text" id="regName" placeholder="As on your National ID" autocomplete="name">
+                <small class="error" data-for="regName"></small>
+              </div>
+              <div class="form-group">
+                <label>Email Address <span class="req">*</span></label>
+                <input type="email" id="regEmail" placeholder="you@example.com" autocomplete="email">
+                <small class="error" data-for="regEmail"></small>
+              </div>
+              <div class="form-group">
+                <label>Phone Number <span class="req">*</span></label>
+                <input type="tel" id="regPhone" placeholder="+256 7XX XXX XXX" autocomplete="tel">
+                <small class="muted">We'll send a verification code to this number.</small>
+                <small class="error" data-for="regPhone"></small>
+              </div>
+              <div class="form-group">
+                <label>Password <span class="req">*</span></label>
+                <input type="password" id="regPassword" placeholder="Min. 8 characters" autocomplete="new-password">
+                <small class="error" data-for="regPassword"></small>
+              </div>
+              <div class="form-group">
+                <label>Confirm Password <span class="req">*</span></label>
+                <input type="password" id="regConfirmPassword" placeholder="Repeat password" autocomplete="new-password">
+                <small class="error" data-for="regConfirmPassword"></small>
+              </div>
+            </div>
+            <div class="checkbox-group">
+              <label>
+                <input type="checkbox" id="regTerms">
+                I agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.
+              </label>
+              <small class="error" data-for="regTerms"></small>
+            </div>
+            <button type="submit" class="btn-primary full-btn">Create Account</button>
+            <p id="registerMessage" class="message"></p>
+          </form>
+          <div class="auth-footer">
+            <p>Already have an account? <a href="#" id="goToLogin">Login here</a></p>
+          </div>
         </div>
 
-        <div class="card reveal">
+        <div class="card auth-card reveal">
+          <div class="auth-header">
             <h2>Applicant Login</h2>
-            <p class="muted">Login to continue your application faster.</p>
-
-            <form id="loginForm" novalidate>
-                <div class="form-group">
-                    <label>Email Address *</label>
-                    <input type="email" id="loginEmail" placeholder="Enter registered email">
-                    <small class="error"></small>
-                </div>
-
-                <div class="form-group">
-                    <label>Password *</label>
-                    <input type="password" id="loginPassword" placeholder="Enter password">
-                    <small class="error"></small>
-                </div>
-
-                <button type="submit" class="btn-secondary full-btn">Login</button>
-                <p id="loginMessage" class="message"></p>
-            </form>
-
-            <div class="mini-status">
-                <h3>Quick Status Check</h3>
-                <input type="text" id="quickStatusInput" placeholder="Enter Application ID or Email">
-                <button class="btn-primary" id="quickStatusBtn">Check Status</button>
-                <p id="quickStatusResult"></p>
+            <p class="muted">Continue your application or check admission status.</p>
+          </div>
+          <form id="loginForm" novalidate>
+            <div class="form-group">
+              <label>Email Address <span class="req">*</span></label>
+              <input type="email" id="loginEmail" placeholder="Registered email">
+              <small class="error" data-for="loginEmail"></small>
             </div>
+            <div class="form-group">
+              <label>Password <span class="req">*</span></label>
+              <input type="password" id="loginPassword" placeholder="Your password">
+              <small class="error" data-for="loginPassword"></small>
+            </div>
+            <div class="form-actions">
+              <label class="checkbox-inline">
+                <input type="checkbox" id="rememberMe"> Remember me
+              </label>
+              <a href="#" id="forgotPasswordLink">Forgot password?</a>
+            </div>
+            <button type="submit" class="btn-secondary full-btn">Login Securely</button>
+            <p id="loginMessage" class="message"></p>
+          </form>
+
+          <div class="quick-status">
+            <h3>Quick Status Check</h3>
+            <p class="muted small">No account? Enter your Application ID or email to peek at status.</p>
+            <input type="text" id="quickStatusInput" placeholder="e.g. BBC-2026-00001 or email">
+            <button class="btn-primary" id="quickStatusBtn">Check Status</button>
+            <p id="quickStatusResult" class="message"></p>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <section class="section">
-        <div class="stats-grid">
-            <div class="stat-box reveal">
-                <h2>500+</h2>
-                <p>Active Students</p>
-            </div>
-            <div class="stat-box reveal">
-                <h2>20+</h2>
-                <p>Programmes</p>
-            </div>
-            <div class="stat-box reveal">
-                <h2>3</h2>
-                <p>Annual Intakes</p>
-            </div>
-            <div class="stat-box reveal">
-                <h2>24/7</h2>
-                <p>Online Application</p>
-            </div>
+  <section class="section">
+    <div class="container">
+      <div class="section-title reveal">
+        <span class="eyebrow">By the Numbers</span>
+        <h2>Trusted by Thousands of Students</h2>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-box reveal">
+          <div class="stat-num">14,500+</div>
+          <p>Alumni Network</p>
         </div>
-    </section>
+        <div class="stat-box reveal">
+          <div class="stat-num">25+</div>
+          <p>Programmes Offered</p>
+        </div>
+        <div class="stat-box reveal">
+          <div class="stat-num">3</div>
+          <p>Annual Intakes</p>
+        </div>
+        <div class="stat-box reveal">
+          <div class="stat-num">98%</div>
+          <p>Application Success</p>
+        </div>
+      </div>
+    </div>
+  </section>
 </section>
 
+<!-- ============= APPLY VIEW ============= -->
 <section class="view" id="apply">
-    <section class="page-header">
-        <h2>Online Application Form</h2>
-        <p>Complete all required sections carefully before submitting.</p>
-    </section>
-
-    <div class="application-container">
-        <div id="loggedUserBanner" class="alert info"></div>
-
-        <div class="progress-wrapper">
-            <div class="step-text">Step <span id="currentStepText">1</span> of <span id="totalStepsText">7</span></div>
-            <div class="progress-track">
-                <div class="progress-bar" id="progressBar"></div>
-            </div>
-        </div>
-
-        <form id="applicationForm" novalidate>
-
-            <section class="form-step active" data-step="1">
-                <h2>1. Applicant Category</h2>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Application Type *</label>
-                        <select id="applicationType">
-                            <option value="">Select Application Type</option>
-                            <option>Certificate Programme</option>
-                            <option>Diploma Programme</option>
-                            <option>Undergraduate Direct Entry</option>
-                            <option>Mature Age Entry</option>
-                            <option>International Student</option>
-                            <option>Professional Short Course</option>
-                        </select>
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Admission Intake *</label>
-                        <select id="intake">
-                            <option value="">Select Intake</option>
-                            <option>January Intake</option>
-                            <option>May Intake</option>
-                            <option>August Intake</option>
-                        </select>
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Study Mode *</label>
-                        <select id="studyMode">
-                            <option value="">Select Study Mode</option>
-                            <option>Day</option>
-                            <option>Evening</option>
-                            <option>Weekend</option>
-                            <option>Online / Distance</option>
-                        </select>
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Sponsorship *</label>
-                        <select id="sponsorship">
-                            <option value="">Select Sponsorship</option>
-                            <option>Private Sponsored</option>
-                            <option>Government Sponsored</option>
-                            <option>Employer Sponsored</option>
-                            <option>Scholarship Applicant</option>
-                        </select>
-                        <small class="error"></small>
-                    </div>
-                </div>
-
-                <div class="navigation">
-                    <button type="button" class="btn-primary next-step">Continue</button>
-                </div>
-            </section>
-
-            <section class="form-step" data-step="2">
-                <h2>2. Personal, Contact & Next of Kin</h2>
-
-                <h3>Personal Information</h3>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Surname *</label>
-                        <input type="text" id="surname">
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>First Name *</label>
-                        <input type="text" id="firstName">
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Other Names</label>
-                        <input type="text" id="otherNames">
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Gender *</label>
-                        <select id="gender">
-                            <option value="">Select Gender</option>
-                            <option>Male</option>
-                            <option>Female</option>
-                        </select>
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Date of Birth *</label>
-                        <input type="date" id="dob">
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Nationality *</label>
-                        <select id="nationality">
-                            <option value="">Select Nationality</option>
-                            <option>Ugandan</option>
-                            <option>Kenyan</option>
-                            <option>Tanzanian</option>
-                            <option>Rwandan</option>
-                            <option>South Sudanese</option>
-                            <option>Congolese</option>
-                            <option>Other</option>
-                        </select>
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>National ID / Passport Number *</label>
-                        <input type="text" id="nin">
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Disability Status *</label>
-                        <select id="disability">
-                            <option value="">Select Option</option>
-                            <option>No Disability</option>
-                            <option>Physical Disability</option>
-                            <option>Visual Impairment</option>
-                            <option>Hearing Impairment</option>
-                            <option>Other</option>
-                        </select>
-                        <small class="error"></small>
-                    </div>
-                </div>
-
-                <h3>Contact Information</h3>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Email Address *</label>
-                        <input type="email" id="email">
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Phone Number *</label>
-                        <input type="tel" id="phone">
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Country *</label>
-                        <select id="country">
-                            <option value="">Select Country</option>
-                            <option>Uganda</option>
-                            <option>Kenya</option>
-                            <option>Tanzania</option>
-                            <option>Rwanda</option>
-                            <option>South Sudan</option>
-                            <option>DR Congo</option>
-                            <option>Other</option>
-                        </select>
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>District / City *</label>
-                        <input type="text" id="district">
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group full-width">
-                        <label>Physical Address *</label>
-                        <textarea id="address" rows="3"></textarea>
-                        <small class="error"></small>
-                    </div>
-                </div>
-
-                <h3>Next of Kin</h3>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Next of Kin Full Name *</label>
-                        <input type="text" id="kinName">
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Relationship *</label>
-                        <select id="relationship">
-                            <option value="">Select Relationship</option>
-                            <option>Father</option>
-                            <option>Mother</option>
-                            <option>Guardian</option>
-                            <option>Spouse</option>
-                            <option>Brother</option>
-                            <option>Sister</option>
-                            <option>Other</option>
-                        </select>
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Next of Kin Phone *</label>
-                        <input type="tel" id="kinPhone">
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Next of Kin Email</label>
-                        <input type="email" id="kinEmail">
-                        <small class="error"></small>
-                    </div>
-                </div>
-
-                <div class="navigation">
-                    <button type="button" class="btn-light prev-step">Previous</button>
-                    <button type="button" class="btn-primary next-step">Continue</button>
-                </div>
-            </section>
-
-            <section class="form-step" data-step="3">
-                <h2>3. Programme Selection</h2>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Search Programme</label>
-                        <input type="text" id="programmeSearch" placeholder="Search by programme name">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Filter by School</label>
-                        <select id="facultyFilter">
-                            <option value="all">All Schools</option>
-                            <option value="business">School of Business</option>
-                            <option value="computing">School of Computing & ICT</option>
-                            <option value="technical">School of Technical Studies</option>
-                            <option value="hospitality">School of Hospitality</option>
-                            <option value="management">School of Management</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="programme-container" id="programmeContainer"></div>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>First Choice Programme *</label>
-                        <select id="firstChoice">
-                            <option value="">Select First Choice</option>
-                        </select>
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Second Choice Programme *</label>
-                        <select id="secondChoice">
-                            <option value="">Select Second Choice</option>
-                        </select>
-                        <small class="error"></small>
-                    </div>
-                </div>
-
-                <div class="navigation">
-                    <button type="button" class="btn-light prev-step">Previous</button>
-                    <button type="button" class="btn-primary next-step">Continue</button>
-                </div>
-            </section>
-
-            <section class="form-step" data-step="4">
-                <h2>4. Academic Qualifications</h2>
-
-                <h3>O-Level / UCE Information</h3>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>School Name *</label>
-                        <input type="text" id="uceSchool">
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Index / Examination Number *</label>
-                        <input type="text" id="uceIndex">
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Year Completed *</label>
-                        <input type="number" id="uceYear" min="1970" max="2030">
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Examination Body *</label>
-                        <select id="uceBody">
-                            <option value="">Select Body</option>
-                            <option>UNEB</option>
-                            <option>KNEC</option>
-                            <option>NECTA</option>
-                            <option>WAEC</option>
-                            <option>Other</option>
-                        </select>
-                        <small class="error"></small>
-                    </div>
-                </div>
-
-                <div class="table-wrap">
-                    <table class="results-table">
-                        <thead>
-                            <tr>
-                                <th>Subject</th>
-                                <th>Grade</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>English Language *</td>
-                                <td>
-                                    <select id="englishGrade">
-                                        <option value="">Select</option>
-                                        <option>D1</option><option>D2</option><option>C3</option><option>C4</option>
-                                        <option>C5</option><option>C6</option><option>P7</option><option>P8</option><option>F9</option>
-                                    </select>
-                                    <small class="error"></small>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Mathematics *</td>
-                                <td>
-                                    <select id="mathGrade">
-                                        <option value="">Select</option>
-                                        <option>D1</option><option>D2</option><option>C3</option><option>C4</option>
-                                        <option>C5</option><option>C6</option><option>P7</option><option>P8</option><option>F9</option>
-                                    </select>
-                                    <small class="error"></small>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Biology</td>
-                                <td>
-                                    <select id="biologyGrade">
-                                        <option value="">Select</option>
-                                        <option>D1</option><option>D2</option><option>C3</option><option>C4</option>
-                                        <option>C5</option><option>C6</option><option>P7</option><option>P8</option><option>F9</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Entrepreneurship</td>
-                                <td>
-                                    <select id="entrepreneurshipGrade">
-                                        <option value="">Select</option>
-                                        <option>D1</option><option>D2</option><option>C3</option><option>C4</option>
-                                        <option>C5</option><option>C6</option><option>P7</option><option>P8</option><option>F9</option>
-                                    </select>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <h3>A-Level / Diploma / Other Qualification</h3>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Institution Name</label>
-                        <input type="text" id="higherInstitution">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Qualification / Award</label>
-                        <input type="text" id="higherQualification" placeholder="UACE, Certificate, Diploma, Degree">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Programme / Combination</label>
-                        <input type="text" id="higherProgramme" placeholder="HEG, BCM, Diploma in Business...">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Year Completed</label>
-                        <input type="number" id="higherYear" min="1970" max="2030">
-                    </div>
-                </div>
-
-                <div class="navigation">
-                    <button type="button" class="btn-light prev-step">Previous</button>
-                    <button type="button" class="btn-primary next-step">Continue</button>
-                </div>
-            </section>
-
-            <section class="form-step" data-step="5">
-                <h2>5. Supporting Documents</h2>
-                <p class="muted">Allowed formats: PDF, JPG, JPEG, PNG. Maximum size: 5MB each.</p>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Passport Photo *</label>
-                        <input type="file" id="docPassport" accept=".jpg,.jpeg,.png">
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>National ID / Passport Copy *</label>
-                        <input type="file" id="docNIN" accept=".pdf,.jpg,.jpeg,.png">
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>O-Level Result Slip / Certificate *</label>
-                        <input type="file" id="docOlevel" accept=".pdf,.jpg,.jpeg,.png">
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>A-Level / Diploma / Transcript</label>
-                        <input type="file" id="docHigher" accept=".pdf,.jpg,.jpeg,.png">
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Recommendation Letter</label>
-                        <input type="file" id="docRecommendation" accept=".pdf,.jpg,.jpeg,.png">
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Birth Certificate</label>
-                        <input type="file" id="docBirth" accept=".pdf,.jpg,.jpeg,.png">
-                        <small class="error"></small>
-                    </div>
-                </div>
-
-                <div class="navigation">
-                    <button type="button" class="btn-light prev-step">Previous</button>
-                    <button type="button" class="btn-primary next-step">Continue</button>
-                </div>
-            </section>
-
-            <section class="form-step" data-step="6">
-                <h2>6. Referees, Statement & Payment</h2>
-
-                <h3>Referees</h3>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Referee 1 Full Name *</label>
-                        <input type="text" id="ref1Name">
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Referee 1 Phone *</label>
-                        <input type="tel" id="ref1Phone">
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Referee 2 Full Name *</label>
-                        <input type="text" id="ref2Name">
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Referee 2 Phone *</label>
-                        <input type="tel" id="ref2Phone">
-                        <small class="error"></small>
-                    </div>
-                </div>
-
-                <div class="form-group full-width">
-                    <label>Statement of Purpose *</label>
-                    <textarea id="statement" rows="7" placeholder="Explain why you want to join this programme. Minimum 40 words."></textarea>
-                    <small id="wordCounter">0 words</small>
-                    <small class="error"></small>
-                </div>
-
-                <h3>Application Fee</h3>
-                <p class="fee-box">Application Fee: <strong>UGX 50,000</strong></p>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Payment Method *</label>
-                        <select id="paymentMethod">
-                            <option value="">Select Payment Method</option>
-                            <option>MTN Mobile Money</option>
-                            <option>Airtel Money</option>
-                            <option>Bank Transfer</option>
-                            <option>Visa / MasterCard</option>
-                        </select>
-                        <small class="error"></small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Payment Phone / Transaction Reference *</label>
-                        <input type="text" id="paymentReference">
-                        <small class="error"></small>
-                    </div>
-                </div>
-
-                <div class="form-group checkbox-group">
-                    <label>
-                        <input type="checkbox" id="declaration">
-                        I confirm that all information provided is true and accurate.
-                    </label>
-                    <small class="error"></small>
-                </div>
-
-                <div class="navigation">
-                    <button type="button" class="btn-light prev-step">Previous</button>
-                    <button type="button" class="btn-primary next-step">Review Application</button>
-                </div>
-            </section>
-
-            <section class="form-step" data-step="7">
-                <h2>7. Review & Submit</h2>
-                <p class="muted">Please review your details carefully before final submission.</p>
-
-                <div id="reviewSection" class="review-box"></div>
-
-                <div class="navigation">
-                    <button type="button" class="btn-light prev-step">Previous</button>
-                    <button type="button" class="btn-primary" id="submitApplicationBtn">Submit Application</button>
-                </div>
-            </section>
-
-        </form>
-
-        <div id="successScreen" class="success-screen hidden">
-            <h2>🎉 Application Submitted Successfully</h2>
-            <p>Your application has been received and is now under review.</p>
-
-            <div class="slip" id="applicationSlip"></div>
-
-            <div class="navigation">
-                <button class="btn-secondary" id="printSlipBtn">Print Slip</button>
-                <button class="btn-primary" id="downloadSlipBtn">Download Slip</button>
-                <button class="btn-light" data-view-target="dashboard">Go to Dashboard</button>
-            </div>
-        </div>
+  <section class="page-header">
+    <div class="container">
+      <h2>Online Application Form</h2>
+      <p>Complete all 7 stages carefully. Your progress is auto-saved on this device.</p>
     </div>
+  </section>
+
+  <div class="container">
+    <div id="loggedUserBanner" class="alert info" style="display:none;"></div>
+
+    <div class="progress-wrapper">
+      <div class="step-text">Stage <span id="currentStepText">1</span> of <span id="totalStepsText">7</span> — <span id="stageName">Applicant Category</span></div>
+      <div class="progress-track">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <div class="step-dots" id="stepDots"></div>
+    </div>
+
+    <form id="applicationForm" novalidate>
+
+      <!-- STAGE 1: Applicant Category -->
+      <section class="form-step active" data-step="1">
+        <div class="step-header">
+          <span class="step-badge">Stage 1</span>
+          <h2>Applicant Category &amp; Application Details</h2>
+          <p class="muted">Tell us the type of programme you're applying for.</p>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Application Type <span class="req">*</span></label>
+            <select id="applicationType">
+              <option value="">— Select Application Type —</option>
+              <option>Certificate Programme</option>
+              <option>Diploma Programme</option>
+              <option>Undergraduate Direct Entry</option>
+              <option>Mature Age Entry</option>
+              <option>International Student</option>
+              <option>Professional Short Course</option>
+            </select>
+            <small class="error" data-for="applicationType"></small>
+          </div>
+          <div class="form-group">
+            <label>Admission Intake <span class="req">*</span></label>
+            <select id="intake">
+              <option value="">— Select Intake —</option>
+              <option>January 2026 Intake</option>
+              <option>May 2026 Intake</option>
+              <option>August 2026 Intake</option>
+              <option>January 2027 Intake</option>
+            </select>
+            <small class="error" data-for="intake"></small>
+          </div>
+          <div class="form-group">
+            <label>Study Mode <span class="req">*</span></label>
+            <select id="studyMode">
+              <option value="">— Select Study Mode —</option>
+              <option>Day</option>
+              <option>Evening</option>
+              <option>Weekend</option>
+              <option>Online / Distance</option>
+            </select>
+            <small class="error" data-for="studyMode"></small>
+          </div>
+          <div class="form-group">
+            <label>Sponsorship <span class="req">*</span></label>
+            <select id="sponsorship">
+              <option value="">— Select Sponsorship —</option>
+              <option>Private Sponsored</option>
+              <option>Government Sponsored</option>
+              <option>Employer Sponsored</option>
+              <option>Scholarship Applicant</option>
+            </select>
+            <small class="error" data-for="sponsorship"></small>
+          </div>
+          <div class="form-group">
+            <label>Preferred Campus <span class="req">*</span></label>
+            <select id="campus">
+              <option value="">— Select Campus —</option>
+              <option>Main Campus - Kampala</option>
+              <option>City Campus - Kampala</option>
+              <option>Jinja Campus</option>
+              <option>Mbarara Campus</option>
+              <option>Gulu Campus</option>
+            </select>
+            <small class="error" data-for="campus"></small>
+          </div>
+          <div class="form-group">
+            <label>How did you hear about us?</label>
+            <select id="referralSource">
+              <option value="">— Select Source —</option>
+              <option>Social Media</option>
+              <option>Friend / Family</option>
+              <option>School Visit</option>
+              <option>Newspaper / Radio</option>
+              <option>Education Fair</option>
+              <option>Website Search</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="navigation">
+          <button type="button" class="btn-primary next-step">Continue → Personal Details</button>
+        </div>
+      </section>
+
+      <!-- STAGE 2: Personal, Contact, Next of Kin -->
+      <section class="form-step" data-step="2">
+        <div class="step-header">
+          <span class="step-badge">Stage 2</span>
+          <h2>Personal, Contact &amp; Next of Kin Information</h2>
+          <p class="muted">Provide accurate details as they appear on your official documents.</p>
+        </div>
+
+        <h3 class="section-label">Personal Information</h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Surname / Family Name <span class="req">*</span></label>
+            <input type="text" id="surname" placeholder="Family name">
+            <small class="error" data-for="surname"></small>
+          </div>
+          <div class="form-group">
+            <label>First Name <span class="req">*</span></label>
+            <input type="text" id="firstName" placeholder="Given name">
+            <small class="error" data-for="firstName"></small>
+          </div>
+          <div class="form-group">
+            <label>Other Names</label>
+            <input type="text" id="otherNames" placeholder="Middle / additional names">
+          </div>
+          <div class="form-group">
+            <label>Maiden Name (if applicable)</label>
+            <input type="text" id="maidenName" placeholder="Pre-marriage surname">
+          </div>
+          <div class="form-group">
+            <label>Gender <span class="req">*</span></label>
+            <select id="gender">
+              <option value="">— Select Gender —</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Prefer Not to Say</option>
+            </select>
+            <small class="error" data-for="gender"></small>
+          </div>
+          <div class="form-group">
+            <label>Date of Birth <span class="req">*</span></label>
+            <input type="date" id="dob">
+            <small class="error" data-for="dob"></small>
+          </div>
+          <div class="form-group">
+            <label>Place of Birth <span class="req">*</span></label>
+            <input type="text" id="placeOfBirth" placeholder="City / Town of birth">
+            <small class="error" data-for="placeOfBirth"></small>
+          </div>
+          <div class="form-group">
+            <label>Nationality <span class="req">*</span></label>
+            <select id="nationality">
+              <option value="">— Select Nationality —</option>
+              <option>Ugandan</option>
+              <option>Kenyan</option>
+              <option>Tanzanian</option>
+              <option>Rwandan</option>
+              <option>South Sudanese</option>
+              <option>Congolese (DRC)</option>
+              <option>Burundian</option>
+              <option>Other African</option>
+              <option>Other International</option>
+            </select>
+            <small class="error" data-for="nationality"></small>
+          </div>
+          <div class="form-group">
+            <label>National ID / Passport Number <span class="req">*</span></label>
+            <input type="text" id="nin" placeholder="e.g. CM9001234567890">
+            <small class="error" data-for="nin"></small>
+          </div>
+          <div class="form-group">
+            <label>Passport Expiry (foreign nationals)</label>
+            <input type="date" id="passportExpiry">
+          </div>
+          <div class="form-group">
+            <label>Marital Status <span class="req">*</span></label>
+            <select id="maritalStatus">
+              <option value="">— Select Status —</option>
+              <option>Single</option>
+              <option>Married</option>
+              <option>Divorced</option>
+              <option>Widowed</option>
+            </select>
+            <small class="error" data-for="maritalStatus"></small>
+          </div>
+          <div class="form-group">
+            <label>Religion <span class="req">*</span></label>
+            <select id="religion">
+              <option value="">— Select Religion —</option>
+              <option>Christian</option>
+              <option>Muslim</option>
+              <option>Hindu</option>
+              <option>Buddhist</option>
+              <option>Traditional</option>
+              <option>Other</option>
+              <option>Prefer Not to Say</option>
+            </select>
+            <small class="error" data-for="religion"></small>
+          </div>
+          <div class="form-group">
+            <label>Disability Status <span class="req">*</span></label>
+            <select id="disability">
+              <option value="">— Select Option —</option>
+              <option>No Disability</option>
+              <option>Physical Disability</option>
+              <option>Visual Impairment</option>
+              <option>Hearing Impairment</option>
+              <option>Speech Impairment</option>
+              <option>Learning Disability</option>
+              <option>Multiple Disabilities</option>
+              <option>Other</option>
+            </select>
+            <small class="error" data-for="disability"></small>
+          </div>
+        </div>
+
+        <h3 class="section-label">Contact Information</h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Email Address <span class="req">*</span></label>
+            <input type="email" id="email" placeholder="you@example.com">
+            <small class="error" data-for="email"></small>
+          </div>
+          <div class="form-group">
+            <label>Phone Number <span class="req">*</span></label>
+            <input type="tel" id="phone" placeholder="+256 7XX XXX XXX">
+            <small class="error" data-for="phone"></small>
+          </div>
+          <div class="form-group">
+            <label>Alternative Phone</label>
+            <input type="tel" id="altPhone" placeholder="Optional secondary contact">
+          </div>
+          <div class="form-group">
+            <label>Country of Residence <span class="req">*</span></label>
+            <select id="country">
+              <option value="">— Select Country —</option>
+              <option>Uganda</option>
+              <option>Kenya</option>
+              <option>Tanzania</option>
+              <option>Rwanda</option>
+              <option>South Sudan</option>
+              <option>DR Congo</option>
+              <option>Burundi</option>
+              <option>Other</option>
+            </select>
+            <small class="error" data-for="country"></small>
+          </div>
+          <div class="form-group">
+            <label>District / City <span class="req">*</span></label>
+            <input type="text" id="district" placeholder="e.g. Kampala">
+            <small class="error" data-for="district"></small>
+          </div>
+          <div class="form-group full-width">
+            <label>Physical Address <span class="req">*</span></label>
+            <textarea id="address" rows="3" placeholder="House number, street, village, parish, sub-county"></textarea>
+            <small class="error" data-for="address"></small>
+          </div>
+          <div class="form-group">
+            <label>Village / Zone</label>
+            <input type="text" id="village">
+          </div>
+          <div class="form-group">
+            <label>Sub-County / Division</label>
+            <input type="text" id="subcounty">
+          </div>
+        </div>
+
+        <h3 class="section-label">Next of Kin / Emergency Contact</h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Next of Kin Full Name <span class="req">*</span></label>
+            <input type="text" id="kinName" placeholder="Full name of next of kin">
+            <small class="error" data-for="kinName"></small>
+          </div>
+          <div class="form-group">
+            <label>Relationship <span class="req">*</span></label>
+            <select id="relationship">
+              <option value="">— Select Relationship —</option>
+              <option>Father</option>
+              <option>Mother</option>
+              <option>Guardian</option>
+              <option>Spouse</option>
+              <option>Brother</option>
+              <option>Sister</option>
+              <option>Uncle</option>
+              <option>Aunt</option>
+              <option>Other</option>
+            </select>
+            <small class="error" data-for="relationship"></small>
+          </div>
+          <div class="form-group">
+            <label>Next of Kin Phone <span class="req">*</span></label>
+            <input type="tel" id="kinPhone" placeholder="+256 ...">
+            <small class="error" data-for="kinPhone"></small>
+          </div>
+          <div class="form-group">
+            <label>Next of Kin Email</label>
+            <input type="email" id="kinEmail" placeholder="Optional">
+          </div>
+          <div class="form-group">
+            <label>Next of Kin Occupation</label>
+            <input type="text" id="kinOccupation" placeholder="e.g. Teacher, Engineer">
+          </div>
+          <div class="form-group">
+            <label>Next of Kin Address</label>
+            <input type="text" id="kinAddress" placeholder="Where they reside">
+          </div>
+        </div>
+
+        <div class="navigation">
+          <button type="button" class="btn-light prev-step">← Previous</button>
+          <button type="button" class="btn-primary next-step">Continue → Programme</button>
+        </div>
+      </section>
+
+      <!-- STAGE 3: Programme Selection -->
+      <section class="form-step" data-step="3">
+        <div class="step-header">
+          <span class="step-badge">Stage 3</span>
+          <h2>Programme Selection</h2>
+          <p class="muted">Choose your first and second choice programmes.</p>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Search Programme</label>
+            <input type="text" id="programmeSearch" placeholder="Type programme name...">
+          </div>
+          <div class="form-group">
+            <label>Filter by School</label>
+            <select id="facultyFilter">
+              <option value="all">All Schools</option>
+              <option value="business">School of Business</option>
+              <option value="computing">School of Computing &amp; ICT</option>
+              <option value="technical">School of Technical Studies</option>
+              <option value="hospitality">School of Hospitality</option>
+              <option value="management">School of Management</option>
+              <option value="education">School of Education</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="programme-container" id="programmeContainer"></div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>First Choice Programme <span class="req">*</span></label>
+            <select id="firstChoice">
+              <option value="">— Select First Choice —</option>
+            </select>
+            <small class="error" data-for="firstChoice"></small>
+          </div>
+          <div class="form-group">
+            <label>Second Choice Programme <span class="req">*</span></label>
+            <select id="secondChoice">
+              <option value="">— Select Second Choice —</option>
+            </select>
+            <small class="error" data-for="secondChoice"></small>
+          </div>
+        </div>
+
+        <div class="navigation">
+          <button type="button" class="btn-light prev-step">← Previous</button>
+          <button type="button" class="btn-primary next-step">Continue → Academic Records</button>
+        </div>
+      </section>
+
+      <!-- STAGE 4: Academic Qualifications -->
+      <section class="form-step" data-step="4">
+        <div class="step-header">
+          <span class="step-badge">Stage 4</span>
+          <h2>Academic Qualifications</h2>
+          <p class="muted">Provide your educational history and exam results.</p>
+        </div>
+
+        <h3 class="section-label">O-Level / UCE Information</h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>School Name <span class="req">*</span></label>
+            <input type="text" id="uceSchool" placeholder="Name of secondary school">
+            <small class="error" data-for="uceSchool"></small>
+          </div>
+          <div class="form-group">
+            <label>Index / Examination Number <span class="req">*</span></label>
+            <input type="text" id="uceIndex" placeholder="UNEB Index Number">
+            <small class="error" data-for="uceIndex"></small>
+          </div>
+          <div class="form-group">
+            <label>Year Completed <span class="req">*</span></label>
+            <input type="number" id="uceYear" min="1970" max="2030" placeholder="YYYY">
+            <small class="error" data-for="uceYear"></small>
+          </div>
+          <div class="form-group">
+            <label>Examination Body <span class="req">*</span></label>
+            <select id="uceBody">
+              <option value="">— Select Body —</option>
+              <option>UNEB</option>
+              <option>KNEC</option>
+              <option>NECTA</option>
+              <option>WAEC</option>
+              <option>Cambridge International</option>
+              <option>Other</option>
+            </select>
+            <small class="error" data-for="uceBody"></small>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th>Subject</th>
+                <th>Grade</th>
+                <th>Subject</th>
+                <th>Grade</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>English Language <span class="req">*</span></td>
+                <td>
+                  <select id="englishGrade">
+                    <option value="">Select</option>
+                    <option>D1</option><option>D2</option><option>C3</option><option>C4</option>
+                    <option>C5</option><option>C6</option><option>P7</option><option>P8</option><option>F9</option>
+                  </select>
+                  <small class="error" data-for="englishGrade"></small>
+                </td>
+                <td>Mathematics <span class="req">*</span></td>
+                <td>
+                  <select id="mathGrade">
+                    <option value="">Select</option>
+                    <option>D1</option><option>D2</option><option>C3</option><option>C4</option>
+                    <option>C5</option><option>C6</option><option>P7</option><option>P8</option><option>F9</option>
+                  </select>
+                  <small class="error" data-for="mathGrade"></small>
+                </td>
+              </tr>
+              <tr>
+                <td>Biology</td>
+                <td>
+                  <select id="biologyGrade">
+                    <option value="">Select</option>
+                    <option>D1</option><option>D2</option><option>C3</option><option>C4</option>
+                    <option>C5</option><option>C6</option><option>P7</option><option>P8</option><option>F9</option>
+                  </select>
+                </td>
+                <td>Chemistry</td>
+                <td>
+                  <select id="chemistryGrade">
+                    <option value="">Select</option>
+                    <option>D1</option><option>D2</option><option>C3</option><option>C4</option>
+                    <option>C5</option><option>C6</option><option>P7</option><option>P8</option><option>F9</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>Physics</td>
+                <td>
+                  <select id="physicsGrade">
+                    <option value="">Select</option>
+                    <option>D1</option><option>D2</option><option>C3</option><option>C4</option>
+                    <option>C5</option><option>C6</option><option>P7</option><option>P8</option><option>F9</option>
+                  </select>
+                </td>
+                <td>Geography</td>
+                <td>
+                  <select id="geographyGrade">
+                    <option value="">Select</option>
+                    <option>D1</option><option>D2</option><option>C3</option><option>C4</option>
+                    <option>C5</option><option>C6</option><option>P7</option><option>P8</option><option>F9</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>History</td>
+                <td>
+                  <select id="historyGrade">
+                    <option value="">Select</option>
+                    <option>D1</option><option>D2</option><option>C3</option><option>C4</option>
+                    <option>C5</option><option>C6</option><option>P7</option><option>P8</option><option>F9</option>
+                  </select>
+                </td>
+                <td>Economics</td>
+                <td>
+                  <select id="economicsGrade">
+                    <option value="">Select</option>
+                    <option>D1</option><option>D2</option><option>C3</option><option>C4</option>
+                    <option>C5</option><option>C6</option><option>P7</option><option>P8</option><option>F9</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>Entrepreneurship</td>
+                <td>
+                  <select id="entrepreneurshipGrade">
+                    <option value="">Select</option>
+                    <option>D1</option><option>D2</option><option>C3</option><option>C4</option>
+                    <option>C5</option><option>C6</option><option>P7</option><option>P8</option><option>F9</option>
+                  </select>
+                </td>
+                <td>Computer Studies</td>
+                <td>
+                  <select id="computerGrade">
+                    <option value="">Select</option>
+                    <option>D1</option><option>D2</option><option>C3</option><option>C4</option>
+                    <option>C5</option><option>C6</option><option>P7</option><option>P8</option><option>F9</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="section-label">A-Level / Diploma / Higher Education</h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Institution Name</label>
+            <input type="text" id="higherInstitution" placeholder="University / Institution name">
+          </div>
+          <div class="form-group">
+            <label>Qualification / Award</label>
+            <select id="higherQualification">
+              <option value="">— Select Qualification —</option>
+              <option>UACE (A-Level)</option>
+              <option>Certificate</option>
+              <option>Diploma</option>
+              <option>Bachelor's Degree</option>
+              <option>Postgraduate Diploma</option>
+              <option>Master's Degree</option>
+              <option>PhD</option>
+              <option>Professional Certification</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Programme / Combination</label>
+            <input type="text" id="higherProgramme" placeholder="e.g. HEG, BCM, Diploma in Business">
+          </div>
+          <div class="form-group">
+            <label>Year Completed</label>
+            <input type="number" id="higherYear" min="1970" max="2030" placeholder="YYYY">
+          </div>
+          <div class="form-group">
+            <label>Grade / GPA / Class</label>
+            <input type="text" id="higherGrade" placeholder="e.g. Second Class Upper, GPA 3.5">
+          </div>
+          <div class="form-group">
+            <label>Student / Registration Number</label>
+            <input type="text" id="higherRegNo" placeholder="Optional">
+          </div>
+        </div>
+
+        <h3 class="section-label">Work Experience (Optional)</h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Currently Employed?</label>
+            <select id="employed">
+              <option value="No">No</option>
+              <option>Yes</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Years of Experience</label>
+            <input type="number" id="workYears" min="0" max="50" placeholder="0">
+          </div>
+          <div class="form-group full-width">
+            <label>Current/Most Recent Employer &amp; Role</label>
+            <input type="text" id="employer" placeholder="Company name and your job title">
+          </div>
+        </div>
+
+        <div class="navigation">
+          <button type="button" class="btn-light prev-step">← Previous</button>
+          <button type="button" class="btn-primary next-step">Continue → Documents</button>
+        </div>
+      </section>
+
+      <!-- STAGE 5: Documents -->
+      <section class="form-step" data-step="5">
+        <div class="step-header">
+          <span class="step-badge">Stage 5</span>
+          <h2>Supporting Documents</h2>
+          <p class="muted">Upload clear, legible scans. PDF, JPG, PNG up to 5MB each.</p>
+        </div>
+
+        <div class="upload-grid">
+          <div class="upload-card">
+            <div class="upload-icon">📷</div>
+            <label>Passport Photo <span class="req">*</span></label>
+            <input type="file" id="docPassport" accept=".jpg,.jpeg,.png">
+            <small class="muted">Recent passport-size, white background</small>
+            <div class="file-preview" id="prevPassport"></div>
+            <small class="error" data-for="docPassport"></small>
+          </div>
+          <div class="upload-card">
+            <div class="upload-icon">🆔</div>
+            <label>National ID / Passport <span class="req">*</span></label>
+            <input type="file" id="docNIN" accept=".pdf,.jpg,.jpeg,.png">
+            <small class="muted">Both sides if applicable</small>
+            <div class="file-preview" id="prevNIN"></div>
+            <small class="error" data-for="docNIN"></small>
+          </div>
+          <div class="upload-card">
+            <div class="upload-icon">🎓</div>
+            <label>O-Level Result Slip <span class="req">*</span></label>
+            <input type="file" id="docOlevel" accept=".pdf,.jpg,.jpeg,.png">
+            <small class="muted">UNEB/UCE certificate or result slip</small>
+            <div class="file-preview" id="prevOlevel"></div>
+            <small class="error" data-for="docOlevel"></small>
+          </div>
+          <div class="upload-card">
+            <div class="upload-icon">📜</div>
+            <label>A-Level / Diploma / Transcript</label>
+            <input type="file" id="docHigher" accept=".pdf,.jpg,.jpeg,.png">
+            <small class="muted">Optional - if applicable</small>
+            <div class="file-preview" id="prevHigher"></div>
+          </div>
+          <div class="upload-card">
+            <div class="upload-icon">✉️</div>
+            <label>Recommendation Letter</label>
+            <input type="file" id="docRecommendation" accept=".pdf,.jpg,.jpeg,.png">
+            <small class="muted">From a teacher, employer or mentor</small>
+            <div class="file-preview" id="prevRecommendation"></div>
+          </div>
+          <div class="upload-card">
+            <div class="upload-icon">📋</div>
+            <label>Birth Certificate</label>
+            <input type="file" id="docBirth" accept=".pdf,.jpg,.jpeg,.png">
+            <small class="muted">Optional supporting document</small>
+            <div class="file-preview" id="prevBirth"></div>
+          </div>
+        </div>
+
+        <div class="navigation">
+          <button type="button" class="btn-light prev-step">← Previous</button>
+          <button type="button" class="btn-primary next-step">Continue → Referees &amp; Statement</button>
+        </div>
+      </section>
+
+      <!-- STAGE 6: Referees, Statement, Payment -->
+      <section class="form-step" data-step="6">
+        <div class="step-header">
+          <span class="step-badge">Stage 6</span>
+          <h2>Referees, Statement &amp; Payment</h2>
+          <p class="muted">Add referees, write your motivation, and complete the application fee.</p>
+        </div>
+
+        <h3 class="section-label">Referee 1</h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Full Name <span class="req">*</span></label>
+            <input type="text" id="ref1Name" placeholder="Referee's full name">
+            <small class="error" data-for="ref1Name"></small>
+          </div>
+          <div class="form-group">
+            <label>Position / Title <span class="req">*</span></label>
+            <input type="text" id="ref1Title" placeholder="e.g. Head Teacher">
+            <small class="error" data-for="ref1Title"></small>
+          </div>
+          <div class="form-group">
+            <label>Organization</label>
+            <input type="text" id="ref1Org" placeholder="School or company">
+          </div>
+          <div class="form-group">
+            <label>Phone <span class="req">*</span></label>
+            <input type="tel" id="ref1Phone" placeholder="+256 ...">
+            <small class="error" data-for="ref1Phone"></small>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="ref1Email" placeholder="Optional">
+          </div>
+          <div class="form-group">
+            <label>Relationship to Applicant</label>
+            <input type="text" id="ref1Relation" placeholder="e.g. Former teacher">
+          </div>
+        </div>
+
+        <h3 class="section-label">Referee 2</h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Full Name <span class="req">*</span></label>
+            <input type="text" id="ref2Name" placeholder="Referee's full name">
+            <small class="error" data-for="ref2Name"></small>
+          </div>
+          <div class="form-group">
+            <label>Position / Title <span class="req">*</span></label>
+            <input type="text" id="ref2Title" placeholder="e.g. Manager">
+            <small class="error" data-for="ref2Title"></small>
+          </div>
+          <div class="form-group">
+            <label>Organization</label>
+            <input type="text" id="ref2Org" placeholder="School or company">
+          </div>
+          <div class="form-group">
+            <label>Phone <span class="req">*</span></label>
+            <input type="tel" id="ref2Phone" placeholder="+256 ...">
+            <small class="error" data-for="ref2Phone"></small>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="ref2Email" placeholder="Optional">
+          </div>
+          <div class="form-group">
+            <label>Relationship to Applicant</label>
+            <input type="text" id="ref2Relation" placeholder="e.g. Employer">
+          </div>
+        </div>
+
+        <h3 class="section-label">Statement of Purpose</h3>
+        <div class="form-group full-width">
+          <label>Why do you want to join this programme? <span class="req">*</span></label>
+          <textarea id="statement" rows="7" placeholder="Tell us about your goals, motivations, and how this programme will help you achieve them. (Minimum 50 words)"></textarea>
+          <small id="wordCounter" class="muted">0 words</small>
+          <small class="error" data-for="statement"></small>
+        </div>
+
+        <h3 class="section-label">Application Fee Payment</h3>
+        <div class="fee-box">
+          <div class="fee-amount">UGX 50,000 <span class="muted small">/ non-refundable</span></div>
+          <p>Pay via Mobile Money, Bank Transfer, or Card. You'll enter the transaction reference below.</p>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Payment Method <span class="req">*</span></label>
+            <select id="paymentMethod">
+              <option value="">— Select Payment Method —</option>
+              <option>MTN Mobile Money</option>
+              <option>Airtel Money</option>
+              <option>Bank Transfer (Stanbic, Centenary, DFCU)</option>
+              <option>Visa / MasterCard</option>
+              <option>Pay on Campus</option>
+            </select>
+            <small class="error" data-for="paymentMethod"></small>
+          </div>
+          <div class="form-group">
+            <label>Transaction Reference / Mobile Number <span class="req">*</span></label>
+            <input type="text" id="paymentReference" placeholder="e.g. MTN-12345678 or bank slip no.">
+            <small class="error" data-for="paymentReference"></small>
+          </div>
+          <div class="form-group">
+            <label>Payment Date <span class="req">*</span></label>
+            <input type="date" id="paymentDate">
+            <small class="error" data-for="paymentDate"></small>
+          </div>
+          <div class="form-group">
+            <label>Amount Paid (UGX) <span class="req">*</span></label>
+            <input type="number" id="paymentAmount" min="0" placeholder="50000">
+            <small class="error" data-for="paymentAmount"></small>
+          </div>
+        </div>
+
+        <div class="checkbox-group">
+          <label>
+            <input type="checkbox" id="declaration">
+            <strong>I declare</strong> that all information provided is true, complete, and accurate. I understand that any false information may lead to disqualification or revocation of admission.
+          </label>
+          <small class="error" data-for="declaration"></small>
+        </div>
+
+        <div class="navigation">
+          <button type="button" class="btn-light prev-step">← Previous</button>
+          <button type="button" class="btn-primary next-step">Review Application →</button>
+        </div>
+      </section>
+
+      <!-- STAGE 7: Review & Submit -->
+      <section class="form-step" data-step="7">
+        <div class="step-header">
+          <span class="step-badge">Stage 7</span>
+          <h2>Review &amp; Submit</h2>
+          <p class="muted">Verify all information before final submission.</p>
+        </div>
+        <div id="reviewSection" class="review-box"></div>
+        <div class="navigation">
+          <button type="button" class="btn-light prev-step">← Previous</button>
+          <button type="button" class="btn-primary btn-lg" id="submitApplicationBtn">✓ Submit Application</button>
+        </div>
+      </section>
+
+    </form>
+
+    <!-- ============= SUCCESS SCREEN ============= -->
+    <div id="successScreen" class="success-screen" style="display:none;">
+      <div class="success-icon">🎉</div>
+      <h2>Application Submitted Successfully</h2>
+      <p class="muted">Your application has been received and assigned a tracking ID.</p>
+
+      <div class="slip" id="applicationSlip"></div>
+
+      <div class="success-actions">
+        <button class="btn-primary btn-lg" id="downloadSlipBtn">📄 Download PDF Slip</button>
+        <button class="btn-secondary" id="printSlipBtn">🖨 Print Slip</button>
+        <button class="btn-light" data-view-target="dashboard">Go to Dashboard →</button>
+      </div>
+    </div>
+  </div>
 </section>
 
+<!-- ============= DASHBOARD VIEW ============= -->
 <section class="view" id="dashboard">
-    <section class="page-header">
-        <h2>Student Dashboard</h2>
-        <p>Track your application status, documents, notifications, and admission progress.</p>
-    </section>
-
-    <div class="dashboard-layout">
-        <aside class="sidebar">
-            <h3>Student Menu</h3>
-            <a href="#dashOverview">Overview</a>
-            <a href="#dashProgress">Progress</a>
-            <a href="#dashDocuments">Documents</a>
-            <a href="#dashNotifications">Notifications</a>
-            <a href="#dashProfile">Profile</a>
-            <a href="#portal" data-view-target="portal">Back to Portal</a>
-        </aside>
-
-        <div class="dashboard-main">
-            <div class="card">
-                <h2>Find Your Application</h2>
-                <p class="muted">Enter your Application ID or Email Address.</p>
-                <div class="inline-form">
-                    <input type="text" id="dashboardSearch" placeholder="Example: BBTC-2026-12345 or email">
-                    <button class="btn-primary" id="loadDashboardBtn">Load Application</button>
-                </div>
-                <p id="dashboardMessage" class="message"></p>
-            </div>
-
-            <div id="studentPanels" class="hidden">
-                <div class="card" id="dashOverview">
-                    <h2>Application Overview</h2>
-                    <div id="studentOverview"></div>
-                </div>
-
-                <div class="card" id="dashProgress">
-                    <h2>Admission Progress</h2>
-                    <div id="studentProgress"></div>
-                    <button class="btn-secondary" id="refreshStatusBtn">Refresh Status</button>
-                </div>
-
-                <div class="card" id="dashDocuments">
-                    <h2>Document Status</h2>
-                    <div id="studentDocuments"></div>
-                </div>
-
-                <div class="card" id="dashNotifications">
-                    <h2>Notifications</h2>
-                    <ul id="studentNotifications"></ul>
-                </div>
-
-                <div class="card" id="dashProfile">
-                    <h2>Profile Settings</h2>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Applicant Name</label>
-                            <input type="text" id="profileName">
-                        </div>
-                        <div class="form-group">
-                            <label>Email Address</label>
-                            <input type="email" id="profileEmail">
-                        </div>
-                        <div class="form-group">
-                            <label>Phone Number</label>
-                            <input type="tel" id="profilePhone">
-                        </div>
-                    </div>
-                    <button class="btn-primary" id="updateProfileBtn">Update Profile</button>
-                    <p id="profileMessage" class="message"></p>
-                </div>
-            </div>
-        </div>
+  <section class="page-header">
+    <div class="container">
+      <h2>Student Dashboard</h2>
+      <p>Track your application, view notifications, and manage your profile.</p>
     </div>
+  </section>
+
+  <div class="container">
+    <div class="dashboard-layout">
+      <aside class="sidebar">
+        <h3>Student Menu</h3>
+        <a href="#dashOverview" class="active">📊 Overview</a>
+        <a href="#dashProgress">📈 Progress</a>
+        <a href="#dashDocuments">📂 Documents</a>
+        <a href="#dashNotifications">🔔 Notifications</a>
+        <a href="#dashProfile">👤 Profile</a>
+        <a href="#dashSecurity">🔒 Security</a>
+        <a href="#portal" data-view-target="portal">← Back to Portal</a>
+      </aside>
+
+      <div class="dashboard-main">
+        <div class="card">
+          <h2>Find Your Application</h2>
+          <p class="muted">Enter your Application ID or registered email to load your data.</p>
+          <div class="inline-form">
+            <input type="text" id="dashboardSearch" placeholder="e.g. BBC-2026-00001 or email">
+            <button class="btn-primary" id="loadDashboardBtn">Load Application</button>
+          </div>
+          <p id="dashboardMessage" class="message"></p>
+        </div>
+
+        <div id="studentPanels" style="display:none;">
+
+          <div class="card" id="dashOverview">
+            <h2>Application Overview</h2>
+            <div id="studentOverview"></div>
+          </div>
+
+          <div class="card" id="dashProgress">
+            <h2>Admission Progress</h2>
+            <div id="studentProgress"></div>
+            <div class="card-actions">
+              <button class="btn-secondary" id="refreshStatusBtn">🔄 Refresh Status</button>
+              <button class="btn-primary" id="downloadSlipBtn2">📄 Download PDF Slip</button>
+            </div>
+          </div>
+
+          <div class="card" id="dashDocuments">
+            <h2>Document Status</h2>
+            <div id="studentDocuments"></div>
+          </div>
+
+          <div class="card" id="dashNotifications">
+            <h2>Notifications</h2>
+            <ul id="studentNotifications" class="notifications"></ul>
+          </div>
+
+          <div class="card" id="dashProfile">
+            <h2>Profile Settings</h2>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="profileName">
+              </div>
+              <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="profileEmail">
+              </div>
+              <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" id="profilePhone">
+              </div>
+            </div>
+            <button class="btn-primary" id="updateProfileBtn">Update Profile</button>
+            <p id="profileMessage" class="message"></p>
+          </div>
+
+          <div class="card" id="dashSecurity">
+            <h2>Account Security</h2>
+            <p class="muted">Change your password. We'll send a verification code to your registered phone.</p>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Current Password</label>
+                <input type="password" id="currentPassword" placeholder="Enter current password">
+              </div>
+              <div class="form-group">
+                <label>New Password</label>
+                <input type="password" id="newPassword" placeholder="Min. 8 characters">
+              </div>
+              <div class="form-group">
+                <label>Confirm New Password</label>
+                <input type="password" id="confirmNewPassword" placeholder="Repeat new password">
+              </div>
+            </div>
+            <button class="btn-primary" id="changePasswordBtn">Change Password</button>
+            <p id="changePasswordMessage" class="message"></p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
+<!-- ============= ADMIN VIEW ============= -->
 <section class="view" id="admin">
-    <section class="page-header">
-        <h2>Admissions Admin Panel</h2>
-        <p>Manage applications, approvals, rejections, analytics, and reports.</p>
-    </section>
-
-    <div class="dashboard-layout">
-        <aside class="sidebar">
-            <h3>Admin Menu</h3>
-            <a href="#adminOverview">Dashboard</a>
-            <a href="#adminApplications">Applications</a>
-            <a href="#adminAnalytics">Analytics</a>
-            <a href="#adminSettings">Settings</a>
-            <a href="#portal" data-view-target="portal">Public Portal</a>
-        </aside>
-
-        <div class="dashboard-main">
-            <div class="stats-grid" id="adminOverview">
-                <div class="stat-box">
-                    <h2 id="totalApps">0</h2>
-                    <p>Total Applications</p>
-                </div>
-                <div class="stat-box">
-                    <h2 id="pendingApps">0</h2>
-                    <p>Under Review</p>
-                </div>
-                <div class="stat-box">
-                    <h2 id="approvedApps">0</h2>
-                    <p>Approved</p>
-                </div>
-                <div class="stat-box">
-                    <h2 id="rejectedApps">0</h2>
-                    <p>Rejected</p>
-                </div>
-            </div>
-
-            <div class="card">
-                <h2>Filter Applications</h2>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Search by Name, ID or Email</label>
-                        <input type="text" id="adminSearch" placeholder="Search applications">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Programme</label>
-                        <select id="adminProgramFilter">
-                            <option value="all">All Programmes</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Status</label>
-                        <select id="adminStatusFilter">
-                            <option value="all">All Statuses</option>
-                            <option>Under Review</option>
-                            <option>Approved</option>
-                            <option>Rejected</option>
-                            <option>Document Verification</option>
-                            <option>Department Review</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="admin-actions">
-                    <button class="btn-primary" id="applyAdminFilterBtn">Apply Filter</button>
-                    <button class="btn-secondary" id="exportCsvBtn">Download CSV Report</button>
-                    <button class="btn-danger" id="clearDemoBtn">Clear All Applications</button>
-                </div>
-            </div>
-
-            <div class="card" id="adminApplications">
-                <h2>Applications List</h2>
-                <div class="table-wrap">
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Applicant</th>
-                                <th>Programme</th>
-                                <th>Intake</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="applicationsTableBody"></tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="card" id="adminAnalytics">
-                <h2>Analytics Overview</h2>
-                <div id="analyticsBox"></div>
-            </div>
-
-            <div class="card" id="adminSettings">
-                <h2>Admin Settings</h2>
-                <p><strong>System Mode:</strong> ACTIVE</p>
-                <p><strong>Notifications:</strong> ENABLED</p>
-                <p><strong>Storage:</strong> Browser LocalStorage Simulation</p>
-                <p class="muted">For real production use, connect this front-end to a secure database and backend API.</p>
-            </div>
-        </div>
+  <section class="page-header">
+    <div class="container">
+      <h2>Admissions Admin Panel</h2>
+      <p>Manage applications, approvals, analytics, and system settings.</p>
     </div>
+  </section>
+
+  <div class="container">
+    <div class="dashboard-layout">
+      <aside class="sidebar">
+        <h3>Admin Menu</h3>
+        <a href="#adminOverview" class="active">📊 Dashboard</a>
+        <a href="#adminApplications">📋 Applications</a>
+        <a href="#adminAnalytics">📈 Analytics</a>
+        <a href="#adminSettings">⚙ Settings</a>
+        <a href="#portal" data-view-target="portal">Public Portal →</a>
+      </aside>
+
+      <div class="dashboard-main">
+        <div class="stats-grid" id="adminOverview">
+          <div class="stat-box primary">
+            <div class="stat-num" id="totalApps">0</div>
+            <p>Total Applications</p>
+          </div>
+          <div class="stat-box warning">
+            <div class="stat-num" id="pendingApps">0</div>
+            <p>Under Review</p>
+          </div>
+          <div class="stat-box success">
+            <div class="stat-num" id="approvedApps">0</div>
+            <p>Approved</p>
+          </div>
+          <div class="stat-box danger">
+            <div class="stat-num" id="rejectedApps">0</div>
+            <p>Rejected</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Filter Applications</h2>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Search by Name, ID or Email</label>
+              <input type="text" id="adminSearch" placeholder="Search applications">
+            </div>
+            <div class="form-group">
+              <label>Programme</label>
+              <select id="adminProgramFilter">
+                <option value="all">All Programmes</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Intake</label>
+              <select id="adminIntakeFilter">
+                <option value="all">All Intakes</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Status</label>
+              <select id="adminStatusFilter">
+                <option value="all">All Statuses</option>
+                <option>Submitted</option>
+                <option>Under Review</option>
+                <option>Document Verification</option>
+                <option>Department Review</option>
+                <option>Approved</option>
+                <option>Rejected</option>
+              </select>
+            </div>
+          </div>
+          <div class="admin-actions">
+            <button class="btn-primary" id="applyAdminFilterBtn">Apply Filter</button>
+            <button class="btn-secondary" id="exportCsvBtn">📊 Download CSV</button>
+            <button class="btn-danger" id="clearDemoBtn">🗑 Clear All Data</button>
+            <button class="btn-light" id="seedDemoBtn">🌱 Seed Demo Data</button>
+          </div>
+        </div>
+
+        <div class="card" id="adminApplications">
+          <h2>Applications List</h2>
+          <div class="table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Applicant</th>
+                  <th>Programme</th>
+                  <th>Intake</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="applicationsTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card" id="adminAnalytics">
+          <h2>Analytics Overview</h2>
+          <div id="analyticsBox" class="analytics-grid"></div>
+        </div>
+
+        <div class="card" id="adminSettings">
+          <h2>System Settings</h2>
+          <p><strong>System Mode:</strong> <span class="badge success">ACTIVE</span></p>
+          <p><strong>Notifications:</strong> <span class="badge success">ENABLED</span></p>
+          <p><strong>Storage:</strong> <span class="badge info">Browser LocalStorage (Demo)</span></p>
+          <p><strong>Current Academic Year:</strong> 2026/2027</p>
+          <p class="muted">For production deployment, connect this front-end to a secure database and backend API with HTTPS, JWT auth, and audit logging.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 </main>
 
-<div class="modal hidden" id="applicationModal">
-    <div class="modal-content">
-        <button class="modal-close" id="modalCloseBtn">×</button>
-        <div id="modalBody"></div>
+<!-- ============= FOOTER ============= -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-col">
+      <img src="../images/logo.jpg" alt="Logo" class="footer-logo">
+      <h4>Benchmark Business College</h4>
+      <p>Excellence in business, technical, and professional education since 2010.</p>
     </div>
-</div>
-
-<footer>
-    <p>© 2026 Benchmark Business College Admissions Portal. All Rights Reserved.</p>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#portal" data-view-target="portal">Admissions Portal</a></li>
+        <li><a href="#apply" data-view-target="apply">Online Apply</a></li>
+        <li><a href="#dashboard" data-view-target="dashboard">Student Dashboard</a></li>
+        <li><a href="#admin" data-view-target="admin">Admin Panel</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>📍 Plot 24, Kampala Road<br>Kampala, Uganda</p>
+      <p>☎ +256 782 900 765<br>+256 700 123 456</p>
+      <p>✉ admissions@benchmark.ac.ug<br>info@benchmark.ac.ug</p>
+    </div>
+    <div class="footer-col">
+      <h4>Office Hours</h4>
+      <p>Mon - Fri: 8:00 AM - 5:00 PM<br>Saturday: 9:00 AM - 1:00 PM<br>Sunday: Closed</p>
+      <div class="socials">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Twitter">t</a>
+        <a href="#" aria-label="Instagram">i</a>
+        <a href="#" aria-label="LinkedIn">in</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Benchmark Business College Admissions Portal. All Rights Reserved. | <a href="#">Privacy</a> | <a href="#">Terms</a></p>
+  </div>
 </footer>
 
-<script src="script.js"></script>
+<!-- ============= MODAL (Generic) ============= -->
+<div class="modal" id="applicationModal" style="display:none;">
+  <div class="modal-content modal-lg">
+    <button class="modal-close" id="modalCloseBtn" aria-label="Close">×</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<!-- ============= SMS VERIFICATION MODAL ============= -->
+<div class="modal" id="smsModal" style="display:none;">
+  <div class="modal-content">
+    <button class="modal-close" id="smsModalClose" aria-label="Close">×</button>
+    <div class="sms-modal-content">
+      <div class="sms-icon">📱</div>
+      <h2 id="smsTitle">SMS Verification</h2>
+      <p id="smsSubtitle" class="muted">We've sent a 6-digit code to your phone.</p>
+
+      <div class="sms-code-display">
+        <div class="sms-label">Your verification code:</div>
+        <div class="sms-code" id="smsCodeDisplay">------</div>
+        <div class="sms-phone" id="smsPhoneDisplay"></div>
+        <div class="sms-meta">⏱ Expires in <span id="smsCountdown">10:00</span></div>
+      </div>
+
+      <div class="form-group">
+        <label>Enter the 6-digit code <span class="req">*</span></label>
+        <input type="text" id="smsCodeInput" maxlength="6" placeholder="000000" class="sms-input">
+        <small class="error" data-for="smsCodeInput"></small>
+      </div>
+
+      <button class="btn-primary full-btn" id="smsVerifyBtn">Verify Code</button>
+      <p id="smsMessage" class="message"></p>
+
+      <div class="sms-footer">
+        <p>Didn't receive the code? <a href="#" id="smsResendBtn">Resend code</a></p>
+        <p class="muted small">In production, this code is sent to your phone via SMS gateway. For this demo, the code is displayed here.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============= TOAST ============= -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="../admissions/auth.js"></script>
+<script src="../admissions/pdf-generator.js"></script>
+<script src="../admissions/app.js"></script>
 </body>
 </html>
+

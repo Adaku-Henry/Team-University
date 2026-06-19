@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Verify Account | Benchmark BTC Admissions</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:#f5f7fb;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+padding:20px;
+}
+
+.container{
+width:100%;
+max-width:500px;
+background:white;
+padding:40px;
+border-radius:12px;
+box-shadow:0 5px 20px rgba(0,0,0,.1);
+}
+
+h1{
+text-align:center;
+margin-bottom:10px;
+color:#003366;
+}
+
+p{
+text-align:center;
+color:#666;
+margin-bottom:25px;
+}
+
+label{
+display:block;
+margin-top:15px;
+font-weight:600;
+}
+
+input{
+width:100%;
+padding:12px;
+border:1px solid #ccc;
+border-radius:6px;
+margin-top:5px;
+}
+
+button{
+width:100%;
+padding:15px;
+margin-top:25px;
+border:none;
+background:#003366;
+color:white;
+font-size:16px;
+font-weight:bold;
+border-radius:6px;
+cursor:pointer;
+}
+
+button:hover{
+background:#0055aa;
+}
+
+.message{
+margin-top:20px;
+padding:12px;
+border-radius:6px;
+display:none;
+}
+
+.success{
+background:#d4edda;
+color:#155724;
+}
+
+.error{
+background:#f8d7da;
+color:#721c24;
+}
+
+.info{
+background:#e7f3ff;
+color:#0c5460;
+margin-bottom:20px;
+display:block;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Account Verification</h1>
+
+<p>
+Enter the verification codes sent to your phone and email.
+</p>
+
+<div class="message info">
+Demo OTP Code: <strong>123456</strong>
+</div>
+
+<form id="verifyForm">
+
+<label>Phone Verification Code</label>
+<input
+type="text"
+id="phoneOtp"
+placeholder="Enter SMS OTP"
+required>
+
+<label>Email Verification Code</label>
+<input
+type="text"
+id="emailOtp"
+placeholder="Enter Email OTP"
+required>
+
+<button type="submit">
+Verify Account
+</button>
+
+</form>
+
+<div
+id="successMessage"
+class="message success">
+Account verified successfully. Redirecting to Login...
+</div>
+
+<div
+id="errorMessage"
+class="message error">
+Invalid verification code.
+</div>
+
+</div>
+
+<script>
+
+const form =
+document.getElementById("verifyForm");
+
+form.addEventListener("submit",function(e){
+
+e.preventDefault();
+
+const phoneOtp =
+document.getElementById("phoneOtp").value;
+
+const emailOtp =
+document.getElementById("emailOtp").value;
+
+const success =
+document.getElementById("successMessage");
+
+const error =
+document.getElementById("errorMessage");
+
+if(
+phoneOtp === "123456" &&
+emailOtp === "123456"
+){
+
+let applicant =
+JSON.parse(
+localStorage.getItem(
+"pendingApplicant"
+)
+);
+
+applicant.verified = true;
+
+localStorage.setItem(
+"applicant",
+JSON.stringify(applicant)
+);
+
+localStorage.removeItem(
+"pendingApplicant"
+);
+
+success.style.display="block";
+error.style.display="none";
+
+setTimeout(function(){
+
+window.location.href =
+"login1.html";
+
+},3000);
+
+}else{
+
+success.style.display="none";
+error.style.display="block";
+
+}
+
+});
+
+</script>
+
+</body>
+</html>

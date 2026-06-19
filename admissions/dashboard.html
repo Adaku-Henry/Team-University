@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard | Benchmark BTC Admissions</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:#f4f7fc;
+display:flex;
+min-height:100vh;
+}
+
+/* SIDEBAR */
+.sidebar{
+width:250px;
+background:#003366;
+color:white;
+padding:20px;
+}
+
+.sidebar h2{
+margin-bottom:30px;
+}
+
+.sidebar a{
+display:block;
+color:white;
+text-decoration:none;
+padding:12px;
+border-radius:6px;
+margin-bottom:10px;
+background:rgba(255,255,255,0.1);
+}
+
+.sidebar a:hover{
+background:#0055aa;
+}
+
+/* MAIN */
+.main{
+flex:1;
+padding:30px;
+}
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+.card-container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.card h3{
+color:#003366;
+margin-bottom:10px;
+}
+
+.card p{
+color:#666;
+}
+
+.btn{
+display:inline-block;
+margin-top:15px;
+padding:10px;
+background:#003366;
+color:white;
+text-decoration:none;
+border-radius:6px;
+}
+
+.btn:hover{
+background:#0055aa;
+}
+
+/* STATUS BAR */
+.status{
+margin-top:30px;
+padding:15px;
+background:#e7f3ff;
+border-left:5px solid #003366;
+border-radius:6px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="sidebar">
+<h2>BTC Portal</h2>
+
+<a href="apply.html">Dashboard</a>
+<a href="apply.html">Apply Now</a>
+<a href="login1.html" onclick="logout()">Logout</a>
+</div>
+
+<div class="main">
+
+<div class="header">
+<h1>Welcome, Applicant</h1>
+</div>
+
+<div class="card-container">
+
+<div class="card">
+<h3>Start Application</h3>
+<p>Begin your admission application process.</p>
+<a href="application-form.html" class="btn">Apply Now</a>
+</div>
+
+<div class="card">
+<h3>Upload Documents</h3>
+<p>Submit academic certificates and ID.</p>
+<a href="document-upload.html" class="btn">Upload</a>
+</div>
+
+<div class="card">
+<h3>Payment</h3>
+<p>Pay application fees via MTN MoMo.</p>
+<a href="payment.html" class="btn">Pay Now</a>
+</div>
+
+<div class="card">
+<h3>Status</h3>
+<p>Track your admission progress.</p>
+<a href="application-status.html" class="btn">View Status</a>
+</div>
+
+</div>
+
+<div class="status" id="statusBox">
+Your application status: <strong>Not Submitted</strong>
+</div>
+
+</div>
+
+<script>
+
+// check login session
+if(localStorage.getItem("loggedIn") !== "true"){
+window.location.href = "login.html";
+}
+
+function logout(){
+localStorage.removeItem("loggedIn");
+window.location.href = "login.html";
+}
+
+// demo status
+const applicant = JSON.parse(localStorage.getItem("applicant"));
+
+if(applicant && applicant.status){
+document.getElementById("statusBox").innerHTML =
+"Your application status: <strong>" + applicant.status + "</strong>";
+}
+
+</script>
+
+</body>
+</html>

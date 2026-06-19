@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a2540;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a4a7a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8c468;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#b8860b;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Shield outline -->
+  <path d="M 100 15 L 170 40 L 170 110 Q 170 160 100 185 Q 30 160 30 110 L 30 40 Z"
+        fill="url(#shieldGrad)" stroke="#c9a961" stroke-width="3"/>
+
+  <!-- Inner shield -->
+  <path d="M 100 30 L 158 50 L 158 108 Q 158 150 100 170 Q 42 150 42 108 L 42 50 Z"
+        fill="none" stroke="url(#goldGrad)" stroke-width="1.5"/>
+
+  <!-- Open book -->
+  <g transform="translate(100,95)">
+    <path d="M -35 -5 L -35 20 Q -35 25 -30 25 L 0 22 L 0 -3 Z" fill="#f5f1e8" stroke="#c9a961" stroke-width="1"/>
+    <path d="M 35 -5 L 35 20 Q 35 25 30 25 L 0 22 L 0 -3 Z" fill="#f5f1e8" stroke="#c9a961" stroke-width="1"/>
+    <line x1="-30" y1="0" x2="-5" y2="-1" stroke="#c9a961" stroke-width="0.5"/>
+    <line x1="-30" y1="5" x2="-5" y2="4" stroke="#c9a961" stroke-width="0.5"/>
+    <line x1="-30" y1="10" x2="-5" y2="9" stroke="#c9a961" stroke-width="0.5"/>
+    <line x1="-30" y1="15" x2="-5" y2="14" stroke="#c9a961" stroke-width="0.5"/>
+    <line x1="5" y1="-1" x2="30" y2="0" stroke="#c9a961" stroke-width="0.5"/>
+    <line x1="5" y1="4" x2="30" y2="5" stroke="#c9a961" stroke-width="0.5"/>
+    <line x1="5" y1="9" x2="30" y2="10" stroke="#c9a961" stroke-width="0.5"/>
+    <line x1="5" y1="14" x2="30" y2="15" stroke="#c9a961" stroke-width="0.5"/>
+  </g>
+
+  <!-- Torch above book -->
+  <g transform="translate(100,60)">
+    <rect x="-2" y="0" width="4" height="20" fill="url(#goldGrad)"/>
+    <ellipse cx="0" cy="-5" rx="8" ry="12" fill="url(#goldGrad)"/>
+    <ellipse cx="0" cy="-5" rx="5" ry="8" fill="#fff5d6" opacity="0.7"/>
+  </g>
+
+  <!-- Banner -->
+  <path d="M 40 130 L 160 130 L 155 145 L 100 142 L 45 145 Z" fill="url(#goldGrad)"/>
+  <text x="100" y="141" font-family="Georgia, serif" font-size="9" font-weight="bold" text-anchor="middle" fill="#0a2540">SINCE 2010</text>
+
+  <!-- BBC letters -->
+  <text x="100" y="50" font-family="Georgia, serif" font-size="18" font-weight="bold" text-anchor="middle" fill="url(#goldGrad)">BBC</text>
+</svg>
+

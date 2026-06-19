@@ -4,485 +4,683 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Student Profile | Team LMS</title>
+<title>Student Profile | Benchmark Business and Technical College </title>
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="profile.css">
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
 
 <div class="student-layout">
 
-    <!-- SIDEBAR -->
-
     <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">
+                <i class="fa fa-graduation-cap"></i>
+            </div>
+            <div>
+                <h2>BENCHMARK</h2>
+                <p>Student LMS</p>
+            </div>
+        </div>
 
-        <h2>BENCKMARK LOGIN</h2>
+        <nav>
+            <a href="dashboard.html">
+                <i class="fa fa-home"></i>
+                Dashboard
+            </a>
 
-        <a href="dashboard.html">
-            <i class="fa fa-home"></i>
-            Dashboard
-        </a>
+            <a href="profile.html" class="active">
+                <i class="fa fa-user"></i>
+                Profile
+            </a>
 
-        <a href="profile.html" class="active">
-            <i class="fa fa-user"></i>
-            Profile
-        </a>
+            <a href="course-registration.html">
+                <i class="fa fa-book"></i>
+                Courses
+            </a>
 
-        <a href="courses.html">
-            <i class="fa fa-book"></i>
-            Courses
-        </a>
+            <a href="registration.html">
+                <i class="fa fa-edit"></i>
+                Registration
+            </a>
 
-        <a href="registration.html">
-            <i class="fa fa-edit"></i>
-            Registration
-        </a>
+            <a href="results.html">
+                <i class="fa fa-graduation-cap"></i>
+                Results
+            </a>
 
-        <a href="results.html">
-            <i class="fa fa-graduation-cap"></i>
-            Results
-        </a>
+            <a href="fees.html">
+                <i class="fa fa-credit-card"></i>
+                Finance
+            </a>
 
-        <a href="fees.html">
-            <i class="fa fa-credit-card"></i>
-            Finance
-        </a>
-
-        <a href="../index.html">
-            <i class="fa fa-sign-out-alt"></i>
-            Logout
-        </a>
-
+            <a href="../index.html">
+                <i class="fa fa-sign-out-alt"></i>
+                Logout
+            </a>
+        </nav>
     </aside>
-
-    <!-- MAIN CONTENT -->
 
     <main class="main">
 
-        <!-- PROFILE HEADER -->
-
-        <section class="profile-header">
-
-            <div class="profile-image">
-
-                <img id="studentPhoto"
-                src="../images/student.jpg"
-                alt="Student Photo">
-
-                <input
-                type="file"
-                id="photoUpload"
-                accept="image/*">
-
-                <button onclick="uploadPhoto()">
-                    Upload Photo
-                </button>
-
+        <header class="topbar">
+            <div>
+                <h1>Student Profile</h1>
+                <p>Manage your academic, personal, privacy, and career profile details.</p>
             </div>
 
-            <div class="profile-details">
+            <div class="topbar-actions">
+                <button class="outline-btn" onclick="printProfile()">
+                    <i class="fa fa-print"></i>
+                    Print Profile
+                </button>
 
-                <h1 id="studentName">
-                    Adaku Henry
-                </h1>
+                <button class="primary-btn" onclick="saveProfile()">
+                    <i class="fa fa-save"></i>
+                    Save Changes
+                </button>
+            </div>
+        </header>
 
-                <p>
-                    Registration No:
-                    <span id="regNo">
-                        TU/2026/001
+        <section class="profile-hero">
+
+            <div class="profile-photo-box">
+                <img id="studentPhoto" src="https://via.placeholder.com/220x220.png?text=Student" alt="Student Photo">
+
+                <label for="photoUpload" class="upload-label">
+                    <i class="fa fa-camera"></i>
+                    Upload Photo
+                </label>
+
+                <input type="file" id="photoUpload" accept="image/*">
+            </div>
+
+            <div class="profile-summary">
+                <div class="profile-title-row">
+                    <div>
+                        <h2 id="displayName">Adaku Henry</h2>
+                        <p id="displayProgramme">Bachelor of Information Technology</p>
+                    </div>
+
+                    <span class="status active">
+                        <i class="fa fa-circle-check"></i>
+                        Active Student
                     </span>
-                </p>
+                </div>
 
-                <p>
-                    Programme:
-                    <span id="programme">
-                        Bachelor of Information Technology
-                    </span>
-                </p>
+                <div class="summary-grid">
+                    <div>
+                        <span>Registration No</span>
+                        <strong id="displayRegNo">TU/2026/001</strong>
+                    </div>
 
-                <p>
-                    Faculty:
-                    <span id="faculty">
-                        Faculty of Technoscience
-                    </span>
-                </p>
+                    <div>
+                        <span>Faculty</span>
+                        <strong id="displayFaculty">Faculty of Technoscience</strong>
+                    </div>
 
-                <span class="status active">
-                    Active Student
-                </span>
+                    <div>
+                        <span>Email</span>
+                        <strong id="displayEmail">student@email.com</strong>
+                    </div>
 
+                    <div>
+                        <span>Phone</span>
+                        <strong id="displayPhone">+256 700 000000</strong>
+                    </div>
+                </div>
+
+                <div class="completion-card">
+                    <div class="completion-text">
+                        <strong>Profile Completion</strong>
+                        <span id="completionPercent">0%</span>
+                    </div>
+
+                    <div class="completion-bar">
+                        <div id="completionFill" class="completion-fill"></div>
+                    </div>
+                </div>
+
+                <div class="social-row">
+                    <a id="whatsappLink" href="#" target="_blank" title="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+
+                    <a id="linkedinLink" href="#" target="_blank" title="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+
+                    <a id="facebookLink" href="#" target="_blank" title="Facebook">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+
+                    <a id="websiteLink" href="#" target="_blank" title="Website">
+                        <i class="fa fa-globe"></i>
+                    </a>
+
+                    <a id="emailLink" href="#" title="Email">
+                        <i class="fa fa-envelope"></i>
+                    </a>
+                </div>
             </div>
 
         </section>
 
-        <!-- PERSONAL INFORMATION -->
+        <section class="dashboard-grid">
+
+            <div class="stat-card">
+                <i class="fa fa-chart-line"></i>
+                <div>
+                    <h3>Current GPA</h3>
+                    <span data-field-text="currentGpa">4.20</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <i class="fa fa-award"></i>
+                <div>
+                    <h3>CGPA</h3>
+                    <span data-field-text="cgpa">3.85</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <i class="fa fa-check-circle"></i>
+                <div>
+                    <h3>Credits Earned</h3>
+                    <span data-field-text="creditsEarned">98</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <i class="fa fa-clock"></i>
+                <div>
+                    <h3>Credits Remaining</h3>
+                    <span data-field-text="creditsRemaining">22</span>
+                </div>
+            </div>
+
+        </section>
 
         <section class="card">
-
-            <h2>
-                Personal Information
-            </h2>
+            <div class="section-title">
+                <h2>Personal Information</h2>
+                <p>Basic identity details used by the school portal.</p>
+            </div>
 
             <div class="form-grid">
-
                 <div>
                     <label>First Name</label>
-                    <input id="firstName"
-                    value="Adaku">
+                    <input data-field="firstName" value="Adaku">
                 </div>
 
                 <div>
                     <label>Last Name</label>
-                    <input id="lastName"
-                    value="Henry">
+                    <input data-field="lastName" value="Henry">
+                </div>
+
+                <div>
+                    <label>Registration Number</label>
+                    <input data-field="regNo" value="TU/2026/001">
                 </div>
 
                 <div>
                     <label>Gender</label>
-                    <select id="gender">
+                    <select data-field="gender">
                         <option>Male</option>
                         <option>Female</option>
+                        <option>Other</option>
                     </select>
                 </div>
 
                 <div>
                     <label>Date of Birth</label>
-                    <input
-                    type="date"
-                    id="dob">
+                    <input type="date" data-field="dob">
                 </div>
 
                 <div>
                     <label>Nationality</label>
-                    <input
-                    id="nationality"
-                    value="Ugandan">
+                    <input data-field="nationality" value="Ugandan">
                 </div>
 
                 <div>
                     <label>NIN / Passport</label>
-                    <input id="nin">
+                    <input data-field="nin" placeholder="Enter NIN or Passport No">
                 </div>
 
+                <div>
+                    <label>Marital Status</label>
+                    <select data-field="maritalStatus">
+                        <option>Single</option>
+                        <option>Married</option>
+                        <option>Other</option>
+                    </select>
+                </div>
             </div>
-
         </section>
 
-        <!-- CONTACT INFORMATION -->
-
         <section class="card">
-
-            <h2>Contact Information</h2>
+            <div class="section-title">
+                <h2>Contact Information</h2>
+                <p>Your communication and residence details.</p>
+            </div>
 
             <div class="form-grid">
-
                 <div>
                     <label>Phone Number</label>
-                    <input id="phone">
+                    <input data-field="phone" placeholder="+256700000000">
                 </div>
 
                 <div>
                     <label>Alternate Number</label>
-                    <input id="altPhone">
+                    <input data-field="altPhone">
                 </div>
 
                 <div>
                     <label>Email</label>
-                    <input id="email">
+                    <input type="email" data-field="email" placeholder="student@email.com">
                 </div>
 
                 <div>
                     <label>Physical Address</label>
-                    <input id="address">
+                    <input data-field="address">
                 </div>
 
                 <div>
                     <label>District</label>
-                    <input id="district">
+                    <input data-field="district">
                 </div>
 
                 <div>
                     <label>Country</label>
-                    <input id="country"
-                    value="Uganda">
+                    <input data-field="country" value="Uganda">
                 </div>
-
             </div>
-
         </section>
 
-        <!-- ACADEMIC INFORMATION -->
-
         <section class="card">
-
-            <h2>Academic Information</h2>
+            <div class="section-title">
+                <h2>Academic Information</h2>
+                <p>Programme, faculty, department, and academic progress.</p>
+            </div>
 
             <div class="form-grid">
-
                 <div>
                     <label>Faculty</label>
-                    <input value="Technoscience">
+                    <input data-field="faculty" value="Faculty of Technoscience">
                 </div>
 
                 <div>
                     <label>Department</label>
-                    <input value="Computer Science">
+                    <input data-field="department" value="Computer Science">
                 </div>
 
                 <div>
                     <label>Programme</label>
-                    <input value="BIT">
+                    <input data-field="programme" value="Bachelor of Information Technology">
                 </div>
 
                 <div>
-                    <label>Year Of Study</label>
-                    <input value="3">
+                    <label>Year of Study</label>
+                    <input data-field="yearOfStudy" value="3">
                 </div>
 
                 <div>
                     <label>Semester</label>
-                    <input value="2">
+                    <input data-field="semester" value="2">
                 </div>
 
                 <div>
                     <label>Admission Year</label>
-                    <input value="2023">
+                    <input data-field="admissionYear" value="2023">
                 </div>
 
                 <div>
                     <label>Expected Graduation</label>
-                    <input value="2027">
+                    <input data-field="expectedGraduation" value="2027">
                 </div>
 
-            </div>
-
-        </section>
-
-        <!-- GUARDIAN -->
-
-        <section class="card">
-
-            <h2>Parent / Guardian</h2>
-
-            <div class="form-grid">
+                <div>
+                    <label>Academic Progress %</label>
+                    <input type="number" min="0" max="100" data-field="academicProgress" value="82">
+                </div>
 
                 <div>
+                    <label>Current GPA</label>
+                    <input data-field="currentGpa" value="4.20">
+                </div>
+
+                <div>
+                    <label>CGPA</label>
+                    <input data-field="cgpa" value="3.85">
+                </div>
+
+                <div>
+                    <label>Credits Earned</label>
+                    <input data-field="creditsEarned" value="98">
+                </div>
+
+                <div>
+                    <label>Credits Remaining</label>
+                    <input data-field="creditsRemaining" value="22">
+                </div>
+            </div>
+
+            <div class="progress-box">
+                <div class="completion-text">
+                    <strong>Academic Progress</strong>
+                    <span id="academicProgressText">82%</span>
+                </div>
+
+                <div class="progress-container">
+                    <div id="academicProgressBar" class="progress-bar"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="section-title">
+                <h2>Career Profile & Social Links</h2>
+                <p>Add your professional links like LinkedIn, Facebook, WhatsApp, and portfolio.</p>
+            </div>
+
+            <div class="form-grid">
+                <div>
+                    <label>Professional Title</label>
+                    <input data-field="professionalTitle" placeholder="Example: Software Developer Student">
+                </div>
+
+                <div>
+                    <label>Skills</label>
+                    <input data-field="skills" placeholder="HTML, CSS, JavaScript, Networking">
+                </div>
+
+                <div>
+                    <label>WhatsApp Number</label>
+                    <input data-field="whatsapp" placeholder="+256700000000">
+                </div>
+
+                <div>
+                    <label>LinkedIn URL</label>
+                    <input data-field="linkedin" placeholder="https://linkedin.com/in/username">
+                </div>
+
+                <div>
+                    <label>Facebook URL</label>
+                    <input data-field="facebook" placeholder="https://facebook.com/username">
+                </div>
+
+                <div>
+                    <label>Portfolio / Website</label>
+                    <input data-field="website" placeholder="https://yourwebsite.com">
+                </div>
+
+                <div class="full-width">
+                    <label>Professional Bio</label>
+                    <textarea data-field="bio" placeholder="Write a short professional bio..."></textarea>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="section-title">
+                <h2>Parent / Guardian</h2>
+                <p>Guardian details for official school communication.</p>
+            </div>
+
+            <div class="form-grid">
+                <div>
                     <label>Name</label>
-                    <input id="guardianName">
+                    <input data-field="guardianName">
                 </div>
 
                 <div>
                     <label>Relationship</label>
-                    <input id="guardianRelationship">
+                    <input data-field="guardianRelationship">
                 </div>
 
                 <div>
                     <label>Contact</label>
-                    <input id="guardianPhone">
+                    <input data-field="guardianPhone">
                 </div>
 
                 <div>
                     <label>Occupation</label>
-                    <input id="guardianOccupation">
+                    <input data-field="guardianOccupation">
                 </div>
-
             </div>
-
         </section>
 
-        <!-- EMERGENCY -->
-
         <section class="card">
-
-            <h2>Emergency Contact</h2>
+            <div class="section-title">
+                <h2>Emergency Contact</h2>
+                <p>Person to contact in case of emergency.</p>
+            </div>
 
             <div class="form-grid">
-
                 <div>
                     <label>Name</label>
-                    <input id="emergencyName">
+                    <input data-field="emergencyName">
                 </div>
 
                 <div>
                     <label>Relationship</label>
-                    <input id="emergencyRelationship">
+                    <input data-field="emergencyRelationship">
                 </div>
 
                 <div>
                     <label>Phone</label>
-                    <input id="emergencyPhone">
+                    <input data-field="emergencyPhone">
                 </div>
-
             </div>
-
         </section>
 
-        <!-- DOCUMENTS -->
-
         <section class="card">
+            <div class="section-title">
+                <h2>CV, PDFs & Documents</h2>
+                <p>Upload, store, download, and delete student files.</p>
+            </div>
 
-            <h2>Student Documents</h2>
+            <div class="upload-panel">
+                <div>
+                    <label>Upload CV / Resume</label>
+                    <input type="file" id="cvUpload" accept=".pdf,.doc,.docx">
+                </div>
+
+                <button class="primary-btn" onclick="uploadCV()">
+                    <i class="fa fa-upload"></i>
+                    Save CV
+                </button>
+            </div>
+
+            <div id="cvDisplay" class="file-list"></div>
+
+            <hr>
+
+            <div class="upload-panel">
+                <div>
+                    <label>Upload Student Documents</label>
+                    <input type="file" id="documentUpload" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" multiple>
+                </div>
+
+                <button class="primary-btn" onclick="uploadDocuments()">
+                    <i class="fa fa-folder-plus"></i>
+                    Add Documents
+                </button>
+            </div>
+
+            <div id="documentsList" class="file-list"></div>
 
             <div class="documents-grid">
-
-                <button>
-                    Download Admission Letter
+                <button onclick="downloadTemplate('Admission Letter')">
+                    <i class="fa fa-file-pdf"></i>
+                    Admission Letter
                 </button>
 
-                <button>
+                <button onclick="downloadTemplate('Student ID')">
+                    <i class="fa fa-id-card"></i>
                     Student ID
                 </button>
 
-                <button>
+                <button onclick="downloadTemplate('Registration Slip')">
+                    <i class="fa fa-file-lines"></i>
                     Registration Slip
                 </button>
 
-                <button>
+                <button onclick="downloadTemplate('Academic Transcript')">
+                    <i class="fa fa-scroll"></i>
                     Academic Transcript
                 </button>
-
             </div>
-
         </section>
 
-        <!-- SECURITY -->
+        <section class="card">
+            <div class="section-title">
+                <h2>Privacy Settings</h2>
+                <p>Control what is visible on your public/student profile.</p>
+            </div>
+
+            <div class="privacy-grid">
+                <label class="switch-row">
+                    <span>
+                        <strong>Public Profile</strong>
+                        <small>Allow your profile summary to be visible.</small>
+                    </span>
+                    <input type="checkbox" data-privacy="publicProfile">
+                </label>
+
+                <label class="switch-row">
+                    <span>
+                        <strong>Show Phone Number</strong>
+                        <small>Display your phone number on your profile.</small>
+                    </span>
+                    <input type="checkbox" data-privacy="showPhone">
+                </label>
+
+                <label class="switch-row">
+                    <span>
+                        <strong>Show Email</strong>
+                        <small>Display email address publicly.</small>
+                    </span>
+                    <input type="checkbox" data-privacy="showEmail">
+                </label>
+
+                <label class="switch-row">
+                    <span>
+                        <strong>Show Social Links</strong>
+                        <small>Display WhatsApp, LinkedIn, Facebook, and website.</small>
+                    </span>
+                    <input type="checkbox" data-privacy="showSocials">
+                </label>
+
+                <label class="switch-row">
+                    <span>
+                        <strong>Protect Documents</strong>
+                        <small>Keep CVs and uploaded documents private.</small>
+                    </span>
+                    <input type="checkbox" data-privacy="protectDocuments">
+                </label>
+            </div>
+        </section>
 
         <section class="card">
-
-            <h2>Security Settings</h2>
+            <div class="section-title">
+                <h2>Security Settings</h2>
+                <p>Manage account protection and login activity.</p>
+            </div>
 
             <div class="security-grid">
-
-                <button>
+                <button onclick="openPasswordModal()">
+                    <i class="fa fa-key"></i>
                     Change Password
                 </button>
 
-                <button>
-                    Enable 2FA
+                <button onclick="enable2FA()">
+                    <i class="fa fa-shield-halved"></i>
+                    Enable / Disable 2FA
                 </button>
 
-                <button>
+                <button onclick="viewLoginHistory()">
+                    <i class="fa fa-clock-rotate-left"></i>
                     View Login Activity
                 </button>
 
+                <button onclick="exportProfileData()">
+                    <i class="fa fa-download"></i>
+                    Export Profile Data
+                </button>
             </div>
 
+            <div id="securityStatus" class="notice"></div>
         </section>
-
-        <!-- ACADEMIC STATS -->
-
-        <section class="stats-grid">
-
-            <div class="stat-card">
-                <h3>Current GPA</h3>
-                <span>4.20</span>
-            </div>
-
-            <div class="stat-card">
-                <h3>CGPA</h3>
-                <span>3.85</span>
-            </div>
-
-            <div class="stat-card">
-                <h3>Credits Earned</h3>
-                <span>98</span>
-            </div>
-
-            <div class="stat-card">
-                <h3>Credits Remaining</h3>
-                <span>22</span>
-            </div>
-
-        </section>
-
-        <!-- PROGRESS -->
 
         <section class="card">
-
-            <h2>Academic Progress</h2>
-
-            <div class="progress-container">
-
-                <div class="progress-bar"
-                id="progressBar">
-                </div>
-
+            <div class="section-title">
+                <h2>Student QR Verification</h2>
+                <p>Use this code for quick profile verification.</p>
             </div>
-
-            <p>82% Completed</p>
-
-        </section>
-
-        <!-- QR -->
-
-        <section class="card">
-
-            <h2>
-                Student QR Verification
-            </h2>
 
             <div class="qr-box">
-
-                <img src="../images/qr.png"
-                alt="QR Code">
-
+                <div id="qrCodeBox"></div>
+                <p id="qrText">TU/2026/001</p>
             </div>
-
         </section>
-
-        <!-- ACTIVITY LOG -->
 
         <section class="card">
+            <div class="section-title">
+                <h2>Activity Timeline</h2>
+                <p>Recent profile and account activities.</p>
+            </div>
 
-            <h2>
-                Activity Timeline
-            </h2>
-
-            <ul id="activityLog">
-
-                <li>
-                    Updated Profile Information
-                </li>
-
-                <li>
-                    Downloaded Registration Slip
-                </li>
-
-                <li>
-                    Logged Into Portal
-                </li>
-
-            </ul>
-
+            <ul id="activityLog" class="activity-log"></ul>
         </section>
 
-        <button class="save-btn"
-        onclick="saveProfile()">
-            Save Changes
-        </button>
+        <div class="sticky-save">
+            <button class="outline-btn" onclick="resetProfile()">
+                <i class="fa fa-rotate-left"></i>
+                Reset Demo Data
+            </button>
+
+            <button class="primary-btn" onclick="saveProfile()">
+                <i class="fa fa-save"></i>
+                Save Profile
+            </button>
+        </div>
 
     </main>
 
 </div>
 
-<div class="completion-bar">
-    <div id="completionFill" class="completion-fill"></div>
+<div id="passwordModal" class="modal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closePasswordModal()">
+            <i class="fa fa-times"></i>
+        </button>
+
+        <h2>Change Password</h2>
+        <p>Use a strong password with at least 8 characters.</p>
+
+        <label>Current Password</label>
+        <input type="password" id="currentPassword" placeholder="Current password">
+
+        <label>New Password</label>
+        <input type="password" id="newPassword" placeholder="New password">
+
+        <label>Confirm New Password</label>
+        <input type="password" id="confirmPassword" placeholder="Confirm password">
+
+        <button class="primary-btn full-btn" onclick="changePassword()">
+            Update Password
+        </button>
+    </div>
 </div>
 
-<h4 id="completionPercent">
-    0% Complete
-</h4>
-<button onclick="changePassword()">Change Password</button>
+<div id="toast" class="toast"></div>
 
-<button onclick="enable2FA()">Enable 2FA</button>
-
-<button onclick="viewLoginHistory()">Login Activity</button>
-
-<script src="script.js"></script>
+<script src="profile.js"></script>
 
 </body>
 </html>
